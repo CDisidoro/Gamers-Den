@@ -11,9 +11,8 @@
 
 	<?php
 		require ('cabecera.php');
-		require ('sidebarIzq.php');
 		require('centro.php');
-		require ('sidebarDer.php');
+		require ('sidebar.php');
 		require ('pie.php');
 	?>
 
