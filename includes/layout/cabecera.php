@@ -1,13 +1,15 @@
-<img src="img/Noticiasgeneral.jpg" class="boceto" alt="Noticias"/>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Portada</title>
-</head>
-
-<body>
-<img src="img/Logo.jpg" class="Logo" alt="Cabecera"/>
-</body>
-</html>
+<h1>Practica AW</h1>
+<div class = "saludo">
+<?php
+    print "<img src=\"img\Logo.jpg\" width= 100 height = 100 float=left >";
+    function MostrarSAludo(){
+        if (!isset($_SESSION["login"])) { //Usuario incorrecto
+            echo "Usuario desconocido. <a href='login.php'>Login</a>";
+        }
+        else { //Usuario registrado
+            echo "Bienvendido {$_SESSION['nombre']} (<a href='logout.php'>salir</a>) ";;
+        }
+    }
+    MostrarSAludo();
+?>
+</div>
