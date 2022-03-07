@@ -3,97 +3,146 @@
 <head>
     <title>Mi perfil</title>
     <style>
-        .perfilusuario{
-            text-align: center;
-            height: 300px;
-            background-color: darkgrey;
-        }
-
-        .datosusuario{
-            text-align: left;
-            float: left;
-        }
-
         .avatar{
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
+            border: 3px solid rgb(0, 0, 0);
             float: left;
         }
 
-        .username{
-            text-align: left;
-            font-size: 25px;
-            margin-top: 14px;
+        #container{
+            border: 3px solid black;
+            width: 100%;
         }
 
-        .description{
-            text-align: left;
-            font-size: 15px;
-            margin-top: 14px;
-        }
-    
-        .idyboton{
-            text-align: right;
-            height: 300px;
-            padding: 12px;
-            float: right;
+        #nombreusuario{
+            font-size: 25px;  
+            float:left;    
         }
 
-        .inbox{
-            float: right;
-            vertical-align: bottom;
-            font-size: 25px;
+        #descripcion{
+            font-size: 15px;  
+            float: left;
         }
 
-        .id{
-            font-size: 25px;
+        header{
+            text-align: center;
+            background-color: lightgray;
+        }
+
+        #avatarydatos{
+            width: 100%;   
+            height: 170px;  
+            border: 3px solid rgb(110, 8, 8);
+            padding-right: 50px;   
+            margin-right: 10px;
+        }
+
+        nav{
+            border: 3px solid black;
+        }
+
+        article{
+            height: fit-content;
+            width: 100%;
+        }
+
+        .clearfix{
+            clear: both;
+        }
+
+        .nId{
             float: right;
-            vertical-align: top;
+            font-size: 25px; 
+        }
+
+        .inbox{           
+            float: right;
+            font-size: 25px;       
+        }
+
+        #content{
+            background-color: rgb(211, 161, 211);
+            color: rgb(0, 0, 0);
         }
 
     </style>
 </head>
 
 <body>
-    <header>
-		<h1>Mi gran página web</h1>
-		<div class="saludo">
-		Usuario desconocido. <a href='login.php'>Login</a>	</div>
-	</header>
+    <div id = "container"> 
+        <header>
+            <h1>GAMERS DEN</h1>          
+        </header>
+        
+        <nav>
+            <ul>
+                <li>
+                    <a href = "inicio.html">
+                        Inicio
+                    </a>                  
+                </li>
+                <li>
+                    <a href = "noticias.html">
+                        Noticias
+                    </a>                  
+                </li>
+                <li>
+                    <a href = "inicio.html">
+                        Calendario
+                    </a>
+                </li>
+                <li>
+                    <a href = "inicio.html">
+                        Tus juegos
+                    </a>
+                </li>
 
-    <div class = "perfilusuario">
-	    
-        <div class = "datosusuario">
-            <img
-                class = "avatar"
-                src = "img/Logo.jpg"
-            >
-            <h1 class = "username">Nombre Usuario</h1>
-            <p class = "description"> 
-                Fernando Alonso Díaz (Oviedo, Asturias; 29 de julio de 1981) es un piloto español de automovilismo de velocidad.                        
-            </p>      
-        </div>
+                <li>
+                    <a href = "inicio.html">
+                        Tienda
+                    </a>
+                </li>
 
-        <div class = "idyboton">
-            <div>
-                <h2 class = "id"> #ID1231241234</h2>
-            </div>
+                <li>
+                    <a href = "inicio.html">
+                        Chat
+                    </a>
+                </li>
 
-            <div>
-                <a href="inbox.html" class = "inbox">Inbox</a>
-            </div>
-           
-        </div>
+                <li>     
+                    <a href = "inicio.html">
+                        Perfil
+                    </a>
+                </li> 
+            </ul>
+        </nav>
 
-    </div>
-    
+        <div class = "clearfix"> </div>
+
+        <section id = "content">
+            <article id = "avatarydatos">
+                <img
+                    src = "img/Logo.jpg"
+                    class = "avatar"
+                >          
                 
+                <p id = "nombreusuario"> 
+                    Nombre usuario
+                </p>  
 
-    
-    <p> Aquí está el contenido público, visible para todos los usuarios. </p>	       	
-	    
- <!-- Fin del contenedor -->
+                <!--<p id = "descripcion">
+                    Fernando Alonso Díaz (Oviedo, Asturias; 29 de julio de 1981) es un piloto español de automovilismo de velocidad.
+                </p>-->
+
+                <!--<p class = "nId"> Id#594572045 </p>-->
+
+                <button type="submit" class = "inbox"> Inbox </button>                                   
+            </article>       
+
+        </section>
+    </div>              	
 
 </body>
 </html>
