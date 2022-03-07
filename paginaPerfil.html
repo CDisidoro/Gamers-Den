@@ -12,16 +12,19 @@
         }
 
         #container{
-            border: 3px solid black;
-            width: 100%;
+            width: 100%; 
+            background-color: lightpink;       
         }
 
         #nombreusuario{
-            font-size: 25px;  
+            font-size: 25px;    
+            font-weight: bold;
+            float:left;
         }
 
         #descripcion{
             font-size: 15px;  
+            float:left;
         }
 
         header{
@@ -32,13 +35,17 @@
         #avatarydatos{
             width: 100%;   
             height: 170px;  
-            border: 3px solid rgb(110, 8, 8);
-            padding-right: 50px;   
-            margin-right: 10px;
+            display:grid;
+            grid-template-columns: 50% 50%;
         }
 
         nav{
-            border: 3px solid black;
+            border:5px solid black;
+        }
+
+        nav ul li{
+            list-style: none;
+            margin: 10px;
         }
 
         article{
@@ -51,18 +58,62 @@
         }
 
         .nId{
-            float: right;
-            font-size: 25px; 
+            font-size: 20px; 
+            font-weight: bold;
+            float: right;         
         }
 
-        .inbox{           
-            float: right;
-            font-size: 25px;       
+        .flexcolumn{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flexrow{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .cajaflex{
+            float: right; 
+            padding-right: 30px;
+        }
+
+        .inbox{        
+            font-size: 20px;   
+            font-weight: bold;
+            float: right; 
+        }
+
+        .imagenJuegoDeseados{
+            width: 150px;
+            height: 150px;
+        }
+
+        #listadeseados{
+            padding-left: 30px;
+        }
+
+        #listadeamigos{
+            padding-left: 30px;
+        }
+
+        .nombreamigo{
+            padding-left: 30px;
+        }
+
+        .juegolista{
+            padding-right: 40px;
+        }
+
+        .amigolista{
+            padding-right: 40px;
         }
 
         #content{
             background-color: rgb(211, 161, 211);
             color: rgb(0, 0, 0);
+            width: 80%;
+            margin: auto;
         }
 
     </style>
@@ -121,31 +172,124 @@
 
         <section id = "content">
             <article id = "avatarydatos">
-                <img
-                    src = "img/Logo.jpg"
-                    class = "avatar"
-                >          
-                
-                <p id = "nombreusuario"> 
-                    Nombre usuario
-                </p>  
-                
-                <p id = "descripcion"> 
-                    ROLES
-                </p>  
 
-                
-                
+                <div class = "cajagrid">
+                    <div class = "cajagrid">
+                        <img
+                            src = "img/Logo.jpg"
+                            class = "avatar"
+                        > 
+                    </div>
+                     
+                    <div class = "cajagrid">
+                        <div class = "flexcolumn">
 
-                <!--<p id = "descripcion">
-                    Fernando Alonso Díaz (Oviedo, Asturias; 29 de julio de 1981) es un piloto español de automovilismo de velocidad.
-                </p>-->
+                            <div class = "cajaflex">
+                                <p id = "nombreusuario"> 
+                                    Nombre usuario
+                                </p>           
+                            </div>
 
-                <!--<p class = "nId"> Id#594572045 </p>-->
+                            <div class = "cajaflex">
+                                <p id = "descripcion">
+                                    Fernando Alonso Díaz (Oviedo, Asturias; 29 de julio de 1981)  es mi puto padre oaisuhgdapisyughdpaisdhaspiudhaspiuhda                       
+                                </p>
+                            </div>
 
-                <button type="submit" class = "inbox"> Inbox </button>                                   
-            </article>       
+                        </div>
+                        
+                    </div>
+                    
 
+                </div>
+                        
+                <div class = "flexcolumn">
+                    <div class = "cajaflex">
+                        <p class = "nId"> 
+                            Id#594572045 
+                        </p>
+                    </div>
+                    
+                    <div class = "cajaflex">
+                        <button type="submit" class = "inbox"> 
+                            Inbox 
+                        </button>
+                    </div>
+
+                </div>   
+
+            </article>  
+            
+            <article id = "listadeseados">
+
+                <h2> Lista de deseos</h2>
+
+                <div class = "flexrow">
+                    <div class = "juegolista">
+                        <img 
+                            class = "imagenJuegoDeseados"
+                            src = "img/Logo.jpg"
+                        >
+                        
+                        <p> Nombre Juego </p>
+                    </div>
+
+                    <div class = "juegolista">
+                        <img 
+                            class = "imagenJuegoDeseados"
+                            src = "img/Logo.jpg"
+                        >
+                        
+                        <p> Nombre Juego </p>
+                    </div>
+
+                    <div class = "juegolista">
+                        <img 
+                            class = "imagenJuegoDeseados"
+                            src = "img/Logo.jpg"
+                        >
+                        <p> Nombre Juego </p>                      
+                    </div>
+
+                </div>                  
+     
+            </article>
+
+            <article id = "listadeamigos">
+
+                <h2> Lista de amigos</h2>
+
+                <div class = "flexrow">
+                    <div class = "amigolista">
+                        <img 
+                            class = "avatar"
+                            src = "img/Logo.jpg"
+                        >
+                        
+                        <p class = "nombreamigo"> Nombre Amigo </p>
+                    </div>
+
+                    <div class = "amigolista">
+                        <img 
+                            class = "avatar"
+                            src = "img/Logo.jpg"
+                        >
+                        
+                        <p class = "nombreamigo"> Nombre Amigo </p>
+                    </div>
+
+                    <div class = "amigolista">
+                        <img 
+                            class = "avatar"
+                            src = "img/Logo.jpg"
+                        >
+                        <p class = "nombreamigo"> Nombre Amigo </p>                     
+                    </div>
+
+                </div>                  
+     
+            </article>
+            
         </section>
     </div>              	
 
