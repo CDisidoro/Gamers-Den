@@ -4,5 +4,4 @@
     <img src = "img/ImagenPerfil.jpg">
 
 </div> <!-- Fin del sidebar -->
-</body>
 </html>
