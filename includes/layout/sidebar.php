@@ -4,5 +4,4 @@
     <a title="MenuPerfil" href="paginaPerfil.html"><img src="img/ImagenPerfil.jpg" class="menu"></a>
     <a title="MenuChat" href="chat.php"><img src="img/ImagenChat.jpg" class="menu"></a>
 </div> <!-- Fin del sidebar -->
-</body>
 </html>
