@@ -11,7 +11,7 @@
 
 	<?php
 		require ('includes\layout\cabecera.php');
-//		require ('sidebar.php');
+		require ('includes\layout\sidebar.php');
 		require('includes\layout\centro.php');
 		require ('includes\layout\pie.php');
 	?>
