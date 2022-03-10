@@ -147,11 +147,11 @@
             
         </section>
         
-        <nav>
+        <footer>
             <?php
                 require ('includes\layout\pie.php');
             ?>
-        </nav>
+        </footer>
 
     </div>              	
 
