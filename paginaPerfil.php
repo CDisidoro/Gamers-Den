@@ -146,7 +146,13 @@
             </article>
             
         </section>
-        </main>
+        
+        <nav>
+            <?php
+                require ('includes\layout\pie.php');
+            ?>
+        </nav>
+
     </div>              	
 
 </body>
