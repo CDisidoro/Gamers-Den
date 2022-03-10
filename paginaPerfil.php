@@ -114,6 +114,12 @@
 
                 <h2> Lista de amigos</h2>
 
+                <div class = "cajaflex">
+                        <button type="submit" class = "inbox"> 
+                            Añadir Amigo 
+                        </button>
+                </div>
+
                 <div class = "flexrow">
                     <div class = "amigolista">
                         <img 
@@ -141,8 +147,11 @@
                         <p class = "nombreamigo"> Nombre Amigo </p>                     
                     </div>
 
+                    
+
                 </div>                  
-     
+                
+
             </article>
             
         </section>
