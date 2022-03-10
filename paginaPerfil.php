@@ -1,171 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head>  
+    <link rel="stylesheet" type="text/css" href="includes\layout\estiloperfil.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Mi perfil</title>
-    <style>
-        .avatar{
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid rgb(0, 0, 0);
-            float: left;
-        }
-
-        #container{
-            width: 100%; 
-            background-color: lightpink;       
-        }
-
-        #nombreusuario{
-            font-size: 25px;    
-            font-weight: bold;
-            float:left;
-        }
-
-        #descripcion{
-            font-size: 15px;  
-            float:left;
-        }
-
-        header{
-            text-align: center;
-            background-color: lightgray;
-        }
-
-        #avatarydatos{
-            width: 100%;   
-            height: 170px;  
-            display:grid;
-            grid-template-columns: 50% 50%;
-        }
-
-        nav{
-            border:5px solid black;
-        }
-
-        nav ul li{
-            list-style: none;
-            margin: 10px;
-        }
-
-        article{
-            height: fit-content;
-            width: 100%;
-        }
-
-        .clearfix{
-            clear: both;
-        }
-
-        .nId{
-            font-size: 20px; 
-            font-weight: bold;
-            float: right;         
-        }
-
-        .flexcolumn{
-            display: flex;
-            flex-direction: column;
-        }
-
-        .flexrow{
-            display: flex;
-            flex-direction: row;
-        }
-
-        .cajaflex{
-            float: right; 
-            padding-right: 30px;
-        }
-
-        .inbox{        
-            font-size: 20px;   
-            font-weight: bold;
-            float: right; 
-        }
-
-        .imagenJuegoDeseados{
-            width: 150px;
-            height: 150px;
-        }
-
-        #listadeseados{
-            padding-left: 30px;
-        }
-
-        #listadeamigos{
-            padding-left: 30px;
-        }
-
-        .nombreamigo{
-            padding-left: 30px;
-        }
-
-        .juegolista{
-            padding-right: 40px;
-        }
-
-        .amigolista{
-            padding-right: 40px;
-        }
-
-        #content{
-            background-color: rgb(211, 161, 211);
-            color: rgb(0, 0, 0);
-            width: 80%;
-            margin: auto;
-        }
-
-    </style>
 </head>
 
 <body>
     <div id = "container"> 
-        <header>
-            <h1>GAMERS DEN</h1>          
-        </header>
         
+        <header>
+            <?php
+                require ('includes\layout\cabecera.php');
+            ?>
+        </header>
+
+        <div class = "clearfix"> </div>
+
         <nav>
-            <ul>
-                <li>
-                    <a href = "inicio.html">
-                        Inicio
-                    </a>                  
-                </li>
-                <li>
-                    <a href = "noticias.html">
-                        Noticias
-                    </a>                  
-                </li>
-                <li>
-                    <a href = "inicio.html">
-                        Calendario
-                    </a>
-                </li>
-                <li>
-                    <a href = "inicio.html">
-                        Tus juegos
-                    </a>
-                </li>
-
-                <li>
-                    <a href = "inicio.html">
-                        Tienda
-                    </a>
-                </li>
-
-                <li>
-                    <a href = "inicio.html">
-                        Chat
-                    </a>
-                </li>
-
-                <li>     
-                    <a href = "inicio.html">
-                        Perfil
-                    </a>
-                </li> 
-            </ul>
+            <?php
+                require ('includes\layout\sidebar.php');
+            ?>
         </nav>
 
         <div class = "clearfix"> </div>

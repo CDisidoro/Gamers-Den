@@ -1,0 +1,27 @@
+
+.imagenprincipal{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid lightgray;                      
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    background-color:gray;
+    height: fit-content;
+    justify-content:center;
+    text-align: center;
+}  
+
+.tituloPrincipal{
+    font-size:50px;
+    padding-left:20px;
+}  
+
+.login{
+    text-align:bottom;
+    font-size: 20px;
+    float:right;
+}
+
