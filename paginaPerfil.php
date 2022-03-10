@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
 <head>  
     <link rel="stylesheet" type="text/css" href="includes\layout\estiloperfil.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -146,16 +145,8 @@
      
             </article>
             
-<<<<<<< HEAD
         </section>
-=======
         </main>
-
-        <?php
-        require('includes\layout\pie.php');
-        ?>
-
->>>>>>> 7ca80c7fec66dec60ccb406e689ecfdb3314539e
     </div>              	
 
 </body>
