@@ -59,10 +59,9 @@ aside {
 }
 
 main {
-	padding: 10px;
 	float: left;
 	min-height: 600px;
-	width: 500px;
+	width: 100%;
 	background-color: white;
 }
 
@@ -101,5 +100,7 @@ label {
 }
 
 button {
-	margin-left: 100px;
+	border: 1px solid black;	
+	background-color: #000000;
+	/*margin-left: 100px;*/
 } 
