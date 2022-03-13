@@ -11,7 +11,7 @@
         
         <header>
             <?php
-                require ('includes\layout\cabecera.php');
+                require ('includes/layout/cabecera.php');
             ?>
         </header>
 
@@ -19,7 +19,7 @@
 
         <nav>
             <?php
-                require ('includes\layout\sidebar.php');
+                require ('includes/layout/sidebar.php');
             ?>
         </nav>
 
@@ -158,7 +158,7 @@
         
         <footer>
             <?php
-                require ('includes\layout\pie.php');
+                require ('includes/layout/pie.php');
             ?>
         </footer>
 

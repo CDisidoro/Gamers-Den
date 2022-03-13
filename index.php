@@ -10,10 +10,10 @@
 <div id="contenedor">
 
 	<?php
-		require ('includes\layout\cabecera.php');
-		require ('includes\layout\sidebar.php');
-		require('includes\layout\centro.php');
-		require ('includes\layout\pie.php');
+		require ('includes/layout/cabecera.php');
+		require ('includes/layout/sidebar.php');
+		require('includes/layout/centro.php');
+		require ('includes/layout/pie.php');
 	?>
 
 </div> <!-- Fin del contenedor -->
