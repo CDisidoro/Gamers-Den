@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-03-2022 a las 13:40:40
+-- Tiempo de generación: 15-03-2022 a las 11:46:10
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -61,6 +61,29 @@ CREATE TABLE `juegos` (
   `Lanzamiento` date NOT NULL,
   `Desarrollador` text NOT NULL,
   `Precio` int(11) NOT NULL COMMENT 'Precio Oficial del Desarrollador'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lista_amigos`
+--
+
+CREATE TABLE `lista_amigos` (
+  `usuarioA` int(11) NOT NULL,
+  `usuarioB` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lista_deseos`
+--
+
+CREATE TABLE `lista_deseos` (
+  `juego` int(11) NOT NULL,
+  `usuario` int(11) NOT NULL,
+  `fecha_agregacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -132,6 +155,20 @@ ALTER TABLE `juegos`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indices de la tabla `lista_amigos`
+--
+ALTER TABLE `lista_amigos`
+  ADD KEY `FK_usuarioA` (`usuarioA`),
+  ADD KEY `FK_usuarioB` (`usuarioB`);
+
+--
+-- Indices de la tabla `lista_deseos`
+--
+ALTER TABLE `lista_deseos`
+  ADD KEY `FK_juego` (`juego`),
+  ADD KEY `FK_usuario` (`usuario`);
+
+--
 -- Indices de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
@@ -192,7 +229,7 @@ ALTER TABLE `tienda`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -210,6 +247,20 @@ ALTER TABLE `comentarios`
 --
 ALTER TABLE `foro`
   ADD CONSTRAINT `foro_ibfk_1` FOREIGN KEY (`Autor`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `lista_amigos`
+--
+ALTER TABLE `lista_amigos`
+  ADD CONSTRAINT `lista_amigos_ibfk_1` FOREIGN KEY (`usuarioA`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lista_amigos_ibfk_2` FOREIGN KEY (`usuarioB`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `lista_deseos`
+--
+ALTER TABLE `lista_deseos`
+  ADD CONSTRAINT `lista_deseos_ibfk_1` FOREIGN KEY (`juego`) REFERENCES `juegos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lista_deseos_ibfk_2` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `mensajes`
