@@ -10,18 +10,18 @@
 	$raizApp = RUTA_APP; // Definir la raiz de la app
 
     // Capturamos mediante el parámetro <<< el contenido principal de la página en este caso un formulario de logueo y ponemos el delimitador EOS
-	$contenidoPrincipal=<<<EOS
-	<h1>Acceso a Gamers Deen</h1>
+	/*$contenidoPrincipal= */echo
+	'<h1>Acceso a Gamers Deen</h1>
 	
-	<form id="formLogin" action="${raizApp}/procesarLogin.php" method="POST"> 
+	<form id="formLogin" action="procesarLogin.php" method="POST"> 
 		<fieldset>
 			<legend>Usuario y contraseña</legend>
 			<div><label>Correo:</label> <input type="text" name="email" /></div>
 			<div><label>Password:</label> <input type="password" name="password" /></div>
 			<div><button type="submit">Entrar</button></div>
 		</fieldset>
-	</form>
-	EOS; // Delimitador EOS final
+	</form>';
+	 // Delimitador EOS final
 	
     // Volvemos a incluir el layout correspondiente al loggin
-	//require __DIR__.'/includes/comun/layout.php';
+	//require __DIR__.'/index.php';

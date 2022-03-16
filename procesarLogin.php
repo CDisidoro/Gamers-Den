@@ -4,7 +4,7 @@
 	// Aquí irian los requires de los paths, seguramente lo relacionado con la bd que será uno referente
     // a usuarios y otro a la configuración básica (Explicado en clase)
     
-	//require_once __DIR__.'/'directorio'/usuarios.php';
+	require_once __DIR__.'/includes/usuarios.php';
     // Ejemplo de lo que me refiero --> Necesaria una clase usuarios y un 'directorio' = includes??
 
 
@@ -22,19 +22,19 @@
 
     //----------------------- Sección de comprobación de login del usuario -------------------------
 
-	if (!estaLogado()) { // En caso de no estar logueado
+	if (!estaLogeado()) { // En caso de no estar logueado
         // Obturación con <<< de strings multilinea
         // De esta manera cojo lo que muestro a continuación y lo introduzco en la variable para que se muestre
-        $contenidoPrincipal=<<<EOS 
-            echo '<h1>Error</h1>'
-            echo '<p>El usuario o contraseña no son válidos.</p>'
-		EOS // Delimitador EOS Final
+        
+            echo '<h1>Error</h1>';
+            echo '<p>El usuario o contraseña no son válidos.</p>';
+		// Delimitador EOS Final
 	} else { // En caso de estar logueado muestro el nombre del user correspondiente
-		$contenidoPrincipal=<<<EOS
-			<h1>Bienvenido a Gamers Deen ${_SESSION['nombre']}</h1>
-			<p>Adelante, profundiza en la experiencia Gamers Deen.</p>
-		EOS // Delimitador EOS Final
+		//no nos funciona el eos
+			echo '<h1>Bienvenido a Gamers Deen ${_SESSION[nombre]}</h1>';
+			echo '<p>Adelante, profundiza en la experiencia Gamers Deen.</p>';
+		 // Delimitador EOS Final
 	} 
 
 // Esto deberá incluirse en el layout correspondiente --> Muy parecido al ejercicio 2 (Footer, index, cabecera, siders)
-//require __DIR__.'/'directorio'/layout.php'; --> directorio debe definirse a lo mejor se llama patata
+require __DIR__.'/index.php'; // directorio debe definirse a lo mejor se llama patata
