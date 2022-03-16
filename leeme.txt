@@ -1,0 +1,4 @@
+Funciones implementadas:
+ - Chat
+ - Registro y Login
+ - Perfil
