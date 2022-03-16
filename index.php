@@ -10,6 +10,7 @@
 <div id="contenedor">
 
 	<?php
+		session_start();
 		require ('includes/layout/cabecera.php');
 		require ('includes/layout/sidebar.php');
 		require('includes/layout/centro.php');

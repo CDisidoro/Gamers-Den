@@ -64,7 +64,7 @@ class Usuario{ ## Establecemos la clase usuario
     if($rs && $rs->num_rows == 1){
       $fila = $rs->fetch_assoc();
       
-		echo"Usuario registrado";
+		
 
       $user = new Usuario($fila['Email'], $fila['Usuario'],$fila['Password'],
                           $fila['Avatar'],$fila['Biografia']);
@@ -195,7 +195,7 @@ private $esAdmin;
   public function compruebaPassword($password)  {
       ## Aqui veriamos cual es la cuenta del usuario en la bd la cual se comprobaría con la que está
       ## estableciendo el usuario en cuestión a la hora de verificarla
-    echo "Esta es su contraseña:".$password;
+    
    
     return password_verify($password, $this->password); ## Comparación de contraseñas
   }

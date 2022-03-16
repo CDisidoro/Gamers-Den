@@ -21,15 +21,15 @@ require_once __DIR__.'/usuariosbd.php'; ## Require de las funciones y clases de 
 			$_SESSION["login"] = true;
 			$_SESSION["correo"] = $usuario->idCorreo();
 			$_SESSION["nombre"] = $usuario->nombre();
-			$_SESSION["esEscritor"] =$usuario->getEscritor();
-			$_SESSION["esAdmin"] = $usuario->getAdmin();
+			$_SESSION["Escritor"] =$usuario->getEscritor();
+			$_SESSION["Admin"] = $usuario->getAdmin();
 		}
 		else{
 			$_SESSION["login"] = false;
 			$_SESSION["nombre"] = null;
 			$_SESSION["correo"] = null;
-			$_SESSION["esEscritor"] = null;
-			$_SESSION["esAdmin"] = null;
+			$_SESSION["Escritor"] = null;
+			$_SESSION["Admin"] = null;
 			
 		}
 	}
@@ -37,7 +37,7 @@ require_once __DIR__.'/usuariosbd.php'; ## Require de las funciones y clases de 
     function logout() {
 		# Establezco la funcion de logout para la salida del usuario
 		unset($_SESSION["login"]);
-		unset($_SESSION["esAdmin"]);
+		unset($_SESSION["Admin"]);
 		unset($_SESSION["nombre"]);
 		unset($_SESSION["idUsuario"]);
 		

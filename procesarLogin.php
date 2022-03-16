@@ -22,7 +22,7 @@
 
     //----------------------- Sección de comprobación de login del usuario -------------------------
 
-	if (!estaLogeado()) { // En caso de no estar logueado
+	if (!estaLogin()) { // En caso de no estar logueado
         // Obturación con <<< de strings multilinea
         // De esta manera cojo lo que muestro a continuación y lo introduzco en la variable para que se muestre
         
@@ -31,10 +31,10 @@
 		// Delimitador EOS Final
 	} else { // En caso de estar logueado muestro el nombre del user correspondiente
 		//no nos funciona el eos
-			echo '<h1>Bienvenido a Gamers Deen ${_SESSION[nombre]}</h1>';
+			echo '<h1>Bienvenido a Gamers Deen </h1>';
 			echo '<p>Adelante, profundiza en la experiencia Gamers Deen.</p>';
 		 // Delimitador EOS Final
 	} 
 
 // Esto deberá incluirse en el layout correspondiente --> Muy parecido al ejercicio 2 (Footer, index, cabecera, siders)
-require __DIR__.'/index.php'; // directorio debe definirse a lo mejor se llama patata
+//require __DIR__.'/index.php'; // directorio debe definirse a lo mejor se llama patata
