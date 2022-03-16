@@ -2,7 +2,7 @@
 session_start (); ## creamos una sesión o reanudamos la actual basada en un identificador de sesión
 function loginForm() {
   if ($_GET["loging"])  ## Si el usuario esta logueado devuelve el nombre del user
-  return $_SESSION['name']
+  return $_SESSION['name'];
 }
 
 if (isset ($_POST ['enter'])) {
