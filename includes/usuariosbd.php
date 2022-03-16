@@ -22,11 +22,11 @@ class Usuario{ ## Establecemos la clase usuario
       $conn = getConexionBD();
 
       ## Si devuelve un 1 el usuario es administrador 
-      $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='%s'",
+      $consultaEsAdmin=sprintf("SELECT US.Rol = 'Admin' FROM usuarios US WHERE US.Email='%s'",
                                 $conn->real_escape_string($username));
 
       ## Si devuelve un 1 el usuario es Escritor
-      $consultaEsEscritor=sprintf("SELECT US.Escritor FROM usuario US WHERE US.Correo='%s'",
+      $consultaEsEscritor=sprintf("SELECT US.Rol = 'Escritor' FROM usuarios US WHERE US.Email='%s'",
                                   $conn->real_escape_string($username));
 								  
       $rs = $conn->query($consultaEsAdmin); ## Consultas para los roles
@@ -57,7 +57,7 @@ class Usuario{ ## Establecemos la clase usuario
   public static function buscaUsuario($username){ ## Busco usuario dentro de la bd 
   
     $conn = getConexionBD();
-    $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
+    $consultaUsuario = sprintf("SELECT * FROM usuarios WHERE Email='%s'",
                     $conn->real_escape_string($username));
  
     $rs = $conn->query($consultaUsuario);
@@ -66,8 +66,8 @@ class Usuario{ ## Establecemos la clase usuario
       
 		echo"Usuario registrado";
 
-      $user = new Usuario($fila['Correo'], $fila['Nombre'],$fila['Contraseña'],
-                          $fila['logo'],$fila['descripcion']);
+      $user = new Usuario($fila['Email'], $fila['Usuario'],$fila['Password'],
+                          $fila['Avatar'],$fila['Biografia']);
       $rs->free();
      
       return $user; ## Se devuelve el contenido del usuario
@@ -77,15 +77,15 @@ class Usuario{ ## Establecemos la clase usuario
 
   public static function buscaPorId($idUsuario){
     $conn = getConexionBD(); ## Establecemos la conexion
-    $query = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
+    $query = sprintf("SELECT * FROM usuarios WHERE Email='%s'",
                       $conn->real_escape_string($idUsuario));
    
     $rs = $conn->query($query);
     if ($rs && $rs->num_rows == 1) {
       $fila = $rs->fetch_assoc();
-      $user = new Usuario($fila['Correo'], $fila['Nombre'], 
-                          $fila['Contraseña'],$fila['logo'],$fila['descripcion'],
-                          $fila['Escritor'],$fila['Admin']);
+      $user = new Usuario($fila['Email'], $fila['Usuario'], 
+                          $fila['Password'],$fila['Avatar'],$fila['Biografia'],
+                          $fila['Rol']);
                           ## Establecemos las filas de la tabla de la bd
       $rs->free();
 
@@ -111,8 +111,8 @@ class Usuario{ ## Establecemos la clase usuario
             ## Básciamente inserta valores en una tabla
 
 			$mysqli = getConexionBD(); ## Establezco conexión con la BD
-			$sql="INSERT INTO usuario (Correo, Nombre,descripcion,logo,Contraseña,Escritor,Admin)
-				VALUES ('$email','$username','$password1','$descripcion','$logo',0,0)";
+			$sql="INSERT INTO usuarios (Email, Usuario,Password,Biografia,Avatar,Rol )
+				VALUES ('$email','$username','$password1','$descripcion','$logo', 'Usuario')";
                 ## Como se registra siendo un usuario normal pues no se le dan permisos de admin/escritor
                 ## añadir aqui las descripciones/imagen con un default vacio??
 

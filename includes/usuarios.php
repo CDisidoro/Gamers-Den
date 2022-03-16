@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/usuarioBD.php'; ## Require de las funciones y clases de usuariosBD
+require_once __DIR__.'/usuariosbd.php'; ## Require de las funciones y clases de usuariosBD
 
 	function estaLogin() { ## Comprobacion del login del usuario
 		if(isset($_SESSION["login"]) && $_SESSION["login"]){
