@@ -5,6 +5,8 @@
     // a usuarios y otro a la configuración básica (Explicado en clase)
     
 	require_once __DIR__.'/includes/usuarios.php';
+	require_once __DIR__.'/includes/config.php';
+
     // Ejemplo de lo que me refiero --> Necesaria una clase usuarios y un 'directorio' = includes??
 
 
@@ -37,4 +39,4 @@
 	} 
 
 // Esto deberá incluirse en el layout correspondiente --> Muy parecido al ejercicio 2 (Footer, index, cabecera, siders)
-//require __DIR__.'/index.php'; // directorio debe definirse a lo mejor se llama patata
+require __DIR__.'/includes/layout/centro.php'; // directorio debe definirse a lo mejor se llama patata
