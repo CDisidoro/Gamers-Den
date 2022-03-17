@@ -1,3 +1,4 @@
+<?php namespace es\fdi\ucm\aw\gamersDen; ?>
 <!--Code Autor: David Cruza Sesmero-->
 <!DOCTYPE html>
 <html>
@@ -24,7 +25,7 @@
 
 
 				// Sección de administración de sesiones: Cierre de sesión y checkeo del usuario para desconexión 
-				logout(); // Función de cierre de la sesión
+				//logout(); // Función de cierre de la sesión - Porque el login debe llamar a logout???????
 				checkLogin(); // Checkea el usuario que se está deslogeando
 
 				//---------------------------------------------------------------------------------------------
@@ -47,8 +48,8 @@
 				} else { // En caso de estar logueado muestro el nombre del user correspondiente
 					//no nos funciona el eos
 					
-						echo '<h1>Bienvenido a Gamers Deen </h1>';
-						echo '<p>Adelante, profundiza en la experiencia Gamers Deen.</p>';
+						echo '<h1>Bienvenido a Gamers Den </h1>';
+						echo '<p>Adelante, profundiza en la experiencia Gamers Den.</p>';
 					// Delimitador EOS Final
 				} 
 				?>

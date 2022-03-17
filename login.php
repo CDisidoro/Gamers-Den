@@ -1,3 +1,4 @@
+<?php namespace es\fdi\ucm\aw\gamersDen; ?>
 <!--Code Autor: David Cruza Sesmero-->
 <!DOCTYPE html>
 <html>
