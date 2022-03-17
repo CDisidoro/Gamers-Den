@@ -1,4 +1,4 @@
-<?php namespace es\fdi\ucm\aw;
+<?php namespace es\fdi\ucm\aw\gamersDen;
     require('includes/config.php');
     class Usuario{
 
@@ -111,7 +111,7 @@
                 , $conector->real_escape_string($usuario->username)
                 , $conector->real_escape_string($usuario->email)
                 , $conector->real_escape_string($usuario->pass)
-                , $conector->real_escape_string($usuario->roles)
+                , $conector->real_escape_string('3')
             );
             if (!$conector->query($query) ){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
