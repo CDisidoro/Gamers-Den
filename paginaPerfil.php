@@ -2,35 +2,46 @@
 <!DOCTYPE html>
 <html>
     <head>  
-        <link rel="stylesheet" type="text/css" href="css/estiloperfil.css"/>
+        <link rel="stylesheet" type="text/css" href="css/estilo.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Mi perfil</title>
     </head>
     <body>
-        <div id = "container"> 
-            <header><?php require ('includes/vistas/comun/cabecera.php');?></header>
+        <div class = "contenedor"> 
+
+            <?php 
+                require ('includes/vistas/comun/cabecera.php');
+            ?>
+            
+
             <div class = "clearfix"> </div>
-            <nav><?php require ('includes/vistas/comun/sidebar.php');?></nav>
+
+           
+            <?php 
+                require ('includes/vistas/comun/sidebar.php');
+            ?>   
+
             <div class = "clearfix"></div>
-            <section id = "content">
+
+            <section class = "content">
                 <?php
                     session_start();
                     if(!isset($_SESSION['name'])){
                         echo "<p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>";
                     }else{
                         echo <<<EOS
-                            <article id = "avatarydatos">
+                            <article class = "avatarydatos">
                             <div class = "cajagrid">
                                 <div class = "cajagrid">
-                                    <img src = "img/Logo.jpg" class = "avatar"> 
+                                    <img src = "img/Logo.jpg" class = "avatarPerfilUsuario"> 
                                 </div>
                                 <div class = "cajagrid">
                                     <div class = "flexcolumn">
                                         <div class = "cajaflex">
-                                            <p id = "nombreusuario">Nombre usuario</p>           
+                                            <p class = "nombreusuario">Nombre usuario</p>           
                                         </div>
                                         <div class = "cajaflex">
-                                            <p id = "descripcion">Lorem ipsum</p>
+                                            <p class = "descripcion">Lorem ipsum</p>
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +55,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article id = "listadeseados">
+                        <article class = "listadeseados">
                             <h2> Lista de deseos</h2>
                             <div class = "flexrow">
                                 <div class = "juegolista">
@@ -61,7 +72,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article id = "listadeamigos">
+                        <article class = "listadeamigos">
                             <h2> Lista de amigos</h2>
                             <div class = "cajaflex">
                                 <button type="submit" class = "inbox">Añadir Amigo</button>
@@ -85,7 +96,13 @@
                     }
                 ?>
             </section>
-            <footer><?php require ('includes/vistas/comun/pie.php');?></footer>
+
+            <footer>
+                <?php 
+                    require ('includes/vistas/comun/pie.php');
+                ?>
+            </footer>
+
         </div>              	
     </body>
 </html>

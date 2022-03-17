@@ -1,15 +1,16 @@
+/*
 body {
 	background-color: #CDCDCD;
 }
 
-div#contenedor {
+/*div#contenedor {
 	width: 900px;
 	margin: auto;
 	border: 1px solid black;
 	background-color: #aaaaaa;
 	margin-top: 30px;
-}
-
+}*/
+/*
 header {
 	padding: 30px;
 	height: 100px;
@@ -49,7 +50,6 @@ nav a:hover {
 	text-decoration: underline;
 } 
 
-
 aside {
 	padding: 10px;
 	float: right;
@@ -65,13 +65,7 @@ main {
 	background-color: white;
 }
 
-footer	 {
-	clear: both;
-	padding: 20px;
-	background-color: #303030;
-	color: white;
-	text-align: center;
-}
+
 
 div.saludo {
 	width: 100%;
@@ -99,9 +93,233 @@ label {
 	display: block;
 }
 
+
 button {
 	border: 1px solid black;	
 	width: 100%;
 	background-color: #000000;
-	/*margin-left: 100px;*/
-} 
+}
+ */
+
+/* ESTILOS PERFIL */
+.avatarPerfilUsuario{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid rgb(0, 0, 0);
+    float: left;
+}
+
+.contenedor{
+    width: 100%; 
+    background-color: lightpink;       
+}
+
+.nombreusuario{
+    font-size: 25px;    
+    font-weight: bold;
+    float:left;
+}
+
+.descripcion{
+    font-size: 15px;  
+    float:left;
+}
+
+.avatarydatos{
+    width: 100%;   
+    height: 170px;  
+    display:grid;
+    grid-template-columns: 50% 50%;
+}
+
+article{
+    height: fit-content;
+    width: 100%;
+}
+
+.clearfix{
+    clear: both;
+}
+
+.nId{
+    font-size: 20px; 
+    font-weight: bold;
+    float: right;         
+}
+
+.flexcolumn{
+    display: flex;
+    flex-direction: column;
+}
+
+.flexrow{
+    display: flex;
+    flex-direction: row;
+}
+
+.cajaflex{
+    float: right; 
+    padding-right: 30px;
+}
+
+.inbox{        
+    font-size: 20px;   
+    font-weight: bold;
+    float: right; 
+}
+
+.imagenJuegoDeseados{
+    width: 150px;
+    height: 150px;
+}
+
+.listadeseados{
+    padding-left: 30px;
+}
+
+.listadeamigos{
+    padding-left: 30px;
+}
+
+.nombreamigo{
+    padding-left: 30px;
+}
+
+.juegolista{
+    padding-right: 40px;
+}
+
+.amigolista{
+    padding-right: 40px;
+}
+
+.content{
+    background-color: rgb(211, 161, 211);
+    color: rgb(0, 0, 0);
+    width: 80%;
+    margin: auto;
+    min-height: 500px;
+}
+
+/* FIN ESTILOS PERFIL */
+
+
+/* ESTILOS FOOTER  */
+
+footer {
+	clear: both;
+	padding: 20px;
+	background-color: #303030;
+	color: white;
+	text-align: center;
+}
+
+/* FIN ESTILOS FOOTER  */
+
+
+
+
+/* ESTILOS CABECERA */
+
+.imagenprincipalCabecera{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid gray;                  
+}
+
+.containerCabecera{
+    display: flex;
+    flex-direction: row;
+    background-color:lightgray;
+    height: fit-content;
+    justify-content:center;   
+}  
+
+.tituloPrincipalCabecera{
+    font-size:50px;
+    padding-left:20px;
+    float:right;
+}  
+
+.loginCabecera{
+    font-size: 20px;
+    padding-top: 100px;
+    margin-left: 150px;
+}
+
+
+/* FIN ESTILOS CABECERA */
+
+
+
+/* ESTILOS MENÚ NAVEGACIÓN */
+	nav{
+		border:5px solid black;
+		height: fit-content;
+		width:100%;
+		background-color: black;
+	}
+	
+	nav ul li{
+		list-style:none;
+		border:5px solid white;
+		width:10%;
+		display: inline-block;
+		font-size:20px;
+		margin-right:10px;
+	}
+
+	nav ul li a{
+		text-decoration: none;
+		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	}
+
+	.cajainicioNav{
+		text-align: center;
+		background-color: red;
+	}
+
+	.cajaperfilNav{
+		text-align: center;
+		background-color: orange;
+	}
+
+	.cajachatNav{
+		text-align: center;
+		height: 100%;
+		background-color: rgb(255, 255, 98);
+	}
+
+	.cajaforoNav{
+		text-align: center;
+		height: 100%;
+		background-color: lightgreen;
+	}
+
+	.cajanoticiasNav{
+		text-align: center;
+		height: 100%;
+		background-color: lightskyblue;
+	}
+
+	.cajacalendarioNav{
+		text-align: center;
+		height: 100%;
+		background-color: rgb(54, 141, 170);
+	}
+
+	.cajatiendaNav{
+		text-align: center;
+		height: 100%;
+		background-color: rgb(209, 88, 209);
+	}
+
+	.cajatusjuegosNav{
+		text-align: center;
+		height: 100%;
+		background-color: salmon;
+	}
+
+/* FIN ESTILOS MENÚ NAVEGACIÓN */

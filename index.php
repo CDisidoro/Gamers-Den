@@ -8,13 +8,27 @@
 </head>
 
 <body>
-<div id="contenedor">
+<div class ="contenedor">
+	<?php 
+		session_start();
+        require ('includes/vistas/comun/cabecera.php');
+    ?>
+          
+	<div class = "clearfix"> </div>
+         
+    <?php 
+        require ('includes/vistas/comun/sidebar.php');
+    ?>   
+
+    <div class = "clearfix"></div>
+	
+	<section>
+		<?php
+			require ('includes/vistas/comun/centro.php');
+		?>
+	</section>
 
 	<?php
-		session_start();
-		require ('includes/vistas/comun/cabecera.php');
-		require ('includes/vistas/comun/sidebar.php');
-		require('includes/vistas/comun/centro.php');
 		require ('includes/vistas/comun/pie.php');
 	?>
 
