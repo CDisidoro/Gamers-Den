@@ -10,12 +10,12 @@ class FormularioLogin extends Formulario
     
     protected function generaCamposFormulario(&$datos)
     {
-        // Se reutiliza el nombreUsuario de usuario introducido previamente o se deja en blanco
-        $nombreUsuario = $datos['nombreUsuario'] ?? '';
+        // Se reutiliza el Usuario de usuario introducido previamente o se deja en blanco
+        $Usuario = $datos['Usuario'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'password'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['Usuario', 'password'], $this->errores, 'span', array('class' => 'error'));
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
@@ -24,8 +24,8 @@ class FormularioLogin extends Formulario
             <legend>Usuario y contraseña</legend>
             <div>
                 <label for="text">Nombre de Usuario:</label>
-                <input id="nombreUsuario" type="nombreUsuario" name="nombreUsuario" value="$nombreUsuario"/>
-                {$erroresCampos['nombreUsuario']}
+                <input id="Usuario" type="Usuario" name="Usuario" value="$Usuario"/>
+                {$erroresCampos['Usuario']}
             </div>
             <div>
                 <label for="password">Password:</label>
@@ -43,10 +43,10 @@ class FormularioLogin extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
-        $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
-        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $nombreUsuario || empty($nombreUsuario) ) {
-            $this->errores['nombreUsuario'] = 'El nombreUsuario de usuario no puede estar vacío';
+        $Usuario = trim($datos['Usuario'] ?? '');
+        $Usuario = filter_var($Usuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ( ! $Usuario || empty($Usuario) ) {
+            $this->errores['Usuario'] = 'El nombre de usuario no puede estar vacío';
         }
         
         $password = trim($datos['password'] ?? '');
@@ -56,13 +56,13 @@ class FormularioLogin extends Formulario
         }
         
         if (count($this->errores) === 0) {
-            $usuario = Usuario::login($nombreUsuario, $password);
+            $usuario = Usuario::login($Usuario, $password);
         
             if (!$usuario) {
                 $this->errores[] = "El usuario o el password no coinciden";
             } else {
                 $_SESSION['login'] = true;
-                $_SESSION['nombreUsuario'] = $nombreUsuario;
+                $_SESSION['Usuario'] = $Usuario;
                 $_SESSION['esAdmin'] = $usuario->hasRole(Usuario::ADMIN_ROLE);
             }
         }

@@ -84,7 +84,7 @@
             $rs = $conector->query($query);
             if ($rs) {
                 $fila = $rs->fetch_assoc();
-                $user = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['email'], $fila['id']);
+                $user = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID']);
                 $rs->free();
                 return $user;
             } else {
