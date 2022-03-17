@@ -39,19 +39,4 @@ $app = Aplicacion::getInstance();
 $app->init(['host'=>BD_HOST,'bd'=>BD_NAME,'user'=>BD_USER,'pass'=>BD_PASS]);
 
 register_shutdown_function([$app,'shutdown']);
-
-//CAMBIAR O QUITAR
-function getConexionBD() { ## Establecer la conexión con la base de datos
-  $BD = new \mysqli(BD_HOST, BD_USER, BD_PASS, BD_NAME);
-  if ( $BD->connect_errno ) {
-    echo "Error de conexión a la BD: (" . $BD->connect_errno . ") " . $BD->connect_error;
-    exit();
-  }
-  if ( ! $BD->set_charset("utf8mb4")) {
-    echo "Error al configurar la codificación de la BD: (" . $BD->errno . ") " . $BD->error;
-    exit();
-  }
-  return $BD;
-}
-
 ?>
