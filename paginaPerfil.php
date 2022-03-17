@@ -97,11 +97,10 @@
                 ?>
             </section>
 
-            <footer>
-                <?php 
-                    require ('includes/vistas/comun/pie.php');
-                ?>
-            </footer>
+            
+            <?php 
+                require ('includes/vistas/comun/pie.php');
+            ?>
 
         </div>              	
     </body>
