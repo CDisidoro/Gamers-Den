@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/includes/config.php'; ## Rutas necesarias para establecer la bd, en este caso introducción de usuarios
-	require_once __DIR__.'/includes/usuariobd.php'; ## Funciones referentes al usuariobd
+	require_once __DIR__.'/includes/usuariosbd.php'; ## Funciones referentes al usuariobd
 
 	## Mostramos el registro con un formulario en el que se nos pide: Nombre, email y contraseña
 	$tituloPagina = 'Registrandose en Gamers Den';
@@ -9,13 +9,13 @@
     ## Código del formulario: https://www.php.net/manual/es/tutorial.forms.php
     ## Términos de la página: https://www.htmlquick.com/es/reference/tags/input-checkbox.html
 
-	$contenidoPrincipal=<<<EOS 
+	echo
 	
-	<div id="contenedor">	
+	'<div id="contenedor">	
 		<main>
 		<article>
 				<h1>Registro de usuario</h1>
-				<form method="get" action="registroUsuariobd.php">
+				<form method="get" action="registro_exito.php">
 				Usuario:
 				<input type="text" name="Username"/>
 			<br/>
@@ -33,7 +33,6 @@
 				</form>
 			</article>
 		</main>
-	</div>
-	EOS;
-
-require __DIR__.'/includes/layout/centro.php'; ## Require del doc centro.php que es donde pondremos la info
+	</div>'
+	
+?>
