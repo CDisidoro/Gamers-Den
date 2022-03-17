@@ -1,24 +1,13 @@
-<?php namespace es\fdi\ucm\aw\gamersDen;?>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="css/estilo.css"/>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Portada</title>
-</head>
-
-<body>
-<div id="contenedor">
-
-	<?php
-		session_start();
-		require ('includes/vistas/comun/cabecera.php');
-		require ('includes/vistas/comun/sidebar.php');
-		require('includes/vistas/comun/centro.php');
-		require ('includes/vistas/comun/pie.php');
-	?>
-
-</div> <!-- Fin del contenedor -->
-
-</body>
-</html>
+<?php namespace es\fdi\ucm\aw\gamersDen;
+	require('includes/config.php');
+	$tituloPagina = 'Gamers Den';
+	$contenidoPrincipal = <<<EOS
+		<main>
+		<article>
+			<h1>Página principal</h1>
+			<p> Aquí está el contenido público, visible para todos los usuarios. </p>
+		</article>
+		</main>
+	EOS;
+	include 'includes/vistas/plantillas/plantilla.php';
+?>
