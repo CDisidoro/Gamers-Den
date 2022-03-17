@@ -1,4 +1,4 @@
-<?php
+<?php namespace es\fdi\ucm\aw\gamersDen;
 
 ## Aqui establezco las rutas necesarias para la app y distintos parámetros
 define('BD_HOST', 'localhost');
@@ -8,7 +8,7 @@ define('BD_PASS', '');
 define('RUTA_APP', '/AW/GamersDeen/practica2-AW');
 define('RUTA_IMGS', RUTA_APP.'/imagenes'); ## o img, hay que aclarar esto que alguien ha metido una carpeta extra
 define('RUTA_CSS', RUTA_APP.'/css'); ## Ruta para cuando se establezcan las reglas css
-define('COMUN', RUTA_APP.'/includes/layout'); ## Layout de la app
+define('COMUN', RUTA_APP.'/includes/vistas/comun'); ## Layout de la app
 define('INSTALADA', true );
 
 
@@ -38,7 +38,6 @@ function getConexionBD() { ## Establecer la conexión con la base de datos
   }
 
 function cierraConexion() {
-    
     global $BD;
     if ( isset($BD) && ! $BD->connect_errno ) {
       $BD->close();
@@ -49,3 +48,4 @@ function cierraConexion() {
   register_shutdown_function('cierraConexion');
 
   session_start();
+?>

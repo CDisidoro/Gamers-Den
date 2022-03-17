@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-    <link rel="stylesheet" type="text/css" href="includes\layout\estilocabecera.css" />
+    <link rel="stylesheet" type="text/css" href="css/estilocabecera.css"/>
     
         <div class = "container">
             

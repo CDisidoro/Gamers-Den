@@ -1,4 +1,4 @@
-<?php
+<?php namespace es\fdi\ucm\aw\gamersDen;
 
 require_once __DIR__.'/config.php'; ## Require del archivo de config
 

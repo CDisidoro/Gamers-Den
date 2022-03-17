@@ -1,6 +1,6 @@
-<?php
+<?php namespace es\fdi\ucm\aw\gamersDen;
 	require_once __DIR__.'/includes/config.php'; ## path para funciones de la bd
-	require_once __DIR__.'/includes/layout/usuariobd.php'; ## Path para funciones para uso de la bd para usuarios
+	require_once __DIR__.'/includes/usuariosbd.php'; ## Path para funciones para uso de la bd para usuarios
 	
 	$tituloPagina = 'Registro Gamers Den';
 
@@ -21,4 +21,4 @@
 		</div>
 	EOS;
 	
-    require __DIR__.'/includes/layout/centro.php'; ## Donde introduzco las cosas
+    require __DIR__.'/includes/vistas/comun/centro.php'; ## Donde introduzco las cosas

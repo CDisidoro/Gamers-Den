@@ -1,4 +1,4 @@
-<?php
+<?php namespace es\fdi\ucm\aw\gamersDen;
 require_once __DIR__.'/usuariosbd.php'; ## Require de las funciones y clases de usuariosBD
 
 	function estaLogin() { ## Comprobacion del login del usuario

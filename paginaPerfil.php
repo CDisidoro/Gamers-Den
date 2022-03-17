@@ -1,15 +1,16 @@
+<?php namespace es\fdi\ucm\aw\gamersDen;?>
 <!DOCTYPE html>
 <html>
     <head>  
-        <link rel="stylesheet" type="text/css" href="includes\layout\estiloperfil.css" />
+        <link rel="stylesheet" type="text/css" href="css/estiloperfil.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Mi perfil</title>
     </head>
     <body>
         <div id = "container"> 
-            <header><?php require ('includes/layout/cabecera.php');?></header>
+            <header><?php require ('includes/vistas/comun/cabecera.php');?></header>
             <div class = "clearfix"> </div>
-            <nav><?php require ('includes/layout/sidebar.php');?></nav>
+            <nav><?php require ('includes/vistas/comun/sidebar.php');?></nav>
             <div class = "clearfix"></div>
             <section id = "content">
                 <?php
@@ -84,7 +85,7 @@
                     }
                 ?>
             </section>
-            <footer><?php require ('includes/layout/pie.php');?></footer>
+            <footer><?php require ('includes/vistas/comun/pie.php');?></footer>
         </div>              	
     </body>
 </html>

@@ -1,4 +1,4 @@
-<?php
+<?php namespace es\fdi\ucm\aw\gamersDen;
 session_start(); ## Creamos o reestablecemos la sesiñon
 
 if(isset($_SESSION['name'])){ ## Cogemos el nombre del usuario que está logueado

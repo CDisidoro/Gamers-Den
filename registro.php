@@ -1,4 +1,4 @@
-<?php
+<?php namespace es\fdi\ucm\aw\gamersDen;
 	require_once __DIR__.'/includes/config.php'; ## Rutas necesarias para establecer la bd, en este caso introducción de usuarios
 	require_once __DIR__.'/includes/usuariosbd.php'; ## Funciones referentes al usuariobd
 
@@ -9,9 +9,8 @@
     ## Código del formulario: https://www.php.net/manual/es/tutorial.forms.php
     ## Términos de la página: https://www.htmlquick.com/es/reference/tags/input-checkbox.html
 
-	echo
-	
-	'<div id="contenedor">	
+	echo <<<EOS
+	<div id="contenedor">	
 		<main>
 		<article>
 				<h1>Registro de usuario</h1>
@@ -33,6 +32,7 @@
 				</form>
 			</article>
 		</main>
-	</div>'
-	
-?>
+	</div>
+	EOS;
+
+require __DIR__.'/includes/vistas/comun/centro.php'; ## Require del doc centro.php que es donde pondremos la info

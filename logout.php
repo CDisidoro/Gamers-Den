@@ -1,9 +1,7 @@
-<!--Code Autor: David Cruza Sesmero-->
-
-<?php
+<?php namespace es\fdi\ucm\aw\gamersDen;
     // Requires necesarios, seguramente puedan variar --> Veo necesarios uno referente a usuarios a su vez config
 
-	//require_once __DIR__.'/'directorio'/usuarios.php';
+	require_once __DIR__.'/includes/usuarios.php';
 	//require_once __DIR__.'/'directorio'/config.php';
 
 	$usuario=$_SESSION['nombre']; // Asocio a la variable usuario el usuario que esta utilizando la sesion actual

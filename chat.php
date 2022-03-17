@@ -1,4 +1,4 @@
-<?php
+<?php namespace es\fdi\ucm\aw\gamersDen;
 session_start (); ## creamos una sesión o reanudamos la actual basada en un identificador de sesión
 function loginForm() {
   if ($_GET["loging"])  ## Si el usuario esta logueado devuelve el nombre del user
@@ -28,7 +28,7 @@ if (isset ($_GET ["logout"])) {
 <!DOCTYPE html>
 <html>
 <head> <!--Hay que incluir los estilos css de esto-->
-	<link id="css" rel="stylesheet" type="text/css" href="estilo.css"> 
+	<link id="css" rel="stylesheet" type="text/css" href="css/estilo.css"> 
 <title>Chat</title>
 <link rel="shortcut icon" type="/img" href="chat.jpg"/> <!--Introducimos el icono de chat o dejamos la cabecera establecida??-->
 </head>

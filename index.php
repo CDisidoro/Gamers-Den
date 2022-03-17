@@ -1,7 +1,8 @@
+<?php namespace es\fdi\ucm\aw\gamersDen;?>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="includes\layout\estilo.css" />
+<link rel="stylesheet" type="text/css" href="css/estilo.css"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Portada</title>
 </head>
@@ -11,10 +12,10 @@
 
 	<?php
 		session_start();
-		require ('includes/layout/cabecera.php');
-		require ('includes/layout/sidebar.php');
-		require('includes/layout/centro.php');
-		require ('includes/layout/pie.php');
+		require ('includes/vistas/comun/cabecera.php');
+		require ('includes/vistas/comun/sidebar.php');
+		require('includes/vistas/comun/centro.php');
+		require ('includes/vistas/comun/pie.php');
 	?>
 
 </div> <!-- Fin del contenedor -->
