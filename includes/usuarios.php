@@ -11,8 +11,8 @@ require_once __DIR__.'/usuariosbd.php'; ## Require de las funciones y clases de 
 	}
 
 	function checkLogin() { ## Checkeamos si el usuario esté logueado
-		$username = isset($_POST["email"]) ? $_POST["email"] : null;
-		$password = isset($_POST["password"]) ? $_POST["password"] : null;
+		$username = isset($_POST["Email"]) ? $_POST["Email"] : null;
+		$password = isset($_POST["Password"]) ? $_POST["Password"] : null;
 	  
 		$usuario = Usuario::login($username, $password);
 		## Si el usuario esta logeado y se encuentra en la BD lo vuelco en los atributos de la sesion
@@ -36,10 +36,9 @@ require_once __DIR__.'/usuariosbd.php'; ## Require de las funciones y clases de 
 
     function logout() {
 		# Establezco la funcion de logout para la salida del usuario
-		unset($_SESSION["login"]);
-		unset($_SESSION["Admin"]);
-		unset($_SESSION["nombre"]);
-		unset($_SESSION["idUsuario"]);
+		unset($_SESSION["Usuario"]);
+		unset($_SESSION["Password"]);
+		unset($_SESSION["Id"]);
 		
 		session_destroy();
 		session_start();

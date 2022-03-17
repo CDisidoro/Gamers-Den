@@ -96,7 +96,7 @@ class Usuario{ ## Establecemos la clase usuario
 
 	public static function altaNuevoUsuario(){
 		$email = htmlspecialchars(trim(strip_tags($_GET["email"])));
-		$username = htmlspecialchars(trim(strip_tags($_GET["username"])));
+		$username = htmlspecialchars(trim(strip_tags($_GET["Username"])));
 		$password1 = htmlspecialchars(trim(strip_tags($_GET["password1"])));
 		$password2 = htmlspecialchars(trim(strip_tags($_GET["password2"])));
         ## $logo = img src de imagen default --> RELLENAR e incluir imagen

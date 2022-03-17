@@ -9,7 +9,7 @@
     ## Código del formulario: https://www.php.net/manual/es/tutorial.forms.php
     ## Términos de la página: https://www.htmlquick.com/es/reference/tags/input-checkbox.html
 
-	echo <<<EOS
+	$contenidoPrincipal=<<<EOS
 	<div id="contenedor">	
 		<main>
 		<article>
@@ -35,4 +35,4 @@
 	</div>
 	EOS;
 
-require __DIR__.'/includes/vistas/comun/centro.php'; ## Require del doc centro.php que es donde pondremos la info
+require __DIR__.'/index.php'; ## Require del doc centro.php que es donde pondremos la info
