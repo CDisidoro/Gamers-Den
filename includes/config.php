@@ -45,7 +45,7 @@ function cierraConexion() {
   }
 
   ## Registrar una función para que sea ejecutada al cierre
-  register_shutdown_function('cierraConexion');
+  ##register_shutdown_function('cierraConexion');
 
   session_start();
 ?>

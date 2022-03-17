@@ -8,9 +8,9 @@
     </head>
 <body>
         <div id = "container"> 
-            <header><?php require ('includes/layout/cabecera.php');?></header>
+            <header><?php require ('includes/vistas/comun/cabecera.php');?></header>
             <div class = "clearfix"> </div>
-            <nav><?php require ('includes/layout/sidebar.php');?></nav>
+            <nav><?php require ('includes/vistas/comun/sidebar.php');?></nav>
             <div class = "clearfix"></div>
 			<section id = "content">	
 				<?php
@@ -53,7 +53,7 @@
 				} 
 				?>
 			</section>
-			<footer><?php require ('includes/layout/pie.php');?></footer>
+			<footer><?php require ('includes/vistas/comun/pie.php');?></footer>
 		</div>              	
 </body>
 </html>
