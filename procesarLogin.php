@@ -35,6 +35,7 @@
 				//  echo "<script>alert('Desconectando al usuario');</script>"; // Podemos establecer esto de manera rápida
 
 
+<<<<<<< HEAD
 				//----------------------- Sección de comprobación de login del usuario -------------------------
 				require('includes/config.php');
 				if (!estaLogin()) { // En caso de no estar logueado
@@ -59,3 +60,23 @@
 </html>
 	<!--// Esto deberá incluirse en el layout correspondiente  Muy parecido al ejercicio 2 (Footer, index, cabecera, siders)
 	//require __DIR__.'/includes/layout/centro.php'; // directorio debe definirse a lo mejor se llama patata-->
+=======
+    //----------------------- Sección de comprobación de login del usuario -------------------------
+
+	if (!estaLogin()) { // En caso de no estar logueado
+        // Obturación con <<< de strings multilinea
+        // De esta manera cojo lo que muestro a continuación y lo introduzco en la variable para que se muestre
+        
+            echo '<h1>Error</h1>';
+            echo '<p>El usuario o contraseña no son válidos.</p>';
+		// Delimitador EOS Final
+	} else { // En caso de estar logueado muestro el nombre del user correspondiente
+		//no nos funciona el eos
+			echo '<h1>Bienvenido a Gamers Den </h1>';
+			echo '<p>Adelante, profundiza en la experiencia Gamers Den.</p>';
+		 // Delimitador EOS Final
+	} 
+
+// Esto deberá incluirse en el layout correspondiente --> Muy parecido al ejercicio 2 (Footer, index, cabecera, siders)
+require __DIR__.'/includes/layout/centro.php'; // directorio debe definirse a lo mejor se llama patata
+>>>>>>> adab7649052296aa960ffb4ee1a79cfc88e479b9
