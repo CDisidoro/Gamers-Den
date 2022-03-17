@@ -1,28 +1,28 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-session_start (); ## creamos una sesión o reanudamos la actual basada en un identificador de sesión
-function loginForm() {
-  if ($_GET["loging"])  ## Si el usuario esta logueado devuelve el nombre del user
-  return $_SESSION['name'];
-}
-
-if (isset ($_POST ['enter'])) {
-	if (strlen($_POST ['name']) < 1) { ## Si no hay caracteres en el nombre se muestra un error
-		echo "<span class='error'>No se detecta un nombre válido</span>";
-	}
-	elseif (ctype_space($_POST ['name'])) { ## Chequear posibles caracteres de espacio en blanco
-		echo "<span class='error' id='error'>Please enter a name</span>";
-	}
-    else { ## Si el nombre contiene caracteres especiales lo bloqueamos
-        $_SESSION ["name"] = stripslashes (htmlspecialchars($_POST ["name"]));
-        echo "<span class='error' id='error'>Caracteres especiales detectados</span>";
+    session_start (); ## creamos una sesión o reanudamos la actual basada en un identificador de sesión
+    function loginForm() {
+        if ($_GET["loging"])  ## Si el usuario esta logueado devuelve el nombre del user
+            return $_SESSION['name'];
     }
- 
-}
 
-if (isset ($_GET ["logout"])) {
-    session_destroy ();
-    header ("Location: index.php"); ## Refreco la página y quito la sesion
-}
+    if (isset ($_POST ['enter'])) {
+        if (strlen($_POST ['name']) < 1) { ## Si no hay caracteres en el nombre se muestra un error
+            echo "<span class='error'>No se detecta un nombre válido</span>";
+        }
+        elseif (ctype_space($_POST ['name'])) { ## Chequear posibles caracteres de espacio en blanco
+            echo "<span class='error' id='error'>Please enter a name</span>";
+        }
+        else { ## Si el nombre contiene caracteres especiales lo bloqueamos
+            $_SESSION ["name"] = stripslashes (htmlspecialchars($_POST ["name"]));
+            echo "<span class='error' id='error'>Caracteres especiales detectados</span>";
+        }
+    
+    }
+
+    if (isset ($_GET ["logout"])) {
+        session_destroy ();
+        header ("Location: index.php"); ## Refreco la página y quito la sesion
+    }
 
 ?>
 <!DOCTYPE html>
