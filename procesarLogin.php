@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>  
-        <link rel="stylesheet" type="text/css" href="includes\layout\estiloperfil.css" />
+        <link rel="stylesheet" type="text/css" href="css\estiloperfil.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Mi perfil</title>
     </head>

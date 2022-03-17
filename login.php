@@ -2,15 +2,15 @@
 <!DOCTYPE html>
 <html>
     <head>  
-        <link rel="stylesheet" type="text/css" href="includes\layout\estiloperfil.css" />
+        <link rel="stylesheet" type="text/css" href="css\estiloperfil.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Mi perfil</title>
     </head>
     <body>
         <div id = "container"> 
-            <header><?php require ('includes/layout/cabecera.php');?></header>
+            <header><?php require ('includes/vistas/comun/cabecera.php');?></header>
             <div class = "clearfix"> </div>
-            <nav><?php require ('includes/layout/sidebar.php');?></nav>
+            <nav><?php require ('includes/vistas/comun/sidebar.php');?></nav>
             <div class = "clearfix"></div>
             <section id = "content">
 				<?php
@@ -23,8 +23,8 @@
 					$raizApp = RUTA_APP; // Definir la raiz de la app
 
 					// Capturamos mediante el parámetro <<< el contenido principal de la página en este caso un formulario de logueo y ponemos el delimitador EOS
-					/*$contenidoPrincipal= */echo
-					'<h1>Acceso a Gamers Deen</h1>
+					/*$contenidoPrincipal= */echo <<<EOS
+					<h1>Acceso a Gamers Den</h1>
 					
 					<form id="formLogin" action="procesarLogin.php" method="POST"> 
 						<fieldset>
@@ -33,14 +33,13 @@
 							<div><label>Password:</label> <input type="password" name="password" /></div>
 							<div><button type="submit">Entrar</button></div>
 						</fieldset>
-					</form>';
-					// Delimitador EOS final
-					
+					</form>
+					EOS;
 					// Volvemos a incluir el layout correspondiente al loggin
 					//require __DIR__.'/index.php';
 				?>
             </section>
-            <footer><?php require ('includes/layout/pie.php');?></footer>
+            <footer><?php require ('includes/vistas/comun/pie.php');?></footer>
         </div>              	
     </body>
 </html>
