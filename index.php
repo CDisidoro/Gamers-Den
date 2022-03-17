@@ -7,7 +7,7 @@
 		<title><?= $tituloPagina ?></title>
 	</head>
 	<body>
-		<div class ="contenedor">
+		<div id="contenedor">
 			<?php
 				require('includes/vistas/comun/cabecera.php');
 				require('includes/vistas/comun//sidebar.php');
@@ -19,4 +19,5 @@
 			</main>
 			<?php require('includes/vistas/comun//pie.php');?>
 		</div>
+	</body>
 </html>
