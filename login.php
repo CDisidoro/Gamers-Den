@@ -11,7 +11,7 @@
 
     // Capturamos mediante el parámetro <<< el contenido principal de la página en este caso un formulario de logueo y ponemos el delimitador EOS
 	/*$contenidoPrincipal= */echo
-	'<h1>Acceso a Gamers Deen</h1>
+	'<h1>Acceso a Gamers Den</h1>
 	
 	<form id="formLogin" action="procesarLogin.php" method="POST"> 
 		<fieldset>

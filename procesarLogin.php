@@ -33,8 +33,8 @@
 		// Delimitador EOS Final
 	} else { // En caso de estar logueado muestro el nombre del user correspondiente
 		//no nos funciona el eos
-			echo '<h1>Bienvenido a Gamers Deen </h1>';
-			echo '<p>Adelante, profundiza en la experiencia Gamers Deen.</p>';
+			echo '<h1>Bienvenido a Gamers Den </h1>';
+			echo '<p>Adelante, profundiza en la experiencia Gamers Den.</p>';
 		 // Delimitador EOS Final
 	} 
 

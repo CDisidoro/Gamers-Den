@@ -15,7 +15,7 @@
 	$contenidoPrincipal=<<<EOS
 		<main> // Captura de html que despide al usuario y muestra su nombre como uestro arriba
 			<article>
-				<h3>ESPERO QUE HAYAS DISFRUTADO DE LA EXPERIENCIA GAMERS DEEN!  </h3> {$usuario}
+				<h3>ESPERO QUE HAYAS DISFRUTADO DE LA EXPERIENCIA GAMERS DEN!  </h3> {$usuario}
 			</article>
 		</main>
 	EOS; // Fin del delimitador EOS
