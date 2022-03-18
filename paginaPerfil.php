@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </article>
-            <article id = "listadeamigos">
+            <article class = "listadeamigos">
                 <h2> Lista de amigos</h2>
                 <div class = "cajaflex">
                     <button type="submit" class = "inbox">Añadir Amigo</button>
