@@ -27,7 +27,7 @@
                         <p class = "nId">Id#{$id}</p>
                     </div>
                     <div class = "cajaflex">
-                        <button type="submit" class = "inbox">Inbox</button>
+                        <a href = "chat.php" class = "inbox" > Inbox</a>
                     </div>
                 </div>
             </article>
@@ -51,19 +51,19 @@
             <article class = "listadeamigos">
                 <h2> Lista de amigos</h2>
                 <div class = "cajaflex">
-                    <button type="submit" class = "inbox">Añadir Amigo</button>
+                    <a href = "notfound.php" class =  "inbox" > Añadir amigos</a>
                 </div>
                 <div class = "flexrow">
                     <div class = "amigolista">
-                        <img class = "avatar" src = "img/Logo.jpg">
+                        <img class = "avatarPerfilUsuario" src = "img/Logo.jpg">
                         <p class = "nombreamigo"> Nombre Amigo </p>
                     </div>
                     <div class = "amigolista">
-                        <img class = "avatar" src = "img/Logo.jpg">
+                        <img class = "avatarPerfilUsuario" src = "img/Logo.jpg">
                         <p class = "nombreamigo"> Nombre Amigo </p>
                     </div>
                     <div class = "amigolista">
-                        <img class = "avatar" src = "img/Logo.jpg">
+                        <img class = "avatarPerfilUsuario" src = "img/Logo.jpg">
                         <p class = "nombreamigo"> Nombre Amigo </p>                     
                     </div>
                 </div>
