@@ -1,6 +1,8 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
     $tituloPagina = "Mi perfil";
+    $username = $_SESSION['Usuario'];
+    $id = $_SESSION['id'];
     if(isset($_SESSION['login'])){
         $contenidoPrincipal=<<<EOS
         <section id = "content">
@@ -12,7 +14,7 @@
                     <div class = "cajagrid">
                         <div class = "flexcolumn">
                             <div class = "cajaflex">
-                                <p id = "nombreusuario">Nombre usuario</p>           
+                                <p id = "nombreusuario">{$username}</p>           
                             </div>
                             <div class = "cajaflex">
                                 <p id = "descripcion">Lorem ipsum</p>
@@ -22,7 +24,7 @@
                 </div> 
                 <div class = "flexcolumn">
                     <div class = "cajaflex">
-                        <p class = "nId">Id#594572045</p>
+                        <p class = "nId">Id#{$id}</p>
                     </div>
                     <div class = "cajaflex">
                         <button type="submit" class = "inbox">Inbox</button>

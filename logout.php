@@ -7,6 +7,7 @@
 	unset($_SESSION["login"]);
 	unset($_SESSION["Admin"]);
 	unset($_SESSION["Usuario"]);
+	unset($_SESSION["ID"]);
 	session_destroy();
 
 	$tituloPagina = 'Logout'; // Título de la página 
