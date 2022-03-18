@@ -7,7 +7,7 @@
 
 ## Esto puede ser más útil en registro que aquí
     if (isset ($_POST ['Usuario'])) {
-        if (strlen($_POST ['name']) < 1) { ## Si no hay caracteres en el nombre se muestra un error
+        if (strlen($_POST ['Usuario']) < 1) { ## Si no hay caracteres en el nombre se muestra un error
             echo "<span class='error'>No se detecta un nombre válido</span>";
         }
         elseif (ctype_space($_POST ['Usuario'])) { ## Chequear posibles caracteres de espacio en blanco
@@ -43,11 +43,11 @@
         ?>
 <div id="wrapper">
         <div id="menu">
-            <p>Hola, <b><?php echo $_SESSION['name']; ?></b></p> ## Se podría establecer una clase para eque se muestre este apartado
+            <p>Hola, <b><?php echo $_SESSION['Usuario']; ?></b></p>  <!--Se podría establecer una clase para eque se muestre este apartado<-->
             <p class="logout"><a id="exit" href="#">Salir del chat</a></p>
             <div style="clear: both"></div>
         </div>
-	## A continuación genero el chatbox y en rimer lugar lo que haremos será ver si hay una conversación previa (log.html) si la hay vierte el contenido en contents
+	<!--A continuación genero el chatbox y en rimer lugar lo que haremos será ver si hay una conversación previa (log.html) si la hay vierte el contenido en contents-->
         <div id="chatbox"><?php 
         if (file_exists ("log.html") && filesize ("log.html") > 0) {
             $handle = fopen ("log.html", "r");
