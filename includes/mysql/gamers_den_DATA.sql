@@ -1,4 +1,4 @@
-TRUNCATE TABLE 'usuarios';
+TRUNCATE TABLE `usuarios`;
 --
 -- Volcado de datos para la tabla `usuarios`
 --
