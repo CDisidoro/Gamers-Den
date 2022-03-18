@@ -19,4 +19,4 @@
 	EOS; // Fin del delimitador EOS
 	
     //Establezco la ruta seguramente necesaria para el layout
-	//require __DIR__.'/directorio/layout.php';
+	require __DIR__.'/includes/vistas/comun/plantilla.php';

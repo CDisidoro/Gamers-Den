@@ -3,7 +3,7 @@
     session_start();
     if(!isset($_SESSION['name']))
         $contenidoPrincipal=<<<EOS
-        <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>;
+        <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
         EOS;
     else{
 	    $contenidoPrincipal=<<<EOS
@@ -71,4 +71,4 @@
             </article>
         EOS;
     }
-require __DIR__.'/index.php';
+    require __DIR__.'/includes/vistas/comun/plantilla.php';

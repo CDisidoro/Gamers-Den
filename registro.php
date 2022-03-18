@@ -35,4 +35,4 @@
 	</div>
 	EOS;
 
-require __DIR__.'/index.php'; ## Require del doc centro.php que es donde pondremos la info
+	require __DIR__.'/includes/vistas/comun/plantilla.php'; ## Require del doc centro.php que es donde pondremos la info

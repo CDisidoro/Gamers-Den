@@ -21,4 +21,4 @@
 		</div>
 	EOS;
 	
-    require __DIR__.'/includes/vistas/comun/centro.php'; ## Donde introduzco las cosas
+    require __DIR__.'/includes/vistas/comun/plantilla.php'; ## Donde introduzco las cosas
