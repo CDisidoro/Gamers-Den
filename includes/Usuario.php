@@ -119,21 +119,6 @@
             return $resultado;
         }
 
-        /*private static function insertRoles($usuario){
-            $conector = Aplicacion::getInstance()->getConexionBd();
-            foreach($usuario->roles as $rol) {
-                $query = sprintf("INSERT INTO usuarios(Rol) VALUES (%d, %d)"
-                    , $rol
-                    , $usuario->id
-                );
-                if ( ! $conector->query($query) ) {
-                    error_log("Error BD ({$conector->errno}): {$conector->error}");
-                    return false;
-                }
-            }
-            return $usuario;
-        }*/
-
         private static function hash_password($password){
             return password_hash($password, PASSWORD_DEFAULT);
         }

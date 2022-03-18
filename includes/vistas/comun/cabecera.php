@@ -13,7 +13,7 @@
                                 echo "Usuario desconocido. <a href='login.php'>Login</a> <a href='registro.php'>Registro</a>";
                             }
                             else { //Usuario registrado
-                                echo "Bienvendido {$_SESSION['nombre']} (<a href='logout.php'>salir</a>) ";;
+                                echo "Bienvenido {$_SESSION['Usuario']} (<a href='logout.php'>salir</a>) ";;
                             }
                         }
                         MostrarSAludo();
