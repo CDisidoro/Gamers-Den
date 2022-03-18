@@ -1,38 +1,35 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-	$tituloPagina = 'Perfil';
-    session_start();
-    if(!isset($_SESSION['name']))
+	require('includes/config.php');
+    $tituloPagina = "Mi perfil";
+    if(isset($_SESSION['login'])){
         $contenidoPrincipal=<<<EOS
-        <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>;
-        EOS;
-    else{
-	    $contenidoPrincipal=<<<EOS
-        <article class = "avatarydatos">
-        <div class = "cajagrid">
-            <div class = "cajagrid">
-                <img src = "img/Logo.jpg" class = "avatarPerfilUsuario"> 
-            </div>
-            <div class = "cajagrid">
-                <div class = "flexcolumn">
-                    <div class = "cajaflex">
-                        <p class = "nombreusuario">Nombre usuario</p>           
+        <section id = "content">
+            <article id = "avatarydatos">
+                <div class = "cajagrid">
+                    <div class = "cajagrid">
+                        <img src = "img/Logo.jpg" class = "avatar"> 
                     </div>
-                    <div class = "cajaflex">
-                        <p class = "descripcion">Lorem ipsum</p>
+                    <div class = "cajagrid">
+                        <div class = "flexcolumn">
+                            <div class = "cajaflex">
+                                <p id = "nombreusuario">Nombre usuario</p>           
+                            </div>
+                            <div class = "cajaflex">
+                                <p id = "descripcion">Lorem ipsum</p>
+                            </div>
                         </div>
                     </div>
+                </div> 
+                <div class = "flexcolumn">
+                    <div class = "cajaflex">
+                        <p class = "nId">Id#594572045</p>
+                    </div>
+                    <div class = "cajaflex">
+                        <button type="submit" class = "inbox">Inbox</button>
+                    </div>
                 </div>
-            </div> 
-            <div class = "flexcolumn">
-                <div class = "cajaflex">
-                    <p class = "nId">Id#594572045</p>
-                </div>
-                <div class = "cajaflex">
-                    <button type="submit" class = "inbox">Inbox</button>
-                </div>
-            </div>
             </article>
-            <article class = "listadeseados">
+            <article id = "listadeseados">
                 <h2> Lista de deseos</h2>
                 <div class = "flexrow">
                     <div class = "juegolista">
@@ -69,6 +66,14 @@
                     </div>
                 </div>
             </article>
+        </section>
+        EOS;
+    }else{
+        $contenidoPrincipal = <<<EOS
+        <section id = "content">
+            <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
+        </section>
         EOS;
     }
-require __DIR__.'/index.php';
+	include 'includes/vistas/plantillas/plantilla.php';
+?>
