@@ -24,12 +24,12 @@ class FormularioLogin extends Formulario
             <legend>Usuario y contraseña</legend>
             <div>
                 <label for="text">Nombre de Usuario:</label>
-                <input id="Usuario" type="Usuario" name="Usuario" value="$Usuario"/>
+                <input id="Usuario" type="Usuario" name="Usuario" value="$Usuario" required/>
                 {$erroresCampos['Usuario']}
             </div>
             <div>
                 <label for="password">Password:</label>
-                <input id="password" type="password" name="password"/>
+                <input id="password" type="password" name="password" required/>
                 {$erroresCampos['password']}
             </div>
             <div>
@@ -64,7 +64,7 @@ class FormularioLogin extends Formulario
                 $_SESSION['login'] = true;
                 $_SESSION['Usuario'] = $Usuario;
                 $_SESSION['esAdmin'] = $usuario->hasRole(Usuario::ADMIN_ROLE);
-                $_SESSION['ID'] = $usuario->obtenerID($Usuario);
+                $_SESSION['id'] = $usuario->getId();
             }
         }
     }
