@@ -35,6 +35,8 @@
 </head>
 <body> <!--Creacion del html para el chat, ajustarlo a reglas css-->
     <?php
+    include 'includes/vistas/comun/cabecera.php';
+    include 'includes/vistas/comun/sidebar.php';
     if (! isset ($_SESSION ['Usuario'])) { ## Si no hay almacenado en el campo usuario un nombre por tanto nadie se ha logueado
         echo "<span class='error' id='error'>Usuario no logueado</span>";
         ## Le obligamos al user a loguearse antes de entrar al chat o lanzamos un logging si no esta logueado?? Consultar; de todas maneras es introducir aquí un formulario de logging
