@@ -53,6 +53,7 @@
                 $this->$errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.';
             }
             
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if ( ! $email || empty($email=trim($email)) || mb_strlen($email) < 5) {
                 $this->$errores['email'] = 'El email tiene que tener una longitud de al menos 5 caracteres.';
             }
