@@ -6,19 +6,19 @@
     $bio = $_SESSION['Bio'];
     if(isset($_SESSION['login'])){
         $contenidoPrincipal=<<<EOS
-        <section id = "content">
-            <article id = "avatarydatos">
+        <section class = "content">
+            <article class = "avatarydatos">
                 <div class = "cajagrid">
                     <div class = "cajagrid">
-                        <img src = "img/Logo.jpg" class = "avatar"> 
+                        <img src = "img/Logo.jpg" class = "avatarPerfilUsuario"> 
                     </div>
                     <div class = "cajagrid">
                         <div class = "flexcolumn">
                             <div class = "cajaflex">
-                                <p id = "nombreusuario">{$username}</p>           
+                                <p class = "nombreusuario">{$username}</p>           
                             </div>
                             <div class = "cajaflex">
-                                <p id = "descripcion">{$bio}</p>
+                                <p class = "descripcion">{$bio}</p>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </article>
-            <article id = "listadeseados">
+            <article class = "listadeseados">
                 <h2> Lista de deseos</h2>
                 <div class = "flexrow">
                     <div class = "juegolista">
@@ -73,7 +73,7 @@
         EOS;
     }else{
         $contenidoPrincipal = <<<EOS
-        <section id = "content">
+        <section class = "content">
             <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
         </section>
         EOS;
