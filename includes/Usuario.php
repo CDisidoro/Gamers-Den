@@ -8,16 +8,20 @@
         private $pass;
         private $email;
         private $roles;
+        private $avatar;
+        private $bio;
         public const ADMIN_ROLE = 1;
         public const ESCRITOR_ROLE = 2;
         public const USER_ROLE = 3;
         //Constructor y getters
-        private function __construct($username, $pass, $email, $id = null, $roles = []){
+        private function __construct($username, $pass, $email, $id = null, $roles = [], $avatar, $bio){
             $this->id = $id;
             $this->username = $username;
             $this->pass = $pass;
             $this->email = $email;
             $this->roles = $roles;
+            $this->avatar = $avatar;
+            $this->bio = $bio;
         }
 
         public function getId(){
@@ -36,8 +40,14 @@
             return $this->roles;
         }
 
+        public function getAvatar(){
+            return $this->avatar;
+        }
 
-
+        public function getBio(){
+            return $this->bio;
+        }
+        
         //Inicia sesion a los usuarios nuevos
         public static function login($nombreUsuario,$password){
             $user = self::buscarUsuario($nombreUsuario);
@@ -84,7 +94,7 @@
             $rs = $conector->query($query);
             if ($rs) {
                 $fila = $rs->fetch_assoc();
-                $user = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID']);
+                $user = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'],[], $fila['Avatar'], $fila['Biografia']);
                 $rs->free();
                 return $user;
             } else {
