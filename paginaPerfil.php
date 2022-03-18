@@ -2,7 +2,8 @@
 	require('includes/config.php');
     $tituloPagina = "Mi perfil";
     $username = $_SESSION['Usuario'];
-    $id = $_SESSION['id'];
+    $id = $_SESSION['ID'];
+    $bio = $_SESSION['Bio'];
     if(isset($_SESSION['login'])){
         $contenidoPrincipal=<<<EOS
         <section class = "content">
@@ -17,7 +18,7 @@
                                 <p class = "nombreusuario">{$username}</p>           
                             </div>
                             <div class = "cajaflex">
-                                <p class = "descripcion">Lorem ipsum</p>
+                                <p class = "descripcion">{$bio}</p>
                             </div>
                         </div>
                     </div>
