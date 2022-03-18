@@ -105,7 +105,7 @@
 
         //Agregar usuarios nuevos
         public static function crea($nombreUsuario,$email,$password,$rol){
-            $user = new Usuario($nombreUsuario, self::hash_password($password), $email);
+            $user = new Usuario($nombreUsuario, self::hash_password($password), $email, null, [], null, null);
             $user->addRole($rol);
             return $user->save();
         }
