@@ -20,22 +20,22 @@
                 <legend>Datos para el registro</legend>
                 <div>
                     <label for="nombreUsuario">Nombre de usuario:</label>
-                    <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" />
+                    <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" required/>
                     {$erroresCampos['nombreUsuario']}
                 </div>
                 <div>
                     <label for="email">Correo Electronico:</label>
-                    <input id="email" type="text" name="email" value="$email" />
+                    <input id="email" type="email" name="email" value="$email" required/>
                     {$erroresCampos['email']}
                 </div>
                 <div>
                     <label for="password">Password:</label>
-                    <input id="password" type="password" name="password" value="$password" />
+                    <input id="password" type="password" name="password" value="$password" required/>
                     {$erroresCampos['password']}
                 </div>
                 <div>
                     <label for="password2">Reintroduce el password:</label>
-                    <input id="password2" type="password" name="password2" value="$password2" />
+                    <input id="password2" type="password" name="password2" value="$password2" required/>
                     {$erroresCampos['password2']}
                 </div>
                 <div>

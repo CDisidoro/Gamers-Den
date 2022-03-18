@@ -24,12 +24,12 @@ class FormularioLogin extends Formulario
             <legend>Usuario y contraseña</legend>
             <div>
                 <label for="text">Nombre de Usuario:</label>
-                <input id="Usuario" type="Usuario" name="Usuario" value="$Usuario"/>
+                <input id="Usuario" type="Usuario" name="Usuario" value="$Usuario" required/>
                 {$erroresCampos['Usuario']}
             </div>
             <div>
                 <label for="password">Password:</label>
-                <input id="password" type="password" name="password"/>
+                <input id="password" type="password" name="password" required/>
                 {$erroresCampos['password']}
             </div>
             <div>
