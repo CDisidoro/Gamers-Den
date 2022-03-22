@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-03-2022 a las 11:46:10
+-- Tiempo de generación: 22-03-2022 a las 21:47:09
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `gamers_den`
 --
-
-CREATE DATABASE IF NOT EXISTS `gamers_den` DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -124,7 +122,7 @@ CREATE TABLE `tienda` (
 CREATE TABLE `usuarios` (
   `ID` int(11) NOT NULL,
   `Usuario` text NOT NULL,
-  `Password` varchar(40) NOT NULL COMMENT 'SHA',
+  `Password` varchar(255) NOT NULL COMMENT 'SHA',
   `Email` text NOT NULL,
   `Rol` text NOT NULL,
   `Avatar` int(11) DEFAULT 1,
@@ -231,7 +229,7 @@ ALTER TABLE `tienda`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
