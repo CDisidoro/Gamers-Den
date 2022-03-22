@@ -1,10 +1,10 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
     $tituloPagina = "Mi perfil";
-    $username = $_SESSION['Usuario'];
-    $id = $_SESSION['ID'];
-    $bio = $_SESSION['Bio'];
     if(isset($_SESSION['login'])){
+        $username = $_SESSION['Usuario'];
+        $id = $_SESSION['ID'];
+        $bio = $_SESSION['Bio'];
         $contenidoPrincipal=<<<EOS
         <section class = "content">
             <article class = "avatarydatos">

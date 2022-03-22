@@ -124,7 +124,7 @@ CREATE TABLE `tienda` (
 CREATE TABLE `usuarios` (
   `ID` int(11) NOT NULL,
   `Usuario` text NOT NULL,
-  `Password` varchar(40) NOT NULL COMMENT 'SHA',
+  `Password` varchar(255) NOT NULL COMMENT 'SHA',
   `Email` text NOT NULL,
   `Rol` text NOT NULL,
   `Avatar` int(11) DEFAULT 1,
