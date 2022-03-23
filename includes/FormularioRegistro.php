@@ -75,8 +75,8 @@
                     $_SESSION['login'] = true;
                     $_SESSION['Usuario'] = $nombreUsuario;
                     $_SESSION['esAdmin'] = false;
-                    $_SESSION['ID'] = $usuario->getId();
-                    $_SESSION['Bio'] = $usuario->getBio();
+                    //$_SESSION['ID'] = $user->getId();
+                    //$_SESSION['Bio'] = $user->getBio();
                 }
             }
         }
