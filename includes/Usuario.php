@@ -10,7 +10,7 @@
         private $roles;
         private $avatar;
         private $bio;
-        public $friendlist;
+        private $friendlist;
         public const ADMIN_ROLE = 1;
         public const ESCRITOR_ROLE = 2;
         public const USER_ROLE = 3;
@@ -47,6 +47,13 @@
 
         public function getBio(){
             return $this->bio;
+        }
+
+        public function getfriendlist(){
+            if ($this->friendlist == null) {
+                self::loadFriends($this);
+            }
+            return $this->friendlist;
         }
         
         //Inicia sesion a los usuarios nuevos
@@ -155,12 +162,6 @@
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }
             return false;
-        }
-        public function hasFriends(){
-            if ($this->friendlist == null) {
-                self::loadFriends($this);
-            }
-            return $this->friendlist;
         }
     }
 ?>
