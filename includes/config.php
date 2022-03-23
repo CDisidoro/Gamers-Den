@@ -1,6 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 
-require_once __DIR__.'/Aplicacion.php';
+//require_once __DIR__.'/Aplicacion.php';
 ## Aqui establezco las rutas necesarias para la app y distintos parámetros
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'gamers_den'); ## Se llama así nuestra bd principal??
@@ -17,8 +17,8 @@ setLocale(LC_ALL, 'es_ES.UTF.8');
 date_default_timezone_set('Europe/Madrid');
 
 spl_autoload_register(function ($class){
-  $prefix = 'es\ucm\fdi\aw\gamersDen';
-  $base_dir = __DIR__;
+  $prefix = 'es\\fdi\\ucm\\aw\\gamersDen';
+  $base_dir = __DIR__ . '/';
   $len = strlen($prefix);
 
   if(strncmp($prefix, $class, $len) !== 0){

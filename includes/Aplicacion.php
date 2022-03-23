@@ -1,5 +1,8 @@
-<?php namespace es\fdi\ucm\aw\gamersDen;
-    class Aplicacion{
+<?php 
+namespace es\fdi\ucm\aw\gamersDen;
+    
+class Aplicacion
+{
         private static $instancia;
         private $bdData;
         private $inicializado = false;

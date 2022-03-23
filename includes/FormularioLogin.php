@@ -1,6 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-require_once __DIR__.'/Formulario.php';
-require_once __DIR__.'/Usuario.php';
+//require_once __DIR__.'/Formulario.php';
+//require_once __DIR__.'/Usuario.php';
 
 class FormularioLogin extends Formulario
 {

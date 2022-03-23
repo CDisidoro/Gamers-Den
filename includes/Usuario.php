@@ -1,5 +1,5 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-    require('includes/config.php');
+    //require('includes/config.php');
     class Usuario{
 
         //Atributos
@@ -10,6 +10,7 @@
         private $roles;
         private $avatar;
         private $bio;
+        public $friendlist;
         public const ADMIN_ROLE = 1;
         public const ESCRITOR_ROLE = 2;
         public const USER_ROLE = 3;
@@ -135,6 +136,31 @@
 
         public function addRole($role){
             $this->roles[] = $role;
+        }
+        private static function loadFriends($usuario){
+            $friends = [];
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT LA.FK_usuarioB FROM lista_amigos LA WHERE LA.FK_usuarioA=%d", $usuario->id);
+            $rs = $conector->query($query);
+            if ($rs) {
+                $friends = $rs->fetch_all(MYSQLI_ASSOC);
+                $rs->free();
+                $usuario->friendlist = [];
+                foreach($friends as $friend) {
+                    $usuario->friendlist[] = $friend['friend'];
+                }
+                return $usuario;
+
+            } else {
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }
+            return false;
+        }
+        public function hasFriends(){
+            if ($this->friendlist == null) {
+                self::loadFriends($this);
+            }
+            return $this->friendlist;
         }
     }
 ?>
