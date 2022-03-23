@@ -50,30 +50,33 @@
             $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
             $nombreUsuario = filter_input(INPUT_POST, 'nombreUsuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if ( ! $nombreUsuario || empty($nombreUsuario=trim($nombreUsuario)) || mb_strlen($nombreUsuario) < 5) {
-                $this->$errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.';
+                $this->errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.';
             }
             
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if ( ! $email || empty($email=trim($email)) || mb_strlen($email) < 5) {
-                $this->$errores['email'] = 'El email tiene que tener una longitud de al menos 5 caracteres.';
+                $this->errores['email'] = 'El email tiene que tener una longitud de al menos 5 caracteres.';
             }
             
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if ( ! $password || empty($password=trim($password)) || mb_strlen($password) < 5 ) {
-                $this->$errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
+                $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
             }
             
             $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if ( ! $password2 || empty($password2=trim($password2)) || $password != $password2 ) {
-                $this->$errores['password2'] = 'Los passwords deben coincidir';
+                $this->errores['password2'] = 'Los passwords deben coincidir';
             }
             if (count($this->errores) === 0) {
                 $user = Usuario::crea($nombreUsuario,$email,$password, Usuario::USER_ROLE);
                 if(!$user){
-                    $this->$errores[] = "El usuario ya existe";
+                    $this->errores[] = "El usuario ya existe";
                 }else{
                     $_SESSION['login'] = true;
-                    $_SESSION['nombre'] = $nombreUsuario;
+                    $_SESSION['Usuario'] = $nombreUsuario;
+                    $_SESSION['esAdmin'] = false;
+                    $_SESSION['ID'] = $usuario->getId();
+                    $_SESSION['Bio'] = $usuario->getBio();
                 }
             }
         }

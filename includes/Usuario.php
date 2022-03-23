@@ -137,6 +137,8 @@
             );
             if (!$conector->query($query) ){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
             }
             return $resultado;
         }
