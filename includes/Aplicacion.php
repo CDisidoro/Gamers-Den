@@ -25,7 +25,7 @@ class Aplicacion
         }
         public function shutdown(){
             $this->checkStarted();
-            if($this->conector == null && ! $this->conector->connect_errno){
+            if($this->conector != null){
                 $this->conector->close();
             }
         }

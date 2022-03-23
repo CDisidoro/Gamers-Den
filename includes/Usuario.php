@@ -102,9 +102,13 @@
             $rs = $conector->query($query);
             if ($rs) {
                 $fila = $rs->fetch_assoc();
-                $user = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'],[], $fila['Avatar'], $fila['Biografia']);
+                if($fila){
+                    $user = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'],[], $fila['Avatar'], $fila['Biografia']);
+                    $rs->free();
+                    return $user;
+                }
                 $rs->free();
-                return $user;
+                return false;
             } else {
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }
