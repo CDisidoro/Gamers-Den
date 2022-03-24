@@ -158,11 +158,12 @@
             $usuario->friendlist = [];
             if ($rs->num_rows > 0) {
                 while($row = $rs->fetch_assoc()) {
-                    $avatarnum = self::getListAvatar($row['usuarioB']);
-                    if ($avatarnum == -1)
+
+                    $info = self::getListAvatar($row['usuarioB']);
+                    if ($info == -1)
                         return null;
-                    $usuario->friendlist[0][] = $row['usuarioB'];
-                    $usuario->friendlist[1][] = $avatarnum;
+                    $usuario->friendlist[0][] = $info[0];
+                    $usuario->friendlist[1][] = $info[1];
                 }
                 $rs->free();
                 return $usuario;
@@ -175,17 +176,20 @@
 
         private function getListAvatar($nombreAmigo){
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT U.Avatar FROM usuarios U WHERE U.ID LIKE $nombreAmigo");
+            $query = sprintf("SELECT *FROM usuarios U WHERE U.ID LIKE $nombreAmigo");
             $rs = $conector->query($query);
+            $result = [];
             if ($rs->num_rows == 1) {
                 $numavatar = $rs->fetch_assoc();
-                $resultavatar = $numavatar['Avatar'];
+                $result[0] = $numavatar['Usuario'];
+                $result[1] = $numavatar['Avatar'];
                 $rs->free();
-                return $resultavatar;
+                return $result;
             } else {
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }
-            return -1;
+            $result[0] = -1;
+            return $result;
         }
     }
 ?>

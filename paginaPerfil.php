@@ -7,8 +7,7 @@
         $bio = $_SESSION['Bio'];
         $usuario = Usuario::buscarUsuario($username);
         $solution = $usuario->getfriendlist();
-        print $solution[0][0];
-        print $solution[1][0];
+        $length = sizeof($solution[0]);
         $contenidoPrincipal=<<<EOS
         <section class = "content">
             <article class = "avatarydatos">
