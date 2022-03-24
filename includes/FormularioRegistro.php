@@ -68,15 +68,16 @@
                 $this->errores['password2'] = 'Los passwords deben coincidir';
             }
             if (count($this->errores) === 0) {
-                $user = Usuario::crea($nombreUsuario,$email,$password, Usuario::USER_ROLE);
+                $user = Usuario::crea($nombreUsuario,$email,$password, Usuario::USER_ROLE); //Procesa el alta del usuario nuevo
                 if(!$user){
                     $this->errores[] = "El usuario ya existe";
                 }else{
+                    $user = Usuario::login($nombreUsuario,$password); //Actualiza el objeto usuario para que logee con el usuario recien creado y tenga el id, bio y roles
                     $_SESSION['login'] = true;
                     $_SESSION['Usuario'] = $nombreUsuario;
-                    $_SESSION['esAdmin'] = false;
-                    //$_SESSION['ID'] = $user->getId();
-                    //$_SESSION['Bio'] = $user->getBio();
+                    $_SESSION['esAdmin'] = $user->hasRole(Usuario::ADMIN_ROLE);
+                    $_SESSION['ID'] = $user->getId();
+                    $_SESSION['Bio'] = $user->getBio();
                 }
             }
         }
