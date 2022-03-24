@@ -66,6 +66,7 @@ class FormularioLogin extends Formulario
                 $_SESSION['esAdmin'] = $usuario->hasRole(Usuario::ADMIN_ROLE);
                 $_SESSION['ID'] = $usuario->getId();
                 $_SESSION['Bio'] = $usuario->getBio();
+                
             }
         }
     }

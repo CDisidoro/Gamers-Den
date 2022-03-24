@@ -150,24 +150,42 @@
         public function addRole($role){
             $this->roles[] = $role;
         }
-        private static function loadFriends($usuario){
+        private function loadFriends($usuario){
             $friends = [];
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT LA.FK_usuarioB FROM lista_amigos LA WHERE LA.FK_usuarioA=%d", $usuario->id);
+            $query = sprintf("SELECT LA.usuarioB FROM lista_amigos LA WHERE LA.usuarioA LIKE $usuario->id");
             $rs = $conector->query($query);
-            if ($rs) {
-                $friends = $rs->fetch_all(MYSQLI_ASSOC);
-                $rs->free();
-                $usuario->friendlist = [];
-                foreach($friends as $friend) {
-                    $usuario->friendlist[] = $friend['friend'];
+            $usuario->friendlist = [];
+            if ($rs->num_rows > 0) {
+                while($row = $rs->fetch_assoc()) {
+                    $avatarnum = self::getListAvatar($row['usuarioB']);
+                    if ($avatarnum == -1)
+                        return null;
+                    $usuario->friendlist[0][] = $row['usuarioB'];
+                    $usuario->friendlist[1][] = $avatarnum;
                 }
+                $rs->free();
                 return $usuario;
 
             } else {
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }
             return false;
+        }
+
+        private function getListAvatar($nombreAmigo){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT U.Avatar FROM usuarios U WHERE U.ID LIKE $nombreAmigo");
+            $rs = $conector->query($query);
+            if ($rs->num_rows == 1) {
+                $numavatar = $rs->fetch_assoc();
+                $resultavatar = $numavatar['Avatar'];
+                $rs->free();
+                return $resultavatar;
+            } else {
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }
+            return -1;
         }
     }
 ?>
