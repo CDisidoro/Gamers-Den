@@ -1,4 +1,5 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
+	require('includes/config.php');
 	$tituloPagina = 'ERROR PAGE NOT FOUND';
 
 	$contenidoPrincipal=<<<EOS
