@@ -5,12 +5,8 @@
     $formulario = new FormularioAmigos();
     $formHTML = $formulario->gestiona();
     $contenidoPrincipal = <<<EOS
-        <section class = "content>
-            <article>
-                <h1>Añadir amigos</h1>
-                $formHTML
-            </article>
-        </section>
+        <h1>Añadir amigos</h1>
+        $formHTML
     EOS;
 
     include 'includes/vistas/plantillas/plantilla.php';

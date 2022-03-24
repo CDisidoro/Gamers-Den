@@ -117,6 +117,26 @@ footer {
 
 
 
+/* ESTILOS FORMULARIO AMIGOS 
+
+.fieldsetAmigos{
+	padding: 10px;
+}
+
+.contenedorForm{
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	flex-direction: row;
+	vertical-align: middle;
+	justify-content:center;
+}
+
+/* FIN ESTILOS FORMULARIO AMIGOS */
+
+
+
+
 /* ESTILOS CABECERA */
 
 .imagenprincipalCabecera{

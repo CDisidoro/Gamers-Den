@@ -4,7 +4,7 @@
 class FormularioAmigos extends Formulario
 {
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'perfil.php']);
+        parent::__construct('formAmigos', ['urlRedireccion' => 'perfil.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -19,18 +19,16 @@ class FormularioAmigos extends Formulario
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <section class = "content">
-            <fieldset>
-                <legend>Añadir amigos</legend>
-                <div>
-                    <label for="text">ID de Usuario:</label>
-                    <input id="IDUsuario" type="IDUsuario" name="IDUsuario" value="$IDUsuario" required/>
-                </div>
-                <div>
-                    <button type="submit" name="submit">Añadir</button>
-                </div>
-            </fieldset>
-        </section>
+        <fieldset>
+            <legend>Añadir amigos</legend>
+            <div>
+                <label for="IDUsuario">ID de Usuario:</label>
+                <input id="IDUsuario" type="text" name="IDUsuario" value="$IDUsuario" required/>
+            </div>
+            <div>
+                <button type="submit" name="añadir"> Añadir </button>
+            </div>          
+        </fieldset>       
         EOF;
         return $html;
     }
@@ -46,6 +44,7 @@ class FormularioAmigos extends Formulario
             } 
             else{
                 $user = Usuario::addFriends($user, $_SESSION['ID']);
+                echo "<p> Se ha añadido correctamente a $Usuario->Usuario</p>";
             }
         }
     }
