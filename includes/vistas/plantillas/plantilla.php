@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="css/estiloperfil.css"/>
     </head>
     <body>
-        <div id="container">
+        <div class ="contenedor">
             <?php
             require('includes/vistas/comun/cabecera.php');
             require('includes/vistas/comun/sidebar.php');

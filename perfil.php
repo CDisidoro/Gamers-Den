@@ -6,14 +6,13 @@
         $id = $_SESSION['ID'];
         $bio = $_SESSION['Bio'];
         $usuario = Usuario::buscarUsuario($username);
-        $amigos = $usuario->getfriendlist();
+        $solution = $usuario->getfriendlist();
         //la variable amigos tiene amigos[0][] que es el array de los nombres de los amigos del usuario y amigos[1][] donde
         //se encuentran los respectivos avatares de los distintos amigos, estos se identifican como numeros dde tal forma
         //para tener la imagen haremos "Avatar"+tostring(amigos[1][i])+".jpg"
-        $length = sizeof($amigos[0]);
-        $index = 0;
+        $length = sizeof($solution[0]);
+        //print($solution);
         $contenidoPrincipal=<<<EOS
-        <div class = "contenedor">
             <section class = "content">
                 <article class = "avatarydatos">
                     <div class = "cajagrid">
@@ -60,7 +59,7 @@
                 <article class = "listadeamigos">
                     <h2> Lista de amigos</h2>
                     <div class = "cajaflex">
-                        <a href = "notfound.php" class =  "inbox" > Añadir amigos</a>
+                        <a href = "añadirAmigo.php" class = "inbox" > Añadir amigos</a>
                     </div>
                     <div class = "flexrow">
                         <div class = "amigolista">
@@ -78,15 +77,12 @@
                     </div>
                 </article>
             </section>
-        </div>
         EOS;
     }else{
         $contenidoPrincipal = <<<EOS
-        <div class = "contenedor">
             <section class = "content">
                 <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
             </section>
-        </div>
         EOS;
     }
 	include 'includes/vistas/plantillas/plantilla.php';
