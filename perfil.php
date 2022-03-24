@@ -6,11 +6,10 @@
         $id = $_SESSION['ID'];
         $bio = $_SESSION['Bio'];
         $usuario = Usuario::buscarUsuario($username);
-        $solution = $usuario->getfriendlist();
+        /*$solution = $usuario->getfriendlist();
         $length = sizeof($solution[0]);
-        print($solution);
+        print($solution);*/
         $contenidoPrincipal=<<<EOS
-        <div class = "contenedor">
             <section class = "content">
                 <article class = "avatarydatos">
                     <div class = "cajagrid">
@@ -57,7 +56,7 @@
                 <article class = "listadeamigos">
                     <h2> Lista de amigos</h2>
                     <div class = "cajaflex">
-                        <a href = "notfound.php" class =  "inbox" > Añadir amigos</a>
+                        <a href = "añadirAmigo.php" class = "inbox" > Añadir amigos</a>
                     </div>
                     <div class = "flexrow">
                         <div class = "amigolista">
@@ -75,15 +74,12 @@
                     </div>
                 </article>
             </section>
-        </div>
         EOS;
     }else{
         $contenidoPrincipal = <<<EOS
-        <div class = "contenedor">
             <section class = "content">
                 <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
             </section>
-        </div>
         EOS;
     }
 	include 'includes/vistas/plantillas/plantilla.php';

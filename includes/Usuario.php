@@ -115,6 +115,23 @@
             return false;
         }
 
+        public static function buscaPorId($idUsuario) {
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM Usuarios WHERE id=%d", $idUsuario);
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {
+                $fila = $rs->fetch_assoc();
+                if ($fila) {
+                    $result = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'],[], $fila['Avatar'], $fila['Biografia']);
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
         //Agregar usuarios nuevos
         public static function crea($nombreUsuario,$email,$password,$rol){
             $user = new Usuario($nombreUsuario, self::hash_password($password), $email, null, [], null, null);
@@ -150,6 +167,21 @@
         public function addRole($role){
             $this->roles[] = $role;
         }
+
+        public static function addFriends($usuario, $IdAmigo){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("INSERT INTO lista_amigos(usuarioA, usuarioB) VALUES ('%s', '%s')"
+                , $conector->real_escape_string($usuario->id)
+                , $conector->real_escape_string($IdAmigo)
+            );
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
+            }
+            return $resultado;
+        }
+
         private function loadFriends($usuario){
             $friends = [];
             $conector = Aplicacion::getInstance()->getConexionBd();
