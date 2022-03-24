@@ -2,12 +2,14 @@
 	require('includes/config.php');
 	$tituloPagina = 'Gamers Den';
 	$contenidoPrincipal = <<<EOS
-		<main>
-		<article>
-			<h1>Página principal</h1>
-			<p> Aquí está el contenido público, visible para todos los usuarios. </p>
-		</article>
-		</main>
+		<div class = "contenedor">
+			<section class = "content">
+				<article>
+					<h1>Página principal</h1>
+					<p> Aquí está el contenido público, visible para todos los usuarios. </p>
+				</article>
+			</section>
+		</div>
 	EOS;
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>
