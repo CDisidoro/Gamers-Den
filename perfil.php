@@ -6,9 +6,12 @@
         $id = $_SESSION['ID'];
         $bio = $_SESSION['Bio'];
         $usuario = Usuario::buscarUsuario($username);
-        /*$solution = $usuario->getfriendlist();
+        $solution = $usuario->getfriendlist();
+        //la variable amigos tiene amigos[0][] que es el array de los nombres de los amigos del usuario y amigos[1][] donde
+        //se encuentran los respectivos avatares de los distintos amigos, estos se identifican como numeros dde tal forma
+        //para tener la imagen haremos "Avatar"+tostring(amigos[1][i])+".jpg"
         $length = sizeof($solution[0]);
-        print($solution);*/
+        //print($solution);
         $contenidoPrincipal=<<<EOS
             <section class = "content">
                 <article class = "avatarydatos">
