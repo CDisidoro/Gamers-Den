@@ -17,7 +17,9 @@
             $_SESSION ["Usuario"] = stripslashes (htmlspecialchars($_POST ["name"]));
             echo "<span class='error' id='error'>Caracteres especiales detectados</span>";
         }
-    
+        $usuario = Usuario::buscarUsuario($username);
+        $solution = $usuario->getfriendlist();
+        $length = sizeof($solution[0]);
     }
 
     if (isset ($_GET ["logout"])) {
@@ -43,7 +45,7 @@
         ##loginForm ();
     } else { ## En caso contrario  mostramos el "formulario" del log
         ?>
-<div id="wrapper">
+    <div id="wrapper">
         <div id="menu">
             <p>Hola, <b><?php echo $_SESSION['Usuario']; ?></b></p>  <!--Se podría establecer una clase para eque se muestre este apartado<-->
             <p class="logout"><a id="exit" href="#">Salir del chat</a></p>

@@ -13,7 +13,7 @@
 
                     <li>
                         <div class = "cajaperfilNav">
-                            <a href = "paginaPerfil.php"> Perfil</a>
+                            <a href = "perfil.php"> Perfil</a>
                         </div>
                     </li>
 
