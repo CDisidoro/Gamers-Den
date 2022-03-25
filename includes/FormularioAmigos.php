@@ -39,9 +39,16 @@ class FormularioAmigos extends Formulario
         $Usuario = filter_var($Usuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (count($this->errores) === 0) {
             $user = Usuario::buscaPorId($Usuario);
+
             if (!$user) {
                 $this->errores[] = "No se ha encontrado al usuario";
             } 
+            else if($user->getId() == $_SESSION['ID']){
+                $this->errores[] = "No te puedes agregar a ti mismo";
+            }
+            else if($user->alreadyFriends($user, $_SESSION['ID'])){
+                $this->errores[] = "Ya eres amigo de ese usuario";
+            }
             else{
                 $user = Usuario::addFriends($user, $_SESSION['ID']);
                 echo "<p> Se ha añadido correctamente a $Usuario->Usuario</p>";

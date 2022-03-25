@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title><?= $tituloPagina ?></title>
-        <link rel="stylesheet" type="text/css" href="css/estiloperfil.css"/>
+        <link rel="stylesheet" type="text/css" href="css/estilo.css"/>
     </head>
     <body>
         <div class ="contenedor">

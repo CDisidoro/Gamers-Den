@@ -170,9 +170,11 @@
 
         public static function addFriends($usuario, $IdAmigo){
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("INSERT INTO lista_amigos(usuarioA, usuarioB) VALUES ('%s', '%s')"
+            $query = sprintf("INSERT INTO lista_amigos(usuarioA, usuarioB) VALUES ('%s', '%s'), ('%s', '%s')"
                 , $conector->real_escape_string($usuario->id)
                 , $conector->real_escape_string($IdAmigo)
+                , $conector->real_escape_string($IdAmigo)
+                , $conector->real_escape_string($usuario->id)
             );
             if (!$conector->query($query) ){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
@@ -180,6 +182,24 @@
                 $resultado = true;
             }
             return $resultado;
+        }
+
+        public function alreadyFriends($user, $Idfriend){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT usuarioB FROM lista_amigos WHERE usuarioA = $user->id");
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    if ($fila['usuarioB'] == $Idfriend) {
+                        $result = true;
+                    }
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
         }
 
         private function loadFriends($usuario){
