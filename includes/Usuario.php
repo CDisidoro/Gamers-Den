@@ -184,6 +184,22 @@
             return $resultado;
         }
 
+        public function getFriends(){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT usuarioB FROM lista_amigos WHERE usuarioA = $this->id");
+            $rs = $conn->query($query);
+            $result = [];
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    $result[] = $fila['usuarioB'];
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
         public function alreadyFriends($user, $Idfriend){
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT usuarioB FROM lista_amigos WHERE usuarioA = $user->id");

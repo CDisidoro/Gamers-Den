@@ -3,21 +3,58 @@
     $tituloPagina = "Mi perfil";
     if(isset($_SESSION['login'])){
         $username = $_SESSION['Usuario'];
-        $id = $_SESSION['ID'];
-        $bio = $_SESSION['Bio'];
+        $id = $_SESSION['ID'];    
         $usuario = Usuario::buscarUsuario($username);
+        $bio = $usuario->getBio();
         $solution = $usuario->getfriendlist();
         //la variable amigos tiene amigos[0][] que es el array de los nombres de los amigos del usuario y amigos[1][] donde
         //se encuentran los respectivos avatares de los distintos amigos, estos se identifican como numeros dde tal forma
         //para tener la imagen haremos "Avatar"+tostring(amigos[1][i])+".jpg"
-        $length = sizeof($solution[0]);
-        //print($solution);
+        //$length = sizeof($solution[0]);
+
+        function generaAmigos($usuario){
+            $htmlAmigos = '';
+      
+            $amigos = $usuario->getFriends();
+            foreach($amigos as $amigo){
+                $user = Usuario::buscaPorId($amigo);
+                $srcAvatar = 'img/avatar';
+                $srcAvatar .= $user->getAvatar();
+                $srcAvatar .= '.jpg';
+
+                $htmlAmigos .= '<div class = "amigolista">';
+                $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
+                $htmlAmigos .= $srcAvatar;
+                $htmlAmigos .= '">';
+                $htmlAmigos .= '<p class = "nombreamigo">';
+                $htmlAmigos .= $user->getUsername();
+                $htmlAmigos .= '</p>';
+                $htmlAmigos .= '</div>';
+            }        
+            return $htmlAmigos;
+        }
+
+        function generaAvatar($usuario){
+            $srcAvatar = 'img/avatar';
+            $srcAvatar .= $usuario->getAvatar();
+            $srcAvatar .= '.jpg';
+    
+            $htmlAvatar = '';
+            $htmlAvatar .= '<img class = "avatarPerfilUsuario" src = "';
+            $htmlAvatar .= $srcAvatar;
+            $htmlAvatar .= '" class = "avatarPerfilUsuario" >';
+            return $htmlAvatar;
+        }
+
+        $htmlAvatar = generaAvatar($usuario);
+        $htmlAmigos = generaAmigos($usuario);
+
         $contenidoPrincipal=<<<EOS
             <section class = "content">
                 <article class = "avatarydatos">
                     <div class = "cajagrid">
                         <div class = "cajagrid">
-                            <img src = "img/Logo.jpg" class = "avatarPerfilUsuario"> 
+                            {$htmlAvatar}
                         </div>
                         <div class = "cajagrid">
                             <div class = "flexcolumn">
@@ -62,18 +99,7 @@
                         <a href = "añadirAmigo.php" class = "inbox" > Añadir amigos</a>
                     </div>
                     <div class = "flexrow">
-                        <div class = "amigolista">
-                            <img class = "avatarPerfilUsuario" src = "img/Logo.jpg">
-                            <p class = "nombreamigo"> Nombre Amigo </p>
-                        </div>
-                        <div class = "amigolista">
-                            <img class = "avatarPerfilUsuario" src = "img/Logo.jpg">
-                            <p class = "nombreamigo"> Nombre Amigo </p>
-                        </div>
-                        <div class = "amigolista">
-                            <img class = "avatarPerfilUsuario" src = "img/Logo.jpg">
-                            <p class = "nombreamigo"> Nombre Amigo </p>                     
-                        </div>
+                        {$htmlAmigos}                       
                     </div>
                 </article>
             </section>
