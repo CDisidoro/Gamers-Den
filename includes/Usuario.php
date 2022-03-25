@@ -117,7 +117,7 @@
 
         public static function buscaPorId($idUsuario) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM Usuarios WHERE id=%d", $idUsuario);
+            $query = sprintf("SELECT * FROM usuarios WHERE id=%d", $idUsuario);
             $rs = $conn->query($query);
             $result = false;
             if ($rs) {
