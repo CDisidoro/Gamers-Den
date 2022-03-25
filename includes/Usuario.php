@@ -152,10 +152,14 @@
                 , $conector->real_escape_string($usuario->pass)
                 , $conector->real_escape_string('3')
             );
-            if (!$conector->query($query) ){
-                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            if(!self::buscarUsuario($conector->real_escape_string($usuario->username))){
+                if (!$conector->query($query) ){
+                    error_log("Error BD ({$conector->errno}): {$conector->error}");
+                }else{
+                    $resultado = true;
+                }
             }else{
-                $resultado = true;
+                $resultado = false;
             }
             return $resultado;
         }
