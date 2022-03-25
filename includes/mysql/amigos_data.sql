@@ -26,8 +26,10 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `lista_amigos` (`usuarioA`, `usuarioB`) VALUES
-('admin', 'escritor'),
-('admin', 'usuario');
+(1, 2),
+(1, 3),
+(2, 1),
+(3, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
