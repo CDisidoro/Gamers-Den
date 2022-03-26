@@ -6,7 +6,6 @@
         $id = $_SESSION['ID'];    
         $usuario = Usuario::buscarUsuario($username);
         $bio = $usuario->getBio();
-        $solution = $usuario->getfriendlist();
         //la variable amigos tiene amigos[0][] que es el array de los nombres de los amigos del usuario y amigos[1][] donde
         //se encuentran los respectivos avatares de los distintos amigos, estos se identifican como numeros dde tal forma
         //para tener la imagen haremos "Avatar"+tostring(amigos[1][i])+".jpg"
@@ -14,12 +13,11 @@
 
         function generaAmigos($usuario){
             $htmlAmigos = '';
-      
-            $amigos = $usuario->getFriends();
-            foreach($amigos as $amigo){
-                $user = Usuario::buscaPorId($amigo);
+            $amigos = $usuario->getfriendlist();
+            $index = 0;
+            while($index < sizeof($amigos[1])){
                 $srcAvatar = 'img/avatar';
-                $srcAvatar .= $user->getAvatar();
+                $srcAvatar .= $amigos[1][$index];
                 $srcAvatar .= '.jpg';
 
                 $htmlAmigos .= '<div class = "amigolista">';
@@ -27,9 +25,10 @@
                 $htmlAmigos .= $srcAvatar;
                 $htmlAmigos .= '">';
                 $htmlAmigos .= '<p class = "nombreamigo">';
-                $htmlAmigos .= $user->getUsername();
+                $htmlAmigos .= $amigos[0][$index];
                 $htmlAmigos .= '</p>';
                 $htmlAmigos .= '</div>';
+                $index++;
             }        
             return $htmlAmigos;
         }

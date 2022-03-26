@@ -50,9 +50,7 @@
         }
 
         public function getfriendlist(){
-            if ($this->friendlist == null) {
-                self::loadFriends($this);
-            }
+            self::loadFriends($this);
             return $this->friendlist;
         }
         
@@ -228,7 +226,7 @@
             $query = sprintf("SELECT LA.usuarioB FROM lista_amigos LA WHERE LA.usuarioA LIKE $usuario->id");
             $rs = $conector->query($query);
             $usuario->friendlist = [];
-            if ($rs->num_rows > 0) {
+            if ($rs) {
                 while($row = $rs->fetch_assoc()) {
 
                     $info = self::getListAvatar($row['usuarioB']);
