@@ -261,5 +261,24 @@
             $result[0] = -1;
             return $result;
         }
+
+        public function getMessages($nombreAmigo){
+            `Remitente` int(11) NOT NULL,
+            `Destinatario` int(11) NOT NULL
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM mensajes M WHERE (M.Remitente = $this->id AND M.Destinatario LIKE $nombreAmigo) OR (M.Remitente LIKE $nombreAmigo AND M.Destinatario=$this->id)");
+            $rs = $conn->query($query);
+            $result = [];
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    $result[0][] = $fila['Contenido'];
+                    $result[1][] = $fila['Remitente'];
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
     }
 ?>

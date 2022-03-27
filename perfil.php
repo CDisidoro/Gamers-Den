@@ -41,7 +41,7 @@
             $htmlAvatar = '';
             $htmlAvatar .= '<img class = "avatarPerfilUsuario" src = "';
             $htmlAvatar .= $srcAvatar;
-            $htmlAvatar .= '" class = "avatarPerfilUsuario" >';
+            $htmlAvatar .= '">';
             return $htmlAvatar;
         }
 
