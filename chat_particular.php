@@ -4,11 +4,12 @@
     if(isset($_SESSION['login'])){
         $username = $_SESSION['Usuario'];
         $id = $_SESSION['ID'];
-        $usuario = Usuario::buscarUsuario($username);    
+        $usuario = Usuario::buscarUsuario($username);
+        $amigo = $usuario->buscaPorId($_GET['idAmigo']);    
 
-        function generaAvatar($usuario){
+        function generaAvatar($amigo){
             $srcAvatar = 'img/avatar';
-            $srcAvatar .= $usuario->getAvatar();
+            $srcAvatar .= $amigo->getAvatar();
             $srcAvatar .= '.jpg';
     
             $htmlAvatar = '';
@@ -41,7 +42,7 @@
             return $htmlMensaje;
         }
         
-        $htmlAvatar = generaAvatar($usuario);
+        $htmlAvatar = generaAvatar($amigo);
         $htmlChat = generaChat($usuario);
 
         $contenidoPrincipal=<<<EOS
@@ -54,7 +55,7 @@
                         <div class = "cajagrid">
                             <div class = "flexcolumn">
                                 <div class = "cajaflex">
-                                    <p class = "nombreusuario">{$username}</p>           
+                                    <p class = "nombreusuario">{$amigo->getUsername()}</p>           
                                 </div>
                             </div>
                         </div>
