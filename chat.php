@@ -8,22 +8,24 @@
 
         function generaAmigos($usuario){
             $htmlAmigos = '';
-            $amigos = $usuario->getfriendlist();
+            $amigos = $usuario->getFriends();
+
             $index = 0;
-            while($index < sizeof($amigos[1])){
+            foreach($amigos as $amigo){
+                $usuarioAmigo = $usuario->buscaPorId($amigo);
                 $srcAvatar = 'img/avatar';
-                $srcAvatar .= $amigos[1][$index];
+                $srcAvatar .= $usuarioAmigo->getAvatar();
                 $srcAvatar .= '.jpg';
 
                 $htmlAmigos .= '<div class = "amigolista">';
                 $htmlAmigos .= '<a href ="chat_particular.php?idAmigo=';
-                $htmlAmigos .= $amigos[0][$index];
+                $htmlAmigos .= $usuarioAmigo->getId();
                 $htmlAmigos .= '"> ';
                 $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
                 $htmlAmigos .= $srcAvatar;
                 $htmlAmigos .= '">';
-                $htmlAmigos .= '<p class = "nombreamigo" href="chat_particular.php?idAmigo=$amigos[0][$index]">';
-                $htmlAmigos .= $amigos[0][$index];
+                $htmlAmigos .= '<p class = "nombreamigo">';
+                $htmlAmigos .= $usuarioAmigo->getUsername();
                 $htmlAmigos .= '</p>';
                 $htmlAmigos .= '</div>';
                 $index++;

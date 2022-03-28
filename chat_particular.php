@@ -3,9 +3,8 @@
     $tituloPagina = "Chat Particular";
     if(isset($_SESSION['login'])){
         $username = $_SESSION['Usuario'];
-        $id = $_SESSION['ID'];    
-        $usuario = Usuario::buscarUsuario($username);
-        $mensajes = $usuario->getMessages($nombreAmigo);
+        $id = $_SESSION['ID'];
+        $usuario = Usuario::buscarUsuario($username);    
 
         function generaAvatar($usuario){
             $srcAvatar = 'img/avatar';
@@ -19,26 +18,27 @@
             return $htmlAvatar;
         }
         function generaChat($usuario){
+            $mensajes = $usuario->getMessages($_GET['idAmigo']);
             $htmlMensaje = '';
             $index = 0;
             while($index < sizeof($mensajes[0])){
-                if($mensajes[1][$index] == 1){
+                if($mensajes[1][$index] == $usuario->getId()){
                     $htmlMensaje .= '<div class = "mensajes">';
-                    $htmlMensaje .= '<p class = "amigoMensajes"';
+                    $htmlMensaje .= '<p class = "usuarioMensajes">';
                     $htmlMensaje .= $mensajes[0][$index];
                     $htmlMensaje .= '</p>';
                     $htmlMensaje .= '</div>';
                 }
                 else{
                     $htmlMensaje .= '<div class = "mensajes">';
-                    $htmlMensaje .= '<p class = "usuarioMensajes"';
+                    $htmlMensaje .= '<p class = "amigoMensajes">';
                     $htmlMensaje .= $mensajes[0][$index];
                     $htmlMensaje .= '</p>';
                     $htmlMensaje .= '</div>';
                 }
                 $index++;
             }        
-            return $htmlAmigos;
+            return $htmlMensaje;
         }
         
         $htmlAvatar = generaAvatar($usuario);
@@ -64,6 +64,7 @@
                     <div class = "flexrow">
                         {$htmlChat}                       
                     </div>
+                    
                 </article>
             </section>
         EOS;

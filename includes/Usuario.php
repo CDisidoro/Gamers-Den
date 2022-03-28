@@ -262,11 +262,9 @@
             return $result;
         }
 
-        public function getMessages($nombreAmigo){
-            `Remitente` int(11) NOT NULL,
-            `Destinatario` int(11) NOT NULL
+        public function getMessages($idAmigo){
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM mensajes M WHERE (M.Remitente = $this->id AND M.Destinatario LIKE $nombreAmigo) OR (M.Remitente LIKE $nombreAmigo AND M.Destinatario=$this->id)");
+            $query = sprintf("SELECT * FROM mensajes M WHERE (M.Remitente = $this->id AND M.Destinatario LIKE $idAmigo) OR (M.Remitente LIKE $idAmigo AND M.Destinatario=$this->id)");
             $rs = $conn->query($query);
             $result = [];
             if ($rs) {
