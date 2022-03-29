@@ -271,6 +271,7 @@
                 while($fila = $rs->fetch_assoc()) {
                     $result[0][] = $fila['Contenido'];
                     $result[1][] = $fila['Remitente'];
+                    $result[2][] = $fila['Fecha'];
                 }
                 $rs->free();
             } else {

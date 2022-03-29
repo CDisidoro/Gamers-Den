@@ -18,23 +18,56 @@
             $htmlAvatar .= '">';
             return $htmlAvatar;
         }
-        function generaChat($usuario){
+
+        function generaAvatarUsuario($user){
+            $srcAvatar = 'img/avatar';
+            $srcAvatar .= $user->getAvatar();
+            $srcAvatar .= '.jpg';
+    
+            $htmlAvatar = '';
+            $htmlAvatar .= '<img src = "';
+            $htmlAvatar .= $srcAvatar;
+            $htmlAvatar .= '">';
+            return $htmlAvatar;
+        }
+
+        function generaAvatarAmigo($user){
+            $srcAvatar = 'img/avatar';
+            $srcAvatar .= $user->getAvatar();
+            $srcAvatar .= '.jpg';
+    
+            $htmlAvatar = '';
+            $htmlAvatar .= '<img class = "right" src = "';
+            $htmlAvatar .= $srcAvatar;
+            $htmlAvatar .= '">';
+            return $htmlAvatar;
+        }
+
+        function generaChat($usuario, $amigo){
             $mensajes = $usuario->getMessages($_GET['idAmigo']);
             $htmlMensaje = '';
             $index = 0;
             while($index < sizeof($mensajes[0])){
                 if($mensajes[1][$index] == $usuario->getId()){
-                    $htmlMensaje .= '<div class = "mensajes">';
+                    $htmlMensaje .= '<div class="mensaje">';
+                    $htmlMensaje .= generaAvatarUsuario($usuario);
                     $htmlMensaje .= '<p class = "usuarioMensajes">';
                     $htmlMensaje .= $mensajes[0][$index];
                     $htmlMensaje .= '</p>';
+                    $htmlMensaje .= '<span class="time-right">';
+                    $htmlMensaje .= $mensajes[2][$index];
+                    $htmlMensaje .= '</span>';
                     $htmlMensaje .= '</div>';
                 }
                 else{
-                    $htmlMensaje .= '<div class = "mensajes">';
+                    $htmlMensaje .= '<div class="mensaje darker">';
+                    $htmlMensaje .= generaAvatarAmigo($amigo);
                     $htmlMensaje .= '<p class = "amigoMensajes">';
                     $htmlMensaje .= $mensajes[0][$index];
                     $htmlMensaje .= '</p>';
+                    $htmlMensaje .= '<span class="time-left">';
+                    $htmlMensaje .= $mensajes[2][$index];
+                    $htmlMensaje .= '</span>';
                     $htmlMensaje .= '</div>';
                 }
                 $index++;
@@ -43,7 +76,7 @@
         }
         
         $htmlAvatar = generaAvatar($amigo);
-        $htmlChat = generaChat($usuario);
+        $htmlChat = generaChat($usuario, $amigo);
 
         $contenidoPrincipal=<<<EOS
             <section class = "content">
@@ -62,10 +95,7 @@
                     </div>
                 </article>
                 <article class = "chat">
-                    <div class = "flexrow">
-                        {$htmlChat}                       
-                    </div>
-                    
+                    {$htmlChat}                        
                 </article>
             </section>
         EOS;
