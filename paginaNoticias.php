@@ -8,12 +8,24 @@
             <section class = "noticiasPrincipal">
                 <div class = "prueba">
                     <div class = "noticiaDestacada">
-                        <p class ="noticiaDestacadaP" > NOTICIAS </p>
+                        <p> NOTICIAS </p>
                     </div>
                 </div>
 
                 <div  class = "prueba">
-                <p> NOTICIAS 2</p>
+                    <div class = "noticiasCuadro">
+                        <div class = "botones">
+                        </div>
+
+                        <div class = "noticias">
+                            <div class = "cuadroNoticias">
+                                
+                                <p>NOTICIAS</p>
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </section>
         EOS;
