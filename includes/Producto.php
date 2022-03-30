@@ -18,7 +18,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		$this->precio = $precio;
 		$this->vendedor = $vendedor;
         $this->caracteristica = $caracteristica;
-		//$this->urlImagen = $urlImagen; ## no tenemos asociadas imagenes a los videojuegos??
+		$this->urlImagen = $urlImagen;
 	}
 
 	// Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
@@ -34,7 +34,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new Producto($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracterisitica']);		
+									$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);		
 			}
             $result->free();
 			return $ofertasArray;
@@ -51,11 +51,12 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		$vendedor = htmlspecialchars(trim(strip_tags($_POST["VendedorProducto"])));
 		$precio = htmlspecialchars(trim(strip_tags($_POST["precioProducto"])));
         $caracteristica = htmlspecialchars(trim(strip_tags($_POST["caracteristicaProducto"])));
+		$urlImagen = htmlspecialchars(trim(strip_tags($_POST["urlProducto"])));
 		
 		$mysqli = getConexionBD();
 		
 		$sql = "INSERT INTO productos (Nombre, Descripcion, Fecha, Vendedor, Precio, Caracteristicas)
-				VALUES ('$nombre', '$descripcion', '$lanzamiento', '$desarrollador', '$precio', '$caracteristica')";
+				VALUES ('$nombre', '$descripcion', '$lanzamiento', '$desarrollador', '$precio', '$caracteristica', '$urlImagen')";
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;
@@ -73,7 +74,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		if($result) {
 			$fila = $result->fetch_assoc();
 			$buscaProducto = new Producto($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Fecha'],$fila['VEndedor'],$fila['Precio'], $fila['Caracterisitica']);
+									$fila['Fecha'],$fila['VEndedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);
             $result->free();
 			return $buscaProducto;
 		} else{
@@ -108,6 +109,10 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 
     public function getCaracteristica() {
 		return $this->caracteristic;
+	}
+
+	public function geturlImagen() {
+		return $this->urlImagen;
 	}
 
     public static function buscador($buscador) {

@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 22-03-2022 a las 21:47:09
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 30-03-2022 a las 17:28:31
 -- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Versión de PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `gamers_den`
 --
+CREATE DATABASE IF NOT EXISTS `gamers_den` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gamers_den`;
 
 -- --------------------------------------------------------
 
@@ -103,6 +105,22 @@ CREATE TABLE `mensajes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `noticias`
+--
+
+CREATE TABLE `noticias` (
+  `ID` int(11) NOT NULL,
+  `Titulo` text NOT NULL,
+  `Imagen` blob DEFAULT NULL,
+  `Contenido` text NOT NULL,
+  `Etiquetas` text NOT NULL,
+  `Autor` int(11) NOT NULL,
+  `Fecha` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tienda`
 --
 
@@ -177,6 +195,13 @@ ALTER TABLE `mensajes`
   ADD KEY `FK_Destinatario` (`Destinatario`) USING BTREE;
 
 --
+-- Indices de la tabla `noticias`
+--
+ALTER TABLE `noticias`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `Autor` (`Autor`);
+
+--
 -- Indices de la tabla `tienda`
 --
 ALTER TABLE `tienda`
@@ -217,6 +242,12 @@ ALTER TABLE `juegos`
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `noticias`
+--
+ALTER TABLE `noticias`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -268,6 +299,12 @@ ALTER TABLE `lista_deseos`
 ALTER TABLE `mensajes`
   ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`Remitente`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `mensajes_ibfk_2` FOREIGN KEY (`Destinatario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `noticias`
+--
+ALTER TABLE `noticias`
+  ADD CONSTRAINT `FK_Autor` FOREIGN KEY (`Autor`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tienda`
