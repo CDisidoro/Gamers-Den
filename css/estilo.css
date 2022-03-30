@@ -1,5 +1,5 @@
 
-
+/*ESTILOS NOTICIAS*/
 .noticiasPrincipal{
     background-color: rgb(245, 139, 18);
     width: 80%;
@@ -12,11 +12,10 @@
 
 .prueba{
     border: 3px solid rgb(0, 0, 0);
-    padding-top: 50px;
+    padding-top: 25px;
     padding-bottom: 50px;
     padding-left: 75px;
     padding-right: 75px;
-    justify-content: center;
 }
 
 .noticiaDestacada{
@@ -28,8 +27,25 @@
     min-height: 200px;
 }
 
-.noticiaDestacadaP{
-    
+.noticiasCuadro{
+    display: grid;
+    grid-template-rows: 30% 70%;
+    background-color: black;
+    min-height: 300px;
+}
+
+.botones{
+    border: 3px solid #fcfafa;
+}
+
+.noticias{
+    border: 3px solid rgb(233, 250, 2);
+    padding: 15px;
+}
+
+.cuadroNoticias{
+    background-color: white;
+    overflow-y: scroll;
 }
 
 
