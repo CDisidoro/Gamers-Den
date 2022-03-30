@@ -262,6 +262,13 @@
             return $result;
         }
 
+        public function deleteFriend($nombreAmigo){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("DELETE * FROM lista_amigos LA WHERE (LA.usuarioA LIKE $usuario->id AND LA.usuarioB LIKE $nombreAmigo) OR (LA.usuarioB LIKE $usuario->id AND LA.usuarioA LIKE $nombreAmigo)");
+            $conector->query($query);
+            return true;
+        }
+        
         public function getMessages($idAmigo){
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM mensajes M WHERE (M.Remitente = $this->id AND M.Destinatario LIKE $idAmigo) OR (M.Remitente LIKE $idAmigo AND M.Destinatario=$this->id)");
