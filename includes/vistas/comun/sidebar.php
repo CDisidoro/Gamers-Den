@@ -32,7 +32,7 @@
 
                     <li>
                         <div class = "cajanoticiasNav">
-                            <a href = "notfound.php" > Noticias</a>
+                            <a href = "paginaNoticias.php" > Noticias</a>
                         </div>               
                     </li>
 

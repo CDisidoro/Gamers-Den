@@ -1,3 +1,15 @@
+
+
+.noticiasPrincipal{
+    background-color: rgb(245, 139, 18);
+    width: 80%;
+    margin: auto;
+    min-height: 500px;
+	border: 3px solid rgb(0, 0, 0);
+}
+
+
+
 /* ESTILOS PERFIL */
 .avatarPerfilUsuario{
     width: 150px;
@@ -101,7 +113,6 @@ article{
 
 /* FIN ESTILOS PERFIL */
 
-
 /* ESTILOS FOOTER  */
 
 footer {
@@ -140,6 +151,7 @@ footer {
 	border: 3px solid rgb(60, 118, 156);	
 }	
 	/* Chat containers */
+
 .mensaje {
 	border: 2px solid #dedede;
 	background-color: #f1f1f1;
@@ -228,71 +240,70 @@ footer {
 
 
 /* ESTILOS MENÚ NAVEGACIÓN */
-	nav{
-		border:5px solid black;
-		height: fit-content;
-		width:100%;
-		background-color: black;
-	}
-	
-	nav ul li{
-		list-style:none;
-		border:5px solid white;
-		width:10%;
-		display: inline-block;
-		font-size:20px;
-		margin-right:10px;
-	}
+nav{
+	border:5px solid black;
+	height: fit-content;
+	width:100%;
+	background-color: black;
+}
 
-	nav ul li a{
-		text-decoration: none;
-		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-	}
+nav ul li{
+	list-style:none;
+	border:5px solid white;
+	width:10%;
+	display: inline-block;
+	font-size:20px;
+	margin-right:10px;
+}
 
-	.cajainicioNav{
-		text-align: center;
-		background-color: red;
-	}
+nav ul li a{
+	text-decoration: none;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
 
-	.cajaperfilNav{
-		text-align: center;
-		background-color: orange;
-	}
+.cajainicioNav{
+	text-align: center;
+	background-color: red;
+}
 
-	.cajachatNav{
-		text-align: center;
-		height: 100%;
-		background-color: rgb(255, 255, 98);
-	}
+.cajaperfilNav{
+	text-align: center;
+	background-color: orange;
+}
 
-	.cajaforoNav{
-		text-align: center;
-		height: 100%;
-		background-color: lightgreen;
-	}
+.cajachatNav{
+	text-align: center;
+	height: 100%;
+	background-color: rgb(255, 255, 98);
+}
 
-	.cajanoticiasNav{
-		text-align: center;
-		height: 100%;
-		background-color: lightskyblue;
-	}
+.cajaforoNav{
+	text-align: center;
+	height: 100%;
+	background-color: lightgreen;
+}
 
-	.cajacalendarioNav{
-		text-align: center;
-		height: 100%;
-		background-color: rgb(54, 141, 170);
-	}
+.cajanoticiasNav{
+	text-align: center;
+	height: 100%;
+	background-color: lightskyblue;
+}
 
-	.cajatiendaNav{
-		text-align: center;
-		height: 100%;
-		background-color: rgb(209, 88, 209);
-	}
+.cajacalendarioNav{
+	text-align: center;
+	height: 100%;
+	background-color: rgb(54, 141, 170);
+}
 
-	.cajatusjuegosNav{
-		text-align: center;
-		height: 100%;
-		background-color: salmon;
-	}
+.cajatiendaNav{
+	text-align: center;
+	height: 100%;
+	background-color: rgb(209, 88, 209);
+}
 
+.cajatusjuegosNav{
+	text-align: center;
+	height: 100%;
+	background-color: salmon;
+}
 /* FIN ESTILOS MENÚ NAVEGACIÓN */
