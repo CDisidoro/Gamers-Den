@@ -27,6 +27,9 @@
                 $htmlAmigos .= '<p class = "nombreamigo">';
                 $htmlAmigos .= $amigos[0][$index];
                 $htmlAmigos .= '</p>';
+                $htmlAmigos .= '<a href ="$usuario->deleteFriend($usuarioAmigo->getId())">';
+                $htmlAmigos .= '<img class = "botonBorrarAmigo" src = "img/papelera.jpg">';
+                $htmlAmigos .= '</a>';
                 $htmlAmigos .= '</div>';
                 $index++;
             }        

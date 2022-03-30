@@ -262,9 +262,9 @@
             return $result;
         }
 
-        public function deleteFriend($nombreAmigo){
+        public function deleteFriend($idAmigo){
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE * FROM lista_amigos LA WHERE (LA.usuarioA LIKE $usuario->id AND LA.usuarioB LIKE $nombreAmigo) OR (LA.usuarioB LIKE $usuario->id AND LA.usuarioA LIKE $nombreAmigo)");
+            $query = sprintf("DELETE * FROM lista_amigos LA WHERE (LA.usuarioA LIKE $usuario->id AND LA.usuarioB LIKE $idAmigo) OR (LA.usuarioB LIKE $usuario->id AND LA.usuarioA LIKE $idAmigo)");
             $conector->query($query);
             return true;
         }

@@ -24,6 +24,7 @@
                 $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
                 $htmlAmigos .= $srcAvatar;
                 $htmlAmigos .= '">';
+                $htmlAmigos .= '</a>';
                 $htmlAmigos .= '<p class = "nombreamigo">';
                 $htmlAmigos .= $usuarioAmigo->getUsername();
                 $htmlAmigos .= '</p>';
@@ -39,9 +40,11 @@
             $srcAvatar .= '.jpg';
     
             $htmlAvatar = '';
+            $htmlAvatar .= '<a href ="perfil.php">';
             $htmlAvatar .= '<img class = "avatarPerfilUsuario" src = "';
             $htmlAvatar .= $srcAvatar;
             $htmlAvatar .= '" class = "avatarPerfilUsuario" >';
+            $htmlAvatar .= '</a>';
             return $htmlAvatar;
         }
 
