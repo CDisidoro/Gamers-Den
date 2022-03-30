@@ -6,6 +6,30 @@
     margin: auto;
     min-height: 500px;
 	border: 3px solid rgb(0, 0, 0);
+    display: grid;
+    grid-row: auto;
+}
+
+.prueba{
+    border: 3px solid rgb(0, 0, 0);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 75px;
+    padding-right: 75px;
+    justify-content: center;
+}
+
+.noticiaDestacada{
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 35px;
+    min-height: 200px;
+}
+
+.noticiaDestacadaP{
+    
 }
 
 
