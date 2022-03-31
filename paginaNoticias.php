@@ -6,26 +6,57 @@
 
         $contenidoPrincipal=<<<EOS
             <section class = "noticiasPrincipal">
-                <div class = "prueba">
+                <div class = "contenedorNoticias">
                     <div class = "noticiaDestacada">
-                        <p> NOTICIAS </p>
+                        <p> NOTICIA DESTACADA </p>
                     </div>
                 </div>
 
-                <div  class = "prueba">
+                <div  class = "contenedorNoticias">
+
                     <div class = "noticiasCuadro">
                         <div class = "botones">
-                        </div>
-
-                        <div class = "noticias">
-                            <div class = "cuadroNoticias">
-                                
-                                <p>NOTICIAS</p>
-
+                            <div class = "cajaBoton">
+                                <a>
                             </div>
                         </div>
 
+                        <div class = "cuadroNoticias">
+                            <div class = "noticia">
+                                <div class = "cajaTitulo">
+                                    <a href ="index.php">
+                                        <img src = "img/Logo.jpg" class = "imagenNoticia">                                       
+                                    </a>
+                                </div>
+                                    
+                                <div class = "cajaTitulo">
+                                    <p class = "tituloNoticia"> Titulo Noticia </p>
+                                </div>
+
+                                <div class = "cajaTitulo">
+                                    <p class = "descripcionNoticia"> Descripción noticia Descripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticia </p>
+                                </div>
+                            </div>     
+                            
+                            <div class = "noticia">
+                                <div class = "cajaTitulo">
+                                    <a href ="index.php">
+                                        <img src = "img/Logo.jpg" class = "imagenNoticia">                                       
+                                    </a>
+                                </div>
+                                    
+                                <div class = "cajaTitulo">
+                                    <p class = "tituloNoticia"> Titulo Noticia </p>
+                                </div>
+
+                                <div class = "cajaTitulo">
+                                    <p class = "descripcionNoticia"> Descripción noticia Descripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticia </p>
+                                </div>
+                            </div>        
+                            
+                        </div>                            
                     </div>
+
                 </div>
             </section>
         EOS;
