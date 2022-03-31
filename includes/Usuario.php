@@ -286,5 +286,30 @@
             }
             return $result;
         }
+/*
+        public function getFriendInvitations(){
+            $friends = [];
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT LA.usuarioA FROM lista_inbox LI WHERE LI.usuarioB LIKE $usuario->id");
+            $rs = $conector->query($query);
+            $friendlist = [];
+            if ($rs) {
+                while($row = $rs->fetch_assoc()) {
+
+                    $info = self::getListAvatar($row['usuarioB']);
+                    if ($info == -1)
+                        return null;
+                    $friendlist[0][] = $info[0];
+                    $friendlist[1][] = $info[1];
+                }
+                $rs->free();
+                return $friendlist;
+
+            } else {
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }
+            return false;
+        }
+        */
     }
 ?>
