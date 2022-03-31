@@ -17,8 +17,35 @@
                     <div class = "noticiasCuadro">
                         <div class = "botones">
                             <div class = "cajaBoton">
-                                <a>
+                                <a href = "index.php"> Nuevo </a>
                             </div>
+
+                            <div class = "cajaBoton">
+                                <a href = "index.php"> Destacado </a>
+                            </div>
+
+                            <div class = "cajaBoton">
+                                <a href = "index.php"> Popular </a>
+                            </div>
+
+                            <div class = "cajaBusqueda">
+                                <form action="#">
+                                    <div>
+                                        <input type="text"
+                                            placeholder=" Buscar noticias"
+                                            name="search"
+                                            class = "barraBusqueda"
+                                        >
+                                    </div>
+
+                                    <div>
+                                        <button>
+                                            <img src = "img/lupa.png" class = "imagenBusqueda">
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
                         </div>
 
                         <div class = "cuadroNoticias">
