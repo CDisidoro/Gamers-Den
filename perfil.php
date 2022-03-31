@@ -15,7 +15,7 @@
             $htmlAmigos = '';
             $amigos = $usuario->getfriendlist();
             $index = 0;
-            while($index < sizeof($amigos[1])){
+            while($index < sizeof($amigos[0])){
                 $srcAvatar = 'img/avatar';
                 $srcAvatar .= $amigos[1][$index];
                 $srcAvatar .= '.jpg';
@@ -27,7 +27,9 @@
                 $htmlAmigos .= '<p class = "nombreamigo">';
                 $htmlAmigos .= $amigos[0][$index];
                 $htmlAmigos .= '</p>';
-                $htmlAmigos .= '<a href ="$usuario->deleteFriend($usuarioAmigo->getId())">';
+                $htmlAmigos .= '<a href ="eliminarAmigo.php?Amigo=';
+                $htmlAmigos .= $amigos[0][$index];
+                $htmlAmigos .= '">';
                 $htmlAmigos .= '<img class = "botonBorrarAmigo" src = "img/papelera.jpg">';
                 $htmlAmigos .= '</a>';
                 $htmlAmigos .= '</div>';
