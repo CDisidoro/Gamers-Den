@@ -14,6 +14,10 @@
         function generaAmigos($usuario){
             $htmlAmigos = '';
             $amigos = $usuario->getfriendlist();
+            if(sizeof($amigos) == 0){ //Si no tiene amigos en su lista, dara un mensaje
+                $htmlAmigos = '<p>Tu lista de amigos está vacía! Empieza añadiendo amigos con el botón de la derecha!</p>';
+                return $htmlAmigos;
+            }
             $index = 0;
             while($index < sizeof($amigos[0])){
                 $srcAvatar = 'img/avatar';
