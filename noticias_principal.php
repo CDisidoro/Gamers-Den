@@ -1,6 +1,41 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
     $tituloPagina = "Noticias";
+
+    function generarListaNoticias(){
+        $htmlNoticias = '';
+        if($_GET['tag'] > 3 || $_GET['tag'] < 1){
+            $htmlNoticias .= 'No se han podido cargar las noticias de esta categoría';
+        }
+        else if($_GET['tag'] == null){
+            $noticias = Noticias::enseñarPorCar(1);
+        }
+        else{
+            $noticias = Noticias::enseñarPorCar($_GET['tag']);
+            foreach($noticias as $noticia){
+                $htmlNoticias .= '<div class = "noticia">';
+                $htmlNoticias .= '<div class = "cajaTitulo">';
+                $htmlNoticias .= '<a href ="index.php">';
+                $htmlNoticias .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';                                     
+                $htmlNoticias .= '</a>';
+                $htmlNoticias .= '</div>';                                  
+                $htmlNoticias .= '<div class = "cajaTitulo">';
+                $htmlNoticias .= '<p class = "tituloNoticia">';
+                $htmlNoticias .= $noticia->getTitulo();
+                $htmlNoticias .= '</p>';
+                $htmlNoticias .= '</div>';
+                $htmlNoticias .= '<div class = "cajaTitulo">';
+                $htmlNoticias .= '<p class = "descripcionNoticia">';
+                $htmlNoticias .= $noticia->getDescripcion();
+                $htmlNoticias .='</p>';
+                $htmlNoticias .= '</div>';
+                $htmlNoticias .= '</div>';
+            }
+        }
+    }
+
+    $htmlNoticias = generarListaNoticias();
+
     if(isset($_SESSION['login'])){
        
 
@@ -17,15 +52,15 @@
                     <div class = "noticiasCuadro">
                         <div class = "botones">
                             <div class = "cajaBoton">
-                                <a href = "index.php"> Nuevo </a>
+                                <a href = "noticas_principal.php?tag=1"> Nuevo </a>
                             </div>
 
                             <div class = "cajaBoton">
-                                <a href = "index.php"> Destacado </a>
+                                <a href = "noticas_principal.php?tag=2"> Destacado </a>
                             </div>
 
                             <div class = "cajaBoton">
-                                <a href = "index.php"> Popular </a>
+                                <a href = "noticas_principal.php?tag=3"> Popular </a>
                             </div>
 
                             <div class = "cajaBusqueda">
@@ -49,38 +84,7 @@
                         </div>
 
                         <div class = "cuadroNoticias">
-                            <div class = "noticia">
-                                <div class = "cajaTitulo">
-                                    <a href ="index.php">
-                                        <img src = "img/Logo.jpg" class = "imagenNoticia">                                       
-                                    </a>
-                                </div>
-                                    
-                                <div class = "cajaTitulo">
-                                    <p class = "tituloNoticia"> Titulo Noticia </p>
-                                </div>
-
-                                <div class = "cajaTitulo">
-                                    <p class = "descripcionNoticia"> Descripción noticia Descripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticia </p>
-                                </div>
-                            </div>     
-                            
-                            <div class = "noticia">
-                                <div class = "cajaTitulo">
-                                    <a href ="index.php">
-                                        <img src = "img/Logo.jpg" class = "imagenNoticia">                                       
-                                    </a>
-                                </div>
-                                    
-                                <div class = "cajaTitulo">
-                                    <p class = "tituloNoticia"> Titulo Noticia </p>
-                                </div>
-
-                                <div class = "cajaTitulo">
-                                    <p class = "descripcionNoticia"> Descripción noticia Descripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticiaDescripción noticia </p>
-                                </div>
-                            </div>        
-                            
+                            {$htmlNoticias}                       
                         </div>                            
                     </div>
 

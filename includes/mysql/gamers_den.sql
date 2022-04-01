@@ -113,6 +113,7 @@ CREATE TABLE `noticias` (
   `Titulo` text NOT NULL,
   `Imagen` blob DEFAULT NULL,
   `Contenido` text NOT NULL,
+  `Descripcion` text NOT NULL,
   `Etiquetas` text NOT NULL,
   `Autor` int(11) NOT NULL,
   `Fecha` date NOT NULL DEFAULT current_timestamp()

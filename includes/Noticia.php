@@ -5,11 +5,13 @@
         private $titulo;
         private $imagen;
         private $contenido;
+        private $descripcion;
         private $etiquetas;
         private $autor;
         private $fechas;
+
         //Constructor y getters
-        private function __construct($titulo, $imagen, $contenido, $id = null, $etiquetas, $autor, $fechas){
+        private function __construct($id, $titulo, $imagen, $contenido, $descripcion, $etiquetas, $autor, $fechas){
             $this->id = $id;
             $this->imagen = $imagen;
             $this->contenido = $contenido;
@@ -17,6 +19,7 @@
             $this->etiquetas = $etiquetas;
             $this->autor = $autor;
             $this->fechas = $fechas;
+            $this->descripcion = $descripcion;
         }
 
         // Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
@@ -63,15 +66,14 @@
             }
         }
         
-        public static function buscaProducto($id) {
+        public static function buscaNoticia($id) {
             $mysqli = getConexionBD();
             $query = "SELECT * FROM productos WHERE ID = '$id'";
             $result = $mysqli->query($query);
             
             if($result) {
                 $fila = $result->fetch_assoc();
-                $buscaProducto = new Producto($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-                                        $fila['Fecha'],$fila['VEndedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);
+                $buscaProducto = new Noticia($fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['ID'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
                 $result->free();
                 return $buscaProducto;
             } else{
@@ -85,6 +87,10 @@
             return $this->id;
         }
         
+        public function getTitulo() {
+            return $this->titulo;
+        }
+
         public function getNombre() {
             return $this->nombre;
         }
@@ -94,22 +100,6 @@
         
         public function getFecha() {
             return $this->fecha;
-        }
-        
-        public function getVendedor() {
-            return $this->vendedor;
-        }
-        
-        public function getPrecio() {
-            return $this->precio;
-        }
-    
-        public function getCaracteristica() {
-            return $this->caracteristic;
-        }
-    
-        public function geturlImagen() {
-            return $this->urlImagen;
         }
     
         public static function buscador($buscador) {
@@ -130,15 +120,16 @@
                 return false;
             }
         }
-        public static function enseñarPorCar() {
+
+        public static function enseñarPorCar($categoria) {
             $mysqli = getConexionBD();
-            $query = sprintf("SELECT * FROM productos PR WHERE PR.Caracteristicas LIKE $producto->caracteristica");
+            $query = sprintf("SELECT * FROM noticias PR WHERE PR.Etiquetas LIKE $categoria");
             $result = $mysqli->query($query);
             $returning = [];
             if($result) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
-                    $returning[] = $numavatar['ID'];
+                    $returning[] = new Noticia($fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['ID'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
                 }
                 $result->free();
                 return $returning;
