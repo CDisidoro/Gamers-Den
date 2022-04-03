@@ -2,16 +2,13 @@
 	require('includes/config.php');
     $tituloPagina = "Noticias";
 
-    function generarListaNoticias(){
         $htmlNoticias = '';
-        if($_GET['tag'] > 3 || $_GET['tag'] < 1){
-            $htmlNoticias .= 'No se han podido cargar las noticias de esta categoría';
-        }
-        else if($_GET['tag'] == null){
-            $noticias = Noticias::enseñarPorCar(1);
+        if($_GET['tag'] == null){
+            $htmlNoticias .= '<p> Asdasd </p>';
+            $htmlNoticias .= $_GET['tag'];
         }
         else{
-            $noticias = Noticias::enseñarPorCar($_GET['tag']);
+            $noticias = Noticia::enseñarPorCar($_GET['tag']);
             foreach($noticias as $noticia){
                 $htmlNoticias .= '<div class = "noticia">';
                 $htmlNoticias .= '<div class = "cajaTitulo">';
@@ -32,13 +29,10 @@
                 $htmlNoticias .= '</div>';
             }
         }
-    }
 
-    $htmlNoticias = generarListaNoticias();
-
+        
     if(isset($_SESSION['login'])){
        
-
         $contenidoPrincipal=<<<EOS
             <section class = "noticiasPrincipal">
                 <div class = "contenedorNoticias">
@@ -63,22 +57,8 @@
                                 <a href = "noticas_principal.php?tag=3"> Popular </a>
                             </div>
 
-                            <div class = "cajaBusqueda">
-                                <form action="#">
-                                    <div>
-                                        <input type="text"
-                                            placeholder=" Buscar noticias"
-                                            name="search"
-                                            class = "barraBusqueda"
-                                        >
-                                    </div>
-
-                                    <div>
-                                        <button>
-                                            <img src = "img/lupa.png" class = "imagenBusqueda">
-                                        </button>
-                                    </div>
-                                </form>
+                            <div class = "cajaBusqueda">                               
+                                <a href = "" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
                             </div>
 
                         </div>

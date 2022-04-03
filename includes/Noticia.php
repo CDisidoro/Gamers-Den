@@ -67,7 +67,7 @@
         }
         
         public static function buscaNoticia($id) {
-            $mysqli = getConexionBD();
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
             $query = "SELECT * FROM productos WHERE ID = '$id'";
             $result = $mysqli->query($query);
             
@@ -122,14 +122,14 @@
         }
 
         public static function enseñarPorCar($categoria) {
-            $mysqli = getConexionBD();
-            $query = sprintf("SELECT * FROM noticias PR WHERE PR.Etiquetas LIKE $categoria");
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM noticias WHERE Etiquetas = $categoria");
             $result = $mysqli->query($query);
             $returning = [];
             if($result) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
-                    $returning[] = new Noticia($fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['ID'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
+                    $returning[] = new Noticia($fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['Descripcion'], $fila['ID'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
                 }
                 $result->free();
                 return $returning;
@@ -140,5 +140,4 @@
         }
         
       }
-    ?>
 ?>
