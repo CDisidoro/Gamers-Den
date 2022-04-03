@@ -21,9 +21,40 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		$this->urlImagen = $urlImagen;
 	}
 
+	public function getID() {
+		return $this->id;
+	}
+	
+	public function getNombre() {
+		return $this->nombre;
+	}
+	public function getDescripcion() {
+		return $this->descripcion;
+	}
+	
+	public function getFecha() {
+		return $this->fecha;
+	}
+	
+	public function getVendedor() {
+		return $this->vendedor;
+	}
+	
+	public function getPrecio() {
+		return $this->precio;
+	}
+
+    public function getCaracteristica() {
+		return $this->caracteristic;
+	}
+
+	public function geturlImagen() {
+		return $this->urlImagen;
+	}
+
 	// Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
 	
-	public static function cargarProducto(){
+	/*public static function cargarProducto(){
 		$mysqli = getConexionBD();
 		$query = sprintf("SELECT * FROM productos");
 		$result = $mysqli->query($query);
@@ -42,7 +73,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		else{
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
-	}
+	}*/
 	
 	public static function subeProducto() {
 		$nombre = htmlspecialchars(trim(strip_tags($_POST["NombreProducto"])));
@@ -82,38 +113,6 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 			return false;
 		}
 	}
-	
-
-	public function getID() {
-		return $this->id;
-	}
-	
-	public function getNombre() {
-		return $this->nombre;
-	}
-	public function getDescripcion() {
-		return $this->descripcion;
-	}
-	
-	public function getFecha() {
-		return $this->fecha;
-	}
-	
-	public function getVendedor() {
-		return $this->vendedor;
-	}
-	
-	public function getPrecio() {
-		return $this->precio;
-	}
-
-    public function getCaracteristica() {
-		return $this->caracteristic;
-	}
-
-	public function geturlImagen() {
-		return $this->urlImagen;
-	}
 
     public static function buscador($buscador) {
 		$mysqli = getConexionBD();
@@ -133,21 +132,25 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 			return false;
 		}
 	}
-    public static function enseñarPorCar() {
+    public static function enseñarPorCar($caracterisitica) {
 		$mysqli = getConexionBD();
-		$query = sprintf("SELECT * FROM productos PR WHERE PR.Caracteristicas LIKE $producto->caracteristica");
+		$query = sprintf("SELECT * FROM productos");
 		$result = $mysqli->query($query);
-		$returning = [];
+
+		$ofertasArray;
+		
 		if($result) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-                $returning[] = $numavatar['ID'];
+				if($fila['Caracterisitica'] == $caracterisitica)
+					$ofertasArray[] = new Producto($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
+						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);		
 			}
             $result->free();
-            return $returning;
-		} else{
-			echo"No se ha encontrado el producto";
-			return false;
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
 	
