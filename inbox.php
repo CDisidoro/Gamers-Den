@@ -44,10 +44,9 @@
                         $htmlMensaje .= '" me gustaria ser amigo acepta mi invitacion si quieres"';
                         $htmlMensaje .= '</p>';
                         $htmlMensaje .= '</div>';
+                        $index++;
                     }
-                    $index++;
-                }  
-            }      
+                }        
             return $htmlMensaje;
         }
         

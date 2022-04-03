@@ -23,6 +23,7 @@ class FormularioEliminarAmigos extends Formulario
             <legend>Añadir amigos</legend>
             <div>
                 <label for="BorrarUsuario">¿Estas seguro de que queires borrar este usuario de tu lista de amigos?</label>
+                <input type="hidden" value="$IDUsuario" id="IDUsuario" name="IDUsuario">
             </div>
             <div>
                 <button type="submit" name="Si"> Si </button>
@@ -33,8 +34,8 @@ class FormularioEliminarAmigos extends Formulario
         return $html;
     }
 
-    protected function procesaFormulario($Username) {
-            $user = Usuario::buscarUsuario($Username);
+    protected function procesaFormulario(&$datos) {
+            $user = Usuario::buscarUsuario($datos['IDUsuario']);
             if (!$user)
                 $this->errores[] = "No se ha encontrado al usuario";
 
@@ -42,8 +43,12 @@ class FormularioEliminarAmigos extends Formulario
                 $this->errores[] = "No eres amigo de ese usuario";
                 
             else{
-                $user = Usuario::deleteFriend($_SESSION['ID']);
-                echo "<p> Se ha añadido borrado correctamente a $user->Usuario de tu lista de amigos</p>";
+                if($user->deleteFriend($_SESSION['ID'])){
+                    $username = $user->getUsername();
+                    echo "<p> Se ha añadido borrado correctamente a $username de tu lista de amigos</p>";
+                }else{
+                    $this->errores[] = "No ha sido posible eliminar al amigo de la lista por un error interno";
+                }
             }
     }
 }
