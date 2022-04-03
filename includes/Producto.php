@@ -10,7 +10,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	private $precio;
     private $caracteristica;
 	
-	function __construct($id, $nombre, $descripcion, $fecha, $vendedor, $precio, $caracteristica) {
+	function __construct($id, $nombre, $descripcion, $fecha, $vendedor, $precio, $caracteristica, $urlImagen) {
 		$this->id = $id;
 		$this->nombre = $nombre;
 		$this->descripcion = $descripcion;
@@ -84,10 +84,10 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
         $caracteristica = htmlspecialchars(trim(strip_tags($_POST["caracteristicaProducto"])));
 		$urlImagen = htmlspecialchars(trim(strip_tags($_POST["urlProducto"])));
 		
-		$mysqli = getConexionBD();
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		
 		$sql = "INSERT INTO productos (Nombre, Descripcion, Fecha, Vendedor, Precio, Caracteristicas)
-				VALUES ('$nombre', '$descripcion', '$lanzamiento', '$desarrollador', '$precio', '$caracteristica', '$urlImagen')";
+				VALUES ('$nombre', '$descripcion', '$fecha', '$vendedor', '$precio', '$caracteristica', '$urlImagen')";
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;
@@ -98,7 +98,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	}
 	
 	public static function buscaProducto($id) {
-		$mysqli = getConexionBD();
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = "SELECT * FROM productos WHERE ID = '$id'";
 		$result = $mysqli->query($query);
 		
@@ -115,7 +115,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	}
 
     public static function buscador($buscador) {
-		$mysqli = getConexionBD();
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = sprintf("SELECT * FROM productos");
 		$result = $mysqli->query($query);
 		$returning = [];
@@ -133,7 +133,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		}
 	}
     public static function enseñarPorCar($caracterisitica) {
-		$mysqli = getConexionBD();
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = sprintf("SELECT * FROM productos");
 		$result = $mysqli->query($query);
 

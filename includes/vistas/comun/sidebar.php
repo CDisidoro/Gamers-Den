@@ -44,7 +44,7 @@
 
                     <li>
                         <div class = "cajatiendaNav">
-                            <a href = "Tienda.php" > Tienda</a>
+                            <a href = "tienda.php" > Tienda</a>
                         </div>                    
                     </li>
 
