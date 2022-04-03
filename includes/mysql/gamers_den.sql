@@ -126,10 +126,13 @@ CREATE TABLE `noticias` (
 --
 
 CREATE TABLE `tienda` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Vendedor` int(11) NOT NULL,
   `Articulo` int(11) NOT NULL,
-  `Precio` int(11) NOT NULL
+  `Precio` int(11) UNSIGNED NOT NULL,
+  `Descripcion` text NOT NULL,
+  `Fecha` date NOT NULL,
+  `Caracteristica` text NOT NULL DEFAULT 'Nuevo',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

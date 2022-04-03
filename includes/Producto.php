@@ -2,7 +2,7 @@
 
 class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto la bd
 	private $id;
-	private $nombre;
+	private $articulo;
 	private $descripcion;
 	private $fecha;
 	private $vendedor;
@@ -10,22 +10,21 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	private $precio;
     private $caracteristica;
 	
-	function __construct($id, $nombre, $descripcion, $fecha, $vendedor, $precio, $caracteristica, $urlImagen) {
+	function __construct($id, $articulo, $descripcion, $fecha, $vendedor, $precio, $caracteristica) {
 		$this->id = $id;
-		$this->nombre = $nombre;
+		$this->articulo = $articulo;
 		$this->descripcion = $descripcion;
 		$this->fecha = $fecha;
 		$this->precio = $precio;
 		$this->vendedor = $vendedor;
         $this->caracteristica = $caracteristica;
-		$this->urlImagen = $urlImagen;
 	}
 
 	public function getID() {
 		return $this->id;
 	}
 	
-	public function getNombre() {
+	public function getArticulo() {
 		return $this->nombre;
 	}
 	public function getDescripcion() {
@@ -85,9 +84,11 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		$urlImagen = htmlspecialchars(trim(strip_tags($_POST["urlProducto"])));
 		
 		$mysqli = Aplicacion::getInstance()->getConexionBd();
+		$articulo = Videojuegos ::buscarporNombre($nombre);
+		$articuloId = $articulo->getNombre();
 		
-		$sql = "INSERT INTO productos (Nombre, Descripcion, Fecha, Vendedor, Precio, Caracteristicas)
-				VALUES ('$nombre', '$descripcion', '$fecha', '$vendedor', '$precio', '$caracteristica', '$urlImagen')";
+		$sql = "INSERT INTO productos (Articulo, Descripcion, Fecha, Vendedor, Precio, Caracteristicas)
+				VALUES ('$articuloId', '$descripcion', '$fecha', '$vendedor', '$precio', '$caracteristica')";
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;
@@ -104,8 +105,8 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		
 		if($result) {
 			$fila = $result->fetch_assoc();
-			$buscaProducto = new Producto($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Fecha'],$fila['VEndedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);
+			$buscaProducto = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+									$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);
             $result->free();
 			return $buscaProducto;
 		} else{
