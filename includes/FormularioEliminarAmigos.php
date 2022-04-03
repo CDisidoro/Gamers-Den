@@ -42,7 +42,7 @@ class FormularioEliminarAmigos extends Formulario
                 $this->errores[] = "No eres amigo de ese usuario";
                 
             else{
-                $user = Usuario::addFriends($_SESSION['ID']);
+                $user = Usuario::deleteFriend($_SESSION['ID']);
                 echo "<p> Se ha añadido borrado correctamente a $user->Usuario de tu lista de amigos</p>";
             }
     }

@@ -25,11 +25,11 @@
         // Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
         
         public static function cargarNoticia(){
-            $mysqli = getConexionBD();
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM noticias");
             $result = $mysqli->query($query);
     
-            $noticiasArray;
+            $noticiasArray = null;
             
             if($result) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
@@ -53,7 +53,7 @@
             $etiquetas = htmlspecialchars(trim(strip_tags($_POST["etiquetaNoticias"])));
             $urlImagen = htmlspecialchars(trim(strip_tags($_POST["urlNoticia"])));
             
-            $mysqli = getConexionBD();
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
             
             $sql = "INSERT INTO noticias (Nombre, Descripcion, Fecha, Vendedor, Precio, Caracteristicas)
                     VALUES ('$nombre', '$descripcion', '$lanzamiento', '$desarrollador', '$precio', '$caracteristica', '$urlImagen')";
@@ -103,7 +103,7 @@
         }
     
         public static function buscador($buscador) {
-            $mysqli = getConexionBD();
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM productos");
             $result = $mysqli->query($query);
             $returning = [];
