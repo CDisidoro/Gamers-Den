@@ -2,46 +2,65 @@
 	require('includes/config.php');
     $tituloPagina = "Noticias";
 
-        $htmlNoticias = '';
-        if(!isset($_GET['tag'])){
-            $htmlNoticias .= '<p> No se han podido cargar las noticias de esta sección </p>';
+    $htmlNoticias = '';
+    if(!isset($_GET['tag'])){
+        $htmlNoticias .= '<p> No se han podido cargar las noticias de esta sección </p>';
+    }
+    else{
+        $noticias = Noticia::enseñarPorCar($_GET["tag"]);
+        if($noticias == false){
+            $htmlNoticias .= '<p> ¡Aún no hay noticias en esta categoría! Pero nuestros escritores están en ello :) </p>';
         }
         else{
-            $noticias = Noticia::enseñarPorCar($_GET["tag"]);
-            if($noticias == false){
-                $htmlNoticias .= '<p> ¡Aún no hay noticias en esta categoría! Pero nuestros escritores están en ello :) </p>';
+            foreach($noticias as $noticia){
+                $htmlNoticias .= '<div class = "noticia">';
+                $htmlNoticias .= '<div class = "cajaTitulo">';
+                $htmlNoticias .= '<a href ="index.php">';
+                $htmlNoticias .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';                                     
+                $htmlNoticias .= '</a>';
+                $htmlNoticias .= '</div>';                                  
+                $htmlNoticias .= '<div class = "cajaTitulo">';
+                $htmlNoticias .= '<p class = "tituloNoticia">';
+                $htmlNoticias .= $noticia->getTitulo();
+                $htmlNoticias .= '</p>';
+                $htmlNoticias .= '</div>';
+                $htmlNoticias .= '<div class = "cajaTitulo">';
+                $htmlNoticias .= '<p class = "descripcionNoticia">';
+                $htmlNoticias .= $noticia->getDescripcion();
+                $htmlNoticias .='</p>';
+                $htmlNoticias .= '</div>';
+                $htmlNoticias .= '</div>';
             }
-            else{
-                foreach($noticias as $noticia){
-                    $htmlNoticias .= '<div class = "noticia">';
-                    $htmlNoticias .= '<div class = "cajaTitulo">';
-                    $htmlNoticias .= '<a href ="index.php">';
-                    $htmlNoticias .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';                                     
-                    $htmlNoticias .= '</a>';
-                    $htmlNoticias .= '</div>';                                  
-                    $htmlNoticias .= '<div class = "cajaTitulo">';
-                    $htmlNoticias .= '<p class = "tituloNoticia">';
-                    $htmlNoticias .= $noticia->getTitulo();
-                    $htmlNoticias .= '</p>';
-                    $htmlNoticias .= '</div>';
-                    $htmlNoticias .= '<div class = "cajaTitulo">';
-                    $htmlNoticias .= '<p class = "descripcionNoticia">';
-                    $htmlNoticias .= $noticia->getDescripcion();
-                    $htmlNoticias .='</p>';
-                    $htmlNoticias .= '</div>';
-                    $htmlNoticias .= '</div>';
-                }
-            }   
-        }
+        }   
+    }    
 
-        
+    $htmlNoticiaDestacada = '';
+    $noticias = Noticia::enseñarPorCar(2);
+    $htmlNoticiaDestacada .= '<div class = "noticia">';
+    $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
+    $htmlNoticiaDestacada .= '<a href ="index.php">';
+    $htmlNoticiaDestacada .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';
+    $htmlNoticiaDestacada .= '</a>';
+    $htmlNoticiaDestacada .= '</div>';
+    $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
+    $htmlNoticiaDestacada .= '<p class = "tituloNoticia">';
+    $htmlNoticiaDestacada .= $noticias[0]->getTitulo();
+    $htmlNoticiaDestacada .= '</p>';
+    $htmlNoticiaDestacada .= '</div>';
+    $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
+    $htmlNoticiaDestacada .= '<p class = "descripcionNoticia">';
+    $htmlNoticiaDestacada .= $noticias[0]->getDescripcion();
+    $htmlNoticiaDestacada .='</p>';
+    $htmlNoticiaDestacada .= '</div>';
+    $htmlNoticiaDestacada .= '</div>';
+
     if(isset($_SESSION['login'])){
        
         $contenidoPrincipal=<<<EOS
             <section class = "noticiasPrincipal">
                 <div class = "contenedorNoticias">
                     <div class = "noticiaDestacada">
-                        <p> NOTICIA DESTACADA </p>
+                        {$htmlNoticiaDestacada}
                     </div>
                 </div>
 
