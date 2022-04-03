@@ -129,7 +129,7 @@
             if($result) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
-                    $returning[] = new Noticia($fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['Descripcion'], $fila['ID'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
+                    $returning[] = new Noticia($fila['ID'], $fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['Descripcion'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
                 }
                 $result->free();
                 return $returning;

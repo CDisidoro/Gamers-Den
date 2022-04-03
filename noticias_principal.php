@@ -3,31 +3,35 @@
     $tituloPagina = "Noticias";
 
         $htmlNoticias = '';
-        if($_GET['tag'] == null){
-            $htmlNoticias .= '<p> Asdasd </p>';
-            $htmlNoticias .= $_GET['tag'];
+        if(!isset($_GET['tag'])){
+            $htmlNoticias .= '<p> No se han podido cargar las noticias de esta sección </p>';
         }
         else{
-            $noticias = Noticia::enseñarPorCar($_GET['tag']);
-            foreach($noticias as $noticia){
-                $htmlNoticias .= '<div class = "noticia">';
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<a href ="index.php">';
-                $htmlNoticias .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';                                     
-                $htmlNoticias .= '</a>';
-                $htmlNoticias .= '</div>';                                  
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<p class = "tituloNoticia">';
-                $htmlNoticias .= $noticia->getTitulo();
-                $htmlNoticias .= '</p>';
-                $htmlNoticias .= '</div>';
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<p class = "descripcionNoticia">';
-                $htmlNoticias .= $noticia->getDescripcion();
-                $htmlNoticias .='</p>';
-                $htmlNoticias .= '</div>';
-                $htmlNoticias .= '</div>';
+            $noticias = Noticia::enseñarPorCar($_GET["tag"]);
+            if($noticias == false){
+                $htmlNoticias .= '<p> ¡Aún no hay noticias en esta categoría! Pero nuestros escritores están en ello :) </p>';
             }
+            else{
+                foreach($noticias as $noticia){
+                    $htmlNoticias .= '<div class = "noticia">';
+                    $htmlNoticias .= '<div class = "cajaTitulo">';
+                    $htmlNoticias .= '<a href ="index.php">';
+                    $htmlNoticias .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';                                     
+                    $htmlNoticias .= '</a>';
+                    $htmlNoticias .= '</div>';                                  
+                    $htmlNoticias .= '<div class = "cajaTitulo">';
+                    $htmlNoticias .= '<p class = "tituloNoticia">';
+                    $htmlNoticias .= $noticia->getTitulo();
+                    $htmlNoticias .= '</p>';
+                    $htmlNoticias .= '</div>';
+                    $htmlNoticias .= '<div class = "cajaTitulo">';
+                    $htmlNoticias .= '<p class = "descripcionNoticia">';
+                    $htmlNoticias .= $noticia->getDescripcion();
+                    $htmlNoticias .='</p>';
+                    $htmlNoticias .= '</div>';
+                    $htmlNoticias .= '</div>';
+                }
+            }   
         }
 
         
@@ -46,15 +50,15 @@
                     <div class = "noticiasCuadro">
                         <div class = "botones">
                             <div class = "cajaBoton">
-                                <a href = "noticas_principal.php?tag=1"> Nuevo </a>
+                                <a href = "noticias_principal.php?tag=1"> Nuevo </a>
                             </div>
 
                             <div class = "cajaBoton">
-                                <a href = "noticas_principal.php?tag=2"> Destacado </a>
+                                <a href = "noticias_principal.php?tag=2"> Destacado </a>
                             </div>
 
                             <div class = "cajaBoton">
-                                <a href = "noticas_principal.php?tag=3"> Popular </a>
+                                <a href = "noticias_principal.php?tag=3"> Popular </a>
                             </div>
 
                             <div class = "cajaBusqueda">                               

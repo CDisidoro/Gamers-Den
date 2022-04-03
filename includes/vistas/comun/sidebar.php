@@ -32,7 +32,7 @@
 
                     <li>
                         <div class = "cajanoticiasNav">
-                            <a href = "noticias_principal.php" > Noticias</a>
+                            <a href = "noticias_principal.php?tag=1" > Noticias</a>
                         </div>               
                     </li>
 
