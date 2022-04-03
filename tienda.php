@@ -3,7 +3,7 @@
 	//require __DIR__.'/includes/Videojuegos.php'; 
 
 	## Cogemos todos nuestros productos (básicamente videojuegos) en un array
-	$arrayProductos = Productos::enseñarPorCar($_GET['caracterisitica']);
+	$arrayProductos = Producto::enseñarPorCar($_GET['caracterisitica']);
 	
 	## Mostrar los productos
 	$tituloPagina = 'Nuestra tienda';
@@ -16,7 +16,7 @@
 	for ($i = 0; $i < sizeof($arrayProductos); $i++) {
 		$nombreVideojuego=strval($arrayProductos[$i]->getNombre());
 		$urlImagen=strval($arrayProductos[$i]->getImagen());
-		$precio=val($arrayProductos[$i]->getPrecio());
+		$precio=strval($arrayProductos[$i]->getPrecio());
 		## URL del producto junto con el id
 		$id = 'Productos.php?id='.$arrayProductos[$i]->getID();
 		$productos.=<<<EOS
