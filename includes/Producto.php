@@ -25,7 +25,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	}
 	
 	public function getArticulo() {
-		return $this->nombre;
+		return $this->articulo;
 	}
 	public function getDescripcion() {
 		return $this->descripcion;
@@ -48,6 +48,8 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	}
 
 	public function geturlImagen() {
+		$articulo = Videojuegos ::buscaVideojuego($this->getID());
+		$articuloId = $articulo->getUrlImagen();
 		return $this->urlImagen;
 	}
 
@@ -75,7 +77,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	}*/
 	
 	public static function subeProducto() {
-		$nombre = htmlspecialchars(trim(strip_tags($_POST["NombreProducto"])));
+		$articulo = htmlspecialchars(trim(strip_tags($_POST["NombreProducto"])));
 		$descripcion = htmlspecialchars(trim(strip_tags($_POST["descripcionProducto"])));
 		$fecha = htmlspecialchars(trim(strip_tags($_POST["fechaProducto"])));
 		$vendedor = htmlspecialchars(trim(strip_tags($_POST["VendedorProducto"])));
@@ -87,7 +89,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		$articulo = Videojuegos ::buscarporNombre($nombre);
 		$articuloId = $articulo->getNombre();
 		
-		$sql = "INSERT INTO productos (Articulo, Descripcion, Fecha, Vendedor, Precio, Caracteristicas)
+		$sql = "INSERT INTO tienda (Articulo, Descripcion, Fecha, Vendedor, Precio, Caracteristicas)
 				VALUES ('$articuloId', '$descripcion', '$fecha', '$vendedor', '$precio', '$caracteristica')";
 		
 		if (mysqli_query($mysqli, $sql)) {
@@ -100,13 +102,13 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	
 	public static function buscaProducto($id) {
 		$mysqli = Aplicacion::getInstance()->getConexionBd();
-		$query = "SELECT * FROM productos WHERE ID = '$id'";
+		$query = "SELECT * FROM tienda WHERE ID = '$id'";
 		$result = $mysqli->query($query);
 		
 		if($result) {
 			$fila = $result->fetch_assoc();
 			$buscaProducto = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-									$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);
+									$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
             $result->free();
 			return $buscaProducto;
 		} else{
@@ -117,14 +119,15 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 
     public static function buscador($buscador) {
 		$mysqli = Aplicacion::getInstance()->getConexionBd();
-		$query = sprintf("SELECT * FROM productos");
+		$query = sprintf("SELECT * FROM tienda");
 		$result = $mysqli->query($query);
 		$returning = [];
 		if($result) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				if(strstr($fila['Nombre'],$buscador,false) != false)
-                    $returning[] = $numavatar['ID'];
+				if(strstr($fila['Articulo'],$buscador,false) != false)
+					$returning = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
 			}
             $result->free();
             return $returning;
@@ -135,7 +138,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	}
     public static function enseñarPorCar($caracterisitica) {
 		$mysqli = Aplicacion::getInstance()->getConexionBd();
-		$query = sprintf("SELECT * FROM productos");
+		$query = sprintf("SELECT * FROM tienda");
 		$result = $mysqli->query($query);
 
 		$ofertasArray;
@@ -144,8 +147,8 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				if($fila['Caracterisitica'] == $caracterisitica)
-					$ofertasArray[] = new Producto($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);		
+					$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);		
 			}
             $result->free();
 			return $ofertasArray;

@@ -1,9 +1,8 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-	//require_once __DIR__.'/includes/config.php';
-	//require __DIR__.'/includes/Videojuegos.php'; 
+	require('includes/config.php');
 
 	## Cogemos todos nuestros productos (básicamente videojuegos) en un array
-	$arrayProductos = Producto::enseñarPorCar($_GET['caracterisitica']);
+	$arrayProductos = Producto::enseñarPorCar($_GET['caracteristica']);
 	
 	## Mostrar los productos
 	$tituloPagina = 'Nuestra tienda';

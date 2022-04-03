@@ -33,7 +33,7 @@ CREATE TABLE `comentarios` (
   `ID` int(11) NOT NULL,
   `Autor` int(11) NOT NULL,
   `Foro` int(11) NOT NULL,
-  `Contenido` text NOT NULL,
+  `Contenido` longtext NOT NULL,
   `Fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Comentarios en los foros';
 
@@ -46,7 +46,7 @@ CREATE TABLE `comentarios` (
 CREATE TABLE `foro` (
   `ID` int(11) NOT NULL,
   `Autor` int(11) NOT NULL,
-  `Contenido` text NOT NULL,
+  `Contenido` longtext NOT NULL,
   `Fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -59,7 +59,7 @@ CREATE TABLE `foro` (
 CREATE TABLE `juegos` (
   `ID` int(11) NOT NULL,
   `Nombre` text NOT NULL,
-  `Descripcion` text NOT NULL,
+  `Descripcion` longtext NOT NULL,
   `Lanzamiento` date NOT NULL,
   `Desarrollador` text NOT NULL,
   `Precio` int(11) NOT NULL COMMENT 'Precio Oficial del Desarrollador'
@@ -99,7 +99,7 @@ CREATE TABLE `mensajes` (
   `Remitente` int(11) NOT NULL,
   `Destinatario` int(11) NOT NULL,
   `Fecha` date NOT NULL DEFAULT current_timestamp(),
-  `Contenido` text NOT NULL
+  `Contenido` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -112,7 +112,7 @@ CREATE TABLE `noticias` (
   `ID` int(11) NOT NULL,
   `Titulo` text NOT NULL,
   `Imagen` blob DEFAULT NULL,
-  `Contenido` text NOT NULL,
+  `Contenido` longtext NOT NULL,
   `Descripcion` text NOT NULL,
   `Etiquetas` text NOT NULL,
   `Autor` int(11) NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `tienda` (
   `Vendedor` int(11) NOT NULL,
   `Articulo` int(11) NOT NULL,
   `Precio` int(11) UNSIGNED NOT NULL,
-  `Descripcion` text NOT NULL,
+  `Descripcion` longtext NOT NULL,
   `Fecha` date NOT NULL,
   `Caracteristica` text NOT NULL DEFAULT 'Nuevo',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
