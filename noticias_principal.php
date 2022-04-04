@@ -7,11 +7,11 @@
         $htmlNoticias .= '<p> No se han podido cargar las noticias de esta sección </p>';
     }
     else{
-        if($_GET["tag"] > 3 || $_GET["tag"] < 1){
+        if($_GET['tag'] > 3 || $_GET['tag'] < 1){
             $noticias = Noticia::enseñarPorCar(1);
         }
         else{
-            $noticias = Noticia::enseñarPorCar($_GET["tag"]);
+            $noticias = Noticia::enseñarPorCar($_GET['tag']);
         }
         
         if($noticias == false){
