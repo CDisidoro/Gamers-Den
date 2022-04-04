@@ -6,7 +6,6 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	private $descripcion;
 	private $fecha;
 	private $vendedor;
-	private $urlImagen;
 	private $precio;
     private $caracteristica;
 	
@@ -49,8 +48,13 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 
 	public function geturlImagen() {
 		$articulo = Videojuegos ::buscaVideojuego($this->getID());
-		$articuloId = $articulo->getUrlImagen();
-		return $this->urlImagen;
+		$articuloUrl = $articulo->getUrlImagen();
+		return $articuloUrl;
+	}
+	public function getNombre() {
+		$articulo = Videojuegos ::buscaVideojuego($this->getID());
+		$articuloNom = $articulo->getNombre();
+		return $articuloNom;
 	}
 
 	// Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
