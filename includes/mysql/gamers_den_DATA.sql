@@ -39,7 +39,9 @@ COMMIT;
 
 INSERT INTO `lista_amigos` (`usuarioA`, `usuarioB`) VALUES
 (1, 2),
+(2, 1),
 (1, 3),
+(3, 1),
 (4, 1),
 (1, 4);
 
