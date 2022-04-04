@@ -21,8 +21,10 @@
             foreach($noticias as $noticia){
                 $htmlNoticias .= '<div class = "noticia">';
                 $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<a href ="index.php">';
-                $htmlNoticias .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';                                     
+                $htmlNoticias .= '<a href ="noticias_concreta.php">';
+                $htmlNoticias .= '<img class = "imagenNoticia"  src = "';   
+                $htmlNoticias .= $noticia->getImagen();
+                $htmlNoticias .= '">';
                 $htmlNoticias .= '</a>';
                 $htmlNoticias .= '</div>';                                  
                 $htmlNoticias .= '<div class = "cajaTitulo">';
@@ -44,8 +46,10 @@
     $noticias = Noticia::enseñarPorCar(2);
     $htmlNoticiaDestacada .= '<div class = "noticia">';
     $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
-    $htmlNoticiaDestacada .= '<a href ="index.php">';
-    $htmlNoticiaDestacada .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';
+    $htmlNoticiaDestacada .= '<a href ="noticias_concreta.php">';
+    $htmlNoticiaDestacada .= '<img class = "imagenNoticia"  src = "';   
+    $htmlNoticiaDestacada .= $noticias[0]->getImagen();
+    $htmlNoticiaDestacada .= '">';
     $htmlNoticiaDestacada .= '</a>';
     $htmlNoticiaDestacada .= '</div>';
     $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';

@@ -88,11 +88,19 @@
             return $this->titulo;
         }
 
+        public function getImagen() {
+            return $this->imagen;
+        }
+
         public function getNombre() {
             return $this->nombre;
         }
         public function getDescripcion() {
             return $this->descripcion;
+        }
+
+        public function getContenido() {
+            return $this->contenido;
         }
         
         public function getFecha() {
