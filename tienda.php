@@ -37,12 +37,53 @@
 	}
 
 	$productos = generaProductos();
+	if(isset($_SESSION['login'])){	
+		$contenidoPrincipal=<<<EOS
+			<section class = "tiendaPrincipal">
+				<div class = "contenedorProductos">
+					<div class = "productoDestacadp">
+						{}
+					</div>
+				</div>
 
+				<div  class = "contenedorProductos">
 
-	$contenidoPrincipal=<<<EOS
-		$productos
-		</div>
-	EOS;
+					<div class = "productosCuadro">
+						<div class = "botones">
+							
+							<div class = "cajaBoton">
+								<a href = "tienda.php?caracteristica=Destacado"> Destacado </a>
+							</div>
+							
+							<div class = "cajaBoton">
+								<a href = "tienda.php?caracteristica=Nuevo"> Nuevo </a>
+							</div>
 
+							<div class = "cajaBoton">
+								<a href = "tienda.php?caracteristica=Popular"> Popular </a>
+							</div>
+
+							<div class = "cajaBusqueda">                               
+								<a href = "buscarProducto.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
+							</div>
+
+						</div>
+
+						<div class = "cuadroProductos">
+							{$productos}                       
+						</div>                            
+					</div>
+
+				</div>
+			</section>
+		EOS;
+	}
+	else {
+        $contenidoPrincipal = <<<EOS
+            <section class = "content">
+                <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
+            </section>
+        EOS;
+    }
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>
