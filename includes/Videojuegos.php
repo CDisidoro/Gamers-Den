@@ -22,11 +22,11 @@ class Videojuego{ ## Estos son los atributos que tenemos puestos en la bd, excep
 	// Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
 	
 	public static function cargarVideojuegos(){
-		$mysqli = getConexionBD();
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = sprintf("SELECT * FROM juegos");
 		$result = $mysqli->query($query);
 
-		$ofertasArray;
+		$ofertasArray = null;
 		
 		if($result) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
@@ -48,7 +48,7 @@ class Videojuego{ ## Estos son los atributos que tenemos puestos en la bd, excep
 		$desarrollador = htmlspecialchars(trim(strip_tags($_POST["DesarrolladorJuego"])));
 		$precio = htmlspecialchars(trim(strip_tags($_POST["precioJuego"])));
 		
-		$mysqli = getConexionBD();
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		
 		$sql = "INSERT INTO juegos (Nombre, Descripcion, Lanzamiento, Desarrollador, Precio)
 				VALUES ('$nombre', '$descripcion', '$lanzamiento', '$desarrollador', '$precio')";
@@ -62,7 +62,7 @@ class Videojuego{ ## Estos son los atributos que tenemos puestos en la bd, excep
 	}
 	
 	public static function buscaVideojuego($id) {
-		$mysqli = getConexionBD();
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = "SELECT * FROM juegos WHERE ID = '$id'";
 		$result = $mysqli->query($query);
 		
