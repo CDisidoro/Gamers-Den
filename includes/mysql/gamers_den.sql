@@ -59,7 +59,7 @@ CREATE TABLE `foro` (
 --
 
 CREATE TABLE `juegos` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` text NOT NULL,
   `Descripcion` longtext NOT NULL,
   `Lanzamiento` date NOT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE `tienda` (
   `Articulo` int(11) NOT NULL,
   `Precio` int(11) UNSIGNED NOT NULL,
   `Descripcion` longtext NOT NULL,
-  `Fecha` date NOT NULL,
+  `Fecha` date NOT NULL DEFAULT current_timestamp,
   `Caracteristica` text NOT NULL DEFAULT 'Nuevo',
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
