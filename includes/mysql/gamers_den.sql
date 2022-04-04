@@ -118,7 +118,7 @@ CREATE TABLE `noticias` (
   `Imagen` text DEFAULT NULL,
   `Contenido` longtext NOT NULL,
   `Descripcion` text NOT NULL,
-  `Etiquetas` int(11) NOT NULL
+  `Etiquetas` int(11) NOT NULL,
   `Autor` int(11) NOT NULL,
   `Fecha` date NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY(`ID`)
