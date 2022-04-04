@@ -1,9 +1,14 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 
-class FormularioBusquedaNoticia extends Formulario
+class FormularioBusquedaNoticia extends FormularioGestionManual
 {
-    public function __construct() {
-        parent::__construct('formBusquedaNoticia', ['urlRedireccion' => '']); //falta noticia concreta
+
+    public function __construct()
+    {
+        parent::__construct('formBusquedaNoticias', [
+            'method' => 'GET',
+            'action' => 'mostrarBusquedaNoticias.php'
+        ]);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -33,23 +38,31 @@ class FormularioBusquedaNoticia extends Formulario
 
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
-        $Usuario = trim($datos['keyWords'] ?? '');
-        $Usuario = filter_var($Usuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (count($this->errores) === 0) {
-            $user = Usuario::buscaPorId($Usuario);
+        $keyWords = trim($datos['keyWords'] ?? '');
+        $keyWords = filter_var($keyWords, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            if (!$user) {
-                $this->errores[] = "No se ha encontrado al usuario";
-            } 
-            else if($user->getId() == $_SESSION['ID']){
-                $this->errores[] = "No te puedes agregar a ti mismo";
-            }
-            else if($user->alreadyFriends($user, $_SESSION['ID'])){
-                $this->errores[] = "Ya eres amigo de ese usuario";
-            }
-            else{
-                $user = Usuario::addFriends($user, $_SESSION['ID']);
-            }
+        if (!$keyWords ||  mb_strlen($keyWords) == 0 ) {
+            $this->errores[] = 'Debes especificar algún texto a buscar';
         }
+
+        $result = new ResultadoGestionFormulario(true);
+        if (count($this->errores) === 0) {
+            
+            $resultado = [];
+            // Pedimos un mensaje más allá de la página actual para saber si hay más páginas
+            $resultado['noticias'] = Noticia::buscarNoticiaKeyWords($keyWords);
+            $resultado['extraUrlParams'] = ['tipoFormulario'=>'formBusquedaNoticias', 'keyWords' => $keyWords];
+            $result->setResultado($resultado);
+
+            if (!$resultado['noticias']) {
+                $this->errores[] = "Su búsqueda no ha obtenido resultados";
+            }           
+        }
+        else {
+            $result->setErrores($this->errores);
+        }
+        $result->setHtmlFormulario($this->generaFormulario($datos));
+        return $result;     
     }
+
 }

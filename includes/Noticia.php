@@ -25,23 +25,20 @@
         // Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
         
         public static function cargarNoticia(){
-            $mysqli = getConexionBD();
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM noticias");
-            $result = $mysqli->query($query);
-    
-            $noticiasArray;
-            
+            $result = $mysqli->query($query);  
+            $returning = [];
             if($result) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
-                    $noticiasArray[] = new Noticia($fila['Titulo'],$fila['Imagen'], $fila['Contenido'],
-                                         $fila['ID'], $fila['Etiquetas'],$fila['Autor'], $fila['Fecha']);		
+                    $returning[] = new Noticia($fila['ID'], $fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['Descripcion'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
                 }
                 $result->free();
-                return $noticiasArray;
-            }
-            else{
-                echo "Error in ".$query."<br>".$mysqli->error;
+                return $returning;
+            } else{
+                echo"No se ha encontrado el producto";
+                return false;
             }
         }
         
@@ -73,7 +70,7 @@
             
             if($result) {
                 $fila = $result->fetch_assoc();
-                $buscaProducto = new Noticia($fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['ID'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
+                $buscaProducto = new Noticia($fila['ID'], $fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['Descripcion'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
                 $result->free();
                 return $buscaProducto;
             } else{
@@ -101,25 +98,6 @@
         public function getFecha() {
             return $this->fecha;
         }
-    
-        public static function buscador($buscador) {
-            $mysqli = getConexionBD();
-            $query = sprintf("SELECT * FROM productos");
-            $result = $mysqli->query($query);
-            $returning = [];
-            if($result) {
-                for ($i = 0; $i < $result->num_rows; $i++) {
-                    $fila = $result->fetch_assoc();
-                    if(strstr($fila['Nombre'],$buscador,false) != false)
-                        $returning[] = $numavatar['ID'];
-                }
-                $result->free();
-                return $returning;
-            } else{
-                echo"No se ha encontrado el producto";
-                return false;
-            }
-        }
 
         public static function enseñarPorCar($categoria) {
             $mysqli = Aplicacion::getInstance()->getConexionBd();
@@ -138,6 +116,33 @@
                 return false;
             }
         }
+
+        public static function buscarNoticiaKeyWords($keyWords){
+            $palabras = explode(" ", $keyWords); //separamos cada una de las keywords a buscar
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
+            $returning = [];
+            foreach($palabras as $palabra){
+                $query = sprintf("SELECT * FROM noticias WHERE Titulo LIKE '%%{$palabra}%%' OR Contenido LIKE '%%{$palabra}%%' OR Descripcion LIKE '%%{$palabra}%%'");
+                $result = $mysqli->query($query);
+                if($result){
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        $fila = $result->fetch_assoc();
+                        $esta = false;
+                        foreach($returning as $noticia){
+                            if($noticia->getID() == $fila['ID']){
+                                $esta = true;
+                            }
+                        }
+                        if(!$esta){
+                            $returning[] = new Noticia($fila['ID'], $fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['Descripcion'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
+                        }
+                        $esta = false;
+                    }
+                    $result->free();
+                }
+            }
+            return $returning;
+        }
         
-      }
+    }
 ?>

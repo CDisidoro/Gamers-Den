@@ -7,7 +7,13 @@
         $htmlNoticias .= '<p> No se han podido cargar las noticias de esta sección </p>';
     }
     else{
-        $noticias = Noticia::enseñarPorCar($_GET["tag"]);
+        if($_GET["tag"] > 3 || $_GET["tag"] < 1){
+            $noticias = Noticia::enseñarPorCar(1);
+        }
+        else{
+            $noticias = Noticia::enseñarPorCar($_GET["tag"]);
+        }
+        
         if($noticias == false){
             $htmlNoticias .= '<p> ¡Aún no hay noticias en esta categoría! Pero nuestros escritores están en ello :) </p>';
         }

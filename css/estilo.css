@@ -122,6 +122,18 @@
     float:left;
     width:80%;
 }
+
+
+.mostrarNoticias{
+    background-color: rgb(245, 139, 18);
+    color: rgb(0, 0, 0);
+    width: 80%;
+    height: fit-content;
+    margin: auto;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
 /* FIN ESTILOS NOTICIAS*/
 
 
