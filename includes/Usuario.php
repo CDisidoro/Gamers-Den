@@ -265,9 +265,13 @@
         public function deleteFriend($idAmigo){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $nuestroId = $this->getId();
-            $query = sprintf("DELETE * FROM lista_amigos LA WHERE (LA.usuarioA LIKE $nuestroId AND LA.usuarioB LIKE $idAmigo) OR (LA.usuarioB LIKE $nuestroId AND LA.usuarioA LIKE $idAmigo)");
-            $conector->query($query);
-            return true;
+            $query = sprintf("DELETE FROM lista_amigos  WHERE (usuarioA = $nuestroId AND usuarioB = $idAmigo) OR (usuarioB = $nuestroId AND usuarioA = $idAmigo)");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
+            }
+            return $resultado;
         }
         
         public function getMessages($idAmigo){
@@ -287,7 +291,7 @@
             }
             return $result;
         }
-/*
+        /*
         public function getFriendInvitations(){
             $friends = [];
             $conector = Aplicacion::getInstance()->getConexionBd();
