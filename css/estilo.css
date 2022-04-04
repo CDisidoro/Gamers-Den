@@ -1,6 +1,25 @@
 
 /*ESTILOS PÁGINA NOTICIAS*/
 
+.noticiaContenedor{
+    background-color: rgb(12, 243, 81);
+    text-align: center;
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 35px;
+    min-height: 200px;
+    padding: 30px;
+}
+
+.noticiaConcreta{
+    background-color: rgb(107, 66, 19);
+    width: 80%;
+    margin: auto;
+    min-height: 500px;
+    display: grid;
+    grid-row: auto;
+}
+
 .noticiasPrincipal{
     background-color: rgb(245, 139, 18);
     width: 80%;

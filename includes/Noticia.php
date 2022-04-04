@@ -65,7 +65,7 @@
         
         public static function buscaNoticia($id) {
             $mysqli = Aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM productos WHERE ID = '$id'";
+            $query = "SELECT * FROM noticias WHERE ID = '$id'";
             $result = $mysqli->query($query);
             
             if($result) {
@@ -74,7 +74,7 @@
                 $result->free();
                 return $buscaProducto;
             } else{
-                echo"No se ha encontrado el producto";
+                echo"No se ha encontrado la noticia";
                 return false;
             }
         }
