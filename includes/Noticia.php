@@ -27,15 +27,8 @@
         public static function cargarNoticia(){
             $mysqli = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM noticias");
-<<<<<<< HEAD
             $result = $mysqli->query($query);  
             $returning = [];
-=======
-            $result = $mysqli->query($query);
-    
-            $noticiasArray = null;
-            
->>>>>>> c3b1f57ed68cfc46fb02ac9920766cb48d33c343
             if($result) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
@@ -105,7 +98,7 @@
         public function getFecha() {
             return $this->fecha;
         }
-        
+
         public static function enseñarPorCar($categoria) {
             $mysqli = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM noticias WHERE Etiquetas = $categoria");
