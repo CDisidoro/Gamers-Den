@@ -30,11 +30,12 @@ USE `gamers_den`;
 --
 
 CREATE TABLE `comentarios` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Autor` int(11) NOT NULL,
   `Foro` int(11) NOT NULL,
   `Contenido` longtext NOT NULL,
-  `Fecha` date NOT NULL DEFAULT current_timestamp()
+  `Fecha` date NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Comentarios en los foros';
 
 -- --------------------------------------------------------
@@ -44,10 +45,11 @@ CREATE TABLE `comentarios` (
 --
 
 CREATE TABLE `foro` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Autor` int(11) NOT NULL,
   `Contenido` longtext NOT NULL,
-  `Fecha` date NOT NULL DEFAULT current_timestamp()
+  `Fecha` date NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -62,7 +64,8 @@ CREATE TABLE `juegos` (
   `Descripcion` longtext NOT NULL,
   `Lanzamiento` date NOT NULL,
   `Desarrollador` text NOT NULL,
-  `Precio` int(11) NOT NULL COMMENT 'Precio Oficial del Desarrollador'
+  `Precio` int(11) NOT NULL COMMENT 'Precio Oficial del Desarrollador',
+  PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -95,11 +98,12 @@ CREATE TABLE `lista_deseos` (
 --
 
 CREATE TABLE `mensajes` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Remitente` int(11) NOT NULL,
   `Destinatario` int(11) NOT NULL,
   `Fecha` date NOT NULL DEFAULT current_timestamp(),
-  `Contenido` longtext NOT NULL
+  `Contenido` longtext NOT NULL,
+  PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -109,14 +113,15 @@ CREATE TABLE `mensajes` (
 --
 
 CREATE TABLE `noticias` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Titulo` text NOT NULL,
   `Imagen` blob DEFAULT NULL,
   `Contenido` longtext NOT NULL,
   `Descripcion` text NOT NULL,
   `Etiquetas` text NOT NULL,
   `Autor` int(11) NOT NULL,
-  `Fecha` date NOT NULL DEFAULT current_timestamp()
+  `Fecha` date NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -133,6 +138,7 @@ CREATE TABLE `tienda` (
   `Descripcion` longtext NOT NULL,
   `Fecha` date NOT NULL,
   `Caracteristica` text NOT NULL DEFAULT 'Nuevo',
+  PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -142,13 +148,14 @@ CREATE TABLE `tienda` (
 --
 
 CREATE TABLE `usuarios` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Usuario` text NOT NULL,
   `Password` varchar(255) NOT NULL COMMENT 'SHA',
   `Email` text NOT NULL,
   `Rol` text NOT NULL,
   `Avatar` int(11) DEFAULT 1,
-  `Biografia` longtext DEFAULT NULL
+  `Biografia` longtext DEFAULT NULL,
+  PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -159,7 +166,6 @@ CREATE TABLE `usuarios` (
 -- Indices de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  ADD PRIMARY KEY (`ID`),
   ADD KEY `FK_Autor` (`Autor`) USING BTREE,
   ADD KEY `FK_Foro` (`Foro`) USING BTREE;
 
@@ -167,14 +173,7 @@ ALTER TABLE `comentarios`
 -- Indices de la tabla `foro`
 --
 ALTER TABLE `foro`
-  ADD PRIMARY KEY (`ID`),
   ADD KEY `FK_Autor` (`Autor`) USING BTREE;
-
---
--- Indices de la tabla `juegos`
---
-ALTER TABLE `juegos`
-  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indices de la tabla `lista_amigos`
@@ -194,7 +193,6 @@ ALTER TABLE `lista_deseos`
 -- Indices de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  ADD PRIMARY KEY (`ID`),
   ADD KEY `FK_Remitente` (`Remitente`) USING BTREE,
   ADD KEY `FK_Destinatario` (`Destinatario`) USING BTREE;
 
@@ -202,14 +200,12 @@ ALTER TABLE `mensajes`
 -- Indices de la tabla `noticias`
 --
 ALTER TABLE `noticias`
-  ADD PRIMARY KEY (`ID`),
   ADD KEY `Autor` (`Autor`);
 
 --
 -- Indices de la tabla `tienda`
 --
 ALTER TABLE `tienda`
-  ADD PRIMARY KEY (`ID`),
   ADD KEY `FK_Vendedor` (`Vendedor`) USING BTREE,
   ADD KEY `FK_Articulo` (`Articulo`) USING BTREE;
 
@@ -217,54 +213,7 @@ ALTER TABLE `tienda`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `Usuario` (`Usuario`) USING HASH;
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `comentarios`
---
-ALTER TABLE `comentarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `foro`
---
-ALTER TABLE `foro`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `juegos`
---
-ALTER TABLE `juegos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `noticias`
---
-ALTER TABLE `noticias`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `tienda`
---
-ALTER TABLE `tienda`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
