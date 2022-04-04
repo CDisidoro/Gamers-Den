@@ -56,6 +56,39 @@ INSERT INTO `mensajes` (`ID`, `Remitente`, `Destinatario`, `Fecha`, `Contenido`)
 (4, 2, 1, '2022-03-27', 'no sabia que era menor'),
 (5, 1, 2, '2022-03-27', 'Asqueroso usuario la recogias del insti');
 
+
+--
+-- Volcado de datos para la tabla `juegos`
+--
+INSERT INTO `juegos` (`Nombre`, `Descripcion`, `Lanzamiento`, `Desarrollador`, `Precio`) VALUES
+('Elden Ring',
+'EL NUEVO JUEGO DE ROL Y ACCIÓN DE AMBIENTACIÓN FANTÁSTICA.\r\nÁlzate, Sinluz, y que la gracia te guíe para abrazar el poder del Círculo de Elden y encumbrarte como señor del Círculo en las Tierras Intermedias.\r\n\r\n• Un extenso mundo lleno de emociones\r\nUn vasto mundo perfectamente conectado en el que los territorios abiertos estarán repletos de situaciones y mazmorras enormes con diseños complejos y tridimensionales. Mientras exploras, experimentarás el deleite de descubrir amenazas desconocidas y sobrecogedoras, y eso te haré sentir la emoción de la superación.\r\n\r\n• Crea tu propio personaje\r\nAdemás de personalizar la apariencia de tu personaje, puedes combinar libremente las armas, armaduras y la magia que te equipas. Puedes desarrollar a tu personaje según tu estilo de juego, tanto para aumentar tu fuerza bruta y ser un guerrero poderoso, como para dominar la magia.\r\n\r\n• Un drama épico nacido de un mito\r\nUna historia muy profunda contada en fragmentos. Un drama épico en el que las motivaciones de cada personaje se encuentran en las Tierras Intermedias.\r\n\r\n• Jugabilidad online única que te conecta libremente con otros jugadores\r\nAdemás del multijugador, en el que te puedes conectar directamente con otros jugadores y viajar juntos, el juego incluye un elemento online asíncrono único que te permite sentir la presencia de otros.',
+'2022-02-25',
+'From Software, Inc.',
+'60'),
+('Terraria',
+'¡Cava, lucha, explora, construye! Nada es imposible en este juego de aventuras repleto de acción. El mundo es tu lienzo y la tierra misma es tu pintura.\r\n¡Coge tus herramientas y adelante! Crea armas para deshacerte de una gran variedad de enemigos en numerosos ecosistemas. Excava profundo bajo tierra para encontrar accesorios, dinero y otras cosas muy útiles. Reúne recursos para crear todo lo que necesites y conformar así tu propio mundo. Construye una casa, un fuerte o incluso un castillo. La gente se mudará a vivir ahí e incluso quizás te vendan diferentes mercancías que te ayuden en tu viaje.\r\nPero ten cuidado, aún te aguardan más desafíos... ¿Estás preparado para la tarea?\r\nCaracterísticas principales:\r\nJugabilidad \"sandbox\" (juega libremente en un mundo a tu disposición)\r\nMundos generados de forma aleatoria\r\nActualizaciones gratuitas de contenido',
+'2011-05-16',
+'Re-Logic',
+'10'),
+('Fallout 4',
+'Bethesda Game Studios, el galardonado creador de Fallout 3 y The Elder Scrolls V: Skyrim, os da la bienvenida al mundo de Fallout 4, su juego más ambicioso hasta la fecha y la siguiente generación de mundos abiertos.',
+'2015-11-10',
+'Bethesda Softworks',
+'20'),
+('Elite Dangerous',
+'Elite Dangerous es el multijugador masivo espacial definitivo, que acerca la aventura original de mundo abierto a la nueva generación con una galaxia conectada, una narrativa en constante evolución y una recreación integral de la Vía Láctea.',
+'2015-04-02',
+'Frontier Developments',
+'25')
+;
+
+--
+-- Volcado de datos para la tabla `tienda`
+--
+INSERT INTO `tienda` (`Vendedor`, `Articulo`, `Precio`, `Descripcion`, `Caracteristica`) VALUES
+('4', '4', '20', 'Es muy divertido pero gasta mucho tiempo', 'Nuevo');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
