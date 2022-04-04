@@ -99,9 +99,10 @@
             return $this->fecha;
         }
 
-        public static function enseñarPorCar($categoria) {
+        public static function enseñarPorCar($categoria) {          
             $mysqli = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM noticias WHERE Etiquetas = $categoria");
+            $Categoria = $mysqli->real_escape_string($categoria); //filtro de seguridad
+            $query = sprintf("SELECT * FROM noticias WHERE Etiquetas = $Categoria");
             $result = $mysqli->query($query);
             $returning = [];
             if($result) {
@@ -117,9 +118,11 @@
             }
         }
 
-        public static function buscarNoticiaKeyWords($keyWords){
-            $palabras = explode(" ", $keyWords); //separamos cada una de las keywords a buscar
+        public static function buscarNoticiaKeyWords($keyWords){            
             $mysqli = Aplicacion::getInstance()->getConexionBd();
+
+            $palabras = $mysqli->real_escape_string($keyWords); //filtro de seguridad
+            $palabras = explode(" ", $keyWords); //separamos cada una de las keywords a buscar
             $returning = [];
             foreach($palabras as $palabra){
                 $query = sprintf("SELECT * FROM noticias WHERE Titulo LIKE '%%{$palabra}%%' OR Contenido LIKE '%%{$palabra}%%' OR Descripcion LIKE '%%{$palabra}%%'");

@@ -34,7 +34,7 @@ class FormularioEliminarAmigos extends Formulario
     }
 
     protected function procesaFormulario(&$datos) {
-        $user = Usuario::buscarUsuario($datos['IDUsuario']);
+        $user = Usuario::buscarUsuario(trim($datos['IDUsuario'])); //filtro de seguridad 
         if (!$user)
             $this->errores[] = "No se ha encontrado al usuario";
 
