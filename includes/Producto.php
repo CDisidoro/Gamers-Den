@@ -43,7 +43,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 	}
 
     public function getCaracteristica() {
-		return $this->caracteristic;
+		return $this->caracteristica;
 	}
 
 	public function geturlImagen() {
@@ -93,7 +93,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		$articulo = Videojuegos ::buscarporNombre($nombre);
 		$articuloId = $articulo->getNombre();
 		
-		$sql = "INSERT INTO tienda (Articulo, Descripcion, Fecha, Vendedor, Precio, Caracteristicas)
+		$sql = "INSERT INTO tienda (Articulo, Descripcion, Fecha, Vendedor, Precio, Caracteristica)
 				VALUES ('$articuloId', '$descripcion', '$fecha', '$vendedor', '$precio', '$caracteristica')";
 		
 		if (mysqli_query($mysqli, $sql)) {
