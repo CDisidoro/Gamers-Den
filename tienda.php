@@ -12,13 +12,13 @@
 			<div="contenedor">
 		EOS;
 		## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada
-		if($arrayProductos != null){
+		if($arrayProductos != -1){
 			foreach ($arrayProductos as $producto) {
 				$idProducto = $producto->getID();
 				$nomProducto = $producto->getNombre();
 				$descProducto = $producto->getDescripcion();
 				$urlImagen = 'img/';
-				$urlImagen .= $usuarioAmigo->getAvatar();
+				$urlImagen .= $producto->getAvatar();
 				$urlImagen .= '.jpg';
 				## URL del producto junto con el id
 				$id = 'Productos.php?id='.$producto->getID();

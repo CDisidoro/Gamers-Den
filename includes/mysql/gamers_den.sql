@@ -64,6 +64,7 @@ CREATE TABLE `juegos` (
   `Descripcion` longtext NOT NULL,
   `Lanzamiento` date NOT NULL,
   `Desarrollador` text NOT NULL,
+  `Imagen` text NOT NULL,
   `Precio` int(11) NOT NULL COMMENT 'Precio Oficial del Desarrollador',
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

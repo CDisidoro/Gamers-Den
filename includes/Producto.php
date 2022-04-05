@@ -46,14 +46,12 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		return $this->caracteristica;
 	}
 
-	public function geturlImagen() {
-		$articulo = Videojuegos ::buscaVideojuego($this->getID());
-		$articuloUrl = $articulo->getUrlImagen();
+	public function getAvatar() {
+		$articuloUrl = self::getImageArticulo($this->getArticulo());
 		return $articuloUrl;
 	}
 	public function getNombre() {
-		$articulo = Videojuegos ::buscaVideojuego($this->getID());
-		$articuloNom = $articulo->getNombre();
+		$articuloNom = self::getNombreArticulo($this->getArticulo());
 		return $articuloNom;
 	}
 
@@ -146,21 +144,53 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		$result = $mysqli->query($query);
 
 		$ofertasArray;
-		
+		$notNull = 0;
 		if($result) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				if($fila['Caracterisitica'] == $caracterisitica)
+				if($fila['Caracteristica'] == $caracterisitica)
+				{
 					$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);		
+						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+					$notNull++;		
+				}
 			}
             $result->free();
+			if($notNull == 0)
+				return -1;
 			return $ofertasArray;
 		}
 		else{
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
-	
+    protected function getNombreArticulo($articulo) {
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
+		$query = sprintf("SELECT Ju.Nombre FROM juegos Ju WHERE Ju.ID LIKE $articulo");
+		$result = $mysqli->query($query);
+		if($result) {
+			$fila = $result->fetch_assoc();
+			$value = $fila['Nombre'];
+            $result->free();
+			return $value;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+	protected function getImageArticulo($articulo) {
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
+		$query = sprintf("SELECT Ju.Imagen FROM juegos Ju WHERE Ju.ID LIKE $articulo");
+		$result = $mysqli->query($query);
+		if($result) {
+			$fila = $result->fetch_assoc();
+			$value = $fila['Imagen'];
+            $result->free();
+			return $value;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
   }
 ?>
