@@ -41,7 +41,11 @@
         $contenidoPrincipal=<<<EOS
             <section class = "noticiaConcreta">
                 <div class = "contenedorNoticias">
-                    
+                    <div class = "cajaflex"> 
+                        <div class = "cajaRetroceder">
+                            <a href = "noticias_principal.php"> Retroceder </a>
+                        </div>
+                    </div>
                         {$htmlNoticias}
                     
                 </div>
