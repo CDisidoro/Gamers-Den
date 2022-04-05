@@ -10,10 +10,13 @@
         
         $noticia = Noticia::buscaNoticia($_GET['id']);
         
-                $htmlNoticias .= '<div class = "noticia">';
+                $htmlNoticias .= '<div>';
                 $htmlNoticias .= '<h3>';
                 $htmlNoticias .= $noticia->getTitulo();
                 $htmlNoticias .= '</h3>';
+                $htmlNoticias .= '<h5>';
+                $htmlNoticias .= $noticia->getDescripcion();
+                $htmlNoticias .= '</h5>';
                 $htmlNoticias .= '<div class = "cajaTitulo">';
                 $htmlNoticias .= '<a href ="noticias_concreta.php?id=';
                 $htmlNoticias .= $noticia->getID();
@@ -23,15 +26,6 @@
                 $htmlNoticias .= '">';
                 $htmlNoticias .= '</a>';
                 $htmlNoticias .= '</div>';                                  
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                /*$htmlNoticias .= '<p class = "tituloNoticia">';
-                $htmlNoticias .= $noticia->getTitulo();
-                $htmlNoticias .= '</p>';*/
-                $htmlNoticias .= '</div>';
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<p class = "descripcionNoticia">';
-                $htmlNoticias .= $noticia->getDescripcion();
-                $htmlNoticias .='</p>';
                 $htmlNoticias .= '<p class = "descripcionNoticia">';
                 $htmlNoticias .= $noticia->getContenido();
                 $htmlNoticias .='</p>';
@@ -47,9 +41,9 @@
         $contenidoPrincipal=<<<EOS
             <section class = "noticiaConcreta">
                 <div class = "contenedorNoticias">
-                    <div class = "noticiaContenedor">
+                    
                         {$htmlNoticias}
-                    </div>
+                    
                 </div>
 
                
