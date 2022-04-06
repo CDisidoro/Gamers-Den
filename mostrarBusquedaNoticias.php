@@ -28,7 +28,9 @@ foreach($noticias as $noticia){
     $htmlNoticias .= '<article>';
     $htmlNoticias .= '<div class = "noticia">';
     $htmlNoticias .= '<div class = "cajaTitulo">';
-    $htmlNoticias .= '<a href ="index.php">';
+    $htmlNoticias .= '<a href ="noticias_concreta.php?id=';
+    $htmlNoticias .= $noticia->getID();
+    $htmlNoticias .= '">';
     $htmlNoticias .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';                                 
     $htmlNoticias .= '</a>';
     $htmlNoticias .= '</div>';
@@ -52,8 +54,8 @@ $htmlNoticias .= '</section>';
 $tituloPagina = 'Noticias';
 $contenidoPrincipal=<<<EOF
   	$cabecera
-    $htmlNoticias
     $htmlFormBuscaMensajes
+    $htmlNoticias
 EOF;
 
 include 'includes/vistas/plantillas/plantilla.php';

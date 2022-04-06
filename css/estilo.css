@@ -116,6 +116,16 @@
     border:3px solid  rgb(245, 139, 18);
 }
 
+.cajaRetroceder{
+    width:70px;
+    color: white;
+    background-color: rgba(155, 88, 12, 0.929);
+    justify-content: center;
+    text-align: center;
+    padding:15px;
+    border:1px solid  black;
+}
+
 .cajaBoton a{
     text-decoration: none;
     color:white;
