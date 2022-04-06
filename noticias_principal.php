@@ -97,7 +97,6 @@
                             <div class = "cajaBusqueda">                               
                                 <a href = "buscarNoticia.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
                             </div>
-
                         </div>
 
                         <div class = "cuadroNoticias">
