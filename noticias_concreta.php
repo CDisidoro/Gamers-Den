@@ -10,51 +10,37 @@
         
         $noticia = Noticia::buscaNoticia($_GET['id']);
         
-                $htmlNoticias .= '<div>';
-                $htmlNoticias .= '<h3>';
-                $htmlNoticias .= $noticia->getTitulo();
-                $htmlNoticias .= '</h3>';
-                $htmlNoticias .= '<h5>';
-                $htmlNoticias .= $noticia->getDescripcion();
-                $htmlNoticias .= '</h5>';
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<a href ="noticias_concreta.php?id=';
-                $htmlNoticias .= $noticia->getID();
-                $htmlNoticias .= '">';
-                $htmlNoticias .= '<img class = "imagenNoticia"  src = "';   
-                $htmlNoticias .= $noticia->getImagen();
-                $htmlNoticias .= '">';
-                $htmlNoticias .= '</a>';
-                $htmlNoticias .= '</div>';                                  
-                $htmlNoticias .= '<p class = "descripcionNoticia">';
-                $htmlNoticias .= $noticia->getContenido();
-                $htmlNoticias .='</p>';
-                $htmlNoticias .= '</div>';
-                $htmlNoticias .= '</div>';
-            
-          
+        $htmlNoticias .= '<div>';
+        $htmlNoticias .= '<h3>';
+        $htmlNoticias .= $noticia->getTitulo();
+        $htmlNoticias .= '</h3>';
+        $htmlNoticias .= '<h5>';
+        $htmlNoticias .= $noticia->getDescripcion();
+        $htmlNoticias .= '</h5>';
+        $htmlNoticias .= '<div class = "cajaTitulo">';
+        $htmlNoticias .= '<a href ="noticias_concreta.php?id=';
+        $htmlNoticias .= $noticia->getID();
+        $htmlNoticias .= '">';
+        $htmlNoticias .= '<img class = "imagenNoticia"  src = "';   
+        $htmlNoticias .= $noticia->getImagen();
+        $htmlNoticias .= '">';
+        $htmlNoticias .= '</a>';
+        $htmlNoticias .= '</div>';                                  
+        $htmlNoticias .= '<p class = "descripcionNoticia">';
+        $htmlNoticias .= $noticia->getContenido();
+        $htmlNoticias .='</p>';
+        $htmlNoticias .= '</div>';
+        $htmlNoticias .= '</div>';
+                 
     }    
 
-
-    if(isset($_SESSION['login'])){
-       
-        $contenidoPrincipal=<<<EOS
-            <section class = "noticiaConcreta">
-                <div class = "contenedorNoticias">
-                    
-                        {$htmlNoticias}
-                    
-                </div>
-
-               
-            </section>
-        EOS;
-    }else{
-        $contenidoPrincipal = <<<EOS
-            <section class = "content">
-                <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
-            </section>
-        EOS;
-    }
+    $contenidoPrincipal=<<<EOS
+        <section class = "noticiaConcreta">
+            <div class = "contenedorNoticias">                
+                    {$htmlNoticias}              
+            </div>      
+        </section>
+    EOS;     
+    
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>
