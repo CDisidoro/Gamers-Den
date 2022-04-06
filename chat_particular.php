@@ -5,7 +5,9 @@
         $username = $_SESSION['Usuario'];
         $id = $_SESSION['ID'];
         $usuario = Usuario::buscarUsuario($username);
-        $amigo = $usuario->buscaPorId($_GET['idAmigo']);    
+        $amigo = $usuario->buscaPorId($_GET['idAmigo']);
+        $formMandaMensajes = new FormularioMandaMensajes();
+        $formulario = $formMandaMensajes->gestiona();    
 
         function generaAvatar($amigo){
             $srcAvatar = 'img/avatar';
@@ -97,7 +99,8 @@
                     </div>
                 </article>
                 <article class = "chat">
-                    {$htmlChat}                        
+                    {$htmlChat}
+                    $formulario                        
                 </article>
             </section>
         EOS;

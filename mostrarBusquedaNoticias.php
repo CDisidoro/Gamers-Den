@@ -10,9 +10,6 @@ require('includes/config.php');
 // Gestionamos si se ha enviado formulario para buscar Mensajes
 $formBuscaMensajes = new FormularioBusquedaNoticia();
 $resultadoBuscaMensajes = $formBuscaMensajes->gestiona();
-/*if (!$resultadoBuscaMensajes->getEnviado()) {
-    Aplicacion::redirige(Aplicacion::buildUrl('/tablon.php'));
-}*/
 
 // Generamos la vista si no se está enviando el formulario de crear, editar o borrar mensaje
 
@@ -31,7 +28,9 @@ foreach($noticias as $noticia){
     $htmlNoticias .= '<a href ="noticias_concreta.php?id=';
     $htmlNoticias .= $noticia->getID();
     $htmlNoticias .= '">';
-    $htmlNoticias .= '<img src = "img/Logo.jpg" class = "imagenNoticia">';                                 
+    $htmlNoticias .= '<img src = "';
+    $htmlNoticias .= $noticia->getImagen();
+    $htmlNoticias .= '" class = "imagenNoticia">';                                 
     $htmlNoticias .= '</a>';
     $htmlNoticias .= '</div>';
                                     
