@@ -1,6 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
-    $tituloPagina = "Noticia Concreta";
+    $tituloPagina = "Noticia";
 
     $htmlNoticias = '';
     if(!isset($_GET['id'])){
@@ -39,7 +39,7 @@
         <div class = "contenedorNoticias">
             <div class = "cajaflex"> 
                 <div class = "cajaRetroceder">
-                    <a href = "noticias_principal.php"> Retroceder </a>
+                    <a href = "noticias_principal.php?tag=1"> Retroceder </a>
                 </div>
             </div>
 

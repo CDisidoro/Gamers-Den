@@ -68,51 +68,43 @@
     $htmlNoticiaDestacada .= '</div>';
     $htmlNoticiaDestacada .= '</div>';
 
-    if(isset($_SESSION['login'])){
        
-        $contenidoPrincipal=<<<EOS
-            <section class = "noticiasPrincipal">
-                <div class = "contenedorNoticias">
-                    <div class = "noticiaDestacada">
-                        {$htmlNoticiaDestacada}
+    $contenidoPrincipal=<<<EOS
+    <section class = "noticiasPrincipal">
+        <div class = "contenedorNoticias">
+            <div class = "noticiaDestacada">
+                {$htmlNoticiaDestacada}
+            </div>
+        </div>
+
+        <div  class = "contenedorNoticias">
+
+            <div class = "noticiasCuadro">
+                <div class = "botones">
+                    <div class = "cajaBoton">
+                        <a href = "noticias_principal.php?tag=1"> Nuevo </a>
+                    </div>
+
+                    <div class = "cajaBoton">
+                        <a href = "noticias_principal.php?tag=2"> Destacado </a>
+                    </div>
+
+                    <div class = "cajaBoton">
+                        <a href = "noticias_principal.php?tag=3"> Popular </a>
+                    </div>
+
+                    <div class = "cajaBusqueda">                               
+                        <a href = "buscarNoticia.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
                     </div>
                 </div>
 
-                <div  class = "contenedorNoticias">
+                <div class = "cuadroNoticias">
+                    {$htmlNoticias}                       
+                </div>                            
+            </div>
 
-                    <div class = "noticiasCuadro">
-                        <div class = "botones">
-                            <div class = "cajaBoton">
-                                <a href = "noticias_principal.php?tag=1"> Nuevo </a>
-                            </div>
-
-                            <div class = "cajaBoton">
-                                <a href = "noticias_principal.php?tag=2"> Destacado </a>
-                            </div>
-
-                            <div class = "cajaBoton">
-                                <a href = "noticias_principal.php?tag=3"> Popular </a>
-                            </div>
-
-                            <div class = "cajaBusqueda">                               
-                                <a href = "buscarNoticia.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
-                            </div>
-                        </div>
-
-                        <div class = "cuadroNoticias">
-                            {$htmlNoticias}                       
-                        </div>                            
-                    </div>
-
-                </div>
-            </section>
-        EOS;
-    }else{
-        $contenidoPrincipal = <<<EOS
-            <section class = "content">
-                <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
-            </section>
-        EOS;
-    }
+        </div>
+    </section>
+    EOS;
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>
