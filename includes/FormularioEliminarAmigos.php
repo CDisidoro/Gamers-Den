@@ -3,51 +3,47 @@
 //require_once __DIR__.'/Usuario.php';
 class FormularioEliminarAmigos extends Formulario
 {
-    public function __construct() {
-        parent::__construct('formAmigos', ['urlRedireccion' => 'perfil.php']);
+    private $idAmigo;
+
+    /*
+    *   El formulario recibe en el constructor el id del amigo que se quiere eliminar.
+    */
+
+    public function __construct($idAmigo) { 
+        parent::__construct('formEliminarAmigos', ['urlRedireccion' => 'perfil.php']);
+        $this->idAmigo = $idAmigo;
     }
     
     protected function generaCamposFormulario(&$datos)
     {
-        // Se reutiliza el Usuario de usuario introducido previamente o se deja en blanco
-        $IDUsuario = $datos['IDUsuario'] ?? '';
-        $respuesta = $datos['respuesta'] ?? '';
+        /*
+        *   Los campos que se crean son un input invisible con el id del amigo y un botón para enviar.
+        */
 
-        // Se generan los mensajes de error si existen.
-        $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['IDUsuario'], $this->errores, 'span', array('class' => 'error'));
-
-        // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
-        $htmlErroresGlobales
-        <fieldset>
-            <div>
-                <label for="BorrarUsuario">¿Estas seguro de que queires borrar este usuario de tu lista de amigos?</label>
-                <input type="hidden" value="{$_GET["Amigo"]}" id="IDUsuario" name="IDUsuario">
-            </div>
-            <div>
-                <button type="submit" name="respuesta" value = "true"> Si </button>
-            </div>          
-        </fieldset>       
+            <input type="hidden" name="idAmigo" value="{$this->idAmigo}"  />
+            <button type = "submit" class = "botonPrueba" > <img class = "botonBorrarAmigo" src = "img/papelera.jpg"> </button>            
         EOF;
         return $html;
     }
 
     protected function procesaFormulario(&$datos) {
-        $user = Usuario::buscarUsuario(trim($datos['IDUsuario'])); //filtro de seguridad 
-        if (!$user)
-            $this->errores[] = "No se ha encontrado al usuario";
+        $this->errores = [];
 
-        else if(!($user->alreadyFriends($user, $_SESSION['ID'])))
-            $this->errores[] = "No eres amigo de ese usuario";
-            
+        $idAmigo = filter_var($datos['idAmigo'] ?? null, FILTER_SANITIZE_NUMBER_INT);
+        if (!$idAmigo) {
+            $this->errores[] = 'No tengo claro que amigo eliminar.';
+        }
+        /*
+        *   Después de validar el id del amigo se busca en la bd. Si existe y es amigo del usuario de la sesión, se elimina.
+        */
+        $amigo = Usuario::buscaPorId($idAmigo);
+        if ($amigo->alreadyFriends($amigo, $_SESSION['ID']) && $amigo) {
+            $amigo->deleteFriend($_SESSION['ID']);
+        }
         else{
-            if($user->deleteFriend($_SESSION['ID'])){
-                $username = $user->getUsername();
-                echo "<p> Se ha añadido borrado correctamente a $username de tu lista de amigos</p>";
-            }else{
-                $this->errores[] = "No ha sido posible eliminar al amigo de la lista por un error interno";
-            }
-        }                 
+            $this->errores[] = 'Algo ha salido mal';
+        }
+         
     }
 }

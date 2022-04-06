@@ -46,29 +46,33 @@
 
     $htmlNoticiaDestacada = '';
     $noticias = Noticia::enseñarPorCar(4);
-    $htmlNoticiaDestacada .= '<div class = "noticia">';
-    $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
-    $htmlNoticiaDestacada .= '<a href ="noticias_concreta.php?id=';
-    $htmlNoticiaDestacada .= $noticias[0]->getID();
-    $htmlNoticiaDestacada .= '">';
-    $htmlNoticiaDestacada .= '<img class = "imagenNoticia"  src = "';   
-    $htmlNoticiaDestacada .= $noticias[0]->getImagen();
-    $htmlNoticiaDestacada .= '">';
-    $htmlNoticiaDestacada .= '</a>';
-    $htmlNoticiaDestacada .= '</div>';
-    $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
-    $htmlNoticiaDestacada .= '<p class = "tituloNoticia">';
-    $htmlNoticiaDestacada .= $noticias[0]->getTitulo();
-    $htmlNoticiaDestacada .= '</p>';
-    $htmlNoticiaDestacada .= '</div>';
-    $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
-    $htmlNoticiaDestacada .= '<p class = "descripcionNoticia">';
-    $htmlNoticiaDestacada .= $noticias[0]->getDescripcion();
-    $htmlNoticiaDestacada .='</p>';
-    $htmlNoticiaDestacada .= '</div>';
-    $htmlNoticiaDestacada .= '</div>';
-
-       
+    if(!$noticias){
+        $htmlNoticiaDestacada .= '<p> ¡Aún no hay noticia destacada! Pero nuestros escritores están en ello :) </p>';
+    }
+    else{
+        $htmlNoticiaDestacada .= '<div class = "noticia">';
+        $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
+        $htmlNoticiaDestacada .= '<a href ="noticias_concreta.php?id=';
+        $htmlNoticiaDestacada .= $noticias[0]->getID();
+        $htmlNoticiaDestacada .= '">';
+        $htmlNoticiaDestacada .= '<img class = "imagenNoticia"  src = "';   
+        $htmlNoticiaDestacada .= $noticias[0]->getImagen();
+        $htmlNoticiaDestacada .= '">';
+        $htmlNoticiaDestacada .= '</a>';
+        $htmlNoticiaDestacada .= '</div>';
+        $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
+        $htmlNoticiaDestacada .= '<p class = "tituloNoticia">';
+        $htmlNoticiaDestacada .= $noticias[0]->getTitulo();
+        $htmlNoticiaDestacada .= '</p>';
+        $htmlNoticiaDestacada .= '</div>';
+        $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
+        $htmlNoticiaDestacada .= '<p class = "descripcionNoticia">';
+        $htmlNoticiaDestacada .= $noticias[0]->getDescripcion();
+        $htmlNoticiaDestacada .='</p>';
+        $htmlNoticiaDestacada .= '</div>';
+        $htmlNoticiaDestacada .= '</div>';
+    }
+     
     $contenidoPrincipal=<<<EOS
     <section class = "noticiasPrincipal">
         <div class = "contenedorNoticias">
@@ -77,7 +81,7 @@
             </div>
         </div>
 
-        <div  class = "contenedorNoticias">
+        <div class = "contenedorNoticias">
 
             <div class = "noticiasCuadro">
                 <div class = "botones">

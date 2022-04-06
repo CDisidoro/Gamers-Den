@@ -101,7 +101,7 @@
             if ($rs) {
                 $fila = $rs->fetch_assoc();
                 if($fila){
-                    $user = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'],[], $fila['Avatar'], $fila['Biografia']);
+                    $user = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'], $fila['Rol'], $fila['Avatar'], $fila['Biografia']);
                     $rs->free();
                     return $user;
                 }
@@ -121,7 +121,7 @@
             if ($rs) {
                 $fila = $rs->fetch_assoc();
                 if ($fila) {
-                    $result = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'],[], $fila['Avatar'], $fila['Biografia']);
+                    $result = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'], $fila['Rol'], $fila['Avatar'], $fila['Biografia']);
                 }
                 $rs->free();
             } else {
@@ -234,6 +234,7 @@
                         return null;
                     $usuario->friendlist[0][] = $info[0];
                     $usuario->friendlist[1][] = $info[1];
+                    $usuario->friendlist[2][] = $info[2];
                 }
                 $rs->free();
                 return $usuario;
@@ -253,6 +254,7 @@
                 $numavatar = $rs->fetch_assoc();
                 $result[0] = $numavatar['Usuario'];
                 $result[1] = $numavatar['Avatar'];
+                $result[2] = $numavatar['ID'];
                 $rs->free();
                 return $result;
             } else {

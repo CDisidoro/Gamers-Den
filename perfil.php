@@ -6,10 +6,6 @@
         $id = $_SESSION['ID'];    
         $usuario = Usuario::buscarUsuario($username);
         $bio = $usuario->getBio();
-        //la variable amigos tiene amigos[0][] que es el array de los nombres de los amigos del usuario y amigos[1][] donde
-        //se encuentran los respectivos avatares de los distintos amigos, estos se identifican como numeros dde tal forma
-        //para tener la imagen haremos "Avatar"+tostring(amigos[1][i])+".jpg"
-        //$length = sizeof($solution[0]);
 
         function generaAmigos($usuario){
             $htmlAmigos = '';
@@ -19,7 +15,10 @@
                 return $htmlAmigos;
             }
             $index = 0;
-            while($index < sizeof($amigos[0])){
+            while($index < sizeof($amigos[0])){ //$amigos[0][$index] es el id del amigo
+                $formulario = new FormularioEliminarAmigos($amigos[2][$index]);
+                $formHTML = $formulario->gestiona();
+
                 $srcAvatar = 'img/avatar';
                 $srcAvatar .= $amigos[1][$index];
                 $srcAvatar .= '.jpg';
@@ -31,11 +30,7 @@
                 $htmlAmigos .= '<p class = "nombreamigo">';
                 $htmlAmigos .= $amigos[0][$index];
                 $htmlAmigos .= '</p>';
-                $htmlAmigos .= '<a href ="eliminarAmigo.php?Amigo=';
-                $htmlAmigos .= $amigos[0][$index];
-                $htmlAmigos .= '">';
-                $htmlAmigos .= '<img class = "botonBorrarAmigo" src = "img/papelera.jpg">';
-                $htmlAmigos .= '</a>';
+                $htmlAmigos .= $formHTML;
                 $htmlAmigos .= '</div>';
                 $index++;
             }        

@@ -34,13 +34,16 @@
                  
     }    
        
+    $formulario = new FormularioEliminarNoticia($noticia->getID());
+    $formHTML = $formulario->gestiona();
+
     $contenidoPrincipal=<<<EOS
     <section class = "noticiaConcreta">
         <div class = "contenedorNoticias">
             <div class = "cajaflex"> 
                 <div class = "cajaRetroceder">
                     <a href = "noticias_principal.php?tag=1"> Editar </a>
-                    <a href = "Eliminarnoticia.php?id={$noticia->getID()}"> Eliminar </a>
+                    $formHTML
                     <a href = "noticias_principal.php?tag=1"> Retroceder </a>
                 </div>
             </div>
