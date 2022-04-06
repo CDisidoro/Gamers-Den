@@ -33,31 +33,24 @@
         $htmlNoticias .= '</div>';
                  
     }    
-
-    if(isset($_SESSION['login'])){
        
-        $contenidoPrincipal=<<<EOS
-            <section class = "noticiaConcreta">
-                <div class = "contenedorNoticias">
-                    <div class = "cajaflex"> 
-                        <div class = "cajaRetroceder">
-                            <a href = "noticias_principal.php"> Retroceder </a>
-                        </div>
-                    </div>
-                        {$htmlNoticias}
-                    
+    $contenidoPrincipal=<<<EOS
+    <section class = "noticiaConcreta">
+        <div class = "contenedorNoticias">
+            <div class = "cajaflex"> 
+                <div class = "cajaRetroceder">
+                    <a href = "noticias_principal.php"> Retroceder </a>
                 </div>
+            </div>
 
-               
-            </section>
-        EOS;
-    }else{
-        $contenidoPrincipal = <<<EOS
-            <section class = "content">
-                <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
-            </section>
-        EOS;
-    }
->>>>>>> ed64d73ec542cd80c199f2af9d90227269d8fa3a
+
+            {$htmlNoticias}
+            
+        </div>
+
+       
+    </section>
+    EOS;       
+    
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>

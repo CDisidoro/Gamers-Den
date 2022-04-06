@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="css/estilo.css"/>
         <header>
             <div class = "containerCabecera">
-                <div>
+                <div class = "containerImagen">
                     <img src= "img/Logo.jpg" class = "imagenprincipalCabecera">
                     <h1 class = "tituloPrincipalCabecera"> GAMERS DEN </h1>
                 </div>
