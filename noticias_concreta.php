@@ -34,17 +34,6 @@
                  
     }    
 
-<<<<<<< HEAD
-    $contenidoPrincipal=<<<EOS
-        <section class = "noticiaConcreta">
-            <div class = "contenedorNoticias">                
-                    {$htmlNoticias}              
-            </div>      
-        </section>
-    EOS;     
-    
-=======
-
     if(isset($_SESSION['login'])){
        
         $contenidoPrincipal=<<<EOS
