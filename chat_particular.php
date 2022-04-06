@@ -8,7 +8,7 @@
         $amigo = $usuario->buscaPorId($_GET['idAmigo']);
         $formMandaMensajes = new FormularioMandaMensajes();
         $formulario = $formMandaMensajes->gestiona();    
-
+        $formularioEnvio = $formulario->getHtmlFormulario();
         function generaAvatar($amigo){
             $srcAvatar = 'img/avatar';
             $srcAvatar .= $amigo->getAvatar();
@@ -82,7 +82,7 @@
         $htmlAvatar = generaAvatar($amigo);
         $htmlChat = generaChat($usuario, $amigo);
 
-        $contenidoPrincipal=<<<EOS
+        $contenidoPrincipal=<<<EOF
             <section class = "content">
                 <article class = "avatar">
                     <div class = "cajagrid">
@@ -100,10 +100,10 @@
                 </article>
                 <article class = "chat">
                     {$htmlChat}
-                    $formulario                        
+                    $formularioEnvio                        
                 </article>
             </section>
-        EOS;
+        EOF;
     }
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>
