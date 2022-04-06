@@ -18,14 +18,14 @@
 				$nomProducto = $producto->getNombre();
 				$descProducto = $producto->getDescripcion();
 				$urlImagen = 'img/';
-				$urlImagen .= $producto->getAvatar();
+				$urlImagen .= $producto->getImagen();
 				$urlImagen .= '.jpg';
 				## URL del producto junto con el id
 				$id = 'Productos.php?id='.$producto->getID();
 				$productos.=<<<EOS
 				<li>
 					<a href=$id rel="nofollow" target="_blank">
-					<a href = "TiendaParticular.php?id=$idProducto">
+					<a href = "tienda_particular.php?id=$idProducto">
 						<img src=$urlImagen width="150" height="200" alt="movil" />
 						<h3>$nomProducto</h3>
 					</a>

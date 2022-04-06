@@ -46,7 +46,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		return $this->caracteristica;
 	}
 
-	public function getAvatar() {
+	public function getImagen() {
 		$articuloUrl = self::getImageArticulo($this->getArticulo());
 		return $articuloUrl;
 	}
@@ -164,6 +164,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
+	
     protected function getNombreArticulo($articulo) {
 		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = sprintf("SELECT Ju.Nombre FROM juegos Ju WHERE Ju.ID LIKE $articulo");
@@ -178,6 +179,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
+
 	protected function getImageArticulo($articulo) {
 		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = sprintf("SELECT Ju.Imagen FROM juegos Ju WHERE Ju.ID LIKE $articulo");

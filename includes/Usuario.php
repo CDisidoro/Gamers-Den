@@ -291,6 +291,24 @@
             }
             return $result;
         }
+        public static function addMensajes($mensaje, $IdAmigo){
+            if(alreadyFriends($this->getId(), $IdAmigo)){
+                $conector = Aplicacion::getInstance()->getConexionBd();
+                $query = sprintf("INSERT INTO mensajes(Remitente, Destinatario, Contenido) VALUES ('%s', '%s', '%s')"
+                    , $conector->real_escape_string($usuario->id)
+                    , $conector->real_escape_string($IdAmigo)
+                    , $conector->real_escape_string($mensaje)
+                );
+                if (!$conector->query($query) ){
+                    error_log("Error BD ({$conector->errno}): {$conector->error}");
+                }else{
+                    $resultado = true;
+                }
+                return $resultado;
+            }
+            else
+            return false;  
+        }
         /*
         public function getFriendInvitations(){
             $friends = [];
