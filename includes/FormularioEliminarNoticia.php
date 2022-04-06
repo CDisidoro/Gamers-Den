@@ -33,20 +33,14 @@ class FormularioEliminarNoticia extends Formulario
     }
 
     protected function procesaFormulario(&$datos) {
-        $user = Usuario::buscarUsuario(trim($datos['IDUsuario'])); //filtro de seguridad 
-        if (!$user)
-            $this->errores[] = "No se ha encontrado al usuario";
-
-        else if(!($user->alreadyFriends($user, $_SESSION['ID'])))
-            $this->errores[] = "No eres amigo de ese usuario";
-            
+        $noticia = trim($datos['IDNoticia']);
+        $noticia = filter_var($noticia, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $Noticia = Noticia::buscaNoticia($noticia);
+        if(!$Noticia){
+            $this->errores[] = 'Error buscando la noticia';
+        }
         else{
-            if($user->deleteFriend($_SESSION['ID'])){
-                $username = $user->getUsername();
-                echo "<p> Se ha añadido borrado correctamente a $username de tu lista de amigos</p>";
-            }else{
-                $this->errores[] = "No ha sido posible eliminar al amigo de la lista por un error interno";
-            }
-        }                 
+            Noticia::borraPorId($noticia);
+        }
     }
 }
