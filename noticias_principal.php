@@ -45,7 +45,7 @@
     }    
 
     $htmlNoticiaDestacada = '';
-    $noticias = Noticia::enseñarPorCar(2);
+    $noticias = Noticia::enseñarPorCar(4);
     $htmlNoticiaDestacada .= '<div class = "noticia">';
     $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
     $htmlNoticiaDestacada .= '<a href ="noticias_concreta.php?id=';
