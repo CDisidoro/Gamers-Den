@@ -62,6 +62,24 @@
                 return false;
             }
         }
+
+        public static function borraPorId($idNoticia) {
+        if (!$idNoticia) {
+            return false;
+        } 
+        /* Los roles se borran en cascada por la FK
+         * $result = self::borraRoles($usuario) !== false;
+         */
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM noticias WHERE id = %d"
+            , $idNoticia
+        );
+        if ( ! $conn->query($query) ) {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+        return true;
+        }
         
         public static function buscaNoticia($id) {
             $mysqli = Aplicacion::getInstance()->getConexionBd();

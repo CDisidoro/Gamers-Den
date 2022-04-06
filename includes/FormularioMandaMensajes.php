@@ -2,12 +2,13 @@
 
 class FormularioMandaMensajes extends FormularioGestionManual
 {
-
+    private $idAmigo;
     public function __construct()
     {
+        //$this->idAmigo = $_GET["idAmigo"];
         parent::__construct('formChatParticular', [
             'method' => 'GET',
-            'action' => 'chat_particular.php'
+            'action' => 'chat.php'
         ]);
     }
     
@@ -49,7 +50,7 @@ class FormularioMandaMensajes extends FormularioGestionManual
         else if (!$useramigo)
             $this->errores[] = "No se ha encontrado al usuario";
 
-        else if(!($useramigo->alreadyFriends($user, $_SESSION['ID'])))
+        else if(!($useramigo->alreadyFriends($useramigo, $_SESSION['ID'])))
             $this->errores[] = "No eres amigo de ese usuario";
 
         $result = new ResultadoGestionFormulario(true);
