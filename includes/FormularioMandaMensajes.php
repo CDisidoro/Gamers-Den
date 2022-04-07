@@ -2,10 +2,8 @@
 
 class FormularioMandaMensajes extends FormularioGestionManual
 {
-    private $idAmigo;
     public function __construct()
     {
-        //$this->idAmigo = $_GET["idAmigo"];
         parent::__construct('formChatParticular', [
             'method' => 'GET',
             'action' => 'chat.php'
@@ -28,7 +26,7 @@ class FormularioMandaMensajes extends FormularioGestionManual
         <fieldset>           
             <div>
                 <input id="mensaje" type="text" name="Mensaje" value="$mensaje" required/>
-                <input type="hidden" value="{$_GET["idAmigo"]}" id="IDUsuario" name="IDUsuario">
+                <input type="hidden" value="$IDUsuario" id="IDUsuario" name="IDUsuario">
             </div>
             <div>
                 <button type="submit" name="enviar"> Enviar </button>
