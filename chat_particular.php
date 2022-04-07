@@ -75,6 +75,9 @@
                     }
                     $index++;
                 }  
+            }
+            else{
+                $htmlMensaje = "No hay ningún mensaje con dicho usuario";
             }      
             return $htmlMensaje;
         }
