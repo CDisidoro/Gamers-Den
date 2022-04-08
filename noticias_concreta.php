@@ -7,23 +7,38 @@
     }
     else{
         $noticia = Noticia::buscaNoticia($_GET['id']);              
-    }    
-  
+    }   
+ 
+    $user = Usuario::buscaPorId($_SESSION['ID']);    
     //$formHTML es el formulario de campo hidden para eliminar una noticia. Solo hay que incrustar $formHTML donde quieras que vaya el botón de eliminar noticia.
     $formulario = new FormularioEliminarNoticia($noticia->getID());
     $formHTML = $formulario->gestiona();
 
+    function generarBotones($user){
+        if($user->hasRole('1') || $user->hasRole('2')){
+            $htmlBotones = <<<EOS
+                <div class = "botonesNoticiaConcreta">
+                    <div class = "botonIndividualNoticia">
+                        <a href = "index.php"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
+                    </div>
+                    
+                    <div class = "botonIndividualNoticia">
+                        <a href = "index.php"> <img class = "botonModificarNoticia" src = "img/papelera.jpg"> </a>
+                    </div>
+                </div>
+            EOS;
+        }
+        else{
+            $htmlBotones = '';
+        }
+        return $htmlBotones;
+    }
+
+    $htmlBotones = generarBotones($user);
     $contenidoPrincipal=<<<EOS
     <section class = "noticiaConcretaContenedor">
-        <div class = "botonesNoticiaConcreta">
-            <div class = "botonIndividualNoticia">
-                <a href = "index.php"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
-            </div>
-            
-            <div class = "botonIndividualNoticia">
-                <a href = "index.php"> <img class = "botonModificarNoticia" src = "img/papelera.jpg"> </a>
-            </div>
-        </div>
+
+        {$htmlBotones}
 
         <div class = "tituloNoticiaConcreta">
             <p> {$noticia->getTitulo()} </p>
