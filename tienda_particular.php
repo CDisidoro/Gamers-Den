@@ -32,7 +32,7 @@
 				</div>
 
 				<div class = "cajaDescProductoConcreto">
-					<p class = "descripcionProducto" > {$descripcion} </p>
+					<p class = "descripcionProducto" > Descripción del producto: {$descripcion} </p>
 					<p class = "descripcionProducto" > {$precio} €</p>
 					<p class = "descripcionProducto" > Vendido por: {$nombreVendedor->getUsername()} </p>
 					<p class = "descripcionProducto" > {$fecha} </p>
