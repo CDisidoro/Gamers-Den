@@ -91,7 +91,7 @@
             if ($this->roles == null) {
                 self::loadRoles($this);
             }
-            return array_search($role, $this->roles) !== false;
+            return $this->roles[0] == $role;
         }
 
         public static function buscarUsuario($nombreUsuario){

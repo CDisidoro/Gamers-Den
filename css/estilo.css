@@ -1,3 +1,156 @@
+/* ESTILOS PÁGINA TIENDA */ 
+
+.tituloPagina{
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:rgb(255, 255, 255);
+}
+
+.cajaTituloTienda{
+    height:50px;
+}
+
+.tiendaPrincipal{
+    background-color: rgb(18, 109, 245);
+    width: 80%;
+    margin: auto;
+    min-height: 500px;
+    display: grid;
+    grid-row: auto;
+}
+
+.tarjetaProducto{
+    margin:5px;
+    width: fit-content;
+    height: fit-content;
+    background-color: lightgrey;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border:1px solid black;
+}
+
+.tarjetaProducto a{
+    text-decoration: none;
+}
+
+.nombreProductoTarjeta{
+    text-align: center;
+    font-size: 15px;
+}
+
+.descripcionProductoTarjeta{
+    margin-left:5px;
+    margin-right:5px;
+}
+
+.imagenTajetaProducto{
+    margin-left:40px;
+    margin-top: 5px;
+    margin-right:40px;
+}
+
+.contenedorProductos{
+    padding-left: 50px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+}
+
+.contenedorTienda{
+    padding: 50px;
+}
+
+.productosDestacados{
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 35px;
+    min-height: 200px;
+    padding: 30px;
+}
+
+.cuadroProductos{
+    background-color: white;
+    overflow-x: scroll;
+    display:flex;
+    flex-direction: row;
+    height: fit-content;
+    margin:15px;
+}
+
+.cuadrotodosProductos{
+    background-color: white;
+    overflow-x: scroll;
+    display:flex;
+    flex-direction: row;
+    height: fit-content;
+    margin:15px;
+    border:5px solid black;
+}
+
+.productosCuadro{
+    display: grid;
+    grid-template-rows: 30% 70%;
+    background-color: rgb(131, 119, 119);
+    height: 400px;   
+}
+
+.botonesProductos{
+    height:fit-content;
+    background-color: white;
+    margin:5px;
+    display:flex;
+    flex-direction: row;
+}
+
+.cajaBotonProducto{
+    width:150px;
+    margin:10px;
+    background-color: lightblue;
+    justify-content: center;
+    text-align: center;
+    padding:15px;
+    border:3px solid  rgb(110, 63, 8);
+}
+
+.cajaBotonProducto a{
+    text-decoration: none;
+}
+
+.cajaDescProductoConcreto{
+    margin-left:30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.tiendaParticular{
+    background-color: rgb(18, 109, 245);
+    width: 80%;
+    margin: auto;
+    color:white;
+    min-height: 500px;
+    display:flex;
+    flex-direction: column;
+}
+
+.tituloProductoConcreto{
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-left: 10px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: underline;;
+}
+
+.fotoyDescripcionProductoConcreto{
+    display:flex;
+    flex-direction: row;
+}
+
+.descripcionProducto{
+    padding-top:20px;
+    font-weight: bolder;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+/* FIN ESTILOS PÁGINA TIENDA */ 
 
 /*ESTILOS PÁGINA NOTICIAS*/
 

@@ -138,7 +138,7 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 			return false;
 		}
 	}
-    public static function enseñarPorCar($caracterisitica) {
+    public static function enseñarPorCar($caracterisitica) { //esta función no es eficiente 
 		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = sprintf("SELECT * FROM tienda");
 		$result = $mysqli->query($query);
@@ -165,6 +165,30 @@ class Producto{ ## Estos son los atributos que tenemos puestos en la bd, excepto
 		}
 	}
 	
+	public static function getAllProductos(){
+		$mysqli = Aplicacion::getInstance()->getConexionBd();
+		$query = sprintf("SELECT * FROM tienda");
+		$result = $mysqli->query($query);
+
+		$ofertasArray;
+		$notNull = 0;
+		if($result) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+					$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+				$notNull++;		
+			}
+            $result->free();
+			if($notNull == 0)
+				return -1;
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+
     protected function getNombreArticulo($articulo) {
 		$mysqli = Aplicacion::getInstance()->getConexionBd();
 		$query = sprintf("SELECT Ju.Nombre FROM juegos Ju WHERE Ju.ID LIKE $articulo");
