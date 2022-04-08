@@ -160,6 +160,13 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Estructura de tabla para la tabla `lista_comercial`
+--
+CREATE TABLE `lista_comercial` (
+   `usuarioA` INT NOT NULL ,
+   `usuarioB` INT NOT NULL 
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+--
 -- Índices para tablas volcadas
 --
 
@@ -180,6 +187,13 @@ ALTER TABLE `foro`
 -- Indices de la tabla `lista_amigos`
 --
 ALTER TABLE `lista_amigos`
+  ADD KEY `FK_usuarioA` (`usuarioA`),
+  ADD KEY `FK_usuarioB` (`usuarioB`);
+
+--
+-- Indices de la tabla `lista_comercial`
+--
+ALTER TABLE `lista_comercial`
   ADD KEY `FK_usuarioA` (`usuarioA`),
   ADD KEY `FK_usuarioB` (`usuarioB`);
 
@@ -239,6 +253,13 @@ ALTER TABLE `foro`
 ALTER TABLE `lista_amigos`
   ADD CONSTRAINT `lista_amigos_ibfk_1` FOREIGN KEY (`usuarioA`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `lista_amigos_ibfk_2` FOREIGN KEY (`usuarioB`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `lista_comercial`
+--
+ALTER TABLE `lista_comercial`
+  ADD CONSTRAINT `lista_comercial_ibfk_1` FOREIGN KEY (`usuarioA`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lista_comercial_ibfk_2` FOREIGN KEY (`usuarioB`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `lista_deseos`
