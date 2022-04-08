@@ -17,39 +17,31 @@
 	$urlImagen .= $producto->getImagen();
 	$urlImagen .= '.jpg';
 	###
+	$nombreVendedor = Usuario::buscaPorId($vendedor);
 
 	if(isset($_SESSION['login'])){
 		$contenidoPrincipal=<<<EOS
-		<section class = "content">
-			<article class = "avatarydatos">
-				<div class = "cajagrid">
-					<div class = "cajagrid">
-						<img src=$urlImagen width="150" height="200" alt="movil" />
-					</div>
-				<div class = "cajagrid">
-					<div class = "flexcolumn">
-						<div class = "cajaflex">
-							<p class = "nombreusuario">{$nombre}</p>           
-						</div>
-						<div class = "cajaflex">
-							<p class = "descripcion">{$descripcion}</p>
-							<p> {$fecha} </p>
-							<p> {$vendedor} </p>
-							<p class = "precio">{$precio}</p>
-						</div>
-					</div>
-				</div> 
-				<div class = "flexcolumn">
-					<div class = "cajaflex">
-						<p class = "precio">{$precio}</p>
-					</div>
+		<section class = "tiendaParticular">
+			<div class = "tituloProductoConcreto">
+				<p> {$nombre} </p>
+			</div>
+
+			<div class = "fotoyDescripcionProductoConcreto">
+				<div class = "cajaImagenNoticiaConcreta">
+					<img class = "imagenNoticia"  src = " {$urlImagen} ">
 				</div>
-			</article>        
+
+				<div class = "cajaDescProductoConcreto">
+					<p class = "descripcionProducto" > {$descripcion} </p>
+					<p class = "descripcionProducto" > {$precio} €</p>
+					<p class = "descripcionProducto" > Vendido por: {$nombreVendedor->getUsername()} </p>
+					<p class = "descripcionProducto" > {$fecha} </p>
+				</div>
+			</div>
 		</section>
 	EOS;
 	}
 	else{
-
 		$contenidoPrincipal=<<<EOS
 		<div>
 			<p> Ha ocurrido un error al cargar la información debido a que no ha iniciado sesión </p>
