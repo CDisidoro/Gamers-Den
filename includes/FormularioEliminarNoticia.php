@@ -20,7 +20,6 @@ class FormularioEliminarNoticia extends Formulario
         /*
         *   Los campos que se crean son un input invisible con el id del amigo y un botón para enviar.
         */
-
         $html = <<<EOF
             <input type="hidden" name="idNoticia" value="{$this->idNoticia}" />
             <button type = "submit"> <img class = "botonBorrarAmigo" src = "img/papelera.jpg"> </button>            

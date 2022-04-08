@@ -51,7 +51,6 @@ class FormularioAmigos extends Formulario
             }
             else{
                 $user = Usuario::addFriends($user, $_SESSION['ID']);
-                echo "<p> Se ha añadido correctamente a $Usuario->Usuario</p>";
             }
         }
     }
