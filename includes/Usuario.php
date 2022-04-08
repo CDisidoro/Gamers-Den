@@ -66,14 +66,14 @@
         private static function loadRoles($usuario){
             $roles = [];
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT RU.Rol FROM usuarios RU WHERE RU.usuario=%d", $usuario->id);
+            $query = sprintf("SELECT Rol FROM usuarios WHERE ID=%d", $usuario->id);
             $rs = $conector->query($query);
             if ($rs) {
                 $roles = $rs->fetch_all(MYSQLI_ASSOC);
                 $rs->free();
                 $usuario->roles = [];
                 foreach($roles as $rol) {
-                    $usuario->roles[] = $rol['rol'];
+                    $usuario->roles[] = $rol['Rol'];
                 }
                 return $usuario;
 

@@ -63,8 +63,13 @@ class FormularioLogin extends Formulario
             } else {
                 $_SESSION['login'] = true;
                 $_SESSION['Usuario'] = $Usuario;
-                $_SESSION['esAdmin'] = $usuario->hasRole(Usuario::ADMIN_ROLE);
-                $_SESSION['esEscritor'] = $usuario->hasRole(Usuario::ESCRITOR_ROLE);
+                if($usuario->hasRole(Usuario::ADMIN_ROLE)){
+                    $_SESSION['rol'] = 1;
+                }else if($usuario->hasRole(Usuario::ESCRITOR_ROLE)){
+                    $_SESSION['rol'] = 2;
+                }else{
+                    $_SESSION['rol'] = 3;
+                }
                 $_SESSION['ID'] = $usuario->getId();
                 $_SESSION['Bio'] = $usuario->getBio();
                 

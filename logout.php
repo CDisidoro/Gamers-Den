@@ -9,6 +9,7 @@
 	unset($_SESSION["Usuario"]);
 	unset($_SESSION["ID"]);
 	unset($_SESSION["Bio"]);
+	unset($_SESSION['rol']);
 	session_destroy();
 
 	$tituloPagina = 'Logout'; // Título de la página 
