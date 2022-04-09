@@ -281,12 +281,12 @@
             }
             return $result;
         }
-        public static function addMensajes($mensaje, $IdAmigo){
-            if(alreadyFriends($this->getId(), $IdAmigo)){
+        public function addMensajes($mensaje, $amigo){
+            if($this->alreadyFriends($this, $amigo->getId())){
                 $conector = Aplicacion::getInstance()->getConexionBd();
                 $query = sprintf("INSERT INTO mensajes(Remitente, Destinatario, Contenido) VALUES ('%s', '%s', '%s')"
-                    , $conector->real_escape_string($usuario->id)
-                    , $conector->real_escape_string($IdAmigo)
+                    , $conector->real_escape_string($this->id)
+                    , $conector->real_escape_string($amigo->getId())
                     , $conector->real_escape_string($mensaje)
                 );
                 if (!$conector->query($query) ){

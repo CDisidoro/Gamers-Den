@@ -1,20 +1,16 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 
-class FormularioMandaMensajes extends FormularioGestionManual
-{
-    public function __construct()
-    {
-        parent::__construct('formChatParticular', [
-            'method' => 'GET',
-            'action' => 'chat.php'
-        ]);
+class FormularioMandaMensajes extends Formulario{
+    private $idAmigo;
+    public function __construct($idAmigo){
+        parent::__construct('formChatParticular', ['urlRedireccion' => 'chat.php']);
+        $this->idAmigo = $idAmigo;
     }
     
-    protected function generaCamposFormulario(&$datos)
-    {
+    protected function generaCamposFormulario(&$datos){
         // Se reutiliza el Usuario de usuario introducido previamente o se deja en blanco
         $mensaje = $datos['Mensaje'] ?? '';
-        $IDUsuario = $datos['IDUsuario'] ?? '';
+        $IDUsuario = $datos['IDUsuario'] ?? $this->idAmigo;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -23,22 +19,25 @@ class FormularioMandaMensajes extends FormularioGestionManual
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>           
+        <fieldset>
             <div>
                 <input id="mensaje" type="text" name="Mensaje" value="$mensaje" required/>
+                {$erroresCampos['Mensaje']}
                 <input type="hidden" value="$IDUsuario" id="IDUsuario" name="IDUsuario">
+                {$erroresCampos['IDUsuario']}
             </div>
             <div>
                 <button type="submit" name="enviar"> Enviar </button>
-            </div>          
-        </fieldset>       
+            </div>
+        </fieldset>
         EOF;
         return $html;
     }
 
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
-        $useramigo = Usuario::buscarUsuario(trim($datos['IDUsuario']));
+        $useramigo = Usuario::buscaPorId(trim($datos['IDUsuario']));
+        $remitente = Usuario::buscaPorId($_SESSION['ID']);
         $mensaje = trim($datos['Mensaje'] ?? '');
         $mensaje = filter_var($mensaje, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -51,13 +50,12 @@ class FormularioMandaMensajes extends FormularioGestionManual
         else if(!($useramigo->alreadyFriends($useramigo, $_SESSION['ID'])))
             $this->errores[] = "No eres amigo de ese usuario";
 
-        $result = new ResultadoGestionFormulario(true);
+        //$result = new ResultadoGestionFormulario(true);
         if (count($this->errores) === 0) {
-            // Pedimos un mensaje más allá de la página actual para saber si hay más páginas
-            Usuario::addMensajes($mensaje, $useramigo);
-        }
-        else {
-            $result->setErrores($this->errores);
+            // Pedimos un mensaje más alla de la página actual para saber si hay más páginas
+            if(!($remitente->addMensajes($mensaje, $useramigo))){
+                $this->errores[] = "No ha sido posible enviar el mensaje";
+            }
         }
 
     }

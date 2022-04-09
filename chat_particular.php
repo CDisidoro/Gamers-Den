@@ -6,9 +6,8 @@
         $id = $_SESSION['ID'];
         $usuario = Usuario::buscarUsuario($username);
         $amigo = $usuario->buscaPorId($_GET['idAmigo']);
-        $formMandaMensajes = new FormularioMandaMensajes();
-        $formulario = $formMandaMensajes->gestiona();    
-        $formularioEnvio = $formulario->getHtmlFormulario();
+        $formMandaMensajes = new FormularioMandaMensajes($amigo->getId());
+        $formulario = $formMandaMensajes->gestiona();
         function generaAvatar($amigo){
             $srcAvatar = 'img/avatar';
             $srcAvatar .= $amigo->getAvatar();
@@ -103,7 +102,7 @@
                 </article>
                 <article class = "chat">
                     {$htmlChat}
-                    $formularioEnvio                        
+                    $formulario                       
                 </article>
             </section>
         EOF;
