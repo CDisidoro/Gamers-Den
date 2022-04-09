@@ -3,8 +3,9 @@
 class FormularioMandaMensajes extends Formulario{
     private $idAmigo;
     public function __construct($idAmigo){
-        parent::__construct('formChatParticular', ['urlRedireccion' => 'chat.php']);
         $this->idAmigo = $idAmigo;
+        $redireccion = 'chat_particular.php?idAmigo=' . $this->idAmigo;
+        parent::__construct('formChatParticular', ['urlRedireccion' => $redireccion]);
     }
     
     protected function generaCamposFormulario(&$datos){
