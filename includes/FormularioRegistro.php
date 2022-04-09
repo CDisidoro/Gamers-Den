@@ -73,13 +73,7 @@
                     $user = Usuario::login($nombreUsuario,$password); //Actualiza el objeto usuario para que logee con el usuario recien creado y tenga el id, bio y roles
                     $_SESSION['login'] = true;
                     $_SESSION['Usuario'] = $nombreUsuario;
-                    if($user->hasRole(Usuario::ADMIN_ROLE)){
-                        $_SESSION['rol'] = 1;
-                    }else if($user->hasRole(Usuario::ESCRITOR_ROLE)){
-                        $_SESSION['rol'] = 2;
-                    }else{
-                        $_SESSION['rol'] = 3;
-                    }
+                    $_SESSION['rol'] = $user->getRol();
                     $_SESSION['ID'] = $user->getId();
                     $_SESSION['Bio'] = $user->getBio();
                 }

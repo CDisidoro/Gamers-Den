@@ -5,7 +5,6 @@
 	$usuario=$_SESSION['Usuario']; // Asocio a la variable usuario el usuario que esta utilizando la sesion actual
 	//logout(); // Función de cierre de sesión
 	unset($_SESSION["login"]);
-	unset($_SESSION["Admin"]);
 	unset($_SESSION["Usuario"]);
 	unset($_SESSION["ID"]);
 	unset($_SESSION["Bio"]);

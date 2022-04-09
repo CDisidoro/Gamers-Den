@@ -7,7 +7,7 @@
         private $username;
         private $pass;
         private $email;
-        private $roles;
+        private $rol;
         private $avatar;
         private $bio;
         private $friendlist;
@@ -15,12 +15,12 @@
         public const ESCRITOR_ROLE = 2;
         public const USER_ROLE = 3;
         //Constructor y getters
-        private function __construct($username, $pass, $email, $id = null, $roles = [], $avatar, $bio){
+        private function __construct($username, $pass, $email, $id = null, $rol, $avatar, $bio){
             $this->id = $id;
             $this->username = $username;
             $this->pass = $pass;
             $this->email = $email;
-            $this->roles = $roles;
+            $this->rol = $rol;
             $this->avatar = $avatar;
             $this->bio = $bio;
         }
@@ -37,8 +37,8 @@
             return $this->email;
         }
     
-        public function getRoles(){
-            return $this->roles;
+        public function getRol(){
+            return $this->rol;
         }
 
         public function getAvatar(){
@@ -58,23 +58,19 @@
         public static function login($nombreUsuario,$password){
             $user = self::buscarUsuario($nombreUsuario);
             if($user && $user->compruebaPassword($password)){
-                return self::loadRoles($user);
+                return self::loadRole($user);
             }
             return false;
         }
         
-        private static function loadRoles($usuario){
-            $roles = [];
+        private static function loadRole($usuario){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT Rol FROM usuarios WHERE ID=%d", $usuario->id);
             $rs = $conector->query($query);
             if ($rs) {
-                $roles = $rs->fetch_all(MYSQLI_ASSOC);
+                $roles = $rs->fetch_assoc();
                 $rs->free();
-                $usuario->roles = [];
-                foreach($roles as $rol) {
-                    $usuario->roles[] = $rol['Rol'];
-                }
+                $usuario->rol = $roles["Rol"];
                 return $usuario;
 
             } else {
@@ -88,10 +84,7 @@
         }
 
         public function hasRole($role){
-            if ($this->roles == null) {
-                self::loadRoles($this);
-            }
-            return $this->roles[0] == $role;
+            return $this->rol == $role;
         }
 
         public static function buscarUsuario($nombreUsuario){
@@ -132,8 +125,7 @@
 
         //Agregar usuarios nuevos
         public static function crea($nombreUsuario,$email,$password,$rol){
-            $user = new Usuario($nombreUsuario, self::hash_password($password), $email, null, [], null, null);
-            $user->addRole($rol);
+            $user = new Usuario($nombreUsuario, self::hash_password($password), $email, null, $rol, null, null);
             return $user->save();
         }
 
@@ -164,10 +156,6 @@
 
         private static function hash_password($password){
             return password_hash($password, PASSWORD_DEFAULT);
-        }
-
-        public function addRole($role){
-            $this->roles[] = $role;
         }
 
         public static function addFriends($usuario, $IdAmigo){

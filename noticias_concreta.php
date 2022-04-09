@@ -2,20 +2,8 @@
 	require('includes/config.php');
     $tituloPagina = "Noticia";
 
-    if(!isset($_GET['id'])){
-        $htmlNoticias .= '<p> No se han podido cargar la noticia </p>';
-    }
-    else{
-        $noticia = Noticia::buscaNoticia($_GET['id']);              
-    }   
- 
-    $user = Usuario::buscaPorId($_SESSION['ID']);    
-    //$formHTML es el formulario de campo hidden para eliminar una noticia. Solo hay que incrustar $formHTML donde quieras que vaya el botón de eliminar noticia.
-    $formulario = new FormularioEliminarNoticia($noticia->getID());
-    $formHTML = $formulario->gestiona();
-
     function generarBotones($user){
-        if($user->hasRole('1') || $user->hasRole('2')){
+        if(isset($_SESSION['login']) && $_SESSION["rol"] < 3){
             $htmlBotones = <<<EOS
                 <div class = "botonesNoticiaConcreta">
                     <div class = "botonIndividualNoticia">
@@ -33,8 +21,23 @@
         }
         return $htmlBotones;
     }
+    
+    if(!isset($_GET['id'])){
+        $htmlNoticias .= '<p> No se han podido cargar la noticia </p>';
+    }
+    else{
+        $noticia = Noticia::buscaNoticia($_GET['id']);              
+    }   
+    if(isset($_SESSION["login"])){
+        $user = Usuario::buscaPorId($_SESSION['ID']);    
+        //$formHTML es el formulario de campo hidden para eliminar una noticia. Solo hay que incrustar $formHTML donde quieras que vaya el botón de eliminar noticia.
+        $formulario = new FormularioEliminarNoticia($noticia->getID());
+        $formHTML = $formulario->gestiona();
+        $htmlBotones = generarBotones($user);
+    }else{
+        $htmlBotones = null;
+    }
 
-    $htmlBotones = generarBotones($user);
     $contenidoPrincipal=<<<EOS
     <section class = "noticiaConcretaContenedor">
 
