@@ -407,6 +407,22 @@
             }
         }
 
+        /**
+         * Actualiza la biografia del usuario que ha llamado la funcion
+         * @param string $bio Biografia nueva del usuario
+         * @return bool True si todo ha ido bien, false si ha ocurrido un error
+         */
+        public function updateBio($bio){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $userId = $this->getId();
+            $query = sprintf("UPDATE usuarios SET Biografia = '$bio' WHERE usuarios.ID = $userId");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                return true;
+            }
+        }
+
         /*
         public function getFriendInvitations(){
             $friends = [];

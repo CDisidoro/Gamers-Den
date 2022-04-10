@@ -77,6 +77,9 @@
                         <div class = "cajaflex">
                             <a href = "chat.php" class = "inbox" > Inbox</a>
                         </div>
+                        <div class="cajaflex">
+                            <a href = "cambiarBio.php" class = "inbox" > Cambiar Biografia</a>
+                        </div>
                     </div>
                 </article>
                 <article class = "listadeseados">
