@@ -2,7 +2,6 @@
 	require('includes/config.php');
 	$tituloPagina = 'Nuestra tienda';
 	
-	
 	function generaProductos(){
 		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
 		$arrayProductos = Producto::mostrarPorCar($_GET['caracteristica']);
@@ -71,44 +70,44 @@
 	$todosproductos = generaTodosProductos();
 	if(isset($_SESSION['login'])){	
 		$contenidoPrincipal=<<<EOS
-		<section class = "tiendaPrincipal">
-			<div class = "contenedorProductos">
-				<div class = "cajaTituloTienda">
-					<h1 class = "tituloPagina"> Todos los productos </h1>
+			<section class = "tiendaPrincipal">
+				<div class = "contenedorProductos">
+					<div class = "cajaTituloTienda">
+						<h1 class = "tituloPagina"> Todos los productos </h1>
+					</div>
+					<div class = "cuadrotodosProductos">
+						{$todosproductos}
+					</div>
 				</div>
-				<div class = "cuadrotodosProductos">
-					{$todosproductos}
-				</div>
-			</div>
 
-			<div class = "contenedorTienda">
+				<div class = "contenedorTienda">
 
-				<div class = "productosCuadro">
-					<div class = "botonesProductos">
-						<div class = "cajaBotonProducto">
-							<a href = "tienda.php?caracteristica=Destacado"> Destacado </a>
+					<div class = "productosCuadro">
+						<div class = "botonesProductos">
+							<div class = "cajaBotonProducto">
+								<a href = "tienda.php?caracteristica=Destacado"> Destacado </a>
+							</div>
+
+							<div class = "cajaBotonProducto">
+								<a href = "tienda.php?caracteristica=Nuevo"> Nuevo </a>
+							</div>
+
+							<div class = "cajaBotonProducto">
+								<a href = "tienda.php?caracteristica=Popular"> Popular </a>
+							</div>
+
+							<div class = "cajaBusqueda">                               
+								<a href = "buscarProducto.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
+							</div>
 						</div>
 
-						<div class = "cajaBotonProducto">
-							<a href = "tienda.php?caracteristica=Nuevo"> Nuevo </a>
-						</div>
-
-						<div class = "cajaBotonProducto">
-							<a href = "tienda.php?caracteristica=Popular"> Popular </a>
-						</div>
-
-						<div class = "cajaBusqueda">                               
-							<a href = "buscarProducto.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
-						</div>
+						<div class = "cuadroProductos">
+							{$productos}                     
+						</div>                            
 					</div>
 
-					<div class = "cuadroProductos">
-						{$productos}                     
-					</div>                            
-				</div>
-
-			</div>		
-		</section>
+				</div>		
+			</section>
 		EOS;
 	}
 	else {

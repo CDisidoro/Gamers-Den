@@ -21,33 +21,32 @@
 
 	if(isset($_SESSION['login'])){
 		$contenidoPrincipal=<<<EOS
-		<section class = "tiendaParticular">
-			<div class = "tituloProductoConcreto">
-				<p> {$nombre} </p>
-			</div>
-
-			<div class = "fotoyDescripcionProductoConcreto">
-				<div class = "cajaImagenNoticiaConcreta">
-					<img class = "imagenNoticia"  src = " {$urlImagen} ">
+			<section class = "tiendaParticular">
+				<div class = "tituloProductoConcreto">
+					<p> {$nombre} </p>
 				</div>
 
-				<div class = "cajaDescProductoConcreto">
-					<p class = "descripcionProducto" > Descripción del producto: {$descripcion} </p>
-					<p class = "descripcionProducto" > {$precio} €</p>
-					<p class = "descripcionProducto" > Vendido por: {$nombreVendedor->getUsername()} </p>
-					<p class = "descripcionProducto" > {$fecha} </p>
+				<div class = "fotoyDescripcionProductoConcreto">
+					<div class = "cajaImagenNoticiaConcreta">
+						<img class = "imagenNoticia"  src = " {$urlImagen} ">
+					</div>
+
+					<div class = "cajaDescProductoConcreto">
+						<p class = "descripcionProducto" > Descripción del producto: {$descripcion} </p>
+						<p class = "descripcionProducto" > {$precio} €</p>
+						<p class = "descripcionProducto" > Vendido por: {$nombreVendedor->getUsername()} </p>
+						<p class = "descripcionProducto" > {$fecha} </p>
+					</div>
 				</div>
-			</div>
-		</section>
-	EOS;
+			</section>
+		EOS;
 	}
 	else{
 		$contenidoPrincipal=<<<EOS
-		<div>
-			<p> Ha ocurrido un error al cargar la información debido a que no ha iniciado sesión </p>
-		</div>
-	EOS;
+			<div>
+				<p> Ha ocurrido un error al cargar la información debido a que no ha iniciado sesión </p>
+			</div>
+		EOS;
 	}
-	
-
-include 'includes/vistas/plantillas/plantilla.php';
+	include 'includes/vistas/plantillas/plantilla.php';
+?>

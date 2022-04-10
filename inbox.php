@@ -1,6 +1,7 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
     $tituloPagina = "Chat Particular";
+    //Que es esto??? Esta duplicando el chat_particular
     if(isset($_SESSION['login'])){
         $username = $_SESSION['Usuario'];
         $id = $_SESSION['ID'];

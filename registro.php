@@ -1,7 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	//Inicio del procesamiento
-	require_once __DIR__.'/includes/config.php';
-	require_once __DIR__.'/includes/FormularioRegistro.php';
+    require ('includes/config.php');
 
 	## Mostramos el registro con un formulario en el que se nos pide: Nombre, email y contraseña
 	$tituloPagina = 'Registro';
@@ -24,3 +23,4 @@
 	EOS;
 
 	include 'includes/vistas/plantillas/plantilla.php';
+?>

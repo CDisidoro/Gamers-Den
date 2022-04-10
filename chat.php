@@ -1,15 +1,20 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
     $tituloPagina = "Chat General";
-    if(isset($_SESSION['login'])){
+    if(isset($_SESSION['login'])){ //Comprueba si el usuario ha iniciado sesion, sino le dara un mensaje de error de que debe logearse
+        //Obtenemos de las variables de sesion el nombre de usuario y el ID del usuario que se ha logeado
         $username = $_SESSION['Usuario'];
         $id = $_SESSION['ID'];    
         $usuario = Usuario::buscarUsuario($username);
 
+        /**
+         * Genera la lista de amigos del usuario logeado
+         * @param Usuario $usuario Usuario que ha iniciado sesion
+         * @return string $htmlAmigos HTML con la lista de amigos del usuario logeado
+         */
         function generaAmigos($usuario){
             $htmlAmigos = '';
             $amigos = $usuario->getFriends();
-
             $index = 0;
             foreach($amigos as $amigo){
                 $usuarioAmigo = $usuario->buscaPorId($amigo);
@@ -34,6 +39,11 @@
             return $htmlAmigos;
         }
 
+        /**
+         * Obtiene el avatar del amigo del usuario que ha logeado
+         * @param Usuario $usuario Objeto usuario del amigo
+         * @return string $htmlAvatar Imagen del amigo con enlace al chat particular de ese amigo
+         */
         function generaAvatar($usuario){
             $srcAvatar = 'img/avatar';
             $srcAvatar .= $usuario->getAvatar();

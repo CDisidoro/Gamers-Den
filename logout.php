@@ -1,6 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
     // Requires necesarios, seguramente puedan variar --> Veo necesarios uno referente a usuarios a su vez config
-	require_once __DIR__.'/includes/config.php';
+    require ('includes/config.php');
 
 	$usuario=$_SESSION['Usuario']; // Asocio a la variable usuario el usuario que esta utilizando la sesion actual
 	//logout(); // Función de cierre de sesión
