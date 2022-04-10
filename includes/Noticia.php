@@ -155,6 +155,19 @@
          * @param int $idNoticia ID de la noticia que se va a borrar
          * @return bool True si se ha borrado la noticia; False si no se ha podido borrar
          */
+
+        public static function editarPorId($idNoticia){
+            if (!$idNoticia) {
+                return false;
+            } 
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("UPDATE FROM noticias WHERE id = %d", $idNoticia);
+            if ( ! $conn->query($query) ) {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+                return false;
+            }
+            return true;
+        }
         public static function borraPorId($idNoticia) {
             if (!$idNoticia) {
                 return false;
