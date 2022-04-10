@@ -19,7 +19,7 @@
                 $formulario = new FormularioEliminarAmigos($amigos[2][$index]);
                 $formHTML = $formulario->gestiona();
 
-                $srcAvatar = 'img/avatar';
+                $srcAvatar = 'img/Avatar';
                 $srcAvatar .= $amigos[1][$index];
                 $srcAvatar .= '.jpg';
 
@@ -38,7 +38,7 @@
         }
 
         function generaAvatar($usuario){
-            $srcAvatar = 'img/avatar';
+            $srcAvatar = 'img/Avatar';
             $srcAvatar .= $usuario->getAvatar();
             $srcAvatar .= '.jpg';
     
@@ -57,12 +57,12 @@
                 <article class = "avatarydatos">
                     <div class = "cajagrid">
                         <div class = "cajagrid">
-                            {$htmlAvatar}
+                            <a href="cambiarAvatar.php" title="Cambiar de Avatar">{$htmlAvatar}</a>
                         </div>
                         <div class = "cajagrid">
                             <div class = "flexcolumn">
                                 <div class = "cajaflex">
-                                    <p class = "nombreusuario">{$username}</p>           
+                                    <p class = "nombreusuario">{$username}</p>
                                 </div>
                                 <div class = "cajaflex">
                                     <p class = "descripcion">{$bio}</p>

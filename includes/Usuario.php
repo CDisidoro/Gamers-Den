@@ -390,6 +390,23 @@
             }
             return $resultado;
         }
+
+        /**
+         * Actualiza el avatar del usuario que ha llamado la funcion
+         * @param int $idAvatar Numero del avatar nuevo que se va a poner el usuario
+         * @return bool True si todo ha ido bien, false si ha ocurrido un error
+         */
+        public function updateAvatar($idAvatar){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $userId = $this->getId();
+            $query = sprintf("UPDATE usuarios SET Avatar = $idAvatar WHERE usuarios.ID = $userId");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                return true;
+            }
+        }
+
         /*
         public function getFriendInvitations(){
             $friends = [];
