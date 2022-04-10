@@ -143,7 +143,7 @@
 			$urlImagen = htmlspecialchars(trim(strip_tags($_POST["urlProducto"])));
 			
 			$mysqli = Aplicacion::getInstance()->getConexionBd();
-			$articulo = Videojuegos ::buscarporNombre($nombre);
+			$articulo = Videojuego ::buscarporNombre($nombre);
 			$articuloId = $articulo->getNombre();
 			
 			$sql = "INSERT INTO tienda (Articulo, Descripcion, Fecha, Vendedor, Precio, Caracteristica)
