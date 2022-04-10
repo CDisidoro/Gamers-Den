@@ -1,5 +1,4 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-    //require('includes/config.php');
     class Usuario{
 
         //Atributos
@@ -209,7 +208,6 @@
         }
 
         private function loadFriends($usuario){
-            $friends = [];
             $conector = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT LA.usuarioB FROM lista_amigos LA WHERE LA.usuarioA LIKE $usuario->id");
             $rs = $conector->query($query);
@@ -262,42 +260,6 @@
                 $resultado = true;
             }
             return $resultado;
-        }
-        
-        public function getMessages($idAmigo){
-            $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM mensajes M WHERE (M.Remitente = $this->id AND M.Destinatario LIKE $idAmigo) OR (M.Remitente LIKE $idAmigo AND M.Destinatario=$this->id)");
-            $rs = $conn->query($query);
-            $result = [];
-            if ($rs) {
-                while($fila = $rs->fetch_assoc()) {
-                    $result[0][] = $fila['Contenido'];
-                    $result[1][] = $fila['Remitente'];
-                    $result[2][] = $fila['Fecha'];
-                }
-                $rs->free();
-            } else {
-                error_log("Error BD ({$conn->errno}): {$conn->error}");
-            }
-            return $result;
-        }
-        public function addMensajes($mensaje, $amigo){
-            if($this->alreadyFriends($this, $amigo->getId())){
-                $conector = Aplicacion::getInstance()->getConexionBd();
-                $query = sprintf("INSERT INTO mensajes(Remitente, Destinatario, Contenido) VALUES ('%s', '%s', '%s')"
-                    , $conector->real_escape_string($this->id)
-                    , $conector->real_escape_string($amigo->getId())
-                    , $conector->real_escape_string($mensaje)
-                );
-                if (!$conector->query($query) ){
-                    error_log("Error BD ({$conector->errno}): {$conector->error}");
-                }else{
-                    $resultado = true;
-                }
-                return $resultado;
-            }
-            else
-            return false;  
         }
         /*
         public function getFriendInvitations(){

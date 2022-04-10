@@ -54,7 +54,7 @@ class FormularioMandaMensajes extends Formulario{
         //$result = new ResultadoGestionFormulario(true);
         if (count($this->errores) === 0) {
             // Pedimos un mensaje más alla de la página actual para saber si hay más páginas
-            if(!($remitente->addMensajes($mensaje, $useramigo))){
+            if(!(Mensaje::addMensajes($mensaje, $useramigo->getId(), $remitente->getId()))){
                 $this->errores[] = "No ha sido posible enviar el mensaje";
             }
         }

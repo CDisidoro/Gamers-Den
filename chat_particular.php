@@ -45,7 +45,7 @@
         }
 
         function generaChat($usuario, $amigo){
-            $mensajes = $usuario->getMessages($_GET['idAmigo']);
+            $mensajes = Mensaje::getMessages($_GET['idAmigo'],$usuario->getId());
             $htmlMensaje = '';
             $index = 0;
             if($mensajes != null){
