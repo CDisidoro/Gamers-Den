@@ -10,11 +10,11 @@ class FormularioAmigos extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         // Se reutiliza el Usuario de usuario introducido previamente o se deja en blanco
-        $IDUsuario = $datos['IDUsuario'] ?? '';
+        $nombreAmigo = $datos['nombreAmigo'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['IDUsuario'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombreAmigo'], $this->errores, 'span', array('class' => 'error'));
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
@@ -22,8 +22,8 @@ class FormularioAmigos extends Formulario
         <fieldset>
             <legend>Añadir amigos</legend>
             <div>
-                <label for="IDUsuario">ID de Usuario:</label>
-                <input id="IDUsuario" type="text" name="IDUsuario" value="$IDUsuario" required/>
+                <label for="nombreAmigo">Nombre de Usuario:</label>
+                <input id="nombreAmigo" type="text" name="nombreAmigo" value="$nombreAmigo" required/>
             </div>
             <div>
                 <button type="submit" name="añadir"> Añadir </button>
@@ -35,10 +35,10 @@ class FormularioAmigos extends Formulario
 
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
-        $Usuario = trim($datos['IDUsuario'] ?? '');
+        $Usuario = trim($datos['nombreAmigo'] ?? '');
         $Usuario = filter_var($Usuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (count($this->errores) === 0) {
-            $user = Usuario::buscaPorId($Usuario);
+            $user = Usuario::buscarUsuario($Usuario);
 
             if (!$user) {
                 $this->errores[] = "No se ha encontrado al usuario";
