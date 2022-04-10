@@ -5,7 +5,7 @@
 	
 	function generaProductos(){
 		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
-		$arrayProductos = Producto::enseñarPorCar($_GET['caracteristica']);
+		$arrayProductos = Producto::mostrarPorCar($_GET['caracteristica']);
 
 		$productos = '';
 		## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada

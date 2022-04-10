@@ -8,6 +8,7 @@
         /**
         *   El formulario recibe en el constructor el id del amigo que se quiere eliminar.
         *   Tiene como ID formEliminarAmigos y una vez finaliza el borrado redirige al Perfil
+        *   @param int $idAmigo ID del amigo que se quiere eliminar
         */
         public function __construct($idAmigo) { 
             parent::__construct('formEliminarAmigos', ['urlRedireccion' => 'perfil.php']);

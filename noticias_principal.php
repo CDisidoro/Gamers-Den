@@ -8,10 +8,10 @@
     }
     else{
         if($_GET['tag'] > 3 || $_GET['tag'] < 1){
-            $noticias = Noticia::enseñarPorCar(1);
+            $noticias = Noticia::mostrarPorCar(1);
         }
         else{
-            $noticias = Noticia::enseñarPorCar($_GET['tag']);
+            $noticias = Noticia::mostrarPorCar($_GET['tag']);
         }
         
         if($noticias == false){
@@ -45,7 +45,7 @@
     }    
 
     $htmlNoticiaDestacada = '';
-    $noticias = Noticia::enseñarPorCar(4);
+    $noticias = Noticia::mostrarPorCar(4);
     if(!$noticias){
         $htmlNoticiaDestacada .= '<p> ¡Aún no hay noticia destacada! Pero nuestros escritores están en ello :) </p>';
     }

@@ -8,6 +8,7 @@
         /**
         * El formulario recibe en el constructor el id de la noticia que se quiere editar.
         * Tiene ID formEditarNoticia y una vez finalizado redirige a la seccion principal de noticias
+        * @param int $idNoticia ID de la noticia que se desea editar
         */
         public function __construct($idNoticia) { 
             parent::__construct('formEditarNoticia', ['urlRedireccion' => 'noticias_principal.php?tag=1']);

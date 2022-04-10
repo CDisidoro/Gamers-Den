@@ -8,6 +8,7 @@
         /**
         *  El formulario recibe en el constructor el id de la noticia que se quiere eliminar.
         *  Tiene como ID formEliminarNoticia y al terminar redirige a la seccion principal de noticias
+        *  @param int $idNoticia ID de la noticia que se desea borrar
         */
         public function __construct($idNoticia) { 
             parent::__construct('formEliminarNoticia', ['urlRedireccion' => 'noticias_principal.php?tag=1']);
