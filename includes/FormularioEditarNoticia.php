@@ -21,12 +21,21 @@
          * @return string $html Retorna el contenido HTML del formulario
          */
         protected function generaCamposFormulario(&$datos){
-            /*
-            *   Los campos que se crean son un input invisible con el id del amigo y un botón para editar.
-            */
+            
+            $Noticia = Noticia::buscaNoticia($idNoticia);
             $html = <<<EOF
-                <input type="hidden" name="idNoticia" value="{$this->idNoticia}" />
-                <button type = "submit"> <img class = "botonBorrarAmigo" src = "img/lapiz.jpg"> </button>
+            <fieldset>
+                <div>
+                    <input type="hidden" name="idNoticia" value="{$Noticia->getID()}" />
+                    <input id="titulo" type="text" name="Titulo" value="{$Noticia->getTitulo()}" />
+                    <input id="imagen" type="text" name="Imagen" value="{$Noticia->getImagen()}" />
+                    <input id="contenido" type="text" name="Contenido" value="{$Noticia->getContenido()}" />
+                    <input id="descripcion" type="text" name="Descripcion" value="{$Noticia->getDescripcion()}" />
+                </div>
+                <div>
+                    <button type="submit" name="enviar"> Enviar </button>
+                </div>
+            </fieldset>
             EOF;
             return $html;
         }
@@ -48,7 +57,7 @@
             if(!$Noticia){
                 $this->errores[] = 'Error buscando la noticia';
             }else{
-                Noticia::borraPorId($idNoticia);
+                Noticia::editarPorId($idNoticia);
             }       
         }
     }
