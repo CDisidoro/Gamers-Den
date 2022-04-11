@@ -156,7 +156,39 @@
 				return false;
 			}
 		}
-		
+
+		/**
+         * Actualiza un producto de la base de datos
+         * @param string $descripcion Descripcion nueva del producto
+		 * @param int $precio Precio nuevo del producto
+         * @return bool True si todo ha ido bien, false si ha ocurrido un error
+         */
+        public function updateProduct($descripcion, $precio){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $productId = $this->getId();
+            $query = sprintf("UPDATE tienda SET Descripcion = '$descripcion', Precio = '$precio' WHERE tienda.ID = $productId");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                return true;
+            }
+        }
+
+		/**
+		 * Elimina el producto de la BD que ha llamado la funcion
+		 * @return bool Verdadero si se ha conseguido borrar, false si ha ocurrido un error
+		 */
+		public function borrarProducto(){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+			$idProducto = $this->id;
+            $query = sprintf("DELETE FROM tienda WHERE tienda.ID = $idProducto");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                return true;
+            }
+		}
+
 		public static function buscaProducto($id) {
 			$mysqli = Aplicacion::getInstance()->getConexionBd();
 			$query = "SELECT * FROM tienda WHERE ID = '$id'";

@@ -44,12 +44,14 @@
             /*
             *   Después de validar el id del amigo se busca en la bd. Si existe y es amigo del usuario de la sesión, se elimina.
             */
-            $amigo = Usuario::buscaPorId($idAmigo);
-            if ($amigo->alreadyFriends($amigo, $_SESSION['ID']) && $amigo) {
-                $amigo->deleteFriend($_SESSION['ID']);
-            }
-            else{
-                $this->errores[] = 'Algo ha salido mal';
+            if(count($this->errores) === 0){
+                $amigo = Usuario::buscaPorId($idAmigo);
+                if ($amigo->alreadyFriends($amigo, $_SESSION['ID']) && $amigo) {
+                    $amigo->deleteFriend($_SESSION['ID']);
+                }
+                else{
+                    $this->errores[] = 'Algo ha salido mal';
+                }
             }
         }
     }
