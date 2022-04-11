@@ -2,10 +2,27 @@
 	require('includes/config.php');
 
 	## Muestra el producto seleccionado en tienda 
-	$tituloPagina = '';
 	$producto = Producto::buscaProducto($_GET['id']);
+	$tituloPagina = $producto->getNombre();
 
 	### ESPACIO DE LLAMADAS
+	function generaBotones($idVendedor){
+		$htmlBotones = '';
+		if(isset($_SESSION['login']) && $_SESSION['ID'] == $idVendedor){
+			$htmlBotones = <<<EOS
+                <div class = "botonesNoticiaConcreta">
+                    <div class = "botonIndividualNoticia">
+                        <a href = "editarProducto.php?id={$_GET['id']}"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
+                    </div>
+                    
+                    <div class = "botonIndividualNoticia">
+                        <a href = "notfound.php"> <img class = "botonModificarNoticia" src = "img/papelera.jpg"> </a>
+                    </div>
+                </div>
+            EOS;
+		}
+		return $htmlBotones;
+	}
 	## Recogemos todos los atributos de los productos, falta imagen
 	$descripcion = $producto->getDescripcion();
 	$nombre = $producto->getNombre();
@@ -18,10 +35,12 @@
 	$urlImagen .= '.jpg';
 	###
 	$nombreVendedor = Usuario::buscaPorId($vendedor);
+	$botones = generaBotones($vendedor);
 
 	if(isset($_SESSION['login'])){
 		$contenidoPrincipal=<<<EOS
 			<section class = "tiendaParticular">
+				{$botones}
 				<div class = "tituloProductoConcreto">
 					<p> {$nombre} </p>
 				</div>
