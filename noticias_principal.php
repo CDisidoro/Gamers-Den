@@ -2,6 +2,25 @@
 	require('includes/config.php');
     $tituloPagina = "Noticias";
 
+    function generarBoton($user){
+        if(isset($_SESSION['login']) && $_SESSION["rol"] < 3){
+            $htmlBotones = <<<EOS
+                <div class = "botonesNoticiaConcreta">
+                    <div class = "botonIndividualNoticia">
+                        <a href = "crearNoticia.php"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
+                    </div>
+                </div>
+            EOS;
+        }
+        else{
+            $htmlBotones = '';
+        }
+        return $htmlBotones;
+    }
+
+    
+
+
     $htmlNoticias = '';
     if(!isset($_GET['tag'])){
         $htmlNoticias .= '<p> No se han podido cargar las noticias de esta sección </p>';
@@ -13,7 +32,16 @@
         else{
             $noticias = Noticia::mostrarPorCar($_GET['tag']);
         }
-        
+
+        if(isset($_SESSION["login"])){
+            $user = Usuario::buscaPorId($_SESSION['ID']);    
+            $formulario = new FormularioCrearNoticia();
+            $formHTML = $formulario->gestiona();
+            $htmlBoton = generarBoton($user);
+        }else{
+            $htmlBoton = null;
+        }
+
         if($noticias == false){
             $htmlNoticias .= '<p> ¡Aún no hay noticias en esta categoría! Pero nuestros escritores están en ello :) </p>';
         }
@@ -100,6 +128,8 @@
                     <div class = "cajaBusqueda">                               
                         <a href = "buscarNoticia.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
                     </div>
+                    
+                    $htmlBoton
                 </div>
 
                 <div class = "cuadroNoticias">
