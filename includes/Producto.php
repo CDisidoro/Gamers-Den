@@ -219,9 +219,9 @@
 		}
 
 		/**
-		 * Busca un producto de la tienda en base a su Nombre
+		 * Busca productos en la tienda en base a su Nombre
 		 * @param string $nombre Nombre del producto que se desea buscar
-		 * @return Producto|false Si encuentra un producto lo retorna o false si no lo encuentra
+		 * @return array|false Si encuentra productos los retorna en un array o false si no los encuentra
 		 */
 		public static function buscaPorNombre($nombre) {
 			$mysqli = Aplicacion::getInstance()->getConexionBd();
@@ -230,11 +230,13 @@
 			FROM tienda INNER JOIN juegos ON tienda.Articulo=juegos.ID
 			WHERE juegos.Nombre = '$nombre'";
 			$result = $mysqli->query($query);
-			
+			$buscaProducto = [];
 			if($result) {
-				$fila = $result->fetch_assoc();
-				$buscaProducto = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-										$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+				for($i = 0; $i < $result->num_rows; $i++){
+					$fila = $result->fetch_assoc();
+					$buscaProducto[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+				}
 				$result->free();
 				return $buscaProducto;
 			} else{
@@ -263,24 +265,22 @@
 		}
 
 		/**
-		 * Muestra una lista de productos en funcion de una caracteristica. HAY QUE OPTIMIZARLO
+		 * Muestra una lista de productos en funcion de una caracteristica
 		 * @param string $caracteristica Caracteristica que se desea buscar
 		 * @return array|-1 Si se encuentran productos con la caracteristica, se retorna un array de productos, o -1 si no encuentra ninguno
 		 */
-		public static function mostrarPorCar($caracterisitica) {
+		public static function mostrarPorCar($caracteristica) {
 			$conector = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM tienda");
+			$query = sprintf("SELECT * FROM tienda WHERE Caracteristica = '$caracteristica'");
 			$result = $conector->query($query);
 			$ofertasArray = null;
 			$notNull = 0;
 			if($result) {
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
-					if($fila['Caracteristica'] == $caracterisitica){
 						$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
 							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
-						$notNull++;		
-					}
+						$notNull++;
 				}
 				$result->free();
 				if($notNull == 0)
