@@ -18,7 +18,7 @@
             $index = 0;
             foreach($amigos as $amigo){
                 $usuarioAmigo = $usuario->buscaPorId($amigo);
-                $srcAvatar = 'img/avatar';
+                $srcAvatar = 'img/Avatar';
                 $srcAvatar .= $usuarioAmigo->getAvatar();
                 $srcAvatar .= '.jpg';
 
@@ -45,7 +45,7 @@
          * @return string $htmlAvatar Imagen del amigo con enlace al chat particular de ese amigo
          */
         function generaAvatar($usuario){
-            $srcAvatar = 'img/avatar';
+            $srcAvatar = 'img/Avatar';
             $srcAvatar .= $usuario->getAvatar();
             $srcAvatar .= '.jpg';
     

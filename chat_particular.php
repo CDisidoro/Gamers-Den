@@ -18,7 +18,7 @@
          * @return string $htmlAvatar HTML relativo al avatar del amigo
          */
         function generaAvatar($amigo){
-            $srcAvatar = 'img/avatar';
+            $srcAvatar = 'img/Avatar';
             $srcAvatar .= $amigo->getAvatar();
             $srcAvatar .= '.jpg';
     
@@ -34,7 +34,7 @@
          * @return string $htmlAvatar HTML relativo al avatar del usuario
          */
         function generaAvatarUsuario($user){
-            $srcAvatar = 'img/avatar';
+            $srcAvatar = 'img/Avatar';
             $srcAvatar .= $user->getAvatar();
             $srcAvatar .= '.jpg';
     
@@ -51,7 +51,7 @@
          * @return string $htmlAvatar HTML relativo al avatar del amigo
          */
         function generaAvatarAmigo($user){
-            $srcAvatar = 'img/avatar';
+            $srcAvatar = 'img/Avatar';
             $srcAvatar .= $user->getAvatar();
             $srcAvatar .= '.jpg';
     
