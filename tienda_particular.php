@@ -8,6 +8,8 @@
 	### ESPACIO DE LLAMADAS
 	function generaBotones($idVendedor){
 		$htmlBotones = '';
+		$formBorrar = new FormularioEliminarProducto($_GET['id'],$_SESSION['ID']);
+		$formHTML = $formBorrar->gestiona();
 		if(isset($_SESSION['login']) && $_SESSION['ID'] == $idVendedor){
 			$htmlBotones = <<<EOS
                 <div class = "botonesNoticiaConcreta">
@@ -15,9 +17,7 @@
                         <a href = "editarProducto.php?id={$_GET['id']}"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
                     </div>
                     
-                    <div class = "botonIndividualNoticia">
-                        <a href = "notfound.php"> <img class = "botonModificarNoticia" src = "img/papelera.jpg"> </a>
-                    </div>
+                    $formHTML
                 </div>
             EOS;
 		}
