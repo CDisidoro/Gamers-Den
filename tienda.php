@@ -83,14 +83,13 @@
 	$addProducto = generaAgregarProducto();
 	if(isset($_SESSION['login'])){	
 		$contenidoPrincipal=<<<EOS
-			<section class = "tiendaPrincipal">
-				<div class = "contenedorProductos">
-					<div class = "cajaTituloTienda">
-						<h1 class = "tituloPagina"> Todos los productos </h1>
-					</div>
-					<div class = "cuadrotodosProductos">
-						{$todosproductos}
-					</div>
+		<section class = "tiendaPrincipal">
+			<div class = "contenedorProductos">
+				<div class = "cajaTituloTienda">
+					<h1 class = "tituloPagina"> Todos los productos </h1>
+				</div>
+				<div class = "cuadrotodosProductos">
+					{$productos}
 				</div>
 
 				<div class = "contenedorTienda">
@@ -117,10 +116,10 @@
 
 						</div>
 
-						<div class = "cuadroProductos">
-							{$productos}                     
-						</div>                            
-					</div>
+					<div class = "cuadroProductos">
+						{$todosproductos}                     
+					</div>                            
+				</div>
 
 				</div>		
 			</section>
