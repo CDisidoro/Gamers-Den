@@ -108,6 +108,16 @@
 			return $articuloNom;
 		}
 
+		protected function getNombreArticulo($articulo) {
+			$videojuego = Videojuego::buscaVideojuego($articulo);
+			return $videojuego->getNombre();
+		}
+
+		protected function getImageArticulo($articulo) {
+			$videojuego = Videojuego::buscaVideojuego($articulo);
+			return $videojuego->getUrlImagen();
+		}
+
 		//FUNCIONES IMPORTANTES
 
 		// Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
@@ -133,28 +143,26 @@
 			}
 		}*/
 		
-		public static function subeProducto() {
-			$articulo = htmlspecialchars(trim(strip_tags($_POST["NombreProducto"])));
-			$descripcion = htmlspecialchars(trim(strip_tags($_POST["descripcionProducto"])));
-			$fecha = htmlspecialchars(trim(strip_tags($_POST["fechaProducto"])));
-			$vendedor = htmlspecialchars(trim(strip_tags($_POST["VendedorProducto"])));
-			$precio = htmlspecialchars(trim(strip_tags($_POST["precioProducto"])));
-			$caracteristica = htmlspecialchars(trim(strip_tags($_POST["caracteristicaProducto"])));
-			$urlImagen = htmlspecialchars(trim(strip_tags($_POST["urlProducto"])));
-			
-			$mysqli = Aplicacion::getInstance()->getConexionBd();
-			$articulo = Videojuego ::buscarporNombre($nombre);
-			$articuloId = $articulo->getNombre();
-			
-			$sql = "INSERT INTO tienda (Articulo, Descripcion, Fecha, Vendedor, Precio, Caracteristica)
-					VALUES ('$articuloId', '$descripcion', '$fecha', '$vendedor', '$precio', '$caracteristica')";
-			
-			if (mysqli_query($mysqli, $sql)) {
-				return true;
-			}
-			else {
+		/**
+		 * Publica un producto nuevo en la tienda
+		 * @param int $vendedor ID del usuario vendedor del juego
+		 * @param string $articulo Nombre del videojuego que se quiere vender
+		 * @param int $precio Precio del producto, puede ser diferente al precio oficial del desarrollador
+		 * @param string $descripcion Descripcion del producto en venta, puede ser diferente a la descripcion oficial del juego
+		 * @return bool Verdadero si se ha insertado el articulo nuevo, o false si hubo algun problema
+		 */
+		public static function subeProducto($vendedor, $articulo, $precio, $descripcion) {
+            $conector = Aplicacion::getInstance()->getConexionBd();
+			$juego = Videojuego ::buscarPorNombre($articulo);
+			$articuloId = $juego->getID();
+			$query = "INSERT INTO tienda (Articulo, Descripcion, Vendedor, Precio)
+					VALUES ('$articuloId', '$descripcion', '$vendedor', '$precio')";
+			if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
 				return false;
-			}
+            }else{
+                return true;
+            }
 		}
 
 		/**
@@ -189,6 +197,11 @@
             }
 		}
 
+		/**
+		 * Busca un producto de la tienda en base a su ID
+		 * @param int $id ID del producto que se desea buscar
+		 * @return Producto|false Si encuentra un producto lo retorna o false si no lo encuentra
+		 */
 		public static function buscaProducto($id) {
 			$mysqli = Aplicacion::getInstance()->getConexionBd();
 			$query = "SELECT * FROM tienda WHERE ID = '$id'";
@@ -201,11 +214,35 @@
 				$result->free();
 				return $buscaProducto;
 			} else{
-				echo"No se ha encontrado el producto";
 				return false;
 			}
 		}
 
+		/**
+		 * Busca un producto de la tienda en base a su Nombre
+		 * @param string $nombre Nombre del producto que se desea buscar
+		 * @return Producto|false Si encuentra un producto lo retorna o false si no lo encuentra
+		 */
+		public static function buscaPorNombre($nombre) {
+			$mysqli = Aplicacion::getInstance()->getConexionBd();
+			$query = "SELECT tienda.ID, tienda.Articulo, tienda.Vendedor, juegos.Nombre, tienda.Precio,
+			tienda.Descripcion, tienda.Fecha, tienda.Caracteristica
+			FROM tienda INNER JOIN juegos ON tienda.Articulo=juegos.ID
+			WHERE juegos.Nombre = '$nombre'";
+			$result = $mysqli->query($query);
+			
+			if($result) {
+				$fila = $result->fetch_assoc();
+				$buscaProducto = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+										$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+				$result->free();
+				return $buscaProducto;
+			} else{
+				return false;
+			}
+		}
+
+		//Hay que mirar bien esta funcion, que Articulo es un ID, NO TEXTO!!!
 		public static function buscador($buscador) {
 			$mysqli = Aplicacion::getInstance()->getConexionBd();
 			$query = sprintf("SELECT * FROM tienda");
@@ -221,22 +258,25 @@
 				$result->free();
 				return $returning;
 			} else{
-				echo"No se ha encontrado el producto";
 				return false;
 			}
 		}
-		public static function mostrarPorCar($caracterisitica) { //esta función no es eficiente 
-			$mysqli = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM tienda");
-			$result = $mysqli->query($query);
 
-			$ofertasArray;
+		/**
+		 * Muestra una lista de productos en funcion de una caracteristica. HAY QUE OPTIMIZARLO
+		 * @param string $caracteristica Caracteristica que se desea buscar
+		 * @return array|-1 Si se encuentran productos con la caracteristica, se retorna un array de productos, o -1 si no encuentra ninguno
+		 */
+		public static function mostrarPorCar($caracterisitica) {
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM tienda");
+			$result = $conector->query($query);
+			$ofertasArray = null;
 			$notNull = 0;
 			if($result) {
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
-					if($fila['Caracteristica'] == $caracterisitica)
-					{
+					if($fila['Caracteristica'] == $caracterisitica){
 						$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
 							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
 						$notNull++;		
@@ -246,18 +286,20 @@
 				if($notNull == 0)
 					return -1;
 				return $ofertasArray;
-			}
-			else{
-				echo "Error in ".$query."<br>".$mysqli->error;
+			}else{
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
 			}
 		}
-		
-		public static function getAllProductos(){
-			$mysqli = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM tienda");
-			$result = $mysqli->query($query);
 
-			$ofertasArray;
+		/**
+		 * Obtiene una lista de todos los productos en la BD
+		 * @return array|-1 Si ha encontrado productos en la tienda dara un array con todos los productos, o -1 si no hay productos
+		 */
+		public static function getAllProductos(){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM tienda");
+			$result = $conector->query($query);
+			$ofertasArray = null;
 			$notNull = 0;
 			if($result) {
 				for ($i = 0; $i < $result->num_rows; $i++) {
@@ -270,39 +312,8 @@
 				if($notNull == 0)
 					return -1;
 				return $ofertasArray;
-			}
-			else{
-				echo "Error in ".$query."<br>".$mysqli->error;
-			}
-		}
-
-		protected function getNombreArticulo($articulo) {
-			$mysqli = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT Ju.Nombre FROM juegos Ju WHERE Ju.ID LIKE $articulo");
-			$result = $mysqli->query($query);
-			if($result) {
-				$fila = $result->fetch_assoc();
-				$value = $fila['Nombre'];
-				$result->free();
-				return $value;
-			}
-			else{
-				echo "Error in ".$query."<br>".$mysqli->error;
-			}
-		}
-
-		protected function getImageArticulo($articulo) {
-			$mysqli = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT Ju.Imagen FROM juegos Ju WHERE Ju.ID LIKE $articulo");
-			$result = $mysqli->query($query);
-			if($result) {
-				$fila = $result->fetch_assoc();
-				$value = $fila['Imagen'];
-				$result->free();
-				return $value;
-			}
-			else{
-				echo "Error in ".$query."<br>".$mysqli->error;
+			}else{
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
 			}
 		}
 	}

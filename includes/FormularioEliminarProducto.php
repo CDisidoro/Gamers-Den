@@ -28,7 +28,7 @@
             */
             $html = <<<EOF
                 <input type="hidden" name="idProducto" value="{$this->idProducto}"  />
-                <button type = "submit" class = "botonModificarNoticia" > <img class = "botonModificarNoticia" src = "img/papelera.jpg"> </button>
+                <button type = "submit" class = "botonPrueba" > <img class = "botonModificarNoticia" src = "img/papelera.jpg"> </button>
             EOF;
             return $html;
         }
