@@ -7,11 +7,11 @@
 
         /**
         * El formulario recibe en el constructor el id de la noticia que se quiere editar.
-        * Tiene ID formEditarNoticia y una vez finalizado redirige a la seccion principal de noticias
+        * Tiene ID formEditarNoticia y una vez finalizado redirige a la noticia que se ha editado
         * @param int $idNoticia ID de la noticia que se desea editar
         */
         public function __construct($idNoticia) { 
-            parent::__construct('formEditarNoticia', ['urlRedireccion' => 'noticias_principal.php?tag=1']);
+            parent::__construct('formEditarNoticia', ['urlRedireccion' => 'noticias_concreta.php?id={$idNoticia}']);
             $this->idNoticia = $idNoticia;
         }
 
@@ -20,17 +20,28 @@
          * @param array &$datos Almacena los datos del formulario si ha sido enviado anteriormente y hubo errores
          * @return string $html Retorna el contenido HTML del formulario
          */
+        //<textarea id="titulo" rows="10" cols="50">{$Noticia->getTitulo()} </textarea>
         protected function generaCamposFormulario(&$datos){
             
-            $Noticia = Noticia::buscaNoticia($idNoticia);
+            $Noticia = Noticia::buscaNoticia($this->idNoticia);
             $html = <<<EOF
             <fieldset>
+                <input type="hidden" name="idNoticia" value="{$Noticia->getID()}" />
                 <div>
-                    <input type="hidden" name="idNoticia" value="{$Noticia->getID()}" />
-                    <input id="titulo" type="text" name="Titulo" value="{$Noticia->getTitulo()}" />
-                    <input id="imagen" type="text" name="Imagen" value="{$Noticia->getImagen()}" />
-                    <input id="contenido" type="text" name="Contenido" value="{$Noticia->getContenido()}" />
-                    <input id="descripcion" type="text" name="Descripcion" value="{$Noticia->getDescripcion()}" />
+                    <label for="titulo">Nuevo título: </label>
+                    <textarea id="titulo" rows="10" cols="50">{$Noticia->getTitulo()} </textarea>
+                </div>
+                <div>
+                    <label for="imagen">Cambiar imagen: </label>
+                    <textarea id="imagen" rows="10" cols="50">{$Noticia->getImagen()} </textarea>
+                </div>
+                <div>
+                    <label for="contenido">Edita el contenido de la noticia: </label>
+                    <textarea id="contenido" rows="10" cols="50">{$Noticia->getContenido()} </textarea>
+                </div>
+                <div>
+                    <label for="descripcion">Edita la descripcion: </label>
+                    <textarea id="descripcion" rows="10" cols="50">{$Noticia->getDescripcion()} </textarea>
                 </div>
                 <div>
                     <button type="submit" name="enviar"> Enviar </button>

@@ -7,7 +7,7 @@
             $htmlBotones = <<<EOS
                 <div class = "botonesNoticiaConcreta">
                     <div class = "botonIndividualNoticia">
-                        <a href = "index.php"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
+                        <a href = "editarNoticia.php?id={$_GET['id']}"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
                     </div>
                     
                     <div class = "botonIndividualNoticia">
