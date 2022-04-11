@@ -66,8 +66,21 @@
 		return $productos;
 	}
 
+	function generaAgregarProducto(){
+		$addProducto = '';
+		if(isset($_SESSION['login'])){
+			$addProducto = <<<EOS
+				<div class = "cajaBotonProducto">
+					<a href = "crearProducto.php"> Añadir Producto </a>
+				</div>
+			EOS;
+		}
+		return $addProducto;
+	}
+
 	$productos = generaProductos();
 	$todosproductos = generaTodosProductos();
+	$addProducto = generaAgregarProducto();
 	if(isset($_SESSION['login'])){	
 		$contenidoPrincipal=<<<EOS
 			<section class = "tiendaPrincipal">
@@ -96,9 +109,12 @@
 								<a href = "tienda.php?caracteristica=Popular"> Popular </a>
 							</div>
 
+							$addProducto
+							
 							<div class = "cajaBusqueda">                               
 								<a href = "buscarProducto.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
 							</div>
+
 						</div>
 
 						<div class = "cuadroProductos">
