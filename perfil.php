@@ -101,7 +101,7 @@
                 </article>
                 <article class = "listadeamigos">
                     <h2> Lista de amigos</h2>
-                    <div class = "cajaflex">
+                    <div class = "addAmigo">
                         <a href = "addAmigo.php" class = "inbox" > Añadir amigos</a>
                     </div>
                     <div class = "flexrow">

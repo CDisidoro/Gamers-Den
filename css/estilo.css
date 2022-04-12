@@ -469,6 +469,11 @@ article{
     padding-left: 30px;
 }
 
+.addAmigo{
+    float: right; 
+    padding-right: 60px;
+}
+
 .nombreamigo{
     padding-left: 30px;
 }
