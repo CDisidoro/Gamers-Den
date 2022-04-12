@@ -7,7 +7,7 @@
             $htmlBotones = <<<EOS
                 <div class = "botonesNoticiaConcreta">
                     <div class = "botonIndividualNoticia">
-                        <a href = "crearNoticia.php"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
+                        <a href = "crearNoticia.php"> <img class = "botonModificarNoticia" src = "img/addImage.png"> </a>
                     </div>
                 </div>
             EOS;
@@ -17,9 +17,6 @@
         }
         return $htmlBotones;
     }
-
-    
-
 
     $htmlNoticias = '';
     if(!isset($_GET['tag'])){
@@ -125,11 +122,14 @@
                         <a href = "noticias_principal.php?tag=3"> Popular </a>
                     </div>
 
-                    <div class = "cajaBusqueda">                               
+                    <div class = "cajaLupa">                               
                         <a href = "buscarNoticia.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
                     </div>
                     
-                    $htmlBoton
+                    <div class = "cajaBusqueda">
+                        $htmlBoton
+                    </div>
+                    
                 </div>
 
                 <div class = "cuadroNoticias">

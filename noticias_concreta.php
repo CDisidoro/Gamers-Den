@@ -2,7 +2,7 @@
 	require('includes/config.php');
     $tituloPagina = "Noticia";
 
-    function generarBotones($user){
+    function generarBotones($user, $formHTML){
         if(isset($_SESSION['login']) && $_SESSION["rol"] < 3){
             $htmlBotones = <<<EOS
                 <div class = "botonesNoticiaConcreta">
@@ -11,7 +11,7 @@
                     </div>
                     
                     <div class = "botonIndividualNoticia">
-                        <a href = "index.php"> <img class = "botonModificarNoticia" src = "img/papelera.jpg"> </a>
+                        $formHTML
                     </div>
                 </div>
             EOS;
@@ -33,7 +33,7 @@
         //$formHTML es el formulario de campo hidden para eliminar una noticia. Solo hay que incrustar $formHTML donde quieras que vaya el botón de eliminar noticia.
         $formulario = new FormularioEliminarNoticia($noticia->getID());
         $formHTML = $formulario->gestiona();
-        $htmlBotones = generarBotones($user);
+        $htmlBotones = generarBotones($user, $formHTML);
     }else{
         $htmlBotones = null;
     }
