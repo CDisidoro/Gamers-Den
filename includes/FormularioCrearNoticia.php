@@ -63,10 +63,9 @@
         /**
          * Se encarga de subir una imagen a la BD y retornar la ruta donde ha sido subida.
          * Fuente: https://www.jose-aguilar.com/blog/upload-de-imagenes-con-php/
-         * @param &$datos Datos que han sido enviados en el formulario
          * @return string|false Si ha subido correctamente la imagen retornara su ruta de subida o false si algo ha ido mal
          */
-        protected function loadImage(&$datos){
+        protected function loadImage(){
             $nombreImg = $_FILES['imagen']['name']; //Obtenemos el fichero
             if(isset($nombreImg) && $nombreImg != ""){ //Si existe el fichero y no esta vacio
                 //Obtenemos la informacion del fichero
@@ -99,7 +98,7 @@
             if (!$titulo) {
                 $this->errores['titulo'] = 'El titulo no es válido.';
             }
-            $imagen = $this->loadImage($datos);
+            $imagen = $this->loadImage();
             $contenido = filter_var($datos['contenido'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$contenido) {
                 $this->errores['contenido'] = 'El contenido no es válido.';

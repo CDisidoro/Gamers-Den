@@ -11,7 +11,7 @@
         * @param int $idNoticia ID de la noticia que se desea editar
         */
         public function __construct($idNoticia, $idUsuario) { 
-            parent::__construct('formEditarNoticia', ['urlRedireccion' => 'noticias_concreta.php?id='.$idNoticia]);
+            parent::__construct('formEditarNoticia', ['urlRedireccion' => 'noticias_concreta.php?id='.$idNoticia, 'enctype' => 'multipart/form-data']);
             $this->idNoticia = $idNoticia;
             $this->idUsuario = $idUsuario;
         }
@@ -44,7 +44,7 @@
                         </div>
                         <div>
                             <label for="imagen">Cambiar imagen: </label>
-                            <textarea id="imagen" name="imagen" rows="10" cols="50">$imagenNoticia</textarea>
+                            <input type="file" id="imagen" name="imagen"/>
                             {$erroresCampos['imagen']}
                         </div>
                         <div>
@@ -71,6 +71,34 @@
                 $html="<p>No tienes autorizado el acceso a esta sección. Por favor inicia sesión con el usuario escritor para poder editar la noticia</p>";
             }
             return $html;
+        }
+
+                /**
+         * Se encarga de subir una imagen a la BD y retornar la ruta donde ha sido subida.
+         * Fuente: https://www.jose-aguilar.com/blog/upload-de-imagenes-con-php/
+         * @return string|false Si ha subido correctamente la imagen retornara su ruta de subida o false si algo ha ido mal
+         */
+        protected function loadImage(){
+            $nombreImg = $_FILES['imagen']['name']; //Obtenemos el fichero
+            if(isset($nombreImg) && $nombreImg != ""){ //Si existe el fichero y no esta vacio
+                //Obtenemos la informacion del fichero
+                $ext = $_FILES['imagen']['type'];
+                $size = $_FILES['imagen']['size'];
+                $tmpName = $_FILES['imagen']['tmp_name'];
+                //Verifica si la extension y tamano son apropiados
+                if(!(strpos($ext, "jpg") || strpos($ext, "jpeg") && ($size < 10000000))){
+                    $this->errores['imagen'] = 'La imagen debe ser extensión .jpg y de tamaño máximo de 1MB';
+                }else{
+                    $ruta = 'img/'.$nombreImg;
+                    //Intentamos subir la imagen TmpName a la carpeta img con su nombre real
+                    if(move_uploaded_file($tmpName, $ruta)){
+                        return $ruta;
+                    }else{
+                        $this->errores['imagen'] = 'Ha ocurrido un error al guardar la imagen';
+                    }
+                }
+            }
+            return false;
         }
 
         /**
@@ -107,9 +135,10 @@
             if (!$titulo) {
                 $this->errores['titulo'] = 'El titulo no es válido.';
             }
-            $imagen = filter_var($datos['imagen'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            if (!$imagen) {
-                $this->errores['imagen'] = 'La imagen no es válida.';
+            if(isset($_FILES['imagen']['name']) && $_FILES['imagen']['name'] != ""){
+                $imagen = $this->loadImage();
+            }else{
+                $imagen = Noticia::buscaNoticia($idNoticia)->getImagen();
             }
             $contenido = filter_var($datos['contenido'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$contenido) {
