@@ -337,6 +337,30 @@
             return $result;
         }
 
+                /**
+         * Comprueba si cierto usuario ya es vendedor de otro
+         * @param Usuario $user Objeto usuario que quiere comprobar su venta con otro
+         * @param int $Idfriend ID del amigo que se desea comprobar
+         * @return bool Retorna verdadero si $user ya es amigo de $idFriend, o falso si no son amigos o hubo un error
+         */
+        public function alreadyVendedor($user, $Idfriend){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT usuarioB FROM lista_comercial WHERE usuarioA = $user->id");
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    if ($fila['usuarioB'] == $Idfriend) {
+                        $result = true;
+                    }
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
         /**
          * Carga la lista de amigos de cierto usuario
          * @param Usuario $usuario Usuario que quiere cargar su lista de amigos

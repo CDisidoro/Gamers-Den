@@ -38,30 +38,30 @@
          * @return string $htmlNegociantes HTML con la lista de negociantes del usuario logeado
     **/
     function generaNegociantes($usuario){
-        $htmlAmigos = '';
-        $amigos = $usuario->getVendedores();
+        $htmlVendedores = '';
+        $vendedores = $usuario->getVendedores();
         $index = 0;
-        foreach($amigos as $amigo){
-            $usuarioAmigo = $usuario->buscaPorId($amigo);
+        foreach($vendedores as $vendedor){
+            $usuarioVendedor = $usuario->buscaPorId($vendedor);
             $srcAvatar = 'img/Avatar';
-            $srcAvatar .= $usuarioAmigo->getAvatar();
+            $srcAvatar .= $usuarioVendedor->getAvatar();
             $srcAvatar .= '.jpg';
 
-            $htmlAmigos .= '<div class = "amigolista">';
-            $htmlAmigos .= '<a href ="chat_particular.php?idAmigo=';
-            $htmlAmigos .= $usuarioAmigo->getId();
-            $htmlAmigos .= '"> ';
-            $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
-            $htmlAmigos .= $srcAvatar;
-            $htmlAmigos .= '">';
-            $htmlAmigos .= '</a>';
-            $htmlAmigos .= '<p class = "nombreamigo">';
-            $htmlAmigos .= $usuarioAmigo->getUsername();
-            $htmlAmigos .= '</p>';
-            $htmlAmigos .= '</div>';
+            $htmlVendedores .= '<div class = "amigolista">';
+            $htmlVendedores .= '<a href ="chat_negocio.php?idVendedor=';
+            $htmlVendedores .= $usuarioVendedor->getId();
+            $htmlVendedores .= '"> ';
+            $htmlVendedores .= '<img class = "avatarPerfilUsuario" src = "';
+            $htmlVendedores .= $srcAvatar;
+            $htmlVendedores .= '">';
+            $htmlVendedores .= '</a>';
+            $htmlVendedores .= '<p class = "nombreamigo">';
+            $htmlVendedores .= $usuarioVendedor->getUsername();
+            $htmlVendedores .= '</p>';
+            $htmlVendedores .= '</div>';
             $index++;
         }        
-        return $htmlAmigos;
+        return $htmlVendedores;
     }
 
     /**

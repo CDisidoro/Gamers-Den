@@ -12,7 +12,7 @@
         */
         public function __construct($idVendedor) { 
             $this->idVendedor = $idVendedor;
-            $redireccion = 'chat_particular.php?idAmigo=' . $this->idVendedor;
+            $redireccion = 'chat_negocio.php?idVendedor=' . $this->idVendedor;
             parent::__construct('formChatParticular', ['urlRedireccion' => $redireccion]);
         }
         
@@ -47,8 +47,11 @@
             */
             if(count($this->errores) === 0){
                 $vendedor = Usuario::buscaPorId($idVendedor);
-                if($vendedor != null)
-                    $vendedor->addBuyer($vendedor, $_SESSION['ID']);
+                if($vendedor != null){
+                    if(!($vendedor->alreadyVendedor($uservendedor, $_SESSION['ID']))){
+                        $vendedor->addBuyer($vendedor, $_SESSION['ID']);
+                    }
+                }
                 else{
                     $this->errores[] = 'Algo ha salido mal';
                 }

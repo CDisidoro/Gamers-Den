@@ -1,14 +1,14 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 
-    class FormularioMandaMensajes extends Formulario{
-        private $idAmigo;
+    class FormularioMandaMensajesVendedor extends Formulario{
+        private $idVendedor;
         /**
          * Crea el formulario llamando al constructor de la clase padre, con identificador formChatParticular y redireccion al mismo chat una vez enviado el mensaje
-         * @param int $idAmigo ID del amigo con quien se esta chateando
+         * @param int $idVendedor ID del amigo con quien se esta chateando
          */
-        public function __construct($idAmigo){
-            $this->idAmigo = $idAmigo;
-            $redireccion = 'chat_amigo.php?idAmigo=' . $this->idAmigo;
+        public function __construct($idVendedor){
+            $this->idVendedor = $idVendedor;
+            $redireccion = 'chat_negocio.php?idVendedor=' . $this->idVendedor;
             parent::__construct('formChatParticular', ['urlRedireccion' => $redireccion]);
         }
         
@@ -20,7 +20,7 @@
         protected function generaCamposFormulario(&$datos){
             // Se reutiliza el Usuario de usuario introducido previamente o se deja en blanco
             $mensaje = $datos['Mensaje'] ?? '';
-            $IDUsuario = $datos['IDUsuario'] ?? $this->idAmigo;
+            $IDUsuario = $datos['IDUsuario'] ?? $this->idVendedor;
             // Se generan los mensajes de error si existen.
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
             $erroresCampos = self::generaErroresCampos(['Mensaje','IDUsuario'], $this->errores, 'span', array('class' => 'error'));
@@ -48,19 +48,19 @@
          */
         protected function procesaFormulario(&$datos) {
             $this->errores = [];
-            $useramigo = Usuario::buscaPorId(trim($datos['IDUsuario']));
+            $uservendedor = Usuario::buscaPorId(trim($datos['IDUsuario']));
             $remitente = Usuario::buscaPorId($_SESSION['ID']);
             $mensaje = trim($datos['Mensaje'] ?? '');
             $mensaje = filter_var($mensaje, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$mensaje ||  mb_strlen($mensaje) == 0 ) 
                 $this->errores[] = 'Por favor escribe el mensaje antes de mandarlo';
-            else if (!$useramigo)
+            else if (!$uservendedor)
                 $this->errores[] = "No se ha encontrado al usuario";
-            else if(!($useramigo->alreadyFriends($useramigo, $_SESSION['ID'])))
-                $this->errores[] = "No eres amigo de ese usuario";
+            else if(!($uservendedor->alreadyVendedor($uservendedor, $_SESSION['ID'])))
+                $this->errores[] = "No eres negociante de ese usuario";
             if (count($this->errores) === 0) {
                 // Pedimos un mensaje más alla de la página actual para saber si hay más páginas
-                if(!(Mensaje::addMensajes($mensaje, $useramigo->getId(), $remitente->getId(), 1))){
+                if(!(Mensaje::addMensajes($mensaje, $uservendedor->getId(), $remitente->getId(), 2))){
                     $this->errores[] = "No ha sido posible enviar el mensaje";
                 }
             }
