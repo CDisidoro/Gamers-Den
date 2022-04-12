@@ -423,6 +423,21 @@
             }
         }
 
+        public static function addBuyer($usuario, $IdBuyer){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("INSERT INTO lista_comercial(usuarioA, usuarioB) VALUES ('%s', '%s'), ('%s', '%s')"
+                , $conector->real_escape_string($usuario->id)
+                , $conector->real_escape_string($IdBuyer)
+                , $conector->real_escape_string($IdBuyer)
+                , $conector->real_escape_string($usuario->id)
+            );
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
+            }
+            return $resultado;
+        }
         /*
         public function getFriendInvitations(){
             $friends = [];
