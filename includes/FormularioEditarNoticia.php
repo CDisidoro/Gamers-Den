@@ -30,7 +30,7 @@
             $descripcionNoticia = $datos['descripcion'] ?? $noticia->getDescripcion();
             $etiquetaNoticia = $datos['etiqueta'] ?? $noticia->getEtiquetas();
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['idNoticia','titulo','imagen','contenido','descripcion'], $this->errores, 'span', array('class' => 'error'));
+            $erroresCampos = self::generaErroresCampos(['idNoticia','titulo','imagen','contenido','descripcion','etiqueta'], $this->errores, 'span', array('class' => 'error'));
             if($this->checkIdentity($noticia->getAutor(),$this->idUsuario) || $this->checkAdmin($this->idUsuario)){
                 $html = <<<EOF
                     $htmlErroresGlobales
@@ -131,7 +131,7 @@
                 if(!$noticia){
                     $this->errores[] = 'Error buscando la noticia';
                 }else{
-                    if(!($noticia->editarNoticia($titulo,$imagen,$contenido,$descripcion))){
+                    if(!($noticia->editarNoticia($titulo,$imagen,$contenido,$descripcion,$etiqueta))){
                         $this->errores[] = 'Ha ocurrido un error al editar la noticia';
                     }
                 } 

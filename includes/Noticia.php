@@ -146,10 +146,10 @@
          * @param int $idNoticia ID de la noticia que se va a borrar
          * @return bool True si se ha borrado la noticia; False si no se ha podido borrar
          */
-        public function editarNoticia($titulo, $imagen, $contenido, $descripcion){
+        public function editarNoticia($titulo, $imagen, $contenido, $descripcion, $etiquetas){
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("UPDATE noticias 
-            SET Titulo = '$titulo', Contenido = '$contenido', Imagen = '$imagen', Descripcion = '$descripcion'
+            SET Titulo = '$titulo', Contenido = '$contenido', Imagen = '$imagen', Descripcion = '$descripcion', Etiquetas = '$etiquetas'
             WHERE id = %d", $this->getID());
             if ( ! $conn->query($query) ) {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");

@@ -1,5 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
+	require('Bienvenido.php');
 	$tituloPagina = 'Gamers Den';
 	$contenidoPrincipal = <<<EOS
 		<div class = "contenedor">
@@ -11,5 +12,6 @@
 			</section>
 		</div>
 	EOS;
+	//<script src ="Bienvenido.php"</script>
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>
