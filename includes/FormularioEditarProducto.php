@@ -30,7 +30,7 @@
             $erroresCampos = self::generaErroresCampos(['idUsuario','descripcion','precio','idProducto'], $this->errores, 'span', array('class' => 'error'));
             // Se genera el HTML asociado a los campos del formulario y los mensajes de error
             // Validamos tambien si el usuario logeado es el propietario del producto
-            if($this->checkIdentity($producto->getVendedor(), $idUsuario)){
+            if($this->checkIdentity($producto->getVendedor(), $idUsuario) || $this->checkAdmin($idUsuario)){
                 $html = <<<EOF
                 $htmlErroresGlobales
                 <fieldset>
@@ -99,6 +99,16 @@
          */
         protected function checkIdentity($idVendedor, $idUsuario){
             return $idVendedor == $idUsuario;
+        }
+
+        /**
+         * Valida si el usuario tiene permisos de administrador
+         * @param int $idUsuario ID del usuario logeado que desea validar su rol de admin
+         * @return bool Retornara verdadero si su nivel de rol es 1 (Admin) o false si no es administrador
+         */
+        protected function checkAdmin($idUsuario){
+            $usuario = Usuario::buscaPorId($idUsuario);
+            return $usuario->getRol() == 1;
         }
     }
 ?>

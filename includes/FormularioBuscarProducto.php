@@ -48,7 +48,7 @@
             $nombreJuego = trim($datos['nombreJuego'] ?? '');
             $nombreJuego = filter_var($nombreJuego, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$nombreJuego ||  mb_strlen($nombreJuego) == 0 ) {
-                $this->errores[] = 'Debes especificar algún texto a buscar';
+                $this->errores['nombreJuego'] = 'Debes especificar algún texto a buscar';
             }
             $result = new ResultadoGestionFormulario(true);
             if (count($this->errores) === 0) {

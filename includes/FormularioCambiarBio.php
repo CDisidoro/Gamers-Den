@@ -52,11 +52,11 @@
             $this->errores = [];
             $bio = filter_var($datos['Bio'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$bio) {
-                $this->errores[] = 'No he recibido una biografía válida';
+                $this->errores['Bio'] = 'No he recibido una biografía válida';
             }
             $idUsuario = filter_var($datos['idUsuario'] ?? null, FILTER_SANITIZE_NUMBER_INT);
             if (!$idUsuario) {
-                $this->errores[] = 'No tengo un ID de usuario valido';
+                $this->errores['idUsuario'] = 'No tengo un ID de usuario valido';
             }
             if(count($this->errores) === 0){
                 $usuario = Usuario::buscaPorId($idUsuario);

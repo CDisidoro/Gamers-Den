@@ -51,7 +51,7 @@
             $keyWords = trim($datos['keyWords'] ?? '');
             $keyWords = filter_var($keyWords, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$keyWords ||  mb_strlen($keyWords) == 0 ) {
-                $this->errores[] = 'Debes especificar algún texto a buscar';
+                $this->errores['keyWords'] = 'Debes especificar algún texto a buscar';
             }
             $result = new ResultadoGestionFormulario(true);
             if (count($this->errores) === 0) {
