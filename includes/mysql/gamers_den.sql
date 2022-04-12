@@ -104,6 +104,7 @@ CREATE TABLE `mensajes` (
   `Destinatario` int(11) NOT NULL,
   `Fecha` date NOT NULL DEFAULT current_timestamp(),
   `Contenido` longtext NOT NULL,
+  `Tipo` int(11) NOT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

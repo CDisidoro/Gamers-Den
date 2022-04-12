@@ -9,6 +9,7 @@
         private $destinatario;
         private $fecha;
         private $contenido;
+        private $tipo;
 
         //GETTERS
 
@@ -48,6 +49,10 @@
             return $this->contenido;
         }
 
+        public function getTipo(){
+            return $this->tipo;
+        }
+
         //FUNCIONES IMPORTANTES
 
         /**
@@ -58,12 +63,13 @@
          * @param int $fecha Fecha en la que el mensaje fue enviado
          * @param string $contenido Contenido del mensaje que se va a enviar
          */
-        private function __construct($id = null,$remitente, $destinatario, $fecha, $contenido){
+        private function __construct($id = null,$remitente, $destinatario, $fecha, $contenido, $tipo){
             $this->id = $id;
             $this->remitente = $remitente;
             $this->destinatario = $destinatario;
             $this->fecha = $fecha;
             $this->contenido = $contenido;
+            $this->tipo = $tipo;
         }
 
         /**
@@ -72,9 +78,9 @@
          * @param int $remitente ID del usuario que envia el mensaje
          * @return array Array bidimensional con el contenido, remitente y fecha del mensaje
          */
-        public static function getMessages($destinatario, $remitente){
+        public static function getMessages($destinatario, $remitente, $tipo){
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM mensajes M WHERE (M.Remitente = $remitente AND M.Destinatario LIKE $destinatario) OR (M.Remitente LIKE $destinatario AND M.Destinatario=$remitente)");
+            $query = sprintf("SELECT * FROM mensajes M WHERE (M.Remitente LIKE $remitente AND M.Destinatario LIKE $destinatario AND M.Tipo = $tipo) OR (M.Remitente LIKE $destinatario AND M.Destinatario LIKE $remitente AND M.Tipo=$tipo)");
             $rs = $conn->query($query);
             $result = [];
             if ($rs) {
@@ -97,9 +103,9 @@
          * @param int $remitente ID del usuario que envia el mensaje
          * @return bool Si se ha enviado correctamente, retornara true
          */
-        public static function addMensajes($mensaje, $destinatario, $remitente){
+        public static function addMensajes($mensaje, $destinatario, $remitente, $tipo){
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("INSERT INTO mensajes(Remitente, Destinatario, Contenido) VALUES ('%s', '%s', '%s')"
+            $query = sprintf("INSERT INTO mensajes(Remitente, Destinatario, Contenido, Tipo) VALUES ('%s', '%s', '%s', '$tipo')"
                 , $conector->real_escape_string($remitente)
                 , $conector->real_escape_string($destinatario)
                 , $conector->real_escape_string($mensaje)

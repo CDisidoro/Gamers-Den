@@ -8,7 +8,7 @@
          */
         public function __construct($idAmigo){
             $this->idAmigo = $idAmigo;
-            $redireccion = 'chat_particular.php?idAmigo=' . $this->idAmigo;
+            $redireccion = 'chat_amigo.php?idAmigo=' . $this->idAmigo;
             parent::__construct('formChatParticular', ['urlRedireccion' => $redireccion]);
         }
         
@@ -60,7 +60,7 @@
                 $this->errores[] = "No eres amigo de ese usuario";
             if (count($this->errores) === 0) {
                 // Pedimos un mensaje más alla de la página actual para saber si hay más páginas
-                if(!(Mensaje::addMensajes($mensaje, $useramigo->getId(), $remitente->getId()))){
+                if(!(Mensaje::addMensajes($mensaje, $useramigo->getId(), $remitente->getId(), 1))){
                     $this->errores[] = "No ha sido posible enviar el mensaje";
                 }
             }

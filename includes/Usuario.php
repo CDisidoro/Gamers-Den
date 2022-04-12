@@ -297,6 +297,22 @@
             return $result;
         }
 
+        public function getVendedores(){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT usuarioB FROM lista_comercial WHERE usuarioA = $this->id");
+            $rs = $conn->query($query);
+            $result = [];
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    $result[] = $fila['usuarioB'];
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
         /**
          * Comprueba si cierto usuario ya es amigo de otro
          * @param Usuario $user Objeto usuario que quiere comprobar su amistad con otro

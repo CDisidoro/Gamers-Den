@@ -49,12 +49,12 @@ INSERT INTO `lista_amigos` (`usuarioA`, `usuarioB`) VALUES
 -- Volcado de datos para la tabla `mensajes`
 --
 
-INSERT INTO `mensajes` (`ID`, `Remitente`, `Destinatario`, `Fecha`, `Contenido`) VALUES
-(1, 1, 2, '2022-03-27', 'hola usuario'),
-(2, 2, 1, '2022-03-27', '¿que tal administrador?'),
-(3, 2, 1, '2022-03-27', 'por favor no me denuncies'),
-(4, 2, 1, '2022-03-27', 'no sabia que era menor'),
-(5, 1, 2, '2022-03-27', 'Asqueroso usuario la recogias del insti');
+INSERT INTO `mensajes` (`ID`, `Remitente`, `Destinatario`, `Fecha`, `Contenido`, `Tipo`) VALUES
+(1, 1, 2, '2022-03-27', 'hola usuario', 1),
+(2, 2, 1, '2022-03-27', '¿que tal administrador?', 1),
+(3, 2, 1, '2022-03-27', 'por favor no me denuncies', 1),
+(4, 2, 1, '2022-03-27', 'no sabia que era menor', 1),
+(5, 1, 2, '2022-03-27', 'Asqueroso usuario la recogias del insti', 1);
 
 
 --
