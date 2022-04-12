@@ -48,9 +48,7 @@
             if(count($this->errores) === 0){
                 $vendedor = Usuario::buscaPorId($idVendedor);
                 if($vendedor != null)
-                    $vendedor->addBuyer
-                    
-                    ($user, $_SESSION['ID']);
+                    $vendedor->addBuyer($vendedor, $_SESSION['ID']);
                 else{
                     $this->errores[] = 'Algo ha salido mal';
                 }

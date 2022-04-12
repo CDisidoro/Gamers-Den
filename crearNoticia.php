@@ -1,9 +1,7 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
     require ('includes/config.php');
-
-    $idNoticia = filter_var($_GET['id'] ?? null, FILTER_SANITIZE_NUMBER_INT);
 	$tituloPagina = 'Crear noticia';
-	$formulario = new FormularioCrearNoticia($idNoticia);
+	$formulario = new FormularioCrearNoticia($_SESSION['ID']);
 	$formHTML = $formulario->gestiona();
 
 	$contenidoPrincipal = <<<EOS

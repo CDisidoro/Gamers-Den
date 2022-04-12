@@ -35,7 +35,7 @@
 
         if(isset($_SESSION["login"])){
             $user = Usuario::buscaPorId($_SESSION['ID']);    
-            $formulario = new FormularioCrearNoticia();
+            $formulario = new FormularioCrearNoticia($user->getId());
             $formHTML = $formulario->gestiona();
             $htmlBoton = generarBoton($user);
         }else{
