@@ -130,13 +130,8 @@
          * Se encarga de publicar una noticia nueva en la pagina (PENDIENTE DE ARREGLAR)
          * @return bool Si se ha efectuado correctamente la query retornara true, o false en el caso opuesto
          */
-        public static function subeNoticia() {
-            $titulo = htmlspecialchars(trim(strip_tags($_POST["TituloNoticia"])));
-            $contenido = htmlspecialchars(trim(strip_tags($_POST["contenidoNoticias"])));
-            $autor = htmlspecialchars(trim(strip_tags($_POST["autorNoticias"])));
-            $etiquetas = htmlspecialchars(trim(strip_tags($_POST["etiquetaNoticias"])));
-            $urlImagen = htmlspecialchars(trim(strip_tags($_POST["urlNoticia"])));
-            
+        public static function subeNoticia($titulo,$contenido,$autor,$urlImagen,$descripcion) {
+            $etiquetas = 1;
             $mysqli = Aplicacion::getInstance()->getConexionBd();
             
             $sql = "INSERT INTO noticias (Titulo, Imagen, Contenido, Descripcion, Etiquetas, Autor)
