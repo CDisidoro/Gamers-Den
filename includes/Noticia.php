@@ -157,19 +157,27 @@
             }
             return true;
         }
-        public static function borraPorId($idNoticia) {
-            if (!$idNoticia) {
-                return false;
-            } 
+
+        /**
+         * Elimina la noticia que haya llamado a este metodo y su imagen asociada
+         * @return bool Si ha podido borrar la imagen y la noticia del sistema retorna True, sino retorna false
+         */
+        public function borrarNoticia() {
+            //Borrado de la noticia
             /* Los roles se borran en cascada por la FK
             * $result = self::borraRoles($usuario) !== false;
             */
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM noticias WHERE id = %d"
-                , $idNoticia
+                , $this->id
             );
             if ( ! $conn->query($query) ) {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
+                return false;
+            }
+            //Borrado de la imagen asociada
+            if(!unlink($this->imagen)){
+                error_log("Error eliminando la imagen de la noticia");
                 return false;
             }
             return true;

@@ -44,12 +44,12 @@
             /*
             *   Después de validar el id de la noticia se busca en la bd. Si existe se elimina.
             */
-            $Noticia = Noticia::buscaNoticia($idNoticia);
-            if(!$Noticia){
+            $noticia = Noticia::buscaNoticia($idNoticia);
+            if(!$noticia){
                 $this->errores[] = 'Error buscando la noticia';
             }
             else{
-                Noticia::borraPorId($idNoticia);
+                $noticia->borrarNoticia();
             }       
         }
     }
