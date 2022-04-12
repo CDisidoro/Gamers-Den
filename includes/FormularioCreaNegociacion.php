@@ -40,7 +40,7 @@
             $this->errores = [];
             $idVendedor = filter_var($datos['idVendedor'] ?? null, FILTER_SANITIZE_NUMBER_INT);
             if (!$idVendedor) {
-                $this->errores[] = 'El usuario vendedor no existe.';
+                $this->errores['idVendedor'] = 'El usuario vendedor no existe.';
             }
             /*
             *   Después de validar el id del amigo se busca en la bd. Si existe y es amigo del usuario de la sesión, se elimina.
@@ -48,9 +48,7 @@
             if(count($this->errores) === 0){
                 $vendedor = Usuario::buscaPorId($idVendedor);
                 if($vendedor != null)
-                    $vendedor->addBuyer
-                    
-                    ($user, $_SESSION['ID']);
+                    $vendedor->addBuyer($vendedor, $_SESSION['ID']);
                 else{
                     $this->errores[] = 'Algo ha salido mal';
                 }

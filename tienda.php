@@ -121,8 +121,8 @@
 					</div>                            
 				</div>
 
-				</div>		
-			</section>
+			</div>		
+		</section>
 		EOS;
 	}
 	else {

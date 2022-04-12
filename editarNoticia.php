@@ -3,7 +3,7 @@
 
     $idNoticia = filter_var($_GET['id'] ?? null, FILTER_SANITIZE_NUMBER_INT);
 	$tituloPagina = 'Editar noticia';
-	$formulario = new FormularioEditarNoticia($idNoticia);
+	$formulario = new FormularioEditarNoticia($idNoticia, $_SESSION['ID']);
 	$formHTML = $formulario->gestiona();
 
 	$contenidoPrincipal = <<<EOS

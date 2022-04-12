@@ -58,9 +58,11 @@
             if (!$idUsuario) {
                 $this->errores[] = 'No tengo un ID de usuario valido';
             }
-            $usuario = Usuario::buscaPorId($idUsuario);
-            if (!($usuario->updateAvatar($idAvatar) && $usuario)) {
-                $this->errores[] = 'Algo ha salido mal';
+            if(count($this->errores) === 0){
+                $usuario = Usuario::buscaPorId($idUsuario);
+                if (!($usuario->updateAvatar($idAvatar) && $usuario)) {
+                    $this->errores[] = 'Algo ha salido mal';
+                }
             }
         }
     }

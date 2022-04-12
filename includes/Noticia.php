@@ -121,7 +121,6 @@
                 $result->free();
                 return $returning;
             } else{
-                echo"No se ha encontrado el producto";
                 return false;
             }
         }
@@ -130,24 +129,16 @@
          * Se encarga de publicar una noticia nueva en la pagina (PENDIENTE DE ARREGLAR)
          * @return bool Si se ha efectuado correctamente la query retornara true, o false en el caso opuesto
          */
-        public static function subeNoticia() {
-            $titulo = htmlspecialchars(trim(strip_tags($_POST["TituloNoticia"])));
-            $contenido = htmlspecialchars(trim(strip_tags($_POST["contenidoNoticias"])));
-            $autor = htmlspecialchars(trim(strip_tags($_POST["autorNoticias"])));
-            $etiquetas = htmlspecialchars(trim(strip_tags($_POST["etiquetaNoticias"])));
-            $urlImagen = htmlspecialchars(trim(strip_tags($_POST["urlNoticia"])));
-            
-            $mysqli = Aplicacion::getInstance()->getConexionBd();
-            
-            $sql = "INSERT INTO noticias (Titulo, Imagen, Contenido, Descripcion, Etiquetas, Autor)
+        public static function subeNoticia($titulo,$contenido,$autor,$urlImagen,$descripcion) {
+            $etiquetas = 1;
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = "INSERT INTO noticias (Titulo, Imagen, Contenido, Descripcion, Etiquetas, Autor)
                     VALUES ('$titulo', '$urlImagen', '$contenido', '$descripcion', '$etiquetas', '$autor')";
-            
-            if (mysqli_query($mysqli, $sql)) {
-                return true;
-            }
-            else {
+            if ( ! $conector->query($query) ) {
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
                 return false;
             }
+            return true;
         }
 
         /**
@@ -155,13 +146,11 @@
          * @param int $idNoticia ID de la noticia que se va a borrar
          * @return bool True si se ha borrado la noticia; False si no se ha podido borrar
          */
-
-        public static function editarPorId($idNoticia){
-            if (!$idNoticia) {
-                return false;
-            } 
+        public function editarNoticia($titulo, $imagen, $contenido, $descripcion, $etiquetas){
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("UPDATE FROM noticias WHERE id = %d", $idNoticia);
+            $query = sprintf("UPDATE noticias 
+            SET Titulo = '$titulo', Contenido = '$contenido', Imagen = '$imagen', Descripcion = '$descripcion', Etiquetas = '$etiquetas'
+            WHERE id = %d", $this->getID());
             if ( ! $conn->query($query) ) {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
                 return false;
@@ -201,7 +190,6 @@
                 $result->free();
                 return $buscaNoticia;
             } else{
-                echo"No se ha encontrado la noticia";
                 return false;
             }
         }
@@ -225,7 +213,6 @@
                 $result->free();
                 return $returning;
             } else{
-                echo"No se ha encontrado el producto";
                 return false;
             }
         }
