@@ -25,13 +25,14 @@
             $descripcion = $datos['descripcion'] ?? '';
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
             $erroresCampos = self::generaErroresCampos(['articulo','precio','idUsuario','descripcion'], $this->errores, 'span', array('class' => 'error'));
+            $listaJuegos = $this->generarSelector();
             $html = <<<EOF
             $htmlErroresGlobales
             <fieldset>
                 <legend>Nuevo producto</legend>
                 <div>
                     <label for="articulo">Selecciona un videojuego: </label>
-                    <input id="articulo" name="articulo" type="text" value="$articulo"/>
+                    $listaJuegos
                     {$erroresCampos['articulo']}
                 </div>
                 <div>
@@ -54,6 +55,18 @@
             return $html;
         }
 
+        function generarSelector(){
+            $listaJuegos = Videojuego::cargarVideojuegos();
+            $selector = '<select name="articulo" id="articulo">';
+            foreach($listaJuegos as $juego){
+                $id = $juego->getID();
+                $nombre = $juego->getNombre();
+                $selector .= '<option value='.$id.'>'.$nombre.'</option>';
+            }
+            $selector .= '</select>';
+            return $selector;
+        }
+
         /**
          * Se encarga de procesar en formulario una vez se pulsa en el boton de enviar
          * @param array &$datos Datos que han sido enviados en el formulario
@@ -64,7 +77,7 @@
             if (!$idUsuario) {
                 $this->errores['idUsuario'] = 'El id de usuario no es válido.';
             }
-            $articulo = filter_var($datos['articulo'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $articulo = filter_var($datos['articulo'] ?? null, FILTER_SANITIZE_NUMBER_INT);
             if (!$articulo) {
                 $this->errores['articulo'] = 'El id del videojuego no es válido.';
             }

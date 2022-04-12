@@ -153,7 +153,7 @@
 		 */
 		public static function subeProducto($vendedor, $articulo, $precio, $descripcion) {
             $conector = Aplicacion::getInstance()->getConexionBd();
-			$juego = Videojuego ::buscarPorNombre($articulo);
+			$juego = Videojuego ::buscaVideojuego($articulo);
 			$articuloId = $juego->getID();
 			$query = "INSERT INTO tienda (Articulo, Descripcion, Vendedor, Precio)
 					VALUES ('$articuloId', '$descripcion', '$vendedor', '$precio')";
