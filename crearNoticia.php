@@ -8,7 +8,7 @@
 	<div id="contenedor">	
 		<main>
 		<article>
-				<h1>Edita aquí la noticia</h1>
+				<h1>Crear noticia</h1>
 				$formHTML
 			</article>
 		</main>

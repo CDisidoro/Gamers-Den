@@ -28,6 +28,7 @@
             $imagenNoticia = $datos['imagen'] ?? $noticia->getImagen();
             $contenidoNoticia = $datos['contenido'] ?? $noticia->getContenido();
             $descripcionNoticia = $datos['descripcion'] ?? $noticia->getDescripcion();
+            $etiquetaNoticia = $datos['etiqueta'] ?? $noticia->getEtiquetas();
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
             $erroresCampos = self::generaErroresCampos(['idNoticia','titulo','imagen','contenido','descripcion'], $this->errores, 'span', array('class' => 'error'));
             if($this->checkIdentity($noticia->getAutor(),$this->idUsuario) || $this->checkAdmin($this->idUsuario)){
@@ -55,6 +56,11 @@
                             <label for="descripcion">Edita la descripcion: </label>
                             <textarea id="descripcion" name="descripcion" rows="10" cols="50">$descripcionNoticia</textarea>
                             {$erroresCampos['descripcion']}
+                        </div>
+                        <div>
+                            <label for="etiqueta">Cambia la etiqueta: </label>
+                            <textarea id="etiqueta" name="etiqueta" type="text">$etiquetaNoticia</textarea>
+                            {$erroresCampos['etiqueta']}
                         </div>
                         <div>
                             <button type="submit" name="enviar"> Enviar </button>
@@ -112,6 +118,10 @@
             $descripcion = filter_var($datos['descripcion'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$descripcion) {
                 $this->errores['descripcion'] = 'La descripcion no es valida';
+            }
+            $etiqueta = filter_var($datos['etiqueta'] ?? null, FILTER_SANITIZE_NUMBER_INT);
+            if (!$etiqueta) {
+                $this->errores['etiqueta'] = 'La etiqueta no es valida';
             }
             if(count($this->errores) === 0){
                 /*
