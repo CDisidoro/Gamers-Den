@@ -1,7 +1,7 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
 	$tituloPagina = 'Nuestra tienda';
-	
+
 	function generaProductos(){
 		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
 		$arrayProductos = Producto::mostrarPorCar($_GET['caracteristica']);

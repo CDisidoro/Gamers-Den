@@ -5,6 +5,9 @@
 	$producto = Producto::buscaProducto($_GET['id']);
 	$tituloPagina = $producto->getNombre();
 
+	$formCreaNegociacion = new FormularioCreaNegociacion($producto->getVendedor());
+	$formulario = $formCreaNegociacion->gestiona();
+
 	### ESPACIO DE LLAMADAS
 	function generaBotones($idVendedor){
 		$htmlBotones = '';
@@ -55,6 +58,9 @@
 						<p class = "descripcionProducto" > {$precio} €</p>
 						<p class = "descripcionProducto" > Vendido por: {$nombreVendedor->getUsername()} </p>
 						<p class = "descripcionProducto" > {$fecha} </p>
+						<div class = "cajaBotonNegociacion">
+							$formulario
+						</div>
 					</div>
 				</div>
 			</section>
