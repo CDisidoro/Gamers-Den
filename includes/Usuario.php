@@ -13,6 +13,7 @@
         private $avatar;
         private $bio;
         private $friendlist;
+        private $wishList;
         public const ADMIN_ROLE = 1;
         public const ESCRITOR_ROLE = 2;
         public const CATALOGADOR_ROLE = 3;
@@ -99,6 +100,15 @@
         public function getfriendlist(){
             self::loadFriends($this);
             return $this->friendlist;
+        }
+
+        /**
+         * Obtiene la lista de deseos del usuario
+         * @return array $wishList Lista de Deseos
+         */
+        public function getWishList(){
+            self::loadWishList($this);
+            return $this->wishList;
         }
 
         //FUNCIONES IMPORTANTES
@@ -526,7 +536,45 @@
         }
 
         /**
-         * Obtiene la lista de deseos del usuario que ha llamado la funcion (PENDIENTE)
+         * Elimina un juego de la lista de deseos del usuario que llama la funcion
+         * @param int $idJuego ID del juego que se desea borrar de la lsita de deseos
+         * @return bool Si se ha borrado exitosamente retorna true, sino retorna false
          */
+        public function deleteWishList($idJuego){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->id;
+            $query = sprintf("DELETE FROM lista_deseos WHERE juego = $idJuego AND usuario = $idUsuario");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /**
+         * Obtiene la lista de deseos del usuario que ha llamado la funcion
+         * @param Usuario $usuario Usuario que quiere cargar su lista de deseos
+         * @return Usuario|false $usuario Usuario con su lista de deseos cargada
+         */
+        private function loadWishList($usuario){
+            $idUsuario = $usuario->getId();
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT juegos.ID, juegos.Nombre, juegos.Imagen FROM juegos INNER JOIN lista_deseos ON lista_deseos.juego = juegos.ID WHERE lista_deseos.usuario = $idUsuario");
+            $resultado = $conector->query($query);
+            $usuario->wishList = [];
+            if($resultado){
+                while($row = $resultado->fetch_assoc()){
+                    $usuario->wishList[0][] = $row['ID'];
+                    $usuario->wishList[1][] = $row['Nombre'];
+                    $usuario->wishList[2][] = $row['Imagen'];
+                }
+                $resultado->free();
+                return $usuario;
+            }else{
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }
+            return false;
+        }
     }
 ?>

@@ -7,6 +7,32 @@
         $usuario = Usuario::buscarUsuario($username);
         $bio = $usuario->getBio();
 
+        function generaListaDeseos($usuario){
+            $htmlDeseos = '';
+            $deseos = $usuario->getWishList();
+            if(sizeof($deseos) == 0){
+                $htmlDeseos = "<p>Tu lista de deseos está vacía! Empieza a buscar juegos en la pestaña de Juegos!</p>";
+            }else{
+                $index = 0;
+                while($index < sizeof($deseos[0])){
+                    $idJuego = $deseos[0][$index];
+                    $formulario = new FormularioEliminarDeseos($idJuego, $usuario->getId());
+                    $formHTML = $formulario->gestiona();
+                    $nombreJuego = $deseos[1][$index];
+                    $srcImg = $deseos[2][$index];
+                    $htmlDeseos .= <<<EOS
+                        <div class="amigoLista">
+                            <img class="avatarPerfilUsuario" src="$srcImg"/>
+                            <p class="nombreamigo">$nombreJuego</p>
+                            $formHTML
+                        </div>
+                    EOS;
+                    $index++;
+                }
+            }
+            return $htmlDeseos;
+        }
+
         function generaAmigos($usuario){
             $htmlAmigos = '';
             $amigos = $usuario->getfriendlist();
@@ -51,6 +77,7 @@
 
         $htmlAvatar = generaAvatar($usuario);
         $htmlAmigos = generaAmigos($usuario);
+        $htmlDeseos = generaListaDeseos($usuario);
 
         $contenidoPrincipal=<<<EOS
             <section class = "content">
@@ -85,18 +112,7 @@
                 <article class = "listadeseados">
                     <h2> Lista de deseos</h2>
                     <div class = "flexrow">
-                        <div class = "juegolista">
-                            <img class = "imagenJuegoDeseados" src = "img/Logo.jpg">
-                            <p> Nombre Juego </p>
-                        </div>
-                        <div class = "juegolista">
-                            <img class = "imagenJuegoDeseados" src = "img/Logo.jpg">
-                            <p> Nombre Juego </p>
-                        </div>
-                        <div class = "juegolista">
-                            <img class = "imagenJuegoDeseados" src = "img/Logo.jpg">
-                            <p> Nombre Juego </p>                      
-                        </div>
+                        {$htmlDeseos}
                     </div>
                 </article>
                 <article class = "listadeamigos">
