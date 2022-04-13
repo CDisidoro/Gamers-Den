@@ -170,6 +170,25 @@
 		}
 
 		/**
+		 * Elimina de la BD el juego que haya llamado esta funcion, asi como su imagen asociada
+		 * @return bool Si se ha borrado el juego y su imagen asociada , retorna true, sino retornara false
+		 */
+		public function borrarJuego(){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("DELETE FROM juegos WHERE ID = $this->id");
+            if (!$conector->query($query) ) {
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }
+            //Borrado de la imagen asociada
+            if(!unlink($this->urlImagen)){
+                error_log("Error eliminando la imagen del juego");
+                return false;
+            }
+            return true;
+		}
+
+		/**
 		 * Busca un videojuego en base a su nombre
 		 * @param string $nombre Nombre del videojuego que se esta buscando
 		 * @return Videojuego|false Retorna un objeto videojuego si ha encontrado el juego o false si no lo encontro

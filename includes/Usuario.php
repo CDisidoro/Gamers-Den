@@ -465,6 +465,12 @@
             }
         }
 
+        /**
+         * Agrega un usuario a la lista de compradores para la tienda
+         * @param Usuario $usuario Usuario que desea vender el producto
+         * @param int $idBuyer ID del usuario que comprara el producto
+         * @return bool Si se ha agregado correctamente el usuario a la lista comercial retorna true, sino retorna false
+         */
         public static function addBuyer($usuario, $IdBuyer){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("INSERT INTO lista_comercial(usuarioA, usuarioB) VALUES ('%s', '%s'), ('%s', '%s')"
@@ -480,5 +486,47 @@
             }
             return $resultado;
         }
+
+        /**
+         * Agrega un videojuego a la lista de deseos del usuario que llama la funcion
+         * @param int $idJuego ID del videojuego que se agrega a la lista de deseos
+         * @return bool Si se ha agregado correctamente el juego a la lista de deseos retorna true, o sino retorna false
+         */
+        public function addToWishList($idJuego){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->getId();
+            $query = sprintf("INSERT INTO lista_deseos(juego,usuario) VALUES ($idJuego, $idUsuario)");
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /**
+         * Comprueba si el juego ya esta en la lista de deseos del usuario que llama la funcion
+         * @param int $idJuego ID del juego que se desea consultar
+         * @return bool Si el juego esta en la lista de deseos retorna true, sino retorna false
+         */
+        public function checkWishList($idJuego){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM lista_deseos WHERE juego = $idJuego AND usuario = $this->id");
+            $resultado = $conector->query($query);
+            if (!$resultado){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return true;
+            }else{
+                if ($resultado->num_rows == 0){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }
+
+        /**
+         * Obtiene la lista de deseos del usuario que ha llamado la funcion (PENDIENTE)
+         */
     }
 ?>

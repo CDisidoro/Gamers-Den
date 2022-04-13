@@ -89,7 +89,7 @@ CREATE TABLE `lista_amigos` (
 CREATE TABLE `lista_deseos` (
   `juego` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
-  `fecha_agregacion` date NOT NULL
+  `fecha_agregacion` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -287,7 +287,7 @@ ALTER TABLE `noticias`
 --
 ALTER TABLE `tienda`
   ADD CONSTRAINT `tienda_ibfk_1` FOREIGN KEY (`Vendedor`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tienda_ibfk_2` FOREIGN KEY (`Articulo`) REFERENCES `juegos` (`ID`);
+  ADD CONSTRAINT `tienda_ibfk_2` FOREIGN KEY (`Articulo`) REFERENCES `juegos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

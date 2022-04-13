@@ -1,6 +1,35 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
     $juego = Videojuego::buscaVideojuego($_GET['id']);
+    function generarBotones(){
+        $botones = '';
+        if(isset($_SESSION['login']) && ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 1)){
+            $botonBorrar = new FormularioEliminarJuego($_GET['id']);
+            $formBoton = $botonBorrar->gestiona();
+            $botones = <<<EOS
+                <div class="botonNoticiaConcreta">
+                    <div class="botonIndividualNoticia">
+                        <a href="editarJuego.php?id={$_GET['id']}"><img class="botonModificarNoticia" src="img/lapiz.png"/></a>
+                    </div>
+                    $formBoton
+                </div>
+            EOS;
+        }
+        return $botones;
+    }
+    function generarListaDeseos(){
+        $boton = '';
+        if(isset($_SESSION['login'])){
+            $formWish = new FormularioAddListaDeseos($_GET['id'],$_SESSION['ID']);
+            $formBoton = $formWish->gestiona();
+            $boton = <<<EOS
+                <div class="cajaBotonNegociacion">
+                    $formBoton
+                </div>
+            EOS;
+        }
+        return $boton;
+    }
     if(!$juego){
             $tituloPagina = "No encontrado";
             $contenidoPrincipal = "<p>Lo sentimos, el juego al que has intentado acceder no existe</p>";
@@ -12,11 +41,14 @@
         $imagen = $juego->getUrlImagen();
         $precio = $juego->getPrecio();
         $tituloPagina = $nombreJuego;
+        $botones = generarBotones();
+        $wishlist = generarListaDeseos();
         $contenidoPrincipal = <<<EOS
             <section>
                 <div class="tituloProductoConcreto">
                     <h1>$nombreJuego</h1>
                 </div>
+                $botones
                 <div class="fotoyDescripcionProductoConcreto">
                     <div class="cajaImagenNoticiaConcreta">
                         <img class="imagenNoticia" src="$imagen"/>
@@ -28,6 +60,7 @@
                         <p class="descripcionProducto">Precio: $precio €</p>
                     </div>
                 </div>
+                $wishlist
             </section>
         EOS;
     }
