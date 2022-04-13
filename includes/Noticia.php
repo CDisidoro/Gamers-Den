@@ -194,6 +194,9 @@
             $result = $mysqli->query($query);
             if($result) {
                 $fila = $result->fetch_assoc();
+				if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
+					return false;
+				}
                 $buscaNoticia = new Noticia($fila['ID'], $fila['Titulo'], $fila['Imagen'], $fila['Contenido'], $fila['Descripcion'], $fila['Etiquetas'], $fila['Autor'], $fila['Fecha']);
                 $result->free();
                 return $buscaNoticia;

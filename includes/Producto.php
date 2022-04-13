@@ -118,31 +118,7 @@
 			return $videojuego->getUrlImagen();
 		}
 
-		//FUNCIONES IMPORTANTES
-
-		// Cuando incluyamos la imagen hay que tenerla en cuenta en las distintas funcionalidades
-		
-		/*public static function cargarProducto(){
-			$mysqli = getConexionBD();
-			$query = sprintf("SELECT * FROM productos");
-			$result = $mysqli->query($query);
-
-			$ofertasArray;
-			
-			if($result) {
-				for ($i = 0; $i < $result->num_rows; $i++) {
-					$fila = $result->fetch_assoc();
-					$ofertasArray[] = new Producto($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-										$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracterisitica'], $fila['UrlImagen']);		
-				}
-				$result->free();
-				return $ofertasArray;
-			}
-			else{
-				echo "Error in ".$query."<br>".$mysqli->error;
-			}
-		}*/
-		
+		//FUNCIONES IMPORTANTES	
 		/**
 		 * Publica un producto nuevo en la tienda
 		 * @param int $vendedor ID del usuario vendedor del juego
@@ -209,6 +185,9 @@
 			
 			if($result) {
 				$fila = $result->fetch_assoc();
+				if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
+					return false;
+				}
 				$buscaProducto = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
 										$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
 				$result->free();
@@ -234,31 +213,14 @@
 			if($result) {
 				for($i = 0; $i < $result->num_rows; $i++){
 					$fila = $result->fetch_assoc();
+					if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
+						return false;
+					}
 					$buscaProducto[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
 							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
 				}
 				$result->free();
 				return $buscaProducto;
-			} else{
-				return false;
-			}
-		}
-
-		//Hay que mirar bien esta funcion, que Articulo es un ID, NO TEXTO!!!
-		public static function buscador($buscador) {
-			$mysqli = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM tienda");
-			$result = $mysqli->query($query);
-			$returning = [];
-			if($result) {
-				for ($i = 0; $i < $result->num_rows; $i++) {
-					$fila = $result->fetch_assoc();
-					if(strstr($fila['Articulo'],$buscador,false) != false)
-						$returning = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
-				}
-				$result->free();
-				return $returning;
 			} else{
 				return false;
 			}
