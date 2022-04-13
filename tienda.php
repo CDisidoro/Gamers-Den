@@ -13,9 +13,7 @@
 				$idProducto = $producto->getID();
 				$nomProducto = $producto->getNombre();
 				$descProducto = $producto->getDescripcion();
-				$urlImagen = 'img/';
-				$urlImagen .= $producto->getImagen();
-				$urlImagen .= '.jpg';
+				$urlImagen = $producto->getImagen();
 				## URL del producto junto con el id
 				$id = 'Productos.php?id='.$producto->getID();
 				$productos.=<<<EOS
@@ -45,9 +43,7 @@
 				$idProducto = $producto->getID();
 				$nomProducto = $producto->getNombre();
 				$descProducto = $producto->getDescripcion();
-				$urlImagen = 'img/';
-				$urlImagen .= $producto->getImagen();
-				$urlImagen .= '.jpg';
+				$urlImagen = $producto->getImagen();
 				## URL del producto junto con el id
 				$id = 'Productos.php?id='.$producto->getID();
 				$productos.=<<<EOS

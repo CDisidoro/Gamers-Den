@@ -50,7 +50,7 @@
 
                     <li>
                         <div class = "cajatusjuegosNav">
-                            <a href = "notfound.php" > Tus Juegos</a>
+                            <a href = "juegos.php" > Juegos</a>
                         </div>                       
                     </li>
                 </ul>

@@ -33,9 +33,7 @@
 	$vendedor = $producto->getVendedor(); ## Esto es para establecer el chat
 	$precio = $producto->getPrecio();
 	$caracteristicas = $producto->getCaracteristica(); ## Las características supongo que es para los tags y filtros
-	$urlImagen = 'img/';
-	$urlImagen .= $producto->getImagen();
-	$urlImagen .= '.jpg';
+	$urlImagen = $producto->getImagen();
 	###
 	$nombreVendedor = Usuario::buscaPorId($vendedor);
 	$botones = generaBotones($vendedor);
