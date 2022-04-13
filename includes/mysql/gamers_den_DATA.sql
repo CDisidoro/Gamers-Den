@@ -117,8 +117,8 @@ INSERT INTO `noticias` (`ID`, `Titulo`, `Imagen`, `Contenido`, `Descripcion`, `E
 -- Volcado de datos para la tabla `tienda`
 --
 INSERT INTO `tienda` (`Vendedor`, `Articulo`, `Precio`, `Descripcion`, `Caracteristica`) VALUES
-('4', '4', '20', 'Es muy divertido pero gasta mucho tiempo', 'Nuevo'),
-('4', '4', '19', 'Me compre otro sin querer y lo quiero vender también', 'Destacado');
+('6', '4', '20', 'Es muy divertido pero gasta mucho tiempo', 'Nuevo'),
+('6', '4', '19', 'Me compre otro sin querer y lo quiero vender también', 'Destacado');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
