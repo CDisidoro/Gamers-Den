@@ -104,7 +104,7 @@
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
 					$ofertasArray[] = new Videojuego($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-										$fila['Lanzamiento'],$fila['Desarrollador'],$fila['Precio'],$fila['Imagen']);		
+										$fila['Desarrollador'],$fila['Lanzamiento'],$fila['Precio'],$fila['Imagen']);		
 				}
 				return $ofertasArray;
 			}
@@ -146,8 +146,11 @@
 			$result = $mysqli->query($query);
 			if($result) {
 				$fila = $result->fetch_assoc();
+				if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
+					return false;
+				}
 				$buscaJuego = new Videojuego($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-										$fila['Lanzamiento'],$fila['Desarrollador'],$fila['Precio'],$fila['Imagen']);
+										$fila['Desarrollador'],$fila['Lanzamiento'],$fila['Precio'],$fila['Imagen']);
 				return $buscaJuego;
 			} else{
 				return false;
@@ -165,8 +168,11 @@
 			$result = $mysqli->query($query);
 			if($result) {
 				$fila = $result->fetch_assoc();
+				if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
+					return false;
+				}
 				$buscaJuego = new Videojuego($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
-										$fila['Lanzamiento'],$fila['Desarrollador'],$fila['Precio'],$fila['Imagen']);
+										$fila['Desarrollador'],$fila['Lanzamiento'],$fila['Precio'],$fila['Imagen']);
 				return $buscaJuego;
 			} else{
 				return false;
