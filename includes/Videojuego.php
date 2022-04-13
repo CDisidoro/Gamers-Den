@@ -121,12 +121,13 @@
 		 * @param date $lanzamiento Fecha de lanzamiento del videojuego
 		 * @param string $desarrollador Empresa desarrolladora del videojuego
 		 * @param int $precio Precio oficial del videojuego
+		 * @param string $imagen Ruta de la imagen de la noticia
 		 * @return bool Si se ha subido correctamente el juego nuevo devuelve true, o false si algo ha ido mal
 		 */
-		public static function subeVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio) {
+		public static function subeVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen) {
 			$conector = Aplicacion::getInstance()->getConexionBd();
-			$query = "INSERT INTO juegos (Nombre, Descripcion, Lanzamiento, Desarrollador, Precio)
-					VALUES ('$nombre', '$descripcion', '$lanzamiento', '$desarrollador', '$precio')";
+			$query = "INSERT INTO juegos (Nombre, Descripcion, Lanzamiento, Desarrollador, Precio, Imagen)
+					VALUES ('$nombre', '$descripcion', '$lanzamiento', '$desarrollador', '$precio', '$imagen')";
 			if (!$conector->query($query)){
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 				return false;

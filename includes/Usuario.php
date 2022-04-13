@@ -15,7 +15,9 @@
         private $friendlist;
         public const ADMIN_ROLE = 1;
         public const ESCRITOR_ROLE = 2;
-        public const USER_ROLE = 3;
+        public const CATALOGADOR_ROLE = 3;
+        public const MODERADOR_ROLE = 4;
+        public const USER_ROLE = 5;
 
         //CONSTRUCTOR Y GETTERS
 
@@ -233,7 +235,7 @@
                 , $conector->real_escape_string($usuario->username)
                 , $conector->real_escape_string($usuario->email)
                 , $conector->real_escape_string($usuario->pass)
-                , $conector->real_escape_string('3')
+                , $conector->real_escape_string('5')
             );
             if(!self::buscarUsuario($conector->real_escape_string($usuario->username))){
                 if (!$conector->query($query) ){
@@ -478,30 +480,5 @@
             }
             return $resultado;
         }
-        /*
-        public function getFriendInvitations(){
-            $friends = [];
-            $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT LA.usuarioA FROM lista_inbox LI WHERE LI.usuarioB LIKE $usuario->id");
-            $rs = $conector->query($query);
-            $friendlist = [];
-            if ($rs) {
-                while($row = $rs->fetch_assoc()) {
-
-                    $info = self::getListAvatar($row['usuarioB']);
-                    if ($info == -1)
-                        return null;
-                    $friendlist[0][] = $info[0];
-                    $friendlist[1][] = $info[1];
-                }
-                $rs->free();
-                return $friendlist;
-
-            } else {
-                error_log("Error BD ({$conector->errno}): {$conector->error}");
-            }
-            return false;
-        }
-        */
     }
 ?>
