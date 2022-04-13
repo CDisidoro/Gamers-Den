@@ -189,6 +189,23 @@
 		}
 
 		/**
+		 * Edita el videojuego existente en la BD que haya llamado la funcion
+		 * 
+		 */
+        public function editarVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+			$idJuego = $this->getID();
+            $query = sprintf("UPDATE juegos 
+            SET Nombre = '$nombre', Descripcion = '$descripcion', Lanzamiento = '$lanzamiento', Desarrollador = '$desarrollador', Precio = '$precio', Imagen = '$imagen'
+            WHERE id = $idJuego");
+            if ( ! $conn->query($query) ) {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+                return false;
+            }
+            return true;
+        }
+
+		/**
 		 * Busca un videojuego en base a su nombre
 		 * @param string $nombre Nombre del videojuego que se esta buscando
 		 * @return Videojuego|false Retorna un objeto videojuego si ha encontrado el juego o false si no lo encontro
