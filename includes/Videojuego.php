@@ -92,6 +92,39 @@
 		//FUNCIONES IMPORTANTES
 
 		/**
+		 * Busca videojuegos por un conjunto de palabras clave
+		 * @param string $keywords Palabras clave con las que se buscaran videojuegos
+		 * @return array $returning Array con los juegos coincidentes
+		 */
+		public static function buscaPorKeywords($keywords){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$palabras = $conector->real_escape_string($keywords); //Filtro de seguridad
+			$palabras = explode(" ",$keywords); //Separa cada palabra
+			$returning = [];
+			foreach($palabras as $palabra){
+                $query = sprintf("SELECT * FROM juegos WHERE Nombre LIKE '%%{$palabra}%%'");
+                $result = $conector->query($query);
+                if($result){
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        $fila = $result->fetch_assoc();
+                        $esta = false;
+                        foreach($returning as $juego){
+                            if($juego->getID() == $fila['ID']){
+                                $esta = true;
+                            }
+                        }
+                        if(!$esta){
+                            $returning[] = new Videojuego($fila['ID'], $fila['Nombre'], $fila['Descripcion'], $fila['Desarrollador'], $fila['Lanzamiento'], $fila['Precio'], $fila['Imagen']);
+                        }
+                        $esta = false;
+                    }
+                    $result->free();
+                }
+			}
+			return $returning;
+		}
+
+		/**
 		 * Carga todos los videojuegos de la BD en un array
 		 * @return array Array con todos los Videojuegos disponibles
 		 */

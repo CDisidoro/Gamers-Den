@@ -98,9 +98,8 @@
                 if(!$juego){
                     $this->errores[] = 'Ha ocurrido un error';
                 }
-            }      
+            }
         }
-
         /**
          * Se encarga de subir una imagen a la BD y retornar la ruta donde ha sido subida.
          * Fuente: https://www.jose-aguilar.com/blog/upload-de-imagenes-con-php/
