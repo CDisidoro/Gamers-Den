@@ -18,6 +18,7 @@
         }
         return $htmlBotones;
     }
+    
     if(!isset($_GET['id'])){
         $tituloPagina = "No encontrado";
         $htmlNoticias = '<p> No se ha podido cargar la noticia </p>';
