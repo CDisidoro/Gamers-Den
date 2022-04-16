@@ -60,9 +60,9 @@ INSERT INTO `lista_amigos` (`usuarioA`, `usuarioB`) VALUES
 INSERT INTO `mensajes` (`ID`, `Remitente`, `Destinatario`, `Fecha`, `Contenido`, `Tipo`) VALUES
 (1, 1, 2, '2022-03-27', 'hola usuario', 1),
 (2, 2, 1, '2022-03-27', '¿que tal administrador?', 1),
-(3, 2, 1, '2022-03-27', 'por favor no me denuncies', 1),
-(4, 2, 1, '2022-03-27', 'no sabia que era menor', 1),
-(5, 1, 2, '2022-03-27', 'Asqueroso usuario la recogias del insti', 1);
+(3, 2, 1, '2022-03-27', 'bien, estudiando AW', 1),
+(4, 2, 1, '2022-03-27', 'anda! yo también, es una asignatura muy entretenida', 1),
+(5, 1, 2, '2022-03-27', 'y que lo digas pequeño usuario', 1);
 
 
 --

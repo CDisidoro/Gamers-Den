@@ -1,5 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
+    //Función que genera los botones de editar y eliminar noticia comprobando si el usuario logeado tiene permisos suficientes.
     function generarBotones($formHTML){
         if(isset($_SESSION['login']) && $_SESSION["rol"] < 3){
             $htmlBotones = <<<EOS
@@ -18,6 +19,7 @@
         }
         return $htmlBotones;
     }
+    
     if(!isset($_GET['id'])){
         $tituloPagina = "No encontrado";
         $htmlNoticias = '<p> No se ha podido cargar la noticia </p>';

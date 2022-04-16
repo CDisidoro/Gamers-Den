@@ -1,5 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
+    require('noticias_aux.php');
     $tituloPagina = "Noticias";
 
     function generarBoton($user){
@@ -69,76 +70,7 @@
         }   
     }    
 
-    $htmlNoticiaDestacada = '';
-    $noticias = Noticia::mostrarPorCar(4);
-    if(!$noticias){
-        $htmlNoticiaDestacada .= '<p> ¡Aún no hay noticia destacada! Pero nuestros escritores están en ello :) </p>';
-    }
-    else{
-        $htmlNoticiaDestacada .= '<div class = "noticia">';
-        $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
-        $htmlNoticiaDestacada .= '<a href ="noticias_concreta.php?id=';
-        $htmlNoticiaDestacada .= $noticias[0]->getID();
-        $htmlNoticiaDestacada .= '">';
-        $htmlNoticiaDestacada .= '<img class = "imagenNoticia"  src = "';   
-        $htmlNoticiaDestacada .= $noticias[0]->getImagen();
-        $htmlNoticiaDestacada .= '">';
-        $htmlNoticiaDestacada .= '</a>';
-        $htmlNoticiaDestacada .= '</div>';
-        $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
-        $htmlNoticiaDestacada .= '<p class = "tituloNoticia">';
-        $htmlNoticiaDestacada .= $noticias[0]->getTitulo();
-        $htmlNoticiaDestacada .= '</p>';
-        $htmlNoticiaDestacada .= '</div>';
-        $htmlNoticiaDestacada .= '<div class = "cajaTitulo">';
-        $htmlNoticiaDestacada .= '<p class = "descripcionNoticia">';
-        $htmlNoticiaDestacada .= $noticias[0]->getDescripcion();
-        $htmlNoticiaDestacada .='</p>';
-        $htmlNoticiaDestacada .= '</div>';
-        $htmlNoticiaDestacada .= '</div>';
-    }
-     
-    $contenidoPrincipal=<<<EOS
-    <section class = "noticiasPrincipal">
-        <div class = "contenedorNoticias">
-            <div class = "noticiaDestacada">
-                {$htmlNoticiaDestacada}
-            </div>
-        </div>
-
-        <div class = "contenedorNoticias">
-
-            <div class = "noticiasCuadro">
-                <div class = "botones">
-                    <div class = "cajaBoton">
-                        <a href = "noticias_principal.php?tag=1"> Nuevo </a>
-                    </div>
-
-                    <div class = "cajaBoton">
-                        <a href = "noticias_principal.php?tag=2"> Destacado </a>
-                    </div>
-
-                    <div class = "cajaBoton">
-                        <a href = "noticias_principal.php?tag=3"> Popular </a>
-                    </div>
-
-                    <div class = "cajaLupa">                               
-                        <a href = "buscarNoticia.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
-                    </div>
-                    
-                    <div class = "cajaBusqueda">
-                        $htmlBoton
-                    </div>
-                    
-                </div>
-
-                <div class = "cuadroNoticias">
-                    {$htmlNoticias}                       
-                </div>                            
-            </div>
-
-        </div>
-    </section>
-    EOS;
+    $htmlNoticiaDestacada = generarHTMLdestacado();
+    $contenidoPrincipal = generaContenidoPrincipal($htmlNoticiaDestacada, $htmlBoton, $htmlNoticias);
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>
