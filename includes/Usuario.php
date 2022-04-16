@@ -122,28 +122,7 @@
         public static function login($nombreUsuario,$password){
             $user = self::buscarUsuario($nombreUsuario);
             if($user && $user->compruebaPassword($password)){
-                return self::loadRole($user);
-            }
-            return false;
-        }
-        
-        /**
-         * Carga el rol asignado al usuario
-         * @param Usuario $usuario Usuario al que se desea cargar su rol
-         * @return Usuario|false $usuario Usuario con el rol cargado; o false si ha ocurrido un error
-         */
-        private static function loadRole($usuario){
-            $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT Rol FROM usuarios WHERE ID=%d", $usuario->id);
-            $rs = $conector->query($query);
-            if ($rs) {
-                $roles = $rs->fetch_assoc();
-                $rs->free();
-                $usuario->rol = $roles["Rol"];
-                return $usuario;
-
-            } else {
-                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return $user;
             }
             return false;
         }
