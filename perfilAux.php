@@ -1,5 +1,9 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 
+/*
+*   Función que genera el html de la lista de deseos del usuario logeado.
+*   @param user usuario del que se quiere mostrar la lista.
+*/
 function generaListaDeseos($usuario){
     $htmlDeseos = '';
     $deseos = $usuario->getWishList();
@@ -26,6 +30,10 @@ function generaListaDeseos($usuario){
     return $htmlDeseos;
 }
 
+/*
+*   Función que genera el html de la lista de amigos del usuario logeado.
+*   @param user usuario del que se quiere mostrar la lista.
+*/
 function generaAmigos($usuario){
     $htmlAmigos = '';
     $amigos = $usuario->getfriendlist();
@@ -56,7 +64,10 @@ function generaAmigos($usuario){
     return $htmlAmigos;
 }
 
-
+/*
+*   Función que genera el html del avatar del usuario logeado.
+*   @param user usuario del que se quiere mostrar el avatar.
+*/
 function generaAvatar($usuario){
     $srcAvatar = 'img/Avatar';
     $srcAvatar .= $usuario->getAvatar();
@@ -68,6 +79,15 @@ function generaAvatar($usuario){
     return $htmlAvatar;
 }
 
+/*
+*   Función que genera el html de la página de perfil.
+*   @param bio biografía del usuario.
+*   @param id id del usuario.
+*   @param username nombre del usuario.
+*   @param htmlAmigos lista de amigos del usuario.
+*   @param htmlAvatar avatar del usuario.
+*   @param htmlDeseos lista de deseos del usuario.
+*/
 function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar, $htmlDeseos){
     $contenidoPrincipal=<<<EOS
     <section class = "content">
@@ -119,6 +139,9 @@ function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar
     return $contenidoPrincipal;
 }
 
+/*
+*   Función que genera el html de la página cuando no se está logeado.
+*/
 function generaHTMLnoConectado(){
     $contenidoPrincipal = <<<EOS
     <section class = "content">

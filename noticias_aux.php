@@ -1,5 +1,8 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 
+/*
+*   Función que genera el html de la noticia que se muestra en el cuadro de noticias destacadas en noticias_principal
+*/
 function generarHTMLdestacado(){
     $htmlNoticiaDestacada = '';
     $noticias = Noticia::mostrarPorCar(4);
@@ -29,6 +32,12 @@ function generarHTMLdestacado(){
     return $htmlNoticiaDestacada;
 }
 
+/*
+*   Función que genera el html de la página de noticias.
+*   @param htmlNoticiaDestacada noticia destacada.
+*   @param htmlBoton botón para buscar noticia.
+*   @param htmlNoticias lista de noticias de una categoría.
+*/
 
 function generaContenidoPrincipal($htmlNoticiaDestacada, $htmlBoton, $htmlNoticias){
     $contenidoPrincipal=<<<EOS
