@@ -120,6 +120,31 @@ INSERT INTO `tienda` (`Vendedor`, `Articulo`, `Precio`, `Descripcion`, `Caracter
 ('6', '4', '20', 'Es muy divertido pero gasta mucho tiempo', 'Nuevo'),
 ('6', '4', '19', 'Me compre otro sin querer y lo quiero vender también', 'Destacado');
 
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+INSERT INTO `categorias` (`Nombre`, `Descripcion`) VALUES
+('Nuevo', 'Estos son los últimos juegos que han salido al mercado, aquí encontrarás lo último de la industria'),
+('Mas vendidos', 'Aquí encontrarás a los juegos más vendidos de los últimos tiempos'),
+('GOTY', 'Estos juegos han sido los mejores que fueron lanzados en su respectivo año'),
+('RPG', 'Quieres tener tu propio personaje y personalizarlo a tu modo en mundos gigantescos donde tus acciones tienen consecuencias? Este es el lugar correcto'),
+('MMO', 'Te interesa formar grupos con jugadores alrededor del globo para completar eventos o competir para ser el mejor? Entonces los MMO son tu tipo de juego'),
+('Sandbox', 'Eres de los que quiere hacer su propia casa en un videojuego, recogiendo materiales y recursos de un mundo prácticamente infinito, donde el límite es tu imaginación? Entonces los Sandbox son perfectos para tí'),
+('Simulador', 'Tanto si quieres simular que tienes una granja y recoger cultivos, como si quieres aventurarte a la infinidad del espacio, habrá un juego de Simulación que se adapte a tus necesidades'),
+('Shooter', 'No hay nada mejor que cuando le haces un 360 noscope a ese jugador que no se ha movido de esa esquina en toda la partida y que te ha matado 3 veces seguidas'),
+('Battle Royale', 'Donde caemos gente? En los Battle Royale tendrás que sobrevivir en un entorno cada vez más pequeño hasta ser el último hombre en pie, o el último escuadrón en pie');
+
+--
+-- Volcado de datos para la tabla `juegoCategoria`
+--
+INSERT INTO `juegoCategoria` (`juego`, `categoria`) VALUES
+(1, 1),
+(1, 4),
+(2, 6),
+(3, 4),
+(4, 7);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

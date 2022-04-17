@@ -167,9 +167,50 @@ CREATE TABLE `lista_comercial` (
    `usuarioA` INT NOT NULL ,
    `usuarioB` INT NOT NULL 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estructura de tabla para la tabla `carrito`
+--
+CREATE TABLE `carrito` (
+    `usuario` INT NOT NULL ,
+    `producto` INT NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estructura de tabla para la tabla `categorias`
+--
+CREATE TABLE `categorias`(
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` text NOT NULL,
+  `Descripcion` text NOT NULL,
+  PRIMARY KEY(`ID`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estructura de tabla para la tabla `juegoCategoria`
+--
+CREATE TABLE `juegoCategoria`(
+  `juego` INT NOT NULL,
+  `categoria` INT NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD KEY `FK_Usuario` (`usuario`),
+  ADD KEY `FK_Producto` (`producto`);
+
+--
+-- Indices de la tabla `juegoCategoria`
+--
+ALTER TABLE `juegoCategoria`
+  ADD KEY `FK_Juego` (`juego`),
+  ADD KEY `FK_Categoria` (`categoria`);
 
 --
 -- Indices de la tabla `comentarios`
@@ -240,7 +281,21 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`Autor`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`Foro`) REFERENCES `foro` (`ID`);
+  ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`Foro`) REFERENCES `foro` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `juegoCategoria`
+--
+ALTER TABLE `juegoCategoria`
+  ADD CONSTRAINT `juegoCategoria_ibfk_1` FOREIGN KEY (`Juego`) REFERENCES `juegos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `juegoCategoria_ibfk_2` FOREIGN KEY (`Categoria`) REFERENCES `categorias` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`producto`) REFERENCES `tienda` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `foro`
