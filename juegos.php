@@ -47,10 +47,13 @@
     function generaBotonEditar($idCat){
         $html = '';
         if(isset($_SESSION['login']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3)){
+            $botonBorrar = new FormularioEliminarCategoria($_GET['categoria']);
+            $formBoton = $botonBorrar->gestiona();
             $html .= <<<EOS
                 <div class="cajaBotonProducto">
                     <a href="editarCategoria.php?id=$idCat">Editar Categoría</a>
                 </div>
+                $formBoton
             EOS;
         }
         return $html;
