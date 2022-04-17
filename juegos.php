@@ -26,7 +26,7 @@
         }
         return $juegos;
     }
-    function generaAddJuego(){
+    function generaBotones(){
         $addJuego = '';
         if(isset($_SESSION['login'])){
             $usuario = Usuario::buscaPorId($_SESSION['ID']);
@@ -35,10 +35,25 @@
                     <div class="cajaBotonProducto">
                         <a href="crearJuego.php">Añadir Juego</a>
                     </div>
+                    <div class="cajaBotonProducto">
+                        <a href="creaCategoria.php">Añadir Categoría</a>
+                    </div>
                 EOS;
             }
         }
         return $addJuego;
+    }
+
+    function generaBotonEditar($idCat){
+        $html = '';
+        if(isset($_SESSION['login']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3)){
+            $html .= <<<EOS
+                <div class="cajaBotonProducto">
+                    <a href="editarCategoria.php?id=$idCat">Editar Categoría</a>
+                </div>
+            EOS;
+        }
+        return $html;
     }
 
     function generaCategorias(){
@@ -95,27 +110,30 @@
         return $juegos;
     }
 
-    $addJuego = generaAddJuego();
+    $botones = generaBotones();
     $categorias = generaCategorias();
     if(!isset($_GET['categoria'])){
         $listaJuegos = generaJuegos();
         $textoCat = '';
+        $editCat = '';
     }else{
         $listaJuegos = generaPorCat($_GET['categoria']);
         $textoCat = generaTextoCategoria($_GET['categoria']);
+        $editCat = generaBotonEditar($_GET['categoria']);
     }
     $contenidoPrincipal = <<<EOS
         <section class="content">
             <div class="contenedorProductos">
                 <h1 class="tituloPagina">Descubre juegos nuevos</h1>
                 <h3>$textoCat</h3>
+                $editCat
             </div>
             <div class="botonesProductos">
                 $categorias
                 <div class ="cajaBusqueda">
                     <a href="buscarJuego.php"><img src="img/lupa.png" class="imagenBusqueda"/></a>
                 </div>
-                $addJuego
+                $botones
             </div>
             <div class="cuadroProductos">
                 $listaJuegos
