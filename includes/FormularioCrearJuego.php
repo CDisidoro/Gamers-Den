@@ -21,8 +21,9 @@
             $lanzamiento = $datos['lanzamiento'] ?? '';
             $desarrollador = $datos['desarrollador'] ?? '';
             $precio = $datos['precio'] ?? '';
+            $categorias = self::generaListaCategorias();
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['nombre','descripcion','lanzamiento','desarrollador','precio','imagen'], $this->errores, 'span', array('class' => 'error'));
+            $erroresCampos = self::generaErroresCampos(['nombre','descripcion','lanzamiento','desarrollador','precio','imagen','categorias'], $this->errores, 'span', array('class' => 'error'));
             $html = <<<EOF
             $htmlErroresGlobales
             <fieldset>
@@ -58,10 +59,27 @@
                     {$erroresCampos['imagen']}
                 </div>
                 <div>
+                    <label for="categorias">Categorias:</label>
+                    $categorias
+                    {$erroresCampos['categorias']}
+                </div>
+                <div>
                     <button type="submit" name="enviar"> Enviar </button>
                 </div>
             </fieldset>
             EOF;
+            return $html;
+        }
+
+        private function generaListaCategorias(){
+            $categorias = Categoria::cargaCategorias();
+            if(!$categorias){
+                return '';
+            }
+            $html = '';
+            foreach($categorias as $categoria){
+                $html .= '<label><input type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'">'.$categoria->getNombre().'</label>';
+            }
             return $html;
         }
 
@@ -94,7 +112,12 @@
             $imagen = $this->loadImage();
             //Una vez validadas las entradas se inserta el producto
             if(count($this->errores) === 0){
-                $juego = Videojuego::subeVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen);
+                $categorias = $datos['categorias'];
+                $arrayCategorias = [];
+                foreach($categorias as $categoria){
+                    $arrayCategorias[] = Categoria::buscaPorId($categoria);
+                }
+                $juego = Videojuego::subeVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen,$arrayCategorias);
                 if(!$juego){
                     $this->errores[] = 'Ha ocurrido un error';
                 }

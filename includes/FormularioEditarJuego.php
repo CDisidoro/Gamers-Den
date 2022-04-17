@@ -25,7 +25,6 @@
             $juego = Videojuego::buscaVideojuego($this->idJuego);
             $idJuego = $juego->getID();
             $nombreJuego = $datos['nombre'] ?? $juego->getNombre();
-            $imagenJuego = $datos['imagen'] ?? $juego->getUrlImagen();
             $lanzamientoJuego = $datos['lanzamiento'] ?? $juego->getLanzamiento();
             $descripcionJuego = $datos['descripcion'] ?? $juego->getDescripcion();
             $desarrolladorJuego = $datos['desarrollador'] ?? $juego->getDesarrollador();
@@ -180,11 +179,16 @@
                 /*
                 *   Después de validar el id de la juego se busca en la bd. Si existe se edita.
                 */
+                $categorias = $datos['categorias'];
+                $arrayCategorias = [];
+                foreach($categorias as $categoria){
+                    $arrayCategorias[] = Categoria::buscaPorId($categoria);
+                }
                 $juego = Videojuego::buscaVideojuego($idJuego);
                 if(!$juego){
                     $this->errores[] = 'Error buscando el juego';
                 }else{
-                    if(!($juego->editarVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen))){
+                    if(!($juego->editarVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen, $arrayCategorias))){
                         $this->errores[] = 'Ha ocurrido un error al editar el videojuego';
                     }
                 } 

@@ -198,9 +198,10 @@
 		 * @param string $desarrollador Empresa desarrolladora del videojuego
 		 * @param int $precio Precio oficial del videojuego
 		 * @param string $imagen Ruta de la imagen de la noticia
+		 * @param array $categorias Categorias correspondientes al juego
 		 * @return bool Si se ha subido correctamente el juego nuevo devuelve true, o false si algo ha ido mal
 		 */
-		public static function subeVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen) {
+		public static function subeVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen, $categorias) {
 			$conector = Aplicacion::getInstance()->getConexionBd();
 			$query = "INSERT INTO juegos (Nombre, Descripcion, Lanzamiento, Desarrollador, Precio, Imagen)
 					VALUES ('$nombre', '$descripcion', '$lanzamiento', '$desarrollador', '$precio', '$imagen')";
@@ -208,6 +209,10 @@
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 				return false;
 			}else{
+				$juego = Videojuego::buscarPorNombre($nombre);
+				if(!$juego->addCategorias($categorias)){
+					return false;
+				}
 				return true;
 			}
 		}
@@ -233,11 +238,19 @@
 
 		/**
 		 * Edita el videojuego existente en la BD que haya llamado la funcion
-		 * 
+		 * @param string $nombre Nombre nuevo del juego
+		 * @param string $descripcion Descripcion nueva del juego
+		 * @param string $lanzamiento Fecha de lanzamiento del juego
+		 * @param string $desarrollador Nombre del desarrollador
+		 * @param int $precio Precio del juego
+		 * @param string $imagen Ruta de la imagen del juego
+		 * @param array $catNuevo Array con las nuevas categorias del juego
+		 * @return bool Si todo ha ido bien retornara true, sino retorna false
 		 */
-        public function editarVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen){
+        public function editarVideojuego($nombre, $descripcion, $lanzamiento, $desarrollador, $precio, $imagen, $catNuevo){
             $conn = Aplicacion::getInstance()->getConexionBd();
 			$idJuego = $this->getID();
+			//Actualiza la informacion base
             $query = sprintf("UPDATE juegos 
             SET Nombre = '$nombre', Descripcion = '$descripcion', Lanzamiento = '$lanzamiento', Desarrollador = '$desarrollador', Precio = '$precio', Imagen = '$imagen'
             WHERE id = $idJuego");
@@ -245,7 +258,28 @@
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
                 return false;
             }
-            return true;
+			//Actualiza las categorias
+			$catActual = $this->getCategorias(); //Categorias que tiene actualmente el juego
+			$addCat = [];//Categorias a agregar
+			$delCat = [];//Categorias a eliminar
+			foreach($catNuevo as $cat){
+				$buscaEnActual = array_search($cat, $catActual); //Busca si la categoria del array de nuevas esta en las categorias actuales
+				foreach($catActual as $catA){
+					$buscaEnNuevo = array_search($catA, $catNuevo); //Busca si la categoria del array de actuales esta en las categorias nuevas
+					//Si esta en catNuevo pero no en catActual tiene que agregarlo
+					if(!($buscaEnNuevo === false) && $buscaEnActual === false){
+						$addCat[] = $cat;
+					}else if(!($buscaEnActual === false) && $buscaEnNuevo === false){
+						//Si esta en catActual pero no en catNuevo tiene que eliminarlo
+						$delCat[] = $catA;
+					}
+				}
+			}
+			if($this->addCategorias($addCat) && $this->delCategorias($delCat)){
+				return true;
+			}else{
+				return false;
+			}
         }
 
 		/**
@@ -300,7 +334,7 @@
 		public function addCategorias($categorias){
 			$idJuego = $this->id;
 			foreach($categorias as $categoria){
-				if(!(Categoria::enlazarCategoria($idJuego, $categoria))){
+				if(!(Categoria::enlazarCategoria($idJuego, $categoria->getID()))){
 					return false;
 				}
 			}
@@ -315,7 +349,7 @@
 		public function delCategorias($categorias){
 			$idJuego = $this->id;
 			foreach($categorias as $categoria){
-				if(!(Categoria::desenlazarCategoria($idJuego, $categoria))){
+				if(!(Categoria::desenlazarCategoria($idJuego, $categoria->getID()))){
 					return false;
 				}
 			}
