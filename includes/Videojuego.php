@@ -143,9 +143,31 @@
 			}
 			else{
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
 			}
 		}
 		
+		/**
+		 * Carga una lista de juegos que tengan la categoria pasada por parametro
+		 * @param int $idCat ID de la categoria que se esta buscando
+		 * @return array Array de juegos que tengan esa categoria
+		 */
+		public static function cargarPorCat($idCat){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM juegos INNER JOIN juegoCategoria ON juegos.ID=juegoCategoria.juego WHERE juegoCategoria.categoria=$idCat");
+			$result = $conector->query($query);
+			$rsArray = [];
+			if(!$result){
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+			}
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$rsArray[] = new Videojuego($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Desarrollador'],$fila['Lanzamiento'],$fila['Precio'],$fila['Imagen']);		
+			}
+			return $rsArray;
+		}
 
 		/**
 		 * Da de alta un videjuego nuevo en la BD
@@ -247,6 +269,36 @@
 			} else{
 				return false;
 			}
-		}		
+		}
+
+		/**
+		 * Agrega un conjunto de categorias al juego que llama la funcion
+		 * @param array Array con ID de categorias que se van a agregar
+		 * @return bool Si se han agregado correctamente todas las categorias retorna true, sino retorna false
+		 */
+		public function addCategorias($categorias){
+			$idJuego = $this->id;
+			foreach($categorias as $categoria){
+				if(!(Categoria::enlazarCategoria($idJuego, $categoria))){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/**
+		 * Elimina un conjunto de categorias al juego que llama la funcion
+		 * @param array Array con ID de categorias que se van a eliminar
+		 * @return bool Si se han eliminar correctamente todas las categorias retorna true, sino retorna false
+		 */
+		public function delCategorias($categorias){
+			$idJuego = $this->id;
+			foreach($categorias as $categoria){
+				if(!(Categoria::desenlazarCategoria($idJuego, $categoria))){
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 ?>
