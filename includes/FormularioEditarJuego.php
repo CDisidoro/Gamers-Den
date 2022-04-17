@@ -30,8 +30,9 @@
             $descripcionJuego = $datos['descripcion'] ?? $juego->getDescripcion();
             $desarrolladorJuego = $datos['desarrollador'] ?? $juego->getDesarrollador();
             $precioJuego = $datos['precio'] ?? $juego->getPrecio();
+            $categorias = self::generaListaCategorias($juego->getCategorias());
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['idJuego','nombre','imagen','lanzamiento','descripcion','desarrollador','precio'], $this->errores, 'span', array('class' => 'error'));
+            $erroresCampos = self::generaErroresCampos(['idJuego','nombre','imagen','lanzamiento','descripcion','desarrollador','precio','categorias'], $this->errores, 'span', array('class' => 'error'));
             if($this->checkRole($this->idUsuario, 3) || $this->checkRole($this->idUsuario, 1)){
                 $html = <<<EOF
                     $htmlErroresGlobales
@@ -70,12 +71,34 @@
                             {$erroresCampos['imagen']}
                         </div>
                         <div>
+                            <label for="categorias">Categorias:</label>
+                            $categorias
+                            {$erroresCampos['categorias']}
+                        </div>
+                        <div>
                             <button type="submit" name="enviar"> Enviar </button>
                         </div>
                     </fieldset>
                     EOF;
             }else{
                 $html="<p>No tienes autorizado el acceso a esta sección. Por favor inicia sesión con el usuario catalogador o administrador para poder editar el juego</p>";
+            }
+            return $html;
+        }
+
+        private function generaListaCategorias($catJuego){
+            $categorias = Categoria::cargaCategorias();
+            if(!$categorias){
+                return '';
+            }
+            $html = '';
+            foreach($categorias as $categoria){
+                $hasCat = array_search($categoria,$catJuego);
+                if($hasCat != false || $hasCat === 0){//El cero lo esta considerando como un false!!!
+                    $html .= '<label><input type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'" checked>'.$categoria->getNombre().'</label>';
+                }else{
+                    $html .= '<label><input type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'">'.$categoria->getNombre().'</label>';
+                }
             }
             return $html;
         }

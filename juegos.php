@@ -30,7 +30,7 @@
         $addJuego = '';
         if(isset($_SESSION['login'])){
             $usuario = Usuario::buscaPorId($_SESSION['ID']);
-            if($usuario->hasRole(3)){
+            if($usuario->hasRole(3) || $usuario->hasRole(1)){
                 $addJuego = <<<EOS
                     <div class="cajaBotonProducto">
                         <a href="crearJuego.php">Añadir Juego</a>

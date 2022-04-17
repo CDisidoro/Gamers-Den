@@ -11,6 +11,7 @@
 		private $desarrollador;
 		private $urlImagen;
 		private $precio;
+		private $categorias;
 
 		//CONSTRUCTOR Y GETTERS
 		/**
@@ -87,6 +88,26 @@
 		 */
 		public function getUrlImagen(){
 			return $this->urlImagen;
+		}
+
+		/**
+		 * Obtiene las categorias del juego que haya llamado la funcion
+		 * @return array Array de categorias con las categorias que tiene el juego
+		 */
+		public function getCategorias(){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT ID FROM categorias INNER JOIN juegoCategoria ON categorias.ID=juegoCategoria.categoria WHERE juegoCategoria.juego=$this->id");
+			$result = $conector->query($query);
+			$categorias = [];
+			if(!$result){
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+			}
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$categorias[] = Categoria::buscaPorId($fila['ID']);
+			}
+			return $categorias;
 		}
 
 		//FUNCIONES IMPORTANTES

@@ -30,6 +30,16 @@
         }
         return $boton;
     }
+    function generarCategorias($juego){
+        $html = '';
+        $arrayCat = $juego->getCategorias();
+        foreach($arrayCat as $cat){
+            $nombreCat = $cat->getNombre();
+            $html .= $nombreCat.', ';
+        }
+        $html = substr($html, 0, strlen($html)-2);
+        return $html;
+    }
     if(!$juego){
             $tituloPagina = "No encontrado";
             $contenidoPrincipal = "<p>Lo sentimos, el juego al que has intentado acceder no existe</p>";
@@ -43,6 +53,7 @@
         $tituloPagina = $nombreJuego;
         $botones = generarBotones();
         $wishlist = generarListaDeseos();
+        $categorias = generarCategorias($juego);
         $contenidoPrincipal = <<<EOS
             <section>
                 <div class="tituloProductoConcreto">
@@ -54,6 +65,7 @@
                         <img class="imagenNoticia" src="$imagen"/>
                         <p class="descripcionProducto">Desarrollado por: $desarrollador</p>
                         <p class="descripcionProducto">Fecha de lanzamiento: $lanzamiento</p>
+                        <p class="descripcionProducto">Categorías: $categorias</p>
                     </div>
                     <div class ="cajaDescProductoConcreto">
                         <p class="descripcionProducto">$descJuego</p>
