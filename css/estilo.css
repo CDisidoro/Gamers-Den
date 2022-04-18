@@ -117,6 +117,17 @@
     border:3px solid  rgb(110, 63, 8);
 }
 
+.cajaBotonCarrito{
+    width:100px;
+    margin:10px;
+    background-color: rgb(255, 255, 255);
+    justify-content: center;
+    text-align: center;
+    padding:10px;
+    border:3px solid  rgb(0, 0, 0);
+    text-decoration: none;
+}
+
 .cajaBotonProducto a{
     text-decoration: none;
 }

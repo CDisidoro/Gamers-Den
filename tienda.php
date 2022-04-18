@@ -87,7 +87,9 @@
 					<h1 class = "tituloPagina"> Todos los productos </h1>
 				</div>
 				<div class = "miCarrito">
-					<a href = "carrito.php">$textCarrito</a>
+					<div class = "cajaBotonCarrito">
+						<a href = "carrito.php">$textCarrito</a>
+					</div>
 				</div>
 				<div class = "cuadrotodosProductos">
 					{$productos}
