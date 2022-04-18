@@ -278,5 +278,27 @@
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 			}
 		}
+		
+		public static function getCarrito($userId) {
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT producto FROM carrito WHERE usuario = '$userId'");
+			$result = $conector->query($query);
+			$ofertasArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$producto = self::buscaProducto($fila['producto']);
+						$ofertasArray[] = $producto;
+						$notNull++;
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ofertasArray;
+			}else{
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+			}
+		}
 	}
 ?>

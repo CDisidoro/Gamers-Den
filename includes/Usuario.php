@@ -535,6 +535,36 @@
             return $result;
         }
 
+        public function longCarrito(){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT producto FROM carrito WHERE usuario = $this->id");
+            $rs = $conn->query($query);
+            $result = 0;
+            if ($rs) {
+                $result = $rs->num_rows;
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
+        public function precioCarrito(){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT producto FROM carrito WHERE usuario = $this->id");
+            $rs = $conn->query($query);
+            $result = 0;
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    $producto = Producto:: buscaProducto($fila['producto']);
+                    $result += $producto->getPrecio();
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
         /**
          * Agrega un videojuego a la lista de deseos del usuario que llama la funcion
          * @param int $idJuego ID del videojuego que se agrega a la lista de deseos

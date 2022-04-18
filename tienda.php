@@ -77,12 +77,17 @@
 	$productos = generaProductos();
 	$todosproductos = generaTodosProductos();
 	$addProducto = generaAgregarProducto();
-	if(isset($_SESSION['login'])){	
+	if(isset($_SESSION['login'])){
+		$usuario = Usuario::buscaPorId($_SESSION['ID']);
+		$textCarrito = 'Mi Carrito '. $usuario->longCarrito();
 		$contenidoPrincipal=<<<EOS
 		<section class = "tiendaPrincipal">
 			<div class = "contenedorProductos">
 				<div class = "cajaTituloTienda">
 					<h1 class = "tituloPagina"> Todos los productos </h1>
+				</div>
+				<div class = "miCarrito">
+					<a href = "carrito.php">$textCarrito</a>
 				</div>
 				<div class = "cuadrotodosProductos">
 					{$productos}
