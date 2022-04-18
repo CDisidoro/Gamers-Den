@@ -487,7 +487,7 @@
             $conector = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("INSERT INTO carrito(usuario, producto) VALUES ('%s', '%s')"
                 , $conector->real_escape_string($this->id)
-                , $conector->real_escape_string($IdProducto)
+                , $conector->real_escape_string($idProducto)
             );
             if (!$conector->query($query) ){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
@@ -504,7 +504,7 @@
         public function eliminaCarrito($idProducto){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $nuestroId = $this->getId();
-            $query = sprintf("DELETE FROM carrito  WHERE usuario = $this->id AND producto = $IdProducto");
+            $query = sprintf("DELETE FROM carrito  WHERE usuario = $this->id AND producto = $idProducto");
             if (!$conector->query($query)){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }else{
