@@ -15,15 +15,15 @@ function generarHTMLdestacado(){
         $htmlNoticiaDestacada =<<<EOS
         <div class = "noticia">
             <div class = "cajaTitulo">
-                <a href ="noticias_concreta.php?id= $noticias[0]->getID()">
-                    <img class = "imagenNoticia" src = "$noticias[0]->getImagen()">
+                <a href ="noticias_concreta.php?id= {$noticias[0]->getID()}">
+                    <img class = "imagenNoticia" src = "{$noticias[0]->getImagen()}">
                 </a>
             </div>
             <div class = "cajaTitulo">
-                <p class = "tituloNoticia"> $noticias[0]->getTitulo()</p>
+                <p class = "tituloNoticia"> {$noticias[0]->getTitulo()}</p>
             </div>
             <div class = "cajaTitulo">
-                <p class = "descripcionNoticia">$noticias[0]->getDescripcion()</p>';
+                <p class = "descripcionNoticia">{$noticias[0]->getDescripcion()}</p>';
             </div>
         </div>
         EOS;
