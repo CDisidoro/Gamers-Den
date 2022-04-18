@@ -10,9 +10,8 @@
                 <div class = "botonesNoticiaConcreta">
                     <div class = "botonIndividualNoticia">
                         <a href = "editarProducto.php?id={$_GET['id']}"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
-                    </div>
-                    
-                    $formHTML
+                        </div>
+                        $formHTML
                 </div>
             EOS;
 		}
@@ -26,6 +25,8 @@
 			$contenidoPrincipal = "<p>Lo sentimos, el artículo al que ha intentado acceder no existe</p>";
 		}else{
 			$tituloPagina = $producto->getNombre();
+			$formCarrito = new FormularioManejaCarrito($_GET['id'],$_SESSION['ID']);
+			$formHTML = $formCarrito->gestiona();
 			$formCreaNegociacion = new FormularioCreaNegociacion($producto->getVendedor());
 			$formulario = $formCreaNegociacion->gestiona();
 			$descripcion = $producto->getDescripcion();
@@ -48,6 +49,7 @@
 					<div class = "fotoyDescripcionProductoConcreto">
 						<div class = "cajaImagenNoticiaConcreta">
 							<img class = "imagenNoticia"  src = " {$urlImagen} ">
+							$formHTML
 						</div>
 
 						<div class = "cajaDescProductoConcreto">

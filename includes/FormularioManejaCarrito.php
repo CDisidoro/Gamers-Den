@@ -2,19 +2,18 @@
     /**
      * Clase hija de Formulario encargada de gestionar el borrado de productos de la tienda
      */
-    class FormularioEliminarProducto extends Formulario{
+    class FormularioManejaCarrito extends Formulario{
         private $idUsuario;
         private $idProducto;
         /**
-        *   El formulario recibe en el constructor el id del producto que se quiere eliminar.
-        *   Tiene como ID formEliminarProducto y una vez finaliza el borrado redirige a la tienda
-        *   @param int $idProducto ID del producto que se quiere eliminar
+        *   
+        *   @param int $idProducto ID del producto que se quiere añadir al carrito
         *   @param int $idUsuario ID del usuario logeado para verificar la identidad
         */
         public function __construct($idProducto, $idUsuario) { 
             $this->idProducto = $idProducto;
             $this->idUsuario = $idUsuario;
-            parent::__construct('formEliminarProducto', ['urlRedireccion' => 'tienda.php?caracteristica=Destacado']);
+            parent::__construct('formManejaCarrito', ['urlRedireccion' => 'tienda_particular.php?id='.$idProducto]);
         }
         
         /**
@@ -26,10 +25,19 @@
             /*
             *   Los campos que se crean son un input invisible con el id del amigo y un botón para enviar.
             */
-            $html = <<<EOF
-                <input type="hidden" name="idProducto" value="{$this->idProducto}"  />
-                <button type = "submit" class = "botonPrueba" > <img class = "botonModificarNoticia" src = "img/papelera.jpg"> </button>
-            EOF;
+            $usuario = Usuario::buscaPorId($this->idUsuario);
+            if($usuario->alreadyCarrito($this->idProducto)){
+                $html = <<<EOF
+                    <input type="hidden" name="idProducto" value="{$this->idProducto}"  />
+                    <button type = "submit" class = "botonPrueba" > <img class = "botonModificarNoticia" src = "img/carritoRojo.jpg"> </button>
+                EOF;
+            }
+            else{
+                $html = <<<EOF
+                    <input type="hidden" name="idProducto" value="{$this->idProducto}"  />
+                    <button type = "submit" class = "botonPrueba" > <img class = "botonModificarNoticia" src = "img/carritoAzul.jpg"> </button>
+                EOF;
+            }
             return $html;
         }
 
@@ -41,32 +49,37 @@
             $this->errores = [];
             $idProducto = filter_var($datos['idProducto'] ?? null, FILTER_SANITIZE_NUMBER_INT);
             if (!$idProducto) {
-                $this->errores[] = 'No tengo claro que producto eliminar.';
+                $this->errores[] = 'No tengo claro que escoger.';
             }
             $producto = Producto::buscaProducto($idProducto);
             if(!$producto){
                 $this->errores[] = 'Producto no encontrado';
             }
-            $vendedor = $producto->getVendedor();
-            if(!$this->checkIdentity($vendedor,$this->idUsuario)){
+            if(!$this->checkIdentity($_SESSION['ID'],$this->idUsuario)){
                 $this->errores[] = 'No se ha podido verificar la identidad del usuario';
             }
+            $usuario = Usuario::buscaPorId($this->idUsuario);
             //Una vez validado todo se procede a eliminar el producto
             if(count($this->errores) === 0){
-                if (!$producto->borrarProducto()){
-                    $this->errores[] = 'Algo ha salido mal';
+                if ($usuario->alreadyCarrito($idProducto)){
+                    if(!$usuario->eliminaCarrito($idProducto))
+                        $this->errores[] = 'Algo ha salido mal';
+                }
+                else{
+                    if(!$usuario->masCarrito($idProducto))
+                        $this->errores[] = 'Algo ha salido mal';
                 }
             }
         }
         
         /**
-         * Valida si la identidad del usuario logeado coincide con la del vendedor del producto
-         * @param int $idVendedor ID del vendedor del producto
+         * Valida si la identidad del usuario logeado coincide con la que se nos pasa al formulario
+         * @param int $id  ID de la sesion
          * @param int $idUsuario ID del usuario que ha iniciado sesion
          * @return bool Si la identidad coincide retorna true, sino retorna false
          */
-        protected function checkIdentity($idVendedor, $idUsuario){
-            return $idVendedor == $idUsuario;
+        protected function checkIdentity($id, $idUsuario){
+            return $id == $idUsuario;
         }
     }
 ?>

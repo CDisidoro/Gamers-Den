@@ -287,7 +287,10 @@
             }
             return $result;
         }
-
+        /**
+         * Obtiene los compradores/vendedores vinculados al usuario que llama la funcion
+         * @return array Array con la lista de los compradores relacionados con el usuario que llama esta funcion
+         */
         public function getVendedores(){
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT usuarioB FROM lista_comercial WHERE usuarioA = $this->id");
@@ -474,6 +477,62 @@
                 $resultado = true;
             }
             return $resultado;
+        }
+         /**
+         * Agrega un producto y usuario a la lista de carrito para la tienda
+         * @param int $idProducto ID del producto que añadira al carrito
+         * @return bool Si se ha agregado correctamente el producto al carrito retorna true, sino retorna false
+         */
+        public function masCarrito($idProducto){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("INSERT INTO carrito(usuario, producto) VALUES ('%s', '%s')"
+                , $conector->real_escape_string($this->id)
+                , $conector->real_escape_string($IdProducto)
+            );
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
+            }
+            return $resultado;
+        }
+        /**
+         * Elimina un producto y usuario de la lista de carrito 
+         * @param int $idProducto ID del producto que eliminara al carrito
+         * @return bool Si se ha eliminado correctamente el producto del carrito retorna true, sino retorna false
+         */
+        public function eliminaCarrito($idProducto){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $nuestroId = $this->getId();
+            $query = sprintf("DELETE FROM carrito  WHERE usuario = $this->id AND producto = $IdProducto");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
+            }
+            return $resultado;
+        }
+        /**
+         * Busca un producto y usuario en la lista de carrito 
+         * @param int $idProducto ID del producto que busca en el carrito
+         * @return bool Si se ha encontrado el producto en el carrito retorna true, sino retorna false
+         */
+        public function alreadyCarrito($IdProducto){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT producto FROM carrito WHERE usuario = $this->id");
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    if ($fila['producto'] == $IdProducto) {
+                        $result = true;
+                    }
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
         }
 
         /**
