@@ -23,7 +23,7 @@ function generarHTMLdestacado(){
                 <p class = "tituloNoticia"> {$noticias[0]->getTitulo()}</p>
             </div>
             <div class = "cajaTitulo">
-                <p class = "descripcionNoticia">{$noticias[0]->getDescripcion()}</p>';
+                <p class = "descripcionNoticia">{$noticias[0]->getDescripcion()}</p>
             </div>
         </div>
         EOS;
