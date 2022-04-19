@@ -79,7 +79,7 @@
 	$addProducto = generaAgregarProducto();
 	if(isset($_SESSION['login'])){
 		$usuario = Usuario::buscaPorId($_SESSION['ID']);
-		$textCarrito = 'Mi Carrito '. $usuario->longCarrito();
+		$textCarrito = 'Mi Carrito ('.$usuario->longCarrito() .')';
 		$contenidoPrincipal=<<<EOS
 		<section class = "tiendaPrincipal">
 			<div class = "contenedorProductos">
