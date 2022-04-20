@@ -1,59 +1,29 @@
-<!DOCTYPE html>
-
-
-    <link rel="stylesheet" type="text/css" href="css/estilo.css"/>
-
-        <nav>
-                <ul>
-                    <li>
-                        <div class = "cajainicioNav">
-                            <a href = "index.php" class="link-dark"> Inicio</a>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class = "cajaperfilNav">
-                            <a href = "perfil.php" class="link-dark"> Perfil</a>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class = "cajachatNav">
-                            <a href = "chat.php"  class="link-dark"> Chat</a>
-                        </div>
-                        
-                    </li>
-
-                    <li>
-                        <div class = "cajaforoNav">
-                            <a href = "notfound.php" class="link-dark"> Foro</a>
-                        </div>               
-                    </li>
-
-                    <li>
-                        <div class = "cajanoticiasNav">
-                            <a href = "noticias_principal.php?tag=1" class="link-dark" > Noticias</a>
-                        </div>               
-                    </li>
-
-                    <li>
-                        <div class = "cajacalendarioNav">
-                            <a href = "calendario.php" class="link-dark" > Calendario</a>
-                        </div>                        
-                    </li>
-
-                    <li>
-                        <div class = "cajatiendaNav">
-                            <a href = "tienda.php?caracteristica=Destacado" class="link-dark" > Tienda</a>
-                        </div>                    
-                    </li>
-
-                    <li>
-                        <div class = "cajatusjuegosNav">
-                            <a href = "juegos.php" class="link-dark" > Juegos</a>
-                        </div>                       
-                    </li>
-                </ul>
-        </nav>
-
-</html>
+<nav>
+    <div class="container">
+        <div class="row">
+            <div class="col cajainicioNav botonNav">
+                <a href = "index.php" class="link-dark text-decoration-none"> Inicio</a>
+            </div>
+            <div class="col cajaperfilNav botonNav">
+                <a href = "perfil.php" class="link-dark text-decoration-none"> Perfil</a>
+            </div>
+            <div class="col cajachatNav botonNav">
+                <a href = "chat.php"  class="link-dark text-decoration-none"> Chat</a>
+            </div>
+            <div class="col cajaforoNav botonNav">
+                <a href = "notfound.php" class="link-dark text-decoration-none"> Foro</a>
+            </div>
+            <div class="col cajanoticiasNav botonNav">
+                <a href = "noticias_principal.php?tag=1" class="link-dark text-decoration-none" > Noticias</a>
+            </div>
+            <div class="col cajacalendarioNav botonNav">
+                <a href = "calendario.php" class="link-dark text-decoration-none" > Calendario</a>
+            </div>
+            <div class="col cajatiendaNav botonNav">
+                <a href = "tienda.php?caracteristica=Destacado" class="link-dark text-decoration-none" > Tienda</a>
+            </div>
+            <div class="col cajatusjuegosNav botonNav">
+                <a href = "juegos.php" class="link-dark text-decoration-none" > Juegos</a>
+            </div>
+        </div>
+</nav>

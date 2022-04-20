@@ -652,20 +652,16 @@ nav{
 	height: fit-content;
 	width:100%;
 	background-color: black;
+    margin: auto;
 }
 
-nav ul li{
+.botonNav{
 	list-style:none;
 	border:5px solid white;
 	width:10%;
 	display: inline-block;
 	font-size:20px;
 	margin-right:10px;
-}
-
-nav ul li a{
-	text-decoration: none;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .cajainicioNav{
