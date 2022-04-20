@@ -38,7 +38,7 @@
 
                     <li>
                         <div class = "cajacalendarioNav">
-                            <a href = "notfound.php" > Calendario</a>
+                            <a href = "calendario.php" > Calendario</a>
                         </div>                        
                     </li>
 

@@ -129,6 +129,21 @@ CREATE TABLE `noticias` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `noticias`
+--
+
+CREATE TABLE `calendario` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Evento` text NOT NULL,
+  `ColorEvento` text(7) DEFAULT NULL,
+  `FechaInicio` date NOT NULL,
+  `FechaFin` date NOT NULL,
+  PRIMARY KEY(`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tienda`
 --
 
