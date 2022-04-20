@@ -24,21 +24,18 @@
             // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
             $html = <<<EOF
             $htmlErroresGlobales
-            <fieldset>
-                <legend>Usuario y contraseña</legend>
+            <fieldset class="container">
                 <div>
-                    <label for="text">Nombre de Usuario:</label>
-                    <input id="Usuario" type="Usuario" name="Usuario" value="$Usuario" required/>
+                    <label for="text" class="form-label">Nombre de Usuario:</label>
+                    <input id="Usuario" type="Usuario" name="Usuario" value="$Usuario" class="form-control" required/>
                     {$erroresCampos['Usuario']}
                 </div>
                 <div>
-                    <label for="password">Password:</label>
-                    <input id="password" type="password" name="password" required/>
+                    <label for="password" class="form-label">Password:</label>
+                    <input id="password" type="password" name="password" class="form-control" required/>
                     {$erroresCampos['password']}
                 </div>
-                <div>
-                    <button type="submit" name="login">Entrar</button>
-                </div>
+                <button type="submit" name="login" class="btn btn-success">Entrar</button>
             </fieldset>
             EOF;
             return $html;

@@ -24,30 +24,29 @@
             $erroresCampos = self::generaErroresCampos(['nombreUsuario','email','password','password2'], $this->errores, 'span', array('class' => 'error'));
             $html = <<<EOF
             $htmlErroresGlobales
-            <fieldset>
-                <legend>Datos para el registro</legend>
+            <fieldset class="container">
                 <div>
-                    <label for="nombreUsuario">Nombre de usuario:</label>
-                    <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" required/>
+                    <label for="nombreUsuario" class="form-label">Nombre de usuario:</label>
+                    <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" class="form-control" required/>
                     {$erroresCampos['nombreUsuario']}
                 </div>
                 <div>
-                    <label for="email">Correo Electronico:</label>
-                    <input id="email" type="email" name="email" value="$email" required/>
+                    <label for="email" class="form-label">Correo Electronico:</label>
+                    <input id="email" type="email" name="email" value="$email" class="form-control" required/>
                     {$erroresCampos['email']}
                 </div>
                 <div>
-                    <label for="password">Password:</label>
-                    <input id="password" type="password" name="password" value="$password" required/>
+                    <label for="password" class="form-label">Password:</label>
+                    <input id="password" type="password" name="password" value="$password" class="form-control" required/>
                     {$erroresCampos['password']}
                 </div>
                 <div>
-                    <label for="password2">Reintroduce el password:</label>
-                    <input id="password2" type="password" name="password2" value="$password2" required/>
+                    <label for="password2" class="form-label">Reintroduce el password:</label>
+                    <input id="password2" type="password" name="password2" value="$password2" class="form-control" required/>
                     {$erroresCampos['password2']}
                 </div>
                 <div>
-                    <button type="submit" name="registro">Registrar</button>
+                    <button type="submit" name="registro" class="btn btn-success">Registrar</button>
                 </div>
             </fieldset>
             EOF;

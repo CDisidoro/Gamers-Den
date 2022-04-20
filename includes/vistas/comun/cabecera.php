@@ -1,23 +1,27 @@
 <!DOCTYPE html>
     <link rel="stylesheet" type="text/css" href="css/estilo.css"/>
         <header>
-            <div class = "containerCabecera">
-                <div class = "containerImagen">
-                    <img src= "img/Logo.jpg" class = "imagenprincipalCabecera">
-                    <h1 class = "tituloPrincipalCabecera"> GAMERS DEN </h1>
-                </div>
-                <div class = "loginCabecera">
-                    <?php
-                        function MostrarSAludo(){
-                            if (!isset($_SESSION["login"])) { //Usuario incorrecto
-                                echo "Usuario desconocido. <a href='login.php'>Login</a> <a href='registro.php'>Registro</a>";
+            <div class = "containerCabecera container-fluid">
+                <div class="row">
+                    <div class = "containerImagen col-1">
+                        <img src= "img/Logo.jpg" class = "imagenprincipalCabecera">
+                    </div>
+                    <div class="col-5">
+                        <h1 class = "tituloPrincipalCabecera align-text-bottom"> GAMERS DEN </h1>
+                    </div>
+                    <div class = "loginCabecera col">
+                        <?php
+                            function MostrarSAludo(){
+                                if (!isset($_SESSION["login"])) { //Usuario incorrecto
+                                    echo "<p class='text-end'>Usuario desconocido. <a href='login.php'>Login</a> <a href='registro.php'>Registro</a></p>";
+                                }
+                                else { //Usuario registrado
+                                    echo "<p class='text-end'>Bienvenido {$_SESSION['Usuario']} (<a href='logout.php' class='text-decoration-none'>salir</a>)</p>";;
+                                }
                             }
-                            else { //Usuario registrado
-                                echo "Bienvenido {$_SESSION['Usuario']} (<a href='logout.php'>salir</a>) ";;
-                            }
-                        }
-                        MostrarSAludo();
-                    ?>
+                            MostrarSAludo();
+                        ?>
+                    </div>
                 </div>
             </div>
         </header>

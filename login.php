@@ -7,8 +7,10 @@
     $formHTML = $formulario->gestiona();
 
     $contenidoPrincipal = <<<EOS
-    <h1>Acceso a Gamers Den</h1>
-    $formHTML
+    <div class="container">
+        <h1 class="text-center">Acceso a Gamers Den</h1>
+        $formHTML
+    </div>
     EOS;
 
     include 'includes/vistas/plantillas/plantilla.php';

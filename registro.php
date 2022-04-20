@@ -12,13 +12,9 @@
     ## Términos de la página: https://www.htmlquick.com/es/reference/tags/input-checkbox.html
 
 	$contenidoPrincipal = <<<EOS
-	<div id="contenedor">	
-		<main>
-		<article>
-				<h1>Registro de usuario</h1>
-				$formHTML
-			</article>
-		</main>
+	<div id="contenedor" class="container">
+		<h1 class="text-center">Registro de usuario</h1>
+		$formHTML
 	</div>
 	EOS;
 
