@@ -1,20 +1,24 @@
-<?php namespace es\fdi\ucm\aw\gamersDen;
-	require('includes/config.php');
-    $tituloPagina = 'Mi calendario';
-
-    if(isset($_SESSION['login'])){
-        function generaProductos(){
 
 
-    }
-    else{
-        $contenidoPrincipal = <<<EOS
-            <section class = "content">
-                <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
-            </section>
-            EOS;
-        return $contenidoPrincipal;
-    }
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link href='fullcalendar/main.min.css' rel='stylesheet' />
+    <script src='fullcalendar/main.min.js'></script>
+    <script>
 
-	include 'includes/vistas/plantillas/plantilla.php';
-?>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+    </script>
+  </head>
+  <body>
+    <div id='calendar'></div>
+  </body>
+</html>
