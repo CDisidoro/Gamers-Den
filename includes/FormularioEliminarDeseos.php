@@ -30,7 +30,7 @@
             $html = <<<EOF
                 <input type="hidden" name="idJuego" value="{$this->idJuego}"/>
                 <input type="hidden" name="idUsuario" value="{$this->idUsuario}"/>
-                <button type = "submit" class = "botonPrueba" > <img class = "botonBorrarAmigo" src = "img/papelera.jpg"> </button>
+                <button type = "submit" onclick="return confirm('Estás seguro que deseas eliminar el juego de la lista de deseos?');" class = "botonPrueba" > <img class = "botonBorrarAmigo" src = "img/papelera.jpg"> </button>
             EOF;
             return $html;
         }
