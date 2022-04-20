@@ -1,24 +1,10 @@
-
-
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <link href='fullcalendar/main.min.css' rel='stylesheet' />
-    <script src='fullcalendar/main.min.js'></script>
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
-
-    </script>
-  </head>
-  <body>
-    <div id='calendar'></div>
-  </body>
-</html>
+<?php namespace es\fdi\ucm\aw\gamersDen;
+	require('includes/config.php');
+	$tituloPagina = 'Calendario';
+	$contenidoPrincipal = <<<EOS
+		<div id ='calendar'>
+		</div>
+	EOS;
+	//<script src ="Bienvenido.php"</script>
+	include 'includes/vistas/plantillas/plantilla.php';
+?>
