@@ -1,10 +1,18 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
 	$tituloPagina = 'Calendario';
-	$contenidoPrincipal = <<<EOS
-		<div id ='calendar'>
-		</div>
-	EOS;
-	//<script src ="Bienvenido.php"</script>
+    if(isset($_SESSION['login'])){
+        $contenidoPrincipal = <<<EOS
+            <div class="cajaCalendario">
+                <div id='calendar'></div>
+            </div>
+        EOS;
+    }else{
+        $contenidoPrincipal = <<<EOS
+        <section class = "content">
+            <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
+        </section>
+        EOS;
+    }
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>

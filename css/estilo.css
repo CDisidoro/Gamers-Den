@@ -714,3 +714,16 @@ nav ul li a{
 	background-color: salmon;
 }
 /* FIN ESTILOS MENÚ NAVEGACIÓN */
+
+/* ESTILOS CALENDARIO */
+.cajaCalendario{
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    padding: 3%;
+}
+
+#calendar{
+    background-color: #f1f1f1;
+}
+/* FIN ESTILOS CALENDARIO */
