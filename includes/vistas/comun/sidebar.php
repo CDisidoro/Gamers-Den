@@ -17,7 +17,7 @@
                 <a href = "noticias_principal.php?tag=1" class="link-dark text-decoration-none" > Noticias</a>
             </div>
             <div class="col cajacalendarioNav botonNav">
-                <a href = "calendario.php" class="link-dark text-decoration-none" > Calendario</a>
+                <a href = "calendarioPrincipal.php" class="link-dark text-decoration-none" > Calendario</a>
             </div>
             <div class="col cajatiendaNav botonNav">
                 <a href = "tienda.php?caracteristica=Destacado" class="link-dark text-decoration-none" > Tienda</a>
