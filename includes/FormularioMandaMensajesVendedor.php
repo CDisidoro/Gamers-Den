@@ -29,13 +29,13 @@
             $htmlErroresGlobales
             <fieldset>
                 <div>
-                    <input id="mensaje" type="text" name="Mensaje" value="$mensaje" required/>
+                    <input id="mensaje" type="text" class="form-control" name="Mensaje" value="$mensaje" required/>
                     {$erroresCampos['Mensaje']}
                     <input type="hidden" value="$IDUsuario" id="IDUsuario" name="IDUsuario">
                     {$erroresCampos['IDUsuario']}
                 </div>
-                <div>
-                    <button type="submit" name="enviar"> Enviar </button>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success" name="enviar"> Enviar </button>
                 </div>
             </fieldset>
             EOF;
