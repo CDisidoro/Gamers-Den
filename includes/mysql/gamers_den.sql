@@ -129,7 +129,7 @@ CREATE TABLE `noticias` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `noticias`
+-- Estructura de tabla para la tabla `calendario`
 --
 
 CREATE TABLE `calendario` (

@@ -86,6 +86,28 @@
 			}
         }
 
+		/**
+         * Se encarga de buscar un evento en funcion de su ID
+         * @param int $id ID del evento a buscar
+         * @return Evento|false $buscaEvento Evento encontrada en la BD; false si no se ha encontrado el evento
+         */
+        public static function buscaEvento($id) {
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
+            $query = "SELECT * FROM calendario WHERE ID = '$id'";
+            $result = $mysqli->query($query);
+            if($result) {
+                $fila = $result->fetch_assoc();
+				if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
+					return false;
+				}
+                $buscaEvento = new Calendario($fila['ID'], $fila['Evento'], $fila['ColorEvento'], $fila['FechaInicio'], $fila['FechaFin']);
+                $result->free();
+                return $buscaEvento;
+            } else{
+                return false;
+            }
+        }
+
 		public function addEvento($evento, $colorEvento, $fechaInicio, $fechaFin){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $query=sprintf("INSERT INTO calendario(evento, colorEvento, fechaInicio, fechaFin) VALUES ('$evento', '$colorEvento', '$fechaInicio', '$fechaFin')");
