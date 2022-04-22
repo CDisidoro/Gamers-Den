@@ -105,14 +105,14 @@
                         </div>
                     </div>
                 </article>
-                <article class = "listadeamigos">
-                    <h2> Lista de amigos</h2>
+                <article class = "container">
+                    <h2 class="text-center">Lista de amigos</h2>
                     <div class = "flexrow">
                         {$htmlAmigos}                       
                     </div>
                 </article>
-                <article class = "listadenegocios">
-                    <h2> Lista de Negocios</h2>
+                <article class = "container">
+                    <h2 class="text-center">Lista de Negocios</h2>
                     <div class = "flexrow">
                         {$htmlNegocios}                       
                     </div>
@@ -123,7 +123,7 @@
     }
     function generaHtmlnoConectado(){
         $contenidoPrincipal = <<<EOS
-            <section class = "content">
+            <section class = "content container">
                 <p>No has iniciado sesión. Por favor, logueate para poder acceder al chat</p>
             </section>
         EOS;
