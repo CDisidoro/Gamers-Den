@@ -34,12 +34,14 @@
             $htmlAvatar .= '">';
             // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
             $html = <<<EOF
-            $htmlErroresGlobales
+                $htmlErroresGlobales
+                <div class="col">
                     <input id="idAvatar" type="hidden" name="idAvatar" value="$idAvatar" required/>
                     {$erroresCampos['idAvatar']}
                     <input id="idUsuario" type="hidden" name="idUsuario" value="$idUsuario" required/>
                     {$erroresCampos['idUsuario']}
-                    <button type = "submit" class = "botonPrueba" > $htmlAvatar </button>
+                    <button type = "submit" class = "botonPrueba btn btn-link" > $htmlAvatar </button>
+                </div>
             EOF;
             return $html;
         }

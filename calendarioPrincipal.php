@@ -10,7 +10,7 @@
     }else{
         $contenidoPrincipal = <<<EOS
         <section class = "content">
-            <p>No has iniciado sesión. Por favor, logueate para poder ver tu perfil</p>
+            <p>No has iniciado sesión. Por favor, logueate para poder ver el calendario</p>
         </section>
         EOS;
     }

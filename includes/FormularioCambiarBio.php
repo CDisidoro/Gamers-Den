@@ -28,16 +28,13 @@
             $html = <<<EOF
             $htmlErroresGlobales
             <fieldset>
-                <legend>Introduce tu nueva biografía</legend>
-                <div>
-                    <label for="Bio">Biografía:</label>
-                    <textarea id="Bio" name="Bio" rows="15" cols="60"/>$bio</textarea>
+                <div class="container">
+                    <label for="Bio" class="form-label">Biografía:</label>
+                    <textarea id="Bio" class="form-control" name="Bio" rows="15" cols="60"/>$bio</textarea>
                     {$erroresCampos['Bio']}
                     <input id="idUsuario" type="hidden" name="idUsuario" value="$idUsuario" required/>
                     {$erroresCampos['idUsuario']}
-                </div>
-                <div>
-                    <button type="submit" name="updateBio">Cambiar Biografía</button>
+                    <button type="submit" class="btn btn-success" name="updateBio">Cambiar Biografía</button>
                 </div>
             </fieldset>
             EOF;

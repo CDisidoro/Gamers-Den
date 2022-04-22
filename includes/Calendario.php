@@ -88,7 +88,7 @@
 
 		public function addEvento($evento, $colorEvento, $fechaInicio, $fechaFin){
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query=sprintf("INSERT INTO calendario(evento, colorEvento, fechaInicio, fechaFin) VALUES ('$evento', '$colorEvento', '$fechaInicio', '$fechaFin')"
+            $query=sprintf("INSERT INTO calendario(evento, colorEvento, fechaInicio, fechaFin) VALUES ('$evento', '$colorEvento', '$fechaInicio', '$fechaFin')");
 			
             if (!$conector->query($query)){
 				error_log("Error BD ({$conector->errno}): {$conector->error}");

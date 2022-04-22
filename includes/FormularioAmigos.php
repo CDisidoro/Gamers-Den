@@ -27,14 +27,11 @@
             $html = <<<EOF
             $htmlErroresGlobales
             <fieldset>
-                <legend>Añadir amigos</legend>
-                <div>
-                    <label for="nombreAmigo">Nombre de Usuario:</label>
-                    <input id="nombreAmigo" type="text" name="nombreAmigo" value="$nombreAmigo" required/>
+                <div class="container">
+                    <label for="nombreAmigo" class="form-label">Nombre de Usuario:</label>
+                    <input id="nombreAmigo" class="form-control" type="text" name="nombreAmigo" value="$nombreAmigo" required/>
                     {$erroresCampos['nombreAmigo']}
-                </div>
-                <div>
-                    <button type="submit" name="añadir"> Añadir </button>
+                    <button type="submit" class="btn btn-success" name="añadir"> Añadir </button>
                 </div>          
             </fieldset>       
             EOF;

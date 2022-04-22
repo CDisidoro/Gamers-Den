@@ -13,7 +13,7 @@
                         <?php
                             function MostrarSAludo(){
                                 if (!isset($_SESSION["login"])) { //Usuario incorrecto
-                                    echo "<p class='text-end'>Usuario desconocido. <a href='login.php'>Login</a> <a href='registro.php'>Registro</a></p>";
+                                    echo "<p class='text-end'>Usuario desconocido. <a href='login.php' class='text-decoration-none'>Login</a> <a href='registro.php' class='text-decoration-none'>Registro</a></p>";
                                 }
                                 else { //Usuario registrado
                                     echo "<p class='text-end'>Bienvenido {$_SESSION['Usuario']} (<a href='logout.php' class='text-decoration-none'>salir</a>)</p>";;

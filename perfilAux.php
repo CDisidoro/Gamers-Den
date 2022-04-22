@@ -5,7 +5,7 @@
 *   @param user usuario del que se quiere mostrar la lista.
 */
 function generaListaDeseos($usuario){
-    $htmlDeseos = '';
+    $htmlDeseos = '<div class="row">';
     $deseos = $usuario->getWishList();
     if(sizeof($deseos) == 0){
         $htmlDeseos = "<p>Tu lista de deseos está vacía! Empieza a buscar juegos en la pestaña de Juegos!</p>";
@@ -18,7 +18,7 @@ function generaListaDeseos($usuario){
             $nombreJuego = $deseos[1][$index];
             $srcImg = $deseos[2][$index];
             $htmlDeseos .= <<<EOS
-                <div class="amigoLista">
+                <div class="amigoLista col">
                     <img class="avatarPerfilUsuario" src="$srcImg"/>
                     <p class="nombreamigo">$nombreJuego</p>
                     $formHTML
@@ -27,6 +27,7 @@ function generaListaDeseos($usuario){
             $index++;
         }
     }
+    $htmlDeseos .= '</div>';
     return $htmlDeseos;
 }
 
@@ -35,7 +36,7 @@ function generaListaDeseos($usuario){
 *   @param user usuario del que se quiere mostrar la lista.
 */
 function generaAmigos($usuario){
-    $htmlAmigos = '';
+    $htmlAmigos = '<div class="row">';
     $amigos = $usuario->getfriendlist();
     if(sizeof($amigos) == 0){ //Si no tiene amigos en su lista, dara un mensaje
         $htmlAmigos = '<p>Tu lista de amigos está vacía! Empieza añadiendo amigos con el botón de la derecha!</p>';
@@ -50,7 +51,7 @@ function generaAmigos($usuario){
         $srcAvatar .= $amigos[1][$index];
         $srcAvatar .= '.jpg';
 
-        $htmlAmigos .= '<div class = "amigolista">';
+        $htmlAmigos .= '<div class = "amigolista col">';
         $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
         $htmlAmigos .= $srcAvatar;
         $htmlAmigos .= '">';
@@ -60,7 +61,8 @@ function generaAmigos($usuario){
         $htmlAmigos .= $formHTML;
         $htmlAmigos .= '</div>';
         $index++;
-    }        
+    }
+    $htmlAmigos .= '</div>';
     return $htmlAmigos;
 }
 
@@ -91,17 +93,17 @@ function generaAvatar($usuario){
 function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar, $htmlDeseos){
     $contenidoPrincipal=<<<EOS
     <section class = "content">
-        <article class = "avatarydatos">
-            <div class = "cajagrid">
-                <div class = "cajagrid">
+        <article class = "avatarydatos container">
+            <div class = "cajagrid row">
+                <div class = "cajagrid col-4">
                     <a href="cambiarAvatar.php" title="Cambiar de Avatar">{$htmlAvatar}</a>
                 </div>
-                <div class = "cajagrid">
-                    <div class = "flexcolumn">
-                        <div class = "cajaflex">
+                <div class = "cajagrid col-8">
+                    <div class = "flexcolumn row">
+                        <div class = "cajaflex col">
                             <p class = "nombreusuario">{$username}</p>
                         </div>
-                        <div class = "cajaflex">
+                        <div class = "cajaflex col">
                             <p class = "descripcion">{$bio}</p>
                         </div>
                     </div>
@@ -112,23 +114,23 @@ function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar
                     <p class = "nId">Id#{$id}</p>
                 </div>
                 <div class = "cajaflex">
-                    <a href = "chat.php" class = "inbox" > Inbox</a>
+                    <a href = "chat.php" class = "inbox text-decoration-none" >Inbox</a>
                 </div>
                 <div class="cajaflex">
-                    <a href = "cambiarBio.php" class = "inbox" > Cambiar Biografia</a>
+                    <a href = "cambiarBio.php" class = "inbox text-decoration-none" >Cambiar Biografia</a>
                 </div>
             </div>
         </article>
-        <article class = "listadeseados">
-            <h2> Lista de deseos</h2>
+        <article class = "listadeseados container">
+            <h2 class="text-center">Lista de deseos</h2>
             <div class = "flexrow">
                 {$htmlDeseos}
             </div>
         </article>
-        <article class = "listadeamigos">
-            <h2> Lista de amigos</h2>
+        <article class = "listadeamigos container">
+            <h2 class="text-center">Lista de amigos</h2>
             <div class = "addAmigo">
-                <a href = "addAmigo.php" class = "inbox" > Añadir amigos</a>
+                <a href = "addAmigo.php" class = "inbox text-decoration-none" >Añadir amigos</a>
             </div>
             <div class = "flexrow">
                 {$htmlAmigos}                       

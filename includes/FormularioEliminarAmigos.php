@@ -25,8 +25,10 @@
             *   Los campos que se crean son un input invisible con el id del amigo y un botón para enviar.
             */
             $html = <<<EOF
-                <input type="hidden" name="idAmigo" value="{$this->idAmigo}"  />
-                <button type = "submit" onclick="return confirm('Estás seguro que deseas eliminarle de tu lista de amigos?');" class = "botonPrueba" > <img class = "botonBorrarAmigo" src = "img/papelera.jpg"> </button>
+                <div class="container">
+                    <input type="hidden" name="idAmigo" value="{$this->idAmigo}"  />
+                    <button type = "submit" class="btn btn-danger" onclick="return confirm('Estás seguro que deseas eliminarle de tu lista de amigos?');" class = "botonPrueba"><img src="img/trash.svg"></button>
+                </div>
             EOF;
             return $html;
         }

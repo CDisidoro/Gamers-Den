@@ -26,7 +26,7 @@
 
             $html = "<ul class=\"$classAtt\">";
             foreach ($clavesErroresGlobales as $clave) {
-                $html .= "<li>$errores[$clave]</li>";
+                $html .= "<li class='text-danger'>$errores[$clave]</li>";
             }
             $html .= '</ul>';
 
@@ -259,7 +259,7 @@
             $enctypeAtt = $this->enctype != null ? "enctype=\"{$this->enctype}\"" : '';
 
             $htmlForm = <<<EOS
-            <form method="{$this->method}" action="{$this->action}" id="{$this->formId}" {$classAtt} {$enctypeAtt}>
+            <form class="col" method="{$this->method}" action="{$this->action}" id="{$this->formId}" {$classAtt} {$enctypeAtt}>
                 <input type="hidden" name="formId" value="{$this->formId}" />
                 $htmlCamposFormularios
             </form>

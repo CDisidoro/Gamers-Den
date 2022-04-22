@@ -18,9 +18,9 @@
         }
         $htmlAvatares = generaAvatares(7);
         $contenidoPrincipal = <<<EOS
-            <section class = "content">
-                <h2>Selecciona un avatar de la lista para seleccionarlo</h2>
-                <div class="amigoLista">
+            <section class = "content container">
+                <h2 class="text-center">Selecciona un avatar de la lista para seleccionarlo</h2>
+                <div class="amigoLista row">
                     {$htmlAvatares}
                 </div>
             </section>

@@ -5,7 +5,7 @@
     $formulario = new FormularioAmigos();
     $formHTML = $formulario->gestiona();
     $contenidoPrincipal = <<<EOS
-        <h1>Añadir amigos</h1>
+        <h1 class="text-center">Añadir amigos</h1>
         $formHTML
     EOS;
 

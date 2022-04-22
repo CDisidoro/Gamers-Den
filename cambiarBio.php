@@ -9,7 +9,7 @@
 	<div id="contenedor">	
 		<main>
 		<article>
-				<h1>Cambia aquí tu biografía</h1>
+				<h1 class="text-center">Cambia aquí tu biografía</h1>
 				$formHTML
 			</article>
 		</main>
