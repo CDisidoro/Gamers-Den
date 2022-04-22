@@ -31,16 +31,32 @@
             </div>
             <form id="formulario">
             <div class="modal-body">
+
                 <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="start">
-                    <label for="start" class="form-label">Fecha</label>
+                    <input type="text" class="form-control" id="title">
+                    <label for="title" class="form-label">Evento</label>
                 </div>
 
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="start">
+                    <label for="start" class="form-label">Fecha Inicio</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="start">
+                    <label for="start" class="form-label">Fecha Final</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="color" class="form-control" id="color">
+                    <label for="color" class="form-label">Color</label>
+                </div>
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            
+                <button type="button" class="btn btn-secondary" >Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar</button>
+                <button type="submit" class="btn btn-primary" id ="btnAccion">Registrar</button>
             </div>
             </div>
         </div>
