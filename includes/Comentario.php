@@ -2,10 +2,11 @@
 /**
  * Clase base para la gestion de mensajes
  */
-    class Foro{
+    class Comentario{
         //ATRIBUTOS DE CLASE
         private $id;
         private $autor;
+        private $foro;
         private $fecha;
         private $contenido;
         //GETTERS
@@ -23,6 +24,13 @@
          */
         public function getAutor(){
             return $this->autor;
+        }
+        /**
+         * Obtiene el ID del remitente del mensaje
+         * @return int El ID del usuario que ha mandado el mensaje
+         */
+        public function getForo(){
+            return $this->foro;
         }
         /**
          * Obtiene la fecha en que se envió el mensaje
@@ -48,9 +56,10 @@
          * @param int $fecha Fecha en la que el mensaje fue enviado
          * @param string $contenido Contenido del mensaje que se va a enviar
          */
-        private function __construct($id = null,$autor, $fecha, $contenido){
+        private function __construct($id = null,$autor, $foro, $fecha, $contenido){
             $this->id = $id;
             $this->autor = $autor;
+            $this->foro = $foro;
             $this->fecha = $fecha;
             $this->contenido = $contenido;
         }
@@ -61,15 +70,15 @@
          * @param int $remitente ID del usuario que envia el mensaje
          * @return array Array bidimensional con el contenido, remitente y fecha del mensaje
          */
-        public static function getForos(){
+        public static function getComentarios($foro){
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM foro");
+            $query = sprintf("SELECT * FROM comentarios WHERE Foro LIKE $foro");
             $result = $conn->query($query);
             $returning = [];
             if($result) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
-                    $returning[] = new Foro($fila['ID'], $fila['Autor'], $fila['Fecha'],$fila['Contenido']);
+                    $returning[] = new Comentarios($fila['ID'], $fila['Autor'], $fila['Foro'], $fila['Fecha'],$fila['Contenido']);
                 }
                 $result->free();
                 $votedresult = orderbyVotes($returning);
@@ -83,11 +92,11 @@
      * Se encarga de publicar una noticia nueva en la pagina (PENDIENTE DE ARREGLAR)
      * @return bool Si se ha efectuado correctamente la query retornara true, o false en el caso opuesto
      */
-    public static function subirForo($contenido,$autor) {
+    public static function subirComentario($foro, $contenido, $autor) {
         $etiquetas = 1;
         $conector = Aplicacion::getInstance()->getConexionBd();
-        $query = "INSERT INTO foro (Contenido, Autor)
-                VALUES ('$contenido', '$autor')";
+        $query = "INSERT INTO comentarios (Foro, Contenido, Autor)
+                VALUES ('$foro', '$contenido', '$autor')";
         if ( ! $conector->query($query) ) {
             error_log("Error BD ({$conector->errno}): {$conector->error}");
             return false;
@@ -100,9 +109,9 @@
      * @param int $contenido del foro que se va a editar
      * @return bool True si se ha editado el foro; False si no se ha podido editar
      */
-    public function editarForo($contenido){
+    public function editarComentario($contenido){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE foro SET Contenido = '$contenido' WHERE id = %d", $this->getID());
+        $query = sprintf("UPDATE comentarios SET Contenido = '$contenido' WHERE id = %d", $this->getID());
         if ( ! $conn->query($query) ) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
             return false;
@@ -114,9 +123,9 @@
      * Elimina foro que haya llamado a este metodo y su imagen asociada
      * @return bool Si ha podido borrar el foro del sistema retorna True, sino retorna false
      */
-    public function borrarForo() {
+    public function borrarComentario() {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM foro WHERE id = %d"
+        $query = sprintf("DELETE FROM comentarios WHERE id = %d"
             , $this->id
         );
         if ( ! $conn->query($query) ) {
@@ -137,55 +146,21 @@
      * @param int $id ID de la noticia a buscar
      * @return Noticia|false $buscaNoticia Noticia encontrada en la BD; false si no se ha encontrado la noticia
      */
-    public static function buscaForo($id) {
+    public static function buscaComentarios($id) {
         $mysqli = Aplicacion::getInstance()->getConexionBd();
-        $query = "SELECT * FROM foro WHERE ID = '$id'";
+        $query = "SELECT * FROM comentarios WHERE ID = '$id'";
         $result = $mysqli->query($query);
         if($result) {
             $fila = $result->fetch_assoc();
             if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
                 return false;
             }
-            $buscaNoticia = new Foro($fila['ID'], $fila['Autor'], $fila['Fecha'], $fila['Contenido']);
+            $buscaNoticia = new Comentarios($fila['ID'], $fila['Autor'], $fila['Foro'], $fila['Fecha'],$fila['Contenido']);
             $result->free();
             return $buscaNoticia;
         } else{
             return false;
         }
-    }
-    
-
-    /**
-     * Busca noticias por un conjunto de palabras clave
-     * @param string $keyWords Palabras clave con las que se va a buscar la noticia
-     * @return array $returning Array con las noticias que coinciden con las palabras clave deseadas. Retornara vacio si no encuentra noticias relacionadas
-     */
-    public static function buscarForoKeyWords($keyWords){            
-        $mysqli = Aplicacion::getInstance()->getConexionBd();
-
-        $palabras = $mysqli->real_escape_string($keyWords); //filtro de seguridad
-        $palabras = explode(" ", $keyWords); //separamos cada una de las keywords a buscar
-        $returning = [];
-        foreach($palabras as $palabra){
-            $query = sprintf("SELECT * FROM foro WHERE Contenido LIKE '%%{$palabra}%%'");
-            $result = $mysqli->query($query);
-            if($result){
-                for ($i = 0; $i < $result->num_rows; $i++) {
-                    $fila = $result->fetch_assoc();
-                    $esta = false;
-                    foreach($returning as $foro){
-                        if($foro->getID() == $fila['ID']){
-                            $esta = true;
-                        }
-                    }
-                    if(!$esta){
-                        $returning[] = new Foro($fila['ID'], $fila['Autor'], $fila['Fecha'], $fila['Contenido']);
-                    }
-                }
-                $result->free();
-            }
-        }
-        return $returning;
     }
 
     public function orderbyVotes($returning){
