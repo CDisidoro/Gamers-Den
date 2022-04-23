@@ -8,8 +8,9 @@
             $idJuego = $juego->getID();
             $nombreJuego = $juego->getNombre();
             $descJuego = $juego->getDescripcion();
-            if(strlen($descJuego) > 260){
-                $descJuego = substr($descJuego, 0, 260);
+            $textCap = 128;
+            if(strlen($descJuego) > $textCap){
+                $descJuego = substr($descJuego, 0, $textCap);
                 $descJuego .= '...';
             }
             $imgJuego = $juego->getUrlImagen();
@@ -32,10 +33,10 @@
             $usuario = Usuario::buscaPorId($_SESSION['ID']);
             if($usuario->hasRole(3) || $usuario->hasRole(1)){
                 $addJuego = <<<EOS
-                    <div class="cajaBotonProducto">
+                    <div class="cajaBotonProducto col-1">
                         <a href="crearJuego.php">Añadir Juego</a>
                     </div>
-                    <div class="cajaBotonProducto">
+                    <div class="cajaBotonProducto col-1">
                         <a href="creaCategoria.php">Añadir Categoría</a>
                     </div>
                 EOS;
@@ -50,10 +51,14 @@
             $botonBorrar = new FormularioEliminarCategoria($_GET['categoria']);
             $formBoton = $botonBorrar->gestiona();
             $html .= <<<EOS
-                <div class="cajaBotonProducto">
-                    <a href="editarCategoria.php?id=$idCat">Editar Categoría</a>
+                <div class="botonesNoticiaConcreta container">
+                    <div class="botonIndividualNoticia">
+                        <a href="editarCategoria.php?id=$idCat" class="btn btn-link"><img class = "botonModificarNoticia" src = "img/pencil.svg"></a>
+                    </div>
+                    <div class="botonIndividualNoticia">
+                        $formBoton
+                    </div>
                 </div>
-                $formBoton
             EOS;
         }
         return $html;
@@ -67,7 +72,7 @@
             $nombreCat = $categoria->getNombre();
             $redir = 'juegos.php?categoria='.$idCat;
             $html .= <<<EOS
-                <div class="cajaBotonProducto">
+                <div class="cajaBotonProducto col">
                     <a href="$redir">$nombreCat</a>
                 </div>
             EOS;
@@ -94,8 +99,9 @@
             $idJuego = $juego->getID();
             $nombreJuego = $juego->getNombre();
             $descJuego = $juego->getDescripcion();
-            if(strlen($descJuego) > 260){
-                $descJuego = substr($descJuego, 0, 260);
+            $textCap = 128;
+            if(strlen($descJuego) > $textCap){
+                $descJuego = substr($descJuego, 0, $textCap);
                 $descJuego .= '...';
             }
             $imgJuego = $juego->getUrlImagen();
@@ -125,20 +131,22 @@
         $editCat = generaBotonEditar($_GET['categoria']);
     }
     $contenidoPrincipal = <<<EOS
-        <section class="content">
-            <div class="contenedorProductos">
-                <h1 class="tituloPagina">Descubre juegos nuevos</h1>
+        <section class="content container">
+            <div class="container">
+                <h1 class="tituloPagina text-center">Descubre juegos nuevos</h1>
                 <h3>$textoCat</h3>
                 $editCat
             </div>
-            <div class="botonesProductos">
+            <div class="botonesProductos row">
                 $categorias
-                <div class ="cajaBusqueda">
-                    <a href="buscarJuego.php"><img src="img/lupa.png" class="imagenBusqueda"/></a>
+                <div class ="cajaBusqueda col">
+                    <a href="buscarJuego.php" class="btn btn-link"><img src="img/search.svg" class="imagenBusqueda"/></a>
                 </div>
+            </div>
+            <div class="botonesProductos row">
                 $botones
             </div>
-            <div class="cuadroProductos">
+            <div class="cuadroProductos container">
                 $listaJuegos
             </div>
         </section>

@@ -26,7 +26,7 @@
             */
             $html = <<<EOF
                 <input type="hidden" name="idCat" value="{$this->idCat}"  />
-                <button type = "submit" onclick="return confirm('Estás seguro que deseas eliminar la categoria?');" class = "botonPrueba" > <img class = "botonBorrarAmigo" src = "img/papelera.jpg"> </button>
+                <button class="btn btn-link" type = "submit" onclick="return confirm('Estás seguro que deseas eliminar la categoria?');"> <img class = "botonModificarNoticia" src = "img/trash.svg"> </button>
             EOF;
             return $html;
         }

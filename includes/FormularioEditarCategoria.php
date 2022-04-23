@@ -26,22 +26,21 @@
             $erroresCampos = self::generaErroresCampos(['id','nombre','descripcion'], $this->errores, 'span', array('class' => 'error'));
             $html = <<<EOF
             $htmlErroresGlobales
-            <fieldset>
-                <legend>Nueva Categoría</legend>
+            <fieldset class="container">
                 <div>
-                    <label for="articulo">Nombre de la categoría: </label>
-                    <input id="nombre" name="nombre" type="text" value="$nombre">
+                    <label for="articulo" class="form-label">Nombre de la categoría: </label>
+                    <input class="form-control" id="nombre" name="nombre" type="text" value="$nombre" required>
                     {$erroresCampos['nombre']}
                 </div>
                 <div>
-                    <label for="descripcion">Dale una descripción a esta categoría: </label>
-                    <textarea id="descripcion" name="descripcion" rows="10" cols="50">$descripcion</textarea>
+                    <label for="descripcion" class="form-label">Dale una descripción a esta categoría: </label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="10" cols="50" required>$descripcion</textarea>
                     {$erroresCampos['descripcion']}
                 </div>
                 <div>
                     <input type="hidden" id="id" name="id" value="$idCat"/>
                     {$erroresCampos['id']}
-                    <button type="submit" name="enviar"> Enviar </button>
+                    <button type="submit" class="btn btn-success" name="enviar"> Enviar </button>
                 </div>
             </fieldset>
             EOF;

@@ -9,7 +9,7 @@
             <div id="contenedor">	
                 <main>
                 <article>
-                        <h1>Agrega un juego nuevo a la página</h1>
+                        <h1 class="text-center">Agrega un juego nuevo a la página</h1>
                         $formHTML
                     </article>
                 </main>

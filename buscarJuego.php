@@ -9,7 +9,7 @@
     $htmlFormBuscaJuegos = $resultadoBuscaJuegos->getHtmlFormulario();
 
     
-    $contenidoPrincipal = '<h1>Buscar un videojuego por palabras clave </h1>';
+    $contenidoPrincipal = '<h1 class="text-center">Buscar un videojuego por palabras clave </h1>';
     $contenidoPrincipal .= $htmlFormBuscaJuegos;
         
 

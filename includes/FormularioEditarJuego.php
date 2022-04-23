@@ -35,47 +35,46 @@
             if($this->checkRole($this->idUsuario, 3) || $this->checkRole($this->idUsuario, 1)){
                 $html = <<<EOF
                     $htmlErroresGlobales
-                    <fieldset>
-                        <legend>Nuevo videojuego</legend>
+                    <fieldset class="container">
                         <div>
                             <input type="hidden" name="idJuego" value="$idJuego" />
                             {$erroresCampos['idJuego']}
-                            <label for="articulo">Nombre del videojuego: </label>
-                            <input id="nombre" name="nombre" type="text" value="$nombreJuego">
+                            <label class="form-label" for="articulo">Nombre del videojuego: </label>
+                            <input class="form-control" id="nombre" name="nombre" type="text" value="$nombreJuego" required>
                             {$erroresCampos['nombre']}
                         </div>
                         <div>
-                            <label for="descripcion">Dale una descripción al juego: </label>
-                            <textarea id="descripcion" name="descripcion" rows="10" cols="50">$descripcionJuego</textarea>
+                            <label class="form-label" for="descripcion">Dale una descripción al juego: </label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="10" cols="50" required>$descripcionJuego</textarea>
                             {$erroresCampos['descripcion']}
                         </div>
                         <div>
-                            <label for="lanzamiento">Fecha de lanzamiento: </label>
-                            <input id="lanzamiento" name="lanzamiento" type="date" value="$lanzamientoJuego">
+                            <label class="form-label" for="lanzamiento">Fecha de lanzamiento: </label>
+                            <input class="form-control" id="lanzamiento" name="lanzamiento" type="date" value="$lanzamientoJuego" required>
                             {$erroresCampos['lanzamiento']}
                         </div>
                         <div>
-                            <label for="desarrollador">Nombre del desarrollador: </label>
-                            <input id="desarrollador" name="desarrollador" type="text" value="$desarrolladorJuego">
+                            <label class="form-label" for="desarrollador">Nombre del desarrollador: </label>
+                            <input class="form-control" id="desarrollador" name="desarrollador" type="text" value="$desarrolladorJuego" required>
                             {$erroresCampos['desarrollador']}
                         </div>
                         <div>
-                            <label for="precio">Precio oficial del desarrollador: </label>
-                            <input id="precio" name="precio" type="text" value="$precioJuego">
+                            <label class="form-label" for="precio">Precio oficial del desarrollador: </label>
+                            <input class="form-control" id="precio" name="precio" type="text" value="$precioJuego" required>
                             {$erroresCampos['precio']}
                         </div>
                         <div>
-                            <label for="imagen">Nueva imagen: </label>
-                            <input type="file" id="imagen" name="imagen"/>
+                            <label class="form-label" for="imagen">Nueva imagen: </label>
+                            <input class="form-control" type="file" id="imagen" name="imagen"/>
                             {$erroresCampos['imagen']}
                         </div>
                         <div>
-                            <label for="categorias">Categorias:</label>
+                            <label class="form-label" for="categorias">Categorias:</label>
                             $categorias
                             {$erroresCampos['categorias']}
                         </div>
                         <div>
-                            <button type="submit" name="enviar"> Enviar </button>
+                            <button type="submit" class="btn btn-success" name="enviar"> Enviar </button>
                         </div>
                     </fieldset>
                     EOF;
@@ -94,9 +93,9 @@
             foreach($categorias as $categoria){
                 $hasCat = array_search($categoria,$catJuego);
                 if($hasCat != false || $hasCat === 0){//El cero lo esta considerando como un false!!!
-                    $html .= '<label><input type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'" checked>'.$categoria->getNombre().'</label>';
+                    $html .= '<label><input class="form-check-input" type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'" checked>'.$categoria->getNombre().'</label>';
                 }else{
-                    $html .= '<label><input type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'">'.$categoria->getNombre().'</label>';
+                    $html .= '<label><input class="form-check-input" type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'">'.$categoria->getNombre().'</label>';
                 }
             }
             return $html;

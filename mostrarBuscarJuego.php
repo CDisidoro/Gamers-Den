@@ -15,6 +15,11 @@
         $idJuego = $juego->getID();
         $nombre = $juego->getNombre();
         $desc = $juego->getDescripcion();
+        $textCap = 128;
+        if(strlen($desc) > $textCap){
+            $desc = substr($desc, 0, $textCap);
+            $desc .= '...';
+        }
         $imagen = $juego->getUrlImagen();
         $redir = 'juego_particular.php?id='.$idJuego;
         $htmlJuegos .= <<<EOS

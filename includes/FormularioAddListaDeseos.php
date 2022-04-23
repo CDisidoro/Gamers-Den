@@ -27,7 +27,7 @@
                 $htmlErroresGlobales
                 <input type="hidden" name="idJuego" value="{$this->idJuego}" />
                 <input type="hidden" name="idusuario" value="{$this->idUsuario}" />
-                <button type = "submit" class = "botonPrueba" > Añadir a tu lista de deseos </button>
+                <button type = "submit" class = "btn btn-success" > Añadir a tu lista de deseos </button>
             EOF;
             return $html;
         }

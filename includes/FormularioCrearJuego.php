@@ -26,36 +26,35 @@
             $erroresCampos = self::generaErroresCampos(['nombre','descripcion','lanzamiento','desarrollador','precio','imagen','categorias'], $this->errores, 'span', array('class' => 'error'));
             $html = <<<EOF
             $htmlErroresGlobales
-            <fieldset>
-                <legend>Nuevo videojuego</legend>
+            <fieldset class="container">
                 <div>
-                    <label for="articulo">Nombre del videojuego: </label>
-                    <input id="nombre" name="nombre" type="text" value="$nombre">
+                    <label class="form-label" for="articulo">Nombre del videojuego: </label>
+                    <input class="form-control" id="nombre" name="nombre" type="text" value="$nombre" required>
                     {$erroresCampos['nombre']}
                 </div>
                 <div>
-                    <label for="descripcion">Dale una descripción al juego: </label>
-                    <textarea id="descripcion" name="descripcion" rows="10" cols="50" value="$descripcion"></textarea>
+                    <label class="form-label" for="descripcion">Dale una descripción al juego: </label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="10" cols="50" required>$descripcion</textarea>
                     {$erroresCampos['descripcion']}
                 </div>
                 <div>
-                    <label for="lanzamiento">Fecha de lanzamiento: </label>
-                    <input id="lanzamiento" name="lanzamiento" type="date" value="$lanzamiento">
+                    <label class="form-label" for="lanzamiento">Fecha de lanzamiento: </label>
+                    <input class="form-control" id="lanzamiento" name="lanzamiento" type="date" value="$lanzamiento" required>
                     {$erroresCampos['lanzamiento']}
                 </div>
                 <div>
-                    <label for="desarrollador">Nombre del desarrollador: </label>
-                    <input id="desarrollador" name="desarrollador" type="text" value="$desarrollador">
+                    <label class="form-label" for="desarrollador">Nombre del desarrollador: </label>
+                    <input class="form-control" id="desarrollador" name="desarrollador" type="text" value="$desarrollador" required>
                     {$erroresCampos['desarrollador']}
                 </div>
                 <div>
-                    <label for="precio">Precio oficial del desarrollador: </label>
-                    <input id="precio" name="precio" type="text" value="$precio">
+                    <label class="form-label" for="precio">Precio oficial del desarrollador: </label>
+                    <input class="form-control" id="precio" name="precio" type="text" value="$precio" required>
                     {$erroresCampos['precio']}
                 </div>
                 <div>
-                    <label for="imagen">Nueva imagen: </label>
-                    <input type="file" id="imagen" name="imagen" required/>
+                    <label class="form-label" for="imagen">Nueva imagen: </label>
+                    <input class="form-control" type="file" id="imagen" name="imagen" required/>
                     {$erroresCampos['imagen']}
                 </div>
                 <div>
@@ -64,7 +63,7 @@
                     {$erroresCampos['categorias']}
                 </div>
                 <div>
-                    <button type="submit" name="enviar"> Enviar </button>
+                    <button type="submit" class="btn btn-success" name="enviar"> Enviar </button>
                 </div>
             </fieldset>
             EOF;
@@ -78,7 +77,7 @@
             }
             $html = '';
             foreach($categorias as $categoria){
-                $html .= '<label><input type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'">'.$categoria->getNombre().'</label>';
+                $html .= '<label><input class="form-check-input" type="checkbox" id="categorias" name="categorias[]" value="'.$categoria->getID().'">'.$categoria->getNombre().'</label>';
             }
             return $html;
         }
