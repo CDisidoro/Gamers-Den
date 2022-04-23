@@ -196,16 +196,16 @@
                 $jvotes = $returning[$j]->getUpvotes() - $returning[$j]->getDownvotes();
                 if($ivotes>$jvotes){
                     //Intercambiamos valores
-                    $aux=$returning[i];
-                    $returning[i]=$returning[j];
-                    $returning[j]=$aux;
+                    $aux=$returning[$i];
+                    $returning[$i]=$returning[$j];
+                    $returning[$j]=$aux;
                 }
             }
         }
         return $returning;
     }
 
-    public static function getUpvotes(){
+    public function getUpvotes(){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT Usuario FROM upVotes WHERE Foro LIKE $this->id");
         $result = $conn->query($query);
@@ -215,7 +215,7 @@
             return 0;
     }
 
-    public static function getDownvotes(){
+    public function getDownvotes(){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT Usuario FROM downVotes WHERE Foro LIKE $this->id");
         $result = $conn->query($query);
