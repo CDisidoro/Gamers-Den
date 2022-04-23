@@ -5,13 +5,9 @@
 	$formHTML = $formulario->gestiona();
 
 	$contenidoPrincipal = <<<EOS
-	<div id="contenedor">	
-		<main>
-		<article>
-				<h1>Crear noticia</h1>
-				$formHTML
-			</article>
-		</main>
+	<div class="container">
+		<h1 class="text-center">Crear noticia</h1>
+		$formHTML
 	</div>
 	EOS;
 

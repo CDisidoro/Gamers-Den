@@ -12,16 +12,16 @@
 
     // Generamos la vista si no se está enviando el formulario de crear, editar o borrar mensaje
 
-    $cabecera = "<h1>Resultado Búsqueda</h1>";
+    $cabecera = "<h1 class='text-center'>Resultado Búsqueda</h1>";
     $resultado = $resultadoBuscaMensajes->getResultado();
     $noticias = $resultado['noticias'];
     $extraUrlParams = $resultado['extraUrlParams'];
     $htmlFormBuscaMensajes = $resultadoBuscaMensajes->getHtmlFormulario();
 
     $htmlNoticias = '';
-    $htmlNoticias .= '<section class = "mostrarNoticias">';
+    $htmlNoticias .= '<section class = "mostrarNoticias container">';
     foreach($noticias as $noticia){
-        $htmlNoticias .= '<article>';
+        $htmlNoticias .= '<article class="container">';
         $htmlNoticias .= '<div class = "noticia">';
         $htmlNoticias .= '<div class = "cajaTitulo">';
         $htmlNoticias .= '<a href ="noticias_concreta.php?id=';

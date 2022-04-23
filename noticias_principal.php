@@ -3,14 +3,12 @@
     require('noticias_aux.php');
     $tituloPagina = "Noticias";
 
-    function generarBoton($user){
+    function generarBoton(){
         if(isset($_SESSION['login']) && $_SESSION["rol"] < 3){
             $htmlBotones = <<<EOS
-                <div class = "botonesNoticiaConcreta">
                     <div class = "botonIndividualNoticia">
-                        <a href = "crearNoticia.php"> <img class = "botonModificarNoticia" src = "img/addImage.png"> </a>
+                        <a href = "crearNoticia.php" class="btn btn-link"> <img class="botonModificarNoticia" src="img/upload.svg"></a>
                     </div>
-                </div>
             EOS;
         }
         else{
@@ -35,7 +33,7 @@
             $user = Usuario::buscaPorId($_SESSION['ID']);    
             $formulario = new FormularioCrearNoticia($user->getId());
             $formHTML = $formulario->gestiona();
-            $htmlBoton = generarBoton($user);
+            $htmlBoton = generarBoton();
         }else{
             $htmlBoton = null;
         }
@@ -45,30 +43,30 @@
         }
         else{
             foreach($noticias as $noticia){
-                $htmlNoticias .= '<div class = "noticia">';
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<a href ="noticias_concreta.php?id=';
-                $htmlNoticias .= $noticia->getID();
-                $htmlNoticias .= '">';
-                $htmlNoticias .= '<img class = "imagenNoticia"  src = "';   
-                $htmlNoticias .= $noticia->getImagen();
-                $htmlNoticias .= '">';
-                $htmlNoticias .= '</a>';
-                $htmlNoticias .= '</div>';                                  
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<p class = "tituloNoticia">';
-                $htmlNoticias .= $noticia->getTitulo();
-                $htmlNoticias .= '</p>';
-                $htmlNoticias .= '</div>';
-                $htmlNoticias .= '<div class = "cajaTitulo">';
-                $htmlNoticias .= '<p class = "descripcionNoticia">';
-                $htmlNoticias .= $noticia->getDescripcion();
-                $htmlNoticias .='</p>';
-                $htmlNoticias .= '</div>';
-                $htmlNoticias .= '</div>';
+                $id = $noticia->getID();
+                $img = $noticia->getImagen();
+                $titulo = $noticia->getTitulo();
+                $desc = $noticia->getDescripcion();
+                $htmlNoticias .= <<<EOS
+                    <div class="container">
+                        <div class="noticia row">
+                            <div class="col">
+                                <a href="noticias_concreta.php?id=$id">
+                                    <img class="imagenNoticia" src="$img">
+                                </a>
+                            </div>
+                            <div class=" col">
+                                <p class="tituloNoticia">$titulo</p>
+                            </div>
+                            <div class=" col">
+                                <p class="descripcionNoticia">$desc</p>
+                            </div>
+                        </div>
+                    </div>
+                EOS;
             }
-        }   
-    }    
+        }
+    }
 
     $htmlNoticiaDestacada = generarHTMLdestacado();
     $contenidoPrincipal = generaContenidoPrincipal($htmlNoticiaDestacada, $htmlBoton, $htmlNoticias);

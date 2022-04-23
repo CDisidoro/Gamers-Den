@@ -34,36 +34,36 @@
             if($this->checkIdentity($noticia->getAutor(),$this->idUsuario) || $this->checkAdmin($this->idUsuario)){
                 $html = <<<EOF
                     $htmlErroresGlobales
-                    <fieldset>
+                    <fieldset class="container">
                         <input type="hidden" name="idNoticia" value="$idNoticia" />
                         {$erroresCampos['idNoticia']}
                         <div>
-                            <label for="titulo">Nuevo título: </label>
-                            <textarea id="titulo" name="titulo" rows="10" cols="50">$tituloNoticia</textarea>
+                            <label for="titulo" class="form-label">Nuevo título: </label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" value="$tituloNoticia" required>
                             {$erroresCampos['titulo']}
                         </div>
                         <div>
-                            <label for="imagen">Cambiar imagen: </label>
-                            <input type="file" id="imagen" name="imagen"/>
+                            <label for="imagen" class="form-label">Cambiar imagen: </label>
+                            <input class="form-control" type="file" id="imagen" name="imagen"/>
                             {$erroresCampos['imagen']}
                         </div>
                         <div>
-                            <label for="contenido">Edita el contenido de la noticia: </label>
-                            <textarea id="contenido" name="contenido" rows="10" cols="50">$contenidoNoticia</textarea>
+                            <label for="contenido" class="form-label">Edita el contenido de la noticia: </label>
+                            <textarea class="form-control" id="contenido" name="contenido" rows="10" cols="50" required>$contenidoNoticia</textarea>
                             {$erroresCampos['contenido']}
                         </div>
                         <div>
-                            <label for="descripcion">Edita la descripcion: </label>
-                            <textarea id="descripcion" name="descripcion" rows="10" cols="50">$descripcionNoticia</textarea>
+                            <label for="descripcion" class="form-label">Edita la descripcion: </label>
+                            <input class="form-control" type="text" id="descripcion" name="descripcion" value="$descripcionNoticia" required>
                             {$erroresCampos['descripcion']}
                         </div>
                         <div>
-                            <label for="etiqueta">Cambia la etiqueta: </label>
-                            <textarea id="etiqueta" name="etiqueta" type="text">$etiquetaNoticia</textarea>
+                            <label for="etiqueta" class="form-label">Cambia la etiqueta: </label>
+                            <input type="text" class="form-control" id="etiqueta" name="etiqueta" value="$etiquetaNoticia" required>
                             {$erroresCampos['etiqueta']}
                         </div>
                         <div>
-                            <button type="submit" name="enviar"> Enviar </button>
+                            <button type="submit" class="btn btn-success" name="enviar"> Enviar </button>
                         </div>
                     </fieldset>
                     EOF;

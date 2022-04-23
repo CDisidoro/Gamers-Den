@@ -29,31 +29,30 @@
             $erroresCampos = self::generaErroresCampos(['titulo','imagen','contenido','descripcion'], $this->errores, 'span', array('class' => 'error'));
             $html = <<<EOF
             $htmlErroresGlobales
-            <fieldset>
-                <legend>Nueva noticia</legend>
+            <fieldset class="container">
                 <div>
-                    <label for="titulo">Nuevo título: </label>
-                    <textarea id="titulo" name="titulo" rows="10" cols="50" value="$titulo"></textarea>
+                    <label for="titulo" class="form-label">Nuevo título: </label>
+                    <input class="form-control" type="text" id="titulo" name="titulo" value="$titulo" required>
                     {$erroresCampos['titulo']}
                 </div>
                 <div>
-                    <label for="imagen">Nueva imagen: </label>
-                    <input type="file" id="imagen" name="imagen" required/>
+                    <label for="imagen" class="form-label">Nueva imagen: </label>
+                    <input class="form-control" type="file" id="imagen" name="imagen" required/>
                     {$erroresCampos['imagen']}
                 </div>
                 <div>
-                    <label for="contenido">Nuevo contenido de la noticia: </label>
-                    <textarea id="contenido" name="contenido" rows="10" cols="50" value="$contenido"></textarea>
+                    <label for="contenido" class="form-label">Nuevo contenido de la noticia: </label>
+                    <textarea class="form-control" id="contenido" name="contenido" rows="10" cols="50" required>$contenido</textarea>
                     {$erroresCampos['contenido']}
                 </div>
                 <div>
-                    <label for="descripcion">Nueva descripcion: </label>
-                    <textarea id="descripcion" name="descripcion" rows="10" cols="50" value="$descripcion"></textarea>
+                    <label for="descripcion" class="form-label">Nueva descripcion: </label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" value="$descripcion" required>
                     {$erroresCampos['descripcion']}
                 </div>
                 <div>
                     <input type="hidden" id="idUsuario" name="idUsuario" value="$idUsuario"/>
-                    <button type="submit" name="enviar"> Enviar </button>
+                    <button type="submit" class="btn btn-success" name="enviar"> Enviar </button>
                 </div>
             </fieldset>
             EOF;

@@ -4,9 +4,9 @@
     function generarBotones($formHTML){
         if(isset($_SESSION['login']) && $_SESSION["rol"] < 3){
             $htmlBotones = <<<EOS
-                <div class = "botonesNoticiaConcreta">
+                <div class = "botonesNoticiaConcreta container">
                     <div class = "botonIndividualNoticia">
-                        <a href = "editarNoticia.php?id={$_GET['id']}"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
+                        <a href = "editarNoticia.php?id={$_GET['id']}" class="btn btn-link "> <img class = "botonModificarNoticia" src = "img/pencil.svg"> </a>
                     </div>
                     <div class = "botonIndividualNoticia">
                         $formHTML

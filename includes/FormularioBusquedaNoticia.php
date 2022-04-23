@@ -28,13 +28,11 @@
             $html = <<<EOF
             $htmlErroresGlobales
             <fieldset>
-                <div>
-                    <label for="keyWords">Introduce palabras clave:</label>
-                    <input id="keyWords" type="text" name="keyWords" value="$keyWords" required/>
+                <div class="container">
+                    <label for="keyWords" class="form-label">Introduce palabras clave:</label>
+                    <input id="keyWords" type="text" class="form-control" name="keyWords" value="$keyWords" required/>
                     {$erroresCampos['keyWords']}
-                </div>
-                <div>
-                    <button type="submit" name="buscar"> Buscar </button>
+                    <button type="submit" class="btn btn-success" name="buscar"> Buscar </button>
                 </div>
             </fieldset>
             EOF;

@@ -13,17 +13,19 @@ function generarHTMLdestacado(){
     }
     else{
         $htmlNoticiaDestacada =<<<EOS
-        <div class = "noticia">
-            <div class = "cajaTitulo">
-                <a href ="noticias_concreta.php?id= {$noticias[0]->getID()}">
-                    <img class = "imagenNoticia" src = "{$noticias[0]->getImagen()}">
-                </a>
-            </div>
-            <div class = "cajaTitulo">
-                <p class = "tituloNoticia"> {$noticias[0]->getTitulo()}</p>
-            </div>
-            <div class = "cajaTitulo">
-                <p class = "descripcionNoticia">{$noticias[0]->getDescripcion()}</p>
+        <div class = "noticia container">
+            <div class="row">
+                <div class = "cajaTitulo col">
+                    <a href ="noticias_concreta.php?id= {$noticias[0]->getID()}">
+                        <img class = "imagenNoticia" src = "{$noticias[0]->getImagen()}">
+                    </a>
+                </div>
+                <div class = "cajaTitulo col">
+                    <p class = "tituloNoticia fs-4 text-center"> {$noticias[0]->getTitulo()}</p>
+                </div>
+                <div class = "cajaTitulo col">
+                    <p class = "descripcionNoticia fs-4">{$noticias[0]->getDescripcion()}</p>
+                </div>
             </div>
         </div>
         EOS;
@@ -48,10 +50,10 @@ function generaContenidoPrincipal($htmlNoticiaDestacada, $htmlBoton, $htmlNotici
             </div>
         </div>
 
-        <div class = "contenedorNoticias">
+        <div class = "contenedorNoticias container">
 
-            <div class = "noticiasCuadro">
-                <div class = "botones">
+            <div class = "noticiasCuadro container">
+                <div class = "botones container">
                     <div class = "cajaBoton">
                         <a href = "noticias_principal.php?tag=1"> Nuevo </a>
                     </div>
@@ -64,11 +66,10 @@ function generaContenidoPrincipal($htmlNoticiaDestacada, $htmlBoton, $htmlNotici
                         <a href = "noticias_principal.php?tag=3"> Popular </a>
                     </div>
 
-                    <div class = "cajaLupa">                               
-                        <a href = "buscarNoticia.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
-                    </div>
-                    
-                    <div class = "cajaBusqueda">
+                    <div class = "botonesNoticiaConcreta">
+                        <div class="botonIndividualNoticia">
+                            <a href = "buscarNoticia.php" class="btn btn-link" > <img src = "img/search.svg" class = "botonModificarNoticia"> </a>
+                        </div>
                         $htmlBoton
                     </div>
                     
