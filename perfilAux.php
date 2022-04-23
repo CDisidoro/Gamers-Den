@@ -39,7 +39,8 @@ function generaAmigos($usuario){
     $htmlAmigos = '<div class="row">';
     $amigos = $usuario->getfriendlist();
     if(sizeof($amigos) == 0){ //Si no tiene amigos en su lista, dara un mensaje
-        $htmlAmigos = '<p>Tu lista de amigos está vacía! Empieza añadiendo amigos con el botón de la derecha!</p>';
+        $htmlAmigos .= '<p>Tu lista de amigos está vacía! Empieza añadiendo amigos con el botón de la derecha!</p>';
+        $htmlAmigos .= '</div>';
         return $htmlAmigos;
     }
     $index = 0;
@@ -121,19 +122,19 @@ function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar
                 </div>
             </div>
         </article>
-        <article class = "listadeseados container">
-            <h2 class="text-center">Lista de deseos</h2>
-            <div class = "flexrow">
-                {$htmlDeseos}
-            </div>
-        </article>
         <article class = "listadeamigos container">
             <h2 class="text-center">Lista de amigos</h2>
             <div class = "addAmigo">
                 <a href = "addAmigo.php" class = "inbox text-decoration-none" >Añadir amigos</a>
             </div>
             <div class = "flexrow">
-                {$htmlAmigos}                       
+                $htmlAmigos
+            </div>
+        </article>
+        <article class = "listadeseados container">
+            <h2 class="text-center">Lista de deseos</h2>
+            <div class = "flexrow">
+                $htmlDeseos
             </div>
         </article>
     </section>
