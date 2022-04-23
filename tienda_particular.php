@@ -7,13 +7,15 @@
 		$formHTML = $formBorrar->gestiona();
 		if(isset($_SESSION['login']) && $_SESSION['ID'] == $idVendedor){
 			$htmlBotones = <<<EOS
-                <div class = "botonesNoticiaConcreta">
-                    <div class = "botonIndividualNoticia">
-                        <a href = "editarProducto.php?id={$_GET['id']}"> <img class = "botonModificarNoticia" src = "img/lapiz.png"> </a>
-                        </div>
-                        $formHTML
-                </div>
-            EOS;
+				<div class = "botonesNoticiaConcreta container">
+					<div class = "botonIndividualNoticia">
+						<a href = "editarProducto.php?id={$_GET['id']}" class="btn btn-link"> <img class = "botonModificarNoticia" src = "img/pencil.svg"> </a>
+					</div>
+					<div class="botonIndividualNoticia">
+						$formHTML
+					</div>
+				</div>
+			EOS;
 		}
 		return $htmlBotones;
 	}
@@ -40,7 +42,7 @@
 			$nombreVendedor = Usuario::buscaPorId($vendedor);
 			$botones = generaBotones($vendedor);
 			$contenidoPrincipal=<<<EOS
-				<section class = "tiendaParticular">
+				<section class = "tiendaParticular container">
 					{$botones}
 					<div class = "tituloProductoConcreto">
 						<p> {$nombre} </p>
@@ -52,14 +54,12 @@
 							$formHTML
 						</div>
 
-						<div class = "cajaDescProductoConcreto">
+						<div class = "container">
 							<p class = "descripcionProducto" > Descripción del producto: {$descripcion} </p>
-							<p class = "descripcionProducto" > {$precio} €</p>
+							<p class = "descripcionProducto" >Precio:  {$precio} €</p>
 							<p class = "descripcionProducto" > Vendido por: {$nombreVendedor->getUsername()} </p>
-							<p class = "descripcionProducto" > {$fecha} </p>
-							<div class = "cajaBotonNegociacion">
-								$formulario
-							</div>
+							<p class = "descripcionProducto" >Fecha de publicación: {$fecha} </p>
+							$formulario
 						</div>
 					</div>
 				</section>

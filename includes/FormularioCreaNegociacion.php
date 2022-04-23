@@ -27,7 +27,7 @@
             */
             $html = <<<EOF
                 <input type="hidden" name="idVendedor" value="{$this->idVendedor}"  />
-                <button type = "submit" name="enviar"> Iniciar Chat </button>
+                <button type = "submit" name="enviar" class="btn btn-success"> Iniciar Chat </button>
             EOF;
             return $html;
         }

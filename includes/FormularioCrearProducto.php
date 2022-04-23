@@ -28,27 +28,29 @@
             $listaJuegos = $this->generarSelector();
             $html = <<<EOF
             $htmlErroresGlobales
-            <fieldset>
-                <legend>Nuevo producto</legend>
+            <fieldset class="container">
                 <div>
-                    <label for="articulo">Selecciona un videojuego: </label>
+                    <label for="articulo" class="form-label">Selecciona un videojuego: </label>
                     $listaJuegos
                     {$erroresCampos['articulo']}
                 </div>
                 <div>
-                    <label for="precio">Ponle un precio a tu producto: </label>
-                    <input id="precio" name="precio" type="text" value="$precio"> </textarea>
+                    <label for="precio" class="form-label">Ponle un precio a tu producto: </label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">€</span>
+                        <input id="precio" name="precio" class="form-control" type="text" value="$precio">
+                    </div>
                     {$erroresCampos['precio']}
                 </div>
                 <div>
-                    <label for="descripcion">Dale una descripción atractiva: </label>
-                    <textarea id="descripcion" name="descripcion" rows="10" cols="50" value="$descripcion"></textarea>
+                    <label for="descripcion" class="form-label">Dale una descripción atractiva: </label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="10" cols="50" value="$descripcion"></textarea>
                     {$erroresCampos['descripcion']}
                 </div>
                 <div>
                     <input type="hidden" id="idUsuario" name="idUsuario" value="$idUsuario"/>
                     {$erroresCampos['idUsuario']}
-                    <button type="submit" name="enviar"> Enviar </button>
+                    <button type="submit" class="btn btn-success" name="enviar"> Enviar </button>
                 </div>
             </fieldset>
             EOF;
@@ -57,7 +59,7 @@
 
         function generarSelector(){
             $listaJuegos = Videojuego::cargarVideojuegos();
-            $selector = '<select name="articulo" id="articulo">';
+            $selector = '<select name="articulo" id="articulo" class="form-control">';
             foreach($listaJuegos as $juego){
                 $id = $juego->getID();
                 $nombre = $juego->getNombre();

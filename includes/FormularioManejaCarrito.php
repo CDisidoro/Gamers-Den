@@ -29,13 +29,13 @@
             if($usuario->alreadyCarrito($this->idProducto)){
                 $html = <<<EOF
                     <input type="hidden" name="idProducto" value="{$this->idProducto}"  />
-                    <button type = "submit" class = "botonPrueba" > <img class = "botonModificarNoticia" src = "img/carritoRojo.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonModificarNoticia" src = "img/cart-x-fill.svg"> </button>
                 EOF;
             }
             else{
                 $html = <<<EOF
                     <input type="hidden" name="idProducto" value="{$this->idProducto}"  />
-                    <button type = "submit" class = "botonPrueba" > <img class = "botonModificarNoticia" src = "img/carritoAzul.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonModificarNoticia" src = "img/cart-plus-fill.svg"> </button>
                 EOF;
             }
             return $html;

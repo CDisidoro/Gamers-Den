@@ -66,7 +66,7 @@
 		$addProducto = '';
 		if(isset($_SESSION['login'])){
 			$addProducto = <<<EOS
-				<div class = "cajaBotonProducto">
+				<div class = "cajaBotonProducto col">
 					<a href = "crearProducto.php"> Añadir Producto </a>
 				</div>
 			EOS;
@@ -81,10 +81,10 @@
 		$usuario = Usuario::buscaPorId($_SESSION['ID']);
 		$textCarrito = 'Mi Carrito ('.$usuario->longCarrito() .')';
 		$contenidoPrincipal=<<<EOS
-		<section class = "tiendaPrincipal">
-			<div class = "contenedorProductos">
+		<section class = "tiendaPrincipal container">
+			<div class = "container">
 				<div class = "cajaTituloTienda">
-					<h1 class = "tituloPagina"> Todos los productos </h1>
+					<h1 class = "tituloPagina text-center"> Todos los productos </h1>
 				</div>
 				<div class = "miCarrito">
 					<div class = "cajaBotonCarrito">
@@ -95,31 +95,31 @@
 					{$productos}
 				</div>
 
-				<div class = "contenedorTienda">
+				<div class = "container">
 
-					<div class = "productosCuadro">
-						<div class = "botonesProductos">
-							<div class = "cajaBotonProducto">
+					<div class = "productosCuadro container">
+						<div class = "botonesProductos row">
+							<div class = "cajaBotonProducto col">
 								<a href = "tienda.php?caracteristica=Destacado"> Destacado </a>
 							</div>
 
-							<div class = "cajaBotonProducto">
+							<div class = "cajaBotonProducto col">
 								<a href = "tienda.php?caracteristica=Nuevo"> Nuevo </a>
 							</div>
 
-							<div class = "cajaBotonProducto">
+							<div class = "cajaBotonProducto col">
 								<a href = "tienda.php?caracteristica=Popular"> Popular </a>
 							</div>
 
 							$addProducto
 							
-							<div class = "cajaBusqueda">                               
-								<a href = "buscarProducto.php" > <img src = "img/lupa.png" class = "imagenBusqueda"> </a>
+							<div class = "cajaBusqueda col">
+								<a href = "buscarProducto.php" class="btn btn-link" > <img src = "img/search.svg" class = "imagenBusqueda"> </a>
 							</div>
 
 						</div>
 
-					<div class = "cuadroProductos">
+					<div class = "cuadroProductos container">
 						{$todosproductos}                     
 					</div>                            
 				</div>

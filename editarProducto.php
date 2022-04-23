@@ -8,7 +8,7 @@
 	<div id="contenedor">	
 		<main>
 		<article>
-				<h1>Edita la información de tu producto</h1>
+				<h1 class="text-center">Edita la información de tu producto</h1>
 				$formHTML
 			</article>
 		</main>

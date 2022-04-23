@@ -24,14 +24,14 @@
             // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
             $html = <<<EOF
             $htmlErroresGlobales
-            <fieldset>
+            <fieldset class="container">
                 <div>
-                    <label for="nombreJuego">Introduce el nombre del juego que quieres buscar:</label>
-                    <input id="nombreJuego" type="text" name="nombreJuego" value="$nombreJuego" required/>
+                    <label for="nombreJuego" class="form-label">Introduce el nombre del juego que quieres buscar:</label>
+                    <input class="form-control" id="nombreJuego" type="text" name="nombreJuego" value="$nombreJuego" required/>
                     {$erroresCampos['nombreJuego']}
                 </div>
                 <div>
-                    <button type="submit" name="buscar"> Buscar </button>
+                    <button type="submit" class="btn btn-success" name="buscar"> Buscar </button>
                 </div>
             </fieldset>
             EOF;

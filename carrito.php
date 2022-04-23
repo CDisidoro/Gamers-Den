@@ -38,7 +38,7 @@
 		$precioTotal = $usuario->precioCarrito();
 		$contenidoPrincipal=<<<EOS
 		<section class = "tiendaPrincipal">
-			<div class = "contenedorProductos">
+			<div class = "container">
 				<div class = "cajaTituloTienda">
 					<h1 class = "tituloPagina"> MI CARRITO </h1>
 				</div>
@@ -46,7 +46,7 @@
 					<div class = "cuadroProductos">
 						{$productos}                     
 					</div>
-					<h1 class = "PrecioCarrito">PRECIO TOTAL: $precioTotal €</h1>                      
+					<h1 class = "PrecioCarrito text-center">PRECIO TOTAL: $precioTotal €</h1>                      
 				</div>
 
 			</div>		

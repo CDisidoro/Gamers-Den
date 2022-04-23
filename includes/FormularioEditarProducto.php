@@ -33,16 +33,18 @@
             if($this->checkIdentity($producto->getVendedor(), $idUsuario) || $this->checkAdmin($idUsuario)){
                 $html = <<<EOF
                 $htmlErroresGlobales
-                <fieldset>
-                    <legend>Actualiza la informacion del producto</legend>
+                <fieldset class="container">
                     <div>
-                        <label for="precio">Precio del producto:</label>
-                        <input type="text" id="precio" name="precio" value="$precio" required/>
+                        <label for="precio" class="form-label">Precio del producto:</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">€</span>
+                            <input id="precio" name="precio" class="form-control" type="text" value="$precio">
+                        </div>
                         {$erroresCampos['precio']}
                     </div>
                     <div>
-                        <label for="descripcion">Descripción del producto:</label>
-                        <textarea id="Bio" name="descripcion" rows="15" cols="60"/>$descripcion</textarea>
+                        <label for="descripcion" class="form-label">Descripción del producto:</label>
+                        <textarea class="form-control" id="Bio" name="descripcion" rows="15" cols="60" required>$descripcion</textarea>
                         {$erroresCampos['descripcion']}
                         <input id="idUsuario" type="hidden" name="idUsuario" value="$idUsuario" required/>
                         {$erroresCampos['idUsuario']}
@@ -50,7 +52,7 @@
                         {$erroresCampos['idProducto']}
                     </div>
                     <div>
-                        <button type="submit" name="updateProduct">Actualizar Producto</button>
+                        <button class="btn btn-success" type="submit" name="updateProduct">Actualizar Producto</button>
                     </div>
                 </fieldset>
                 EOF;

@@ -4,7 +4,7 @@
     // Gestionamos el formulario de búsqueda de videojuegos
     $formBuscaJuegos = new FormularioBusquedaJuegos();
     $resultadoBuscaJuegos = $formBuscaJuegos->gestiona();
-    $cabecera = "<h1>Resultado de búsqueda</h1>";
+    $cabecera = '<h1 class="text-center">Resultado de búsqueda</h1>';
     $resultado = $resultadoBuscaJuegos->getResultado();
     $juegos = $resultado['juegos'];
     $extraParams = $resultado['extraUrlParams'];

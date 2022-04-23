@@ -8,7 +8,7 @@
     $htmlBuscaProducto = $formBuscaProducto->gestiona();
 
     
-    $contenidoPrincipal = '<h1>Buscar una noticia por palabras clave </h1>';
+    $contenidoPrincipal = '<h1 class="text-center">Buscar una noticia por palabras clave </h1>';
     $contenidoPrincipal .= $htmlBuscaProducto->getHtmlFormulario();
         
 

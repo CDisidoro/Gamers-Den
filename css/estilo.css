@@ -21,8 +21,8 @@
 
 .tarjetaProducto{
     margin:5px;
-    width: fit-content;
-    height: fit-content;
+    width: 260px;
+    height: 300px;
     background-color: lightgrey;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border:1px solid black;
@@ -43,11 +43,11 @@
 }
 
 .imagenTajetaProducto{
-    width: 250px;
+    width: 234px;
     height: 150px;
-    margin-left:40px;
+    margin-left:5px;
     margin-top: 5px;
-    margin-right:40px;
+    margin-right:5px;
 }
 
 .contenedorProductos{
@@ -77,8 +77,8 @@
     display:flex;
     flex-direction: row;
     height: fit-content;
-    width: 80%;
-    margin:15px;
+    margin-top:5px;
+    margin-bottom: 50px;
 }
 
 .cuadrotodosProductos{
@@ -93,14 +93,13 @@
 
 .productosCuadro{
     display: grid;
-    grid-template-rows: 30% 70%;
+    grid-template-rows: 25% 70%;
     background-color: rgb(131, 119, 119);
     height: fit-content; 
 }
 
 .botonesProductos{
     height:fit-content;
-    width: 80%;
     background-color: white;
     margin:5px;
     display:flex;
