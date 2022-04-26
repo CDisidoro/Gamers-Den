@@ -649,14 +649,14 @@
          * @param int $idProducto ID del foro que busca en el upvote
          * @return bool Si se ha encontrado el producto en el carrito retorna true, sino retorna false
          */
-        public function alreadyCarrito($IdProducto){
+        public function alreadyUpvoted($IdForo){
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT producto FROM carrito WHERE usuario = $this->id");
+            $query = sprintf("SELECT Foro FROM forUpVotes WHERE Usuario = $this->id");
             $rs = $conn->query($query);
             $result = false;
             if ($rs) {
                 while($fila = $rs->fetch_assoc()) {
-                    if ($fila['producto'] == $IdProducto) {
+                    if ($fila['Foro'] == $IdForo) {
                         $result = true;
                     }
                 }
@@ -665,6 +665,97 @@
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
             return $result;
+        }
+
+        /**
+         * Agrega un voto a los upvotes del usuario
+         * @param int $idForo ID del foro que se vota
+         * @return bool Si se ha votado correctamente el foro retorna true, o sino retorna false
+         */
+        public function masUpvote($idForo){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->getId();
+            $query = sprintf("INSERT INTO forUpVotes(Usuario, Foro) VALUES ($idUsuario, $idForo)");
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /**
+         * Elimina un voto de la lista de forUpVotes del usuario que llama la funcion
+         * @param int $idForo ID del foro que se desea borrar
+         * @return bool Si se ha borrado exitosamente retorna true, sino retorna false
+         */
+        public function eliminaUpvote($idForo){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->id;
+            $query = sprintf("DELETE FROM forUpVotes WHERE Firi = $idForo AND Usuario = $idUsuario");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /**
+         * Busca un foro y usuario en la lista de downvote
+         * @param int $idProducto ID del foro que busca en el downvote
+         * @return bool Si se ha encontrado el producto en el carrito retorna true, sino retorna false
+         */
+        public function alreadyDownvoted($IdForo){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT Foro FROM forDownVotes WHERE Usuario = $this->id");
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    if ($fila['Foro'] == $IdForo) {
+                        $result = true;
+                    }
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
+        /**
+         * Agrega un voto a los downvotes del usuario
+         * @param int $idForo ID del foro que se vota
+         * @return bool Si se ha votado correctamente el foro retorna true, o sino retorna false
+         */
+        public function masDownvote($idForo){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->getId();
+            $query = sprintf("INSERT INTO forDownVotes(Usuario, Foro) VALUES ($idUsuario, $idForo)");
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /**
+         * Elimina un voto de la lista de forDownVotes del usuario que llama la funcion
+         * @param int $idForo ID del foro que se desea borrar
+         * @return bool Si se ha borrado exitosamente retorna true, sino retorna false
+         */
+        public function eliminaDownvote($idForo){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->id;
+            $query = sprintf("DELETE FROM forDownVotes WHERE Firi = $idForo AND Usuario = $idUsuario");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
         }
     }
 ?>

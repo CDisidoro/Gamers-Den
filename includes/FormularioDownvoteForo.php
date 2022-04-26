@@ -2,7 +2,7 @@
     /**
      * Clase hija de Formulario encargada de gestionar el borrado de foros de la tienda
      */
-    class FormularioUpvoteForo extends Formulario{
+    class FormularioDownvoteForo extends Formulario{
         private $idUsuario;
         private $idForo;
         /**
@@ -13,7 +13,7 @@
         public function __construct($idForo, $idUsuario) { 
             $this->idForo = $idForo;
             $this->idUsuario = $idUsuario;
-            parent::__construct('formUpvoteForo', ['urlRedireccion' => 'foro_general.php']);
+            parent::__construct('formDownvoteForo', ['urlRedireccion' => 'foro_general.php']);
         }
         
         /**
@@ -29,13 +29,13 @@
             if($usuario->alreadyUpvoted($this->idForo)){
                 $html = <<<EOF
                     <input type="hidden" name="idForo" value="{$this->idForo}"  />
-                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/UpVoteOn.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/DownVoteOn.jpg"> </button>
                 EOF;
             }
             else{
                 $html = <<<EOF
                     <input type="hidden" name="idForo" value="{$this->idForo}"  />
-                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/UpVoteOff.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/DownVoteOff.jpg"> </button>
                 EOF;
             }
             return $html;
@@ -60,14 +60,14 @@
             }
             $usuario = Usuario::buscaPorId($this->idUsuario);
             if(count($this->errores) === 0){
-                if ($usuario->alreadyUpvoted($idForo)){
-                    if(!$usuario->eliminaUpvote($idForo))
+                if ($usuario->alreadyDownvoted($idForo)){
+                    if(!$usuario->eliminaDownvote($idForo))
                         $this->errores[] = 'Algo ha salido mal';
                 }
                 else{
-                    if(!$usuario->masUpvote($idForo)){
-                        if ($usuario->alreadyDownvoted($idForo))
-                            $usuario->eliminaDownvote($idForo)
+                    if(!$usuario->masDownvote($idForo)){
+                        if ($usuario->alreadyUpvoted($idForo))
+                            $usuario->eliminaUpvote($idForo)
                         $this->errores[] = 'Algo ha salido mal';
                     }
                 }
