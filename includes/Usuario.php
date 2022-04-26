@@ -644,5 +644,27 @@
             }
             return false;
         }
+        /**
+         * Busca un foro y usuario en la lista de upvote
+         * @param int $idProducto ID del foro que busca en el upvote
+         * @return bool Si se ha encontrado el producto en el carrito retorna true, sino retorna false
+         */
+        public function alreadyCarrito($IdProducto){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT producto FROM carrito WHERE usuario = $this->id");
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    if ($fila['producto'] == $IdProducto) {
+                        $result = true;
+                    }
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
     }
 ?>
