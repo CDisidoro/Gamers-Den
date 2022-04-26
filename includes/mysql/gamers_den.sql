@@ -184,6 +184,22 @@ CREATE TABLE `lista_comercial` (
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Estructura de tabla para la tabla `lista_comercial`
+--
+CREATE TABLE `forUpVotes` (
+   `Usuario` INT NOT NULL ,
+   `Foro` INT NOT NULL 
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estructura de tabla para la tabla `lista_comercial`
+--
+CREATE TABLE `forDownVotes` (
+   `Usuario` INT NOT NULL ,
+   `Foro` INT NOT NULL 
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
 -- Estructura de tabla para la tabla `carrito`
 --
 CREATE TABLE `carrito` (
@@ -219,6 +235,20 @@ CREATE TABLE `juegoCategoria`(
 ALTER TABLE `carrito`
   ADD KEY `FK_Usuario` (`usuario`),
   ADD KEY `FK_Producto` (`producto`);
+
+--
+-- Indices de la tabla `upVote`
+--
+ALTER TABLE `forUpVotes`
+  ADD KEY `FK_Usuario` (`Usuario`),
+  ADD KEY `FK_Foro` (`Foro`);
+
+--
+-- Indices de la tabla `upVote`
+--
+ALTER TABLE `forDownVotes`
+  ADD KEY `FK_Usuario` (`Usuario`),
+  ADD KEY `FK_Foro` (`Foro`);
 
 --
 -- Indices de la tabla `juegoCategoria`
@@ -317,6 +347,20 @@ ALTER TABLE `carrito`
 --
 ALTER TABLE `foro`
   ADD CONSTRAINT `foro_ibfk_1` FOREIGN KEY (`Autor`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `forUpVotes`
+--
+ALTER TABLE `forUpVotes`
+  ADD CONSTRAINT `forUpVotes_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `forUpVotes_ibfk_2` FOREIGN KEY (`Foro`) REFERENCES `foro` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `forDownVotes`
+--
+ALTER TABLE `forDownVotes`
+  ADD CONSTRAINT `forDownVotes_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `forDownVotes_ibfk_2` FOREIGN KEY (`Foro`) REFERENCES `foro` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `lista_amigos`
