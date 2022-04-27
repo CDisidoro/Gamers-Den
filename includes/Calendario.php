@@ -119,6 +119,56 @@
 				return true;
 			}
         }
+
+		/** NO ACABADO HAY QUE CAMBIAR LAS CONSULTAS
+     	* Busca los eventos de un usuario con id $userId en el rango de fechas $start y $end (si se proporciona).
+     	*
+		* @param int $userId Id del usuario para el que se buscarán los eventos.
+		* @param DateTime $start Fecha a partir de la cual se buscarán eventos (@link MYSQL_DATE_TIME_FORMAT)
+		* @param DateTime|null $end Fecha hasta la que se buscarán eventos (@link MYSQL_DATE_TIME_FORMAT)
+		*
+		* @return array[Evento] Lista de eventos encontrados.
+		*/
+		public static function buscaEntreFechas(int $userId, DateTime $start, DateTime $end = null)
+		{
+			if (!$userId) {
+				throw new \BadMethodCallException('$userId no puede ser nulo.');
+			}
+			
+			$startDate = $start->format(self::MYSQL_DATE_TIME_FORMAT);
+			if (!$startDate) {
+				throw new \BadMethodCallException('$diccionario[\'start\'] no sigue el formato válido: '.self::MYSQL_DATE_TIME_FORMAT);
+			}
+			
+			$endDate = null;
+			if ($end) {
+				$endDate =  $end->format(self::MYSQL_DATE_TIME_FORMAT);
+				if (!$endDate) {
+					throw new \BadMethodCallException('$diccionario[\'end\'] no sigue el formato válido: '.self::MYSQL_DATE_TIME_FORMAT);
+				}
+			}
+			
+			$app = App::getSingleton();
+			$conn = $app->conexionBd();
+			
+			$query = sprintf("SELECT E.id, E.title, E.userId, E.startDate AS start, E.endDate AS end  FROM Eventos E WHERE E.userId=%d AND E.startDate >= '%s'", $userId, $startDate);
+			if ($endDate) {
+				$query = sprintf($query . " AND E.startDate <= '%s'", $endDate);
+			}
+			
+			$result = [];
+			
+			$rs = $conn->query($query);
+			if ($rs) {
+				while($fila = $rs->fetch_assoc()) {
+					$e = new Evento();
+					$e->asignaDesdeDiccionario($fila);
+					$result[] = $e;
+				}
+				$rs->free();
+			}
+			return $result;
+		}
     }
 ?>
 

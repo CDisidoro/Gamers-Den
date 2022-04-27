@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
        //alert('Date: ' + info.dateStr);
        //document.getElementById('start').value = info.dateStr;
        myModal.show();
-    }
+    },
+    events: 'evento.php'
     });
     calendar.render();
 
