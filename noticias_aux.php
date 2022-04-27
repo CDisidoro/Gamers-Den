@@ -5,7 +5,7 @@
 */
 function generarHTMLdestacado(){
     $htmlNoticiaDestacada = '';
-    $noticias = Noticia::mostrarPorCar("Front");
+    $noticias = Noticia::mostrarPorCar(4);
     if(!$noticias){
         $htmlNoticiaDestacada =<<<EOS
         <p> ¡Aún no hay noticia destacada! Pero nuestros escritores están en ello :) </p>
@@ -55,15 +55,15 @@ function generaContenidoPrincipal($htmlNoticiaDestacada, $htmlBoton, $htmlNotici
             <div class = "noticiasCuadro container">
                 <div class = "botones container">
                     <div class = "cajaBoton">
-                        <a href = "noticias_principal.php?tag=Nuevo"> Nuevo </a>
+                        <a href = "noticias_principal.php?tag=1"> Nuevo </a>
                     </div>
 
                     <div class = "cajaBoton">
-                        <a href = "noticias_principal.php?tag=Destacado"> Destacado </a>
+                        <a href = "noticias_principal.php?tag=2"> Destacado </a>
                     </div>
 
                     <div class = "cajaBoton">
-                        <a href = "noticias_principal.php?tag=Popular"> Popular </a>
+                        <a href = "noticias_principal.php?tag=3"> Popular </a>
                     </div>
 
                     <div class = "botonesNoticiaConcreta">

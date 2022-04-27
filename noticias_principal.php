@@ -22,7 +22,7 @@
         $htmlNoticias .= '<p> No se han podido cargar las noticias de esta sección </p>';
     }
     else{
-        if(!strcmp($_GET['tag'] , "Nuevo") && !strcmp($_GET['tag'], "Destacado") && !strcmp($_GET['tag'], "Popular")){
+        if($_GET['tag'] > 3 || $_GET['tag'] < 1){
             $noticias = Noticia::cargarNoticia();
         }
         else{

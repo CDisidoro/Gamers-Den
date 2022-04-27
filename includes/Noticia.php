@@ -12,7 +12,12 @@
         private $etiquetas;
         private $autor;
         private $fecha;
-
+        private $categorias = [
+            '1' => 'Nuevo', 
+            '2' => 'Destacado', 
+            '3' => 'Popular',
+            '4' => 'Front'
+        ];
         //CONSTRUCTOR Y GETTERS
 
         /**
@@ -213,6 +218,7 @@
         public static function mostrarPorCar($categoria) {          
             $mysqli = Aplicacion::getInstance()->getConexionBd();
             $Categoria = $mysqli->real_escape_string($categoria); //filtro de seguridad
+            $Categoria = self::$categorias[$categoria];
             $query = sprintf("SELECT * FROM noticias WHERE Etiquetas = '$Categoria'");
             $result = $mysqli->query($query);
             $returning = [];
