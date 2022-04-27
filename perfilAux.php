@@ -39,7 +39,7 @@ function generaListaDeseosExt($usuario){
     $htmlDeseos = '<div class="row">';
     $deseos = $usuario->getWishList();
     if(sizeof($deseos) == 0){
-        $htmlDeseos = "<p>Tu lista de deseos está vacía! Empieza a buscar juegos en la pestaña de Juegos!</p>";
+        $htmlDeseos = "<p> Este perfil aún no ha agregado a juegos :( </p>";
     }else{
         $index = 0;
         while($index < sizeof($deseos[0])){
@@ -91,6 +91,7 @@ function generaAmigos($usuario){
         $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
         $htmlAmigos .= $srcAvatar;
         $htmlAmigos .= '">';
+        $htmlAmigos .= '</a>';
         $htmlAmigos .= '<p class = "nombreamigo">';
         $htmlAmigos .= $amigos[0][$index];
         $htmlAmigos .= '</p>';
@@ -104,7 +105,7 @@ function generaAmigos($usuario){
 
 
 /*
-*   Función que genera el html de la lista de amigos del usuario logeado.
+*   Función que genera el html de la lista de amigos del usuario del perfil.
 *   @param user usuario del que se quiere mostrar la lista.
 */
 function generaAmigosExt($usuario){
@@ -123,9 +124,14 @@ function generaAmigosExt($usuario){
         $srcAvatar .= '.jpg';
 
         $htmlAmigos .= '<div class = "amigolista col">';
-        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
-        $htmlAmigos .= $srcAvatar;
+        $htmlAmigos .= '<a href="';
+        $htmlAmigos .= 'perfilExt.php?id=';
+        $htmlAmigos .= $amigos[0][$index];
         $htmlAmigos .= '">';
+        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = " ';
+        $htmlAmigos .= $srcAvatar;
+        $htmlAmigos .= ' ">';
+        $htmlAmigos .= '</a>';
         $htmlAmigos .= '<p class = "nombreamigo">';
         $htmlAmigos .= $amigos[0][$index];
         $htmlAmigos .= '</p>';
