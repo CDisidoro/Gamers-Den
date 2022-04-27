@@ -22,8 +22,8 @@
         $htmlNoticias .= '<p> No se han podido cargar las noticias de esta sección </p>';
     }
     else{
-        if($_GET['tag'] > 3 || $_GET['tag'] < 1){
-            $noticias = Noticia::mostrarPorCar(1);
+        if(!strcmp($_GET['tag'] , "Nuevo") && !strcmp($_GET['tag'], "Destacado") && !strcmp($_GET['tag'], "Popular")){
+            $noticias = Noticia::cargarNoticia();
         }
         else{
             $noticias = Noticia::mostrarPorCar($_GET['tag']);

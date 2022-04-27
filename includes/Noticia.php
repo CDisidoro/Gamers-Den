@@ -213,7 +213,7 @@
         public static function mostrarPorCar($categoria) {          
             $mysqli = Aplicacion::getInstance()->getConexionBd();
             $Categoria = $mysqli->real_escape_string($categoria); //filtro de seguridad
-            $query = sprintf("SELECT * FROM noticias WHERE Etiquetas = $Categoria");
+            $query = sprintf("SELECT * FROM noticias WHERE Etiquetas = '$Categoria'");
             $result = $mysqli->query($query);
             $returning = [];
             if($result) {

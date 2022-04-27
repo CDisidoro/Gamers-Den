@@ -277,7 +277,7 @@ textarea{
 
 .noticiasCuadro{
     display: grid;
-    grid-template-rows: 30% 70%;
+    grid-template-rows: auto auto;
     background-color: rgb(131, 119, 119);
     min-height: 300px;
 }
@@ -295,10 +295,10 @@ textarea{
 
 .cuadroNoticias{
     background-color: white;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     display:flex;
     flex-direction: column;
-    height: 180px;
+    height: fit-content;
     margin:15px;
 }
 
