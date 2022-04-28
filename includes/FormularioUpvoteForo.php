@@ -60,16 +60,17 @@
             }
             $usuario = Usuario::buscaPorId($this->idUsuario);
             if(count($this->errores) === 0){
+                if ($usuario->alreadyDownvoted($idForo))
+                    $usuario->eliminaDownvote($idForo);
+                
                 if ($usuario->alreadyUpvoted($idForo)){
                     if(!$usuario->eliminaUpvote($idForo))
                         $this->errores[] = 'Algo ha salido mal';
                 }
+                
                 else{
-                    if(!$usuario->masUpvote($idForo)){
-                        if ($usuario->alreadyDownvoted($idForo))
-                            $usuario->eliminaDownvote($idForo);
+                    if(!$usuario->masUpvote($idForo))
                         $this->errores[] = 'Algo ha salido mal';
-                    }
                 }
             }
         }
