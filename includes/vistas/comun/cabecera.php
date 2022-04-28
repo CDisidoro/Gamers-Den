@@ -28,7 +28,11 @@
                                             <div class="col-md-4">
                                     EOS;
                                     if(isset($_SESSION['login'])){
-                                        $img = Usuario::buscaPorId($_SESSION['ID'])->getAvatar();
+                                        $avatar = Usuario::buscaPorId($_SESSION['ID'])->getAvatar();
+                                        $img = 'img/Avatar';
+                                        $img .= $avatar;
+                                        $img .= '.jpg';
+
                                         $saludo .= <<<EOS
                                         <img src="$img" class="img-fluid imagenprincipalCabecera">
                                         </div>
