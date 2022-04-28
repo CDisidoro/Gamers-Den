@@ -2,6 +2,7 @@
     /**
      * Clase hija de Formulario encargada de gestionar la edicion de una noticia
      */
+
     class FormularioEditarNoticia extends Formulario{
         private $idNoticia;
         private $idUsuario;
@@ -58,8 +59,19 @@
                             {$erroresCampos['descripcion']}
                         </div>
                         <div>
-                            <label for="etiqueta" class="form-label">Cambia la etiqueta: </label>
-                            <input type="text" class="form-control" id="etiqueta" name="etiqueta" value="$etiquetaNoticia" required>
+                        <label for="etiqueta" class="form-label">Cambia la etiqueta: </label>
+                            <select class="js-example-basic-single" name="etiqueta">
+                                <option value="1">Nuevo</option>
+                                <option value="2">Destacado</option>
+                                <option value="3">Popular</option>
+                                <option value="4">Cartelera</option>
+                            </select>
+                            <script>
+                                $(document).ready(function(e) {
+                                    $('.js-example-basic-multiple').select2();
+                                    $etiquetaNoticia = e.value;
+                                });
+                            </script>
                             {$erroresCampos['etiqueta']}
                         </div>
                         <div>
@@ -120,7 +132,7 @@
             $usuario = Usuario::buscaPorId($idUsuario);
             return $usuario->getRol() == 1;
         }
-
+        
         /**
          * Se encarga de procesar en formulario una vez se pulsa en el boton de enviar
          * @param array &$datos Datos que han sido enviados en el formulario
