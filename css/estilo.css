@@ -610,8 +610,6 @@ footer {
 /* ESTILOS CABECERA */
 
 .imagenprincipalCabecera{
-    width: 100px;
-    height: 100px;
     border-radius: 50%;
     border: 3px solid gray;                  
 }
@@ -629,9 +627,9 @@ footer {
 }  
 
 .tituloPrincipalCabecera{
-    font-size:50px;
-    padding-left:20px;
-    float:right;
+    font-size:30px;
+    padding-top:10%;
+    float:center;
 }  
 
 .loginCabecera{
@@ -640,6 +638,15 @@ footer {
     margin-left: 150px;
 }
 
+.cabeceraUsuario{
+    padding-top: 10%;
+    float: center;
+}
+
+.tarjetaCabecera{
+    max-width: 540px;
+    padding-top: 5%;
+}
 
 /* FIN ESTILOS CABECERA */
 

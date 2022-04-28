@@ -79,7 +79,7 @@
 
         /**
          * Obtiene el avatar asociado al usuario
-         * @return int $avatar Numero de avatar del usuario
+         * @return string $avatar Ruta del avatar del usuario
          */
         public function getAvatar(){
             return $this->avatar;
