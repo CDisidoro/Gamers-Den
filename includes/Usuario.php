@@ -545,6 +545,7 @@
             } else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
+            $rs->free();
             return $result;
         }
 
@@ -596,8 +597,10 @@
                 return true;
             }else{
                 if ($resultado->num_rows == 0){
+                    $resultado->free();
                     return false;
                 }else{
+                    $resultado->free();
                     return true;
                 }
             }

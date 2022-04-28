@@ -63,9 +63,11 @@
                     $fila = $rs->fetch_assoc();
                     $categorias[] = new Categoria($fila['ID'], $fila['Nombre'], $fila['Descripcion']);
                 }
+                $rs->free();
                 return $categorias;
             }else{
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
+                $rs->free();
                 return false;
             }
         }
@@ -91,6 +93,7 @@
             } else {
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }
+            $rs->free();
             return false;
         }
 
@@ -115,6 +118,7 @@
             } else {
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }
+            $rs->free();
             return false;
         }
 

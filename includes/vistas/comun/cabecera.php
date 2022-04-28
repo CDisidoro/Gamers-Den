@@ -1,5 +1,4 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-	require('includes/config.php');
 ?>
 <!DOCTYPE html>
     <link rel="stylesheet" type="text/css" href="css/estilo.css"/>
