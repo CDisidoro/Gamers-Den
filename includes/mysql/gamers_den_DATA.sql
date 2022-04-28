@@ -50,6 +50,8 @@ INSERT INTO `lista_amigos` (`usuarioA`, `usuarioB`) VALUES
 (2, 1),
 (1, 3),
 (3, 1),
+(2, 3),
+(3, 2),
 (4, 1),
 (1, 4);
 

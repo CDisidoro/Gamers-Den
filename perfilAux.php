@@ -202,7 +202,7 @@ function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar
         <article class = "listadeamigos container">
             <h2 class="text-center">Lista de amigos</h2>
             <div class = "addAmigo">
-                <a href = "addAmigo.php" class = "inbox text-decoration-none" >Añadir amigos</a>
+                <a href = "buscarAmigo.php" class = "inbox text-decoration-none" >Añadir amigos</a>
             </div>
             <div class = "flexrow">
                 $htmlAmigos

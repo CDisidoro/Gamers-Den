@@ -757,5 +757,34 @@
                 return true;
             }
         }
+
+        public static function buscarUsuarioKeyWords($keyWords){            
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
+
+            $palabras = $mysqli->real_escape_string($keyWords); //filtro de seguridad
+            $palabras = explode(" ", $keyWords); //separamos cada una de las keywords a buscar
+            $returning = [];
+            foreach($palabras as $palabra){
+                $query = sprintf("SELECT * FROM usuarios WHERE Usuario LIKE '%%{$palabra}%%'");
+                $result = $mysqli->query($query);
+                if($result){
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        $fila = $result->fetch_assoc();
+                        $esta = false;
+                        foreach($returning as $usuario){
+                            if($usuario->getID() == $fila['ID']){
+                                $esta = true;
+                            }
+                        }
+                        if(!$esta){
+                            $returning[] = new Usuario($fila['Usuario'], $fila['Password'], $fila['Email'], $fila['ID'], $fila['Rol'], $fila['Avatar'], $fila['Biografia']);
+                        }
+                        $esta = false;
+                    }
+                    $result->free();
+                }
+            }
+            return $returning;
+        }
     }
 ?>
