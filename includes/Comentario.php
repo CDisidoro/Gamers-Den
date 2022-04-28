@@ -78,10 +78,10 @@
             if($result) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
-                    $returning[] = new Comentarios($fila['ID'], $fila['Autor'], $fila['Foro'], $fila['Fecha'],$fila['Contenido']);
+                    $returning[] = new Comentario($fila['ID'], $fila['Autor'], $fila['Foro'], $fila['Fecha'],$fila['Contenido']);
                 }
                 $result->free();
-                $votedresult = orderbyVotes($returning);
+                $votedresult = Comentario::orderbyVotes($returning);
                 return $votedresult;
             } else{
                 return false;
@@ -155,7 +155,7 @@
             if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
                 return false;
             }
-            $buscaNoticia = new Comentarios($fila['ID'], $fila['Autor'], $fila['Foro'], $fila['Fecha'],$fila['Contenido']);
+            $buscaNoticia = new Comentario($fila['ID'], $fila['Autor'], $fila['Foro'], $fila['Fecha'],$fila['Contenido']);
             $result->free();
             return $buscaNoticia;
         } else{
@@ -171,16 +171,16 @@
                 $jvotes = $returning[$j]->getUpvotes() - $returning[$j]->getDownvotes();
                 if($ivotes>$jvotes){
                     //Intercambiamos valores
-                    $aux=$returning[i];
-                    $returning[i]=$returning[j];
-                    $returning[j]=$aux;
+                    $aux=$returning[$i];
+                    $returning[$i]=$returning[$j];
+                    $returning[$j]=$aux;
                 }
             }
         }
         return $returning;
     }
 
-    public static function getUpvotes(){
+    public function getUpvotes(){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT Usuario FROM upVotes WHERE Foro LIKE $this->id");
         $result = $conn->query($query);
@@ -190,7 +190,7 @@
             return 0;
     }
 
-    public static function getDownvotes(){
+    public function getDownvotes(){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT Usuario FROM downVotes WHERE Foro LIKE $this->id");
         $result = $conn->query($query);
