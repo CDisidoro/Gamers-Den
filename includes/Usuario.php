@@ -433,7 +433,7 @@
         public function updateAvatar($idAvatar){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $userId = $this->getId();
-            $query = sprintf("UPDATE usuarios SET Avatar = $idAvatar WHERE usuarios.ID = $userId");
+            $query = sprintf("UPDATE usuarios SET Avatar = '$idAvatar' WHERE usuarios.ID = $userId");
             if (!$conector->query($query)){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }else{

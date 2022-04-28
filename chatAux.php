@@ -12,9 +12,7 @@
         $index = 0;
         foreach($amigos as $amigo){
             $usuarioAmigo = $usuario->buscaPorId($amigo);
-            $srcAvatar = 'img/Avatar';
-            $srcAvatar .= $usuarioAmigo->getAvatar();
-            $srcAvatar .= '.jpg';
+            $srcAvatar = $usuarioAmigo->getAvatar();
 
             $htmlAmigos .= '<div class = "amigolista">';
             $htmlAmigos .= '<a href ="chat_amigo.php?idAmigo=';
@@ -43,9 +41,7 @@
         $index = 0;
         foreach($vendedores as $vendedor){
             $usuarioVendedor = $usuario->buscaPorId($vendedor);
-            $srcAvatar = 'img/Avatar';
-            $srcAvatar .= $usuarioVendedor->getAvatar();
-            $srcAvatar .= '.jpg';
+            $srcAvatar = $usuarioVendedor->getAvatar();
 
             $htmlVendedores .= '<div class = "amigolista">';
             $htmlVendedores .= '<a href ="chat_negocio.php?idVendedor=';
@@ -70,9 +66,7 @@
      * @return string $htmlAvatar Imagen del amigo con enlace al chat particular de ese amigo
      */
     function generaAvatar($usuario){
-        $srcAvatar = 'img/Avatar';
-        $srcAvatar .= $usuario->getAvatar();
-        $srcAvatar .= '.jpg';
+        $srcAvatar = $usuario->getAvatar();
 
         $htmlAvatar = '';
         $htmlAvatar .= '<a href ="perfil.php">';
@@ -136,9 +130,7 @@
          * @return string $htmlAvatar HTML relativo al avatar del usuario
          */
         function generaAvatarUsuario($user){
-            $srcAvatar = 'img/Avatar';
-            $srcAvatar .= $user->getAvatar();
-            $srcAvatar .= '.jpg';
+            $srcAvatar = $user->getAvatar();
     
             $htmlAvatar = '';
             $htmlAvatar .= '<img src = "';
@@ -153,9 +145,7 @@
          * @return string $htmlAvatar HTML relativo al avatar del amigo
          */
         function generaAvatarVisitante($user){
-            $srcAvatar = 'img/Avatar';
-            $srcAvatar .= $user->getAvatar();
-            $srcAvatar .= '.jpg';
+            $srcAvatar = $user->getAvatar();
     
             $htmlAvatar = '';
             $htmlAvatar .= '<img class = "right" src = "';

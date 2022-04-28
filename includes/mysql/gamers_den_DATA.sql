@@ -33,12 +33,12 @@ USE `gamers_den`;
 -- art25: 12345
 
 INSERT INTO `usuarios` (`ID`, `Usuario`, `Password`, `Email`, `Rol`, `Avatar`, `Biografia`) VALUES
-(1, 'admin', '$2y$10$Tqw1LUHWQ7kCSaC/HbwW..8mc/lacMnohhtQPJFLI5UNSDnZVul96', 'admin@gamersden.com', '1', 2, 'Juego o saco el banhammer?'),
-(2, 'escritor', '$2y$10$ZTNUvjtNUGIih/o2lhoNh.pF7enWI2yiU9s.MdiYjgS/m3iA6rouS', 'escritor@gamersden.com', '2', 1, 'Ya habéis leído que salió el Elden Ring?'),
-(3, 'catalogador', '$2y$10$PmoO7Al71UK5fuisEiXWDu05fvq3MvIgbInzvook0enmCz/T5PlVe', 'cataloga@gamersden.com', '3', 1, 'Atento al proximo gran lanzamiento de Valve'),
-(4, 'moderador', '$2y$10$BGCGJpx5h6AGyfg2XkAiReshk.TYeiA6kDAhg73.ff14wsaAd8PVq', 'mod@gamersden.com', '4', 2, 'Recuerda comportarte en los foros'),
-(5, 'usuario', '$2y$10$G9IeXOVfmIxO1akx/CJNH.fabWr4tPyKjTuvY/bEx06kE0z9UF7WO', 'usuario@gmail.com', '5', 3, NULL),
-(6, 'art25', '$2y$10$81e4CjoiBRP2bJHgmzguh.eOompRylTdP.LoSfbA89pnUCVGYDgVC', '1234@gmail.com', '5', 1, NULL);
+(1, 'admin', '$2y$10$Tqw1LUHWQ7kCSaC/HbwW..8mc/lacMnohhtQPJFLI5UNSDnZVul96', 'admin@gamersden.com', '1', 'img/Avatar1.jpg', 'Juego o saco el banhammer?'),
+(2, 'escritor', '$2y$10$ZTNUvjtNUGIih/o2lhoNh.pF7enWI2yiU9s.MdiYjgS/m3iA6rouS', 'escritor@gamersden.com', '2', 'img/Avatar1.jpg', 'Ya habéis leído que salió el Elden Ring?'),
+(3, 'catalogador', '$2y$10$PmoO7Al71UK5fuisEiXWDu05fvq3MvIgbInzvook0enmCz/T5PlVe', 'cataloga@gamersden.com', '3', 'img/Avatar1.jpg', 'Atento al proximo gran lanzamiento de Valve'),
+(4, 'moderador', '$2y$10$BGCGJpx5h6AGyfg2XkAiReshk.TYeiA6kDAhg73.ff14wsaAd8PVq', 'mod@gamersden.com', '4', 'img/Avatar1.jpg', 'Recuerda comportarte en los foros'),
+(5, 'usuario', '$2y$10$G9IeXOVfmIxO1akx/CJNH.fabWr4tPyKjTuvY/bEx06kE0z9UF7WO', 'usuario@gmail.com', '5', 'img/Avatar1.jpg', NULL),
+(6, 'art25', '$2y$10$81e4CjoiBRP2bJHgmzguh.eOompRylTdP.LoSfbA89pnUCVGYDgVC', '1234@gmail.com', '5', 'img/Avatar1.jpg', NULL);
 COMMIT;
 
 --

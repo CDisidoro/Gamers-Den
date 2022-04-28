@@ -16,7 +16,7 @@
                                     echo "<p class='text-end'>Usuario desconocido. <a href='login.php' class='text-decoration-none'>Login</a> <a href='registro.php' class='text-decoration-none'>Registro</a></p>";
                                 }
                                 else { //Usuario registrado
-                                    echo "<p class='text-end'>Bienvenido {$_SESSION['Usuario']} (<a href='logout.php' class='text-decoration-none'>salir</a>)</p>";;
+                                    echo "<p class='text-end'>Bienvenido <a href='perfil.php' class='text-decoration-none'>{$_SESSION['Usuario']}</a> (<a href='logout.php' class='text-decoration-none'>salir</a>)</p>";;
                                 }
                             }
                             MostrarSAludo();

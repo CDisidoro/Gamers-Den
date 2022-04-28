@@ -8,9 +8,7 @@
         $usuario = Usuario::buscarUsuario($username);
 
         function generaAvatar($usuario){
-            $srcAvatar = 'img/avatar';
-            $srcAvatar .= $usuario->getAvatar();
-            $srcAvatar .= '.jpg';
+            $srcAvatar = $usuario->getAvatar();
     
             $htmlAvatar = '';
             $htmlAvatar .= '<img class = "avatarPerfilUsuario" src = "';
@@ -20,9 +18,7 @@
         }
 
         function generaAvatarAmigo($user){
-            $srcAvatar = 'img/avatar';
-            $srcAvatar .= $user->getAvatar();
-            $srcAvatar .= '.jpg';
+            $srcAvatar = $user->getAvatar();
     
             $htmlAvatar = '';
             $htmlAvatar .= '<img class = "right" src = "';

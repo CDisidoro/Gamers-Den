@@ -81,9 +81,7 @@ function generaAmigos($usuario){
         $formulario = new FormularioEliminarAmigos($amigos[2][$index]);
         $formHTML = $formulario->gestiona();
 
-        $srcAvatar = 'img/Avatar';
-        $srcAvatar .= $amigos[1][$index];
-        $srcAvatar .= '.jpg';
+        $srcAvatar = $amigos[1][$index];
 
         $htmlAmigos .= '<div class = "amigolista col">';
         $htmlAmigos .= '<a href="';
@@ -121,9 +119,7 @@ function generaAmigosExt($usuario){
     $index = 0;
     while($index < sizeof($amigos[0])){ //$amigos[0][$index] es el id del amigo
 
-        $srcAvatar = 'img/Avatar';
-        $srcAvatar .= $amigos[1][$index];
-        $srcAvatar .= '.jpg';
+        $srcAvatar = $amigos[1][$index];
 
         $htmlAmigos .= '<div class = "amigolista col">';
         $htmlAmigos .= '<a href="';
@@ -149,9 +145,7 @@ function generaAmigosExt($usuario){
 *   @param user usuario del que se quiere mostrar el avatar.
 */
 function generaAvatar($usuario){
-    $srcAvatar = 'img/Avatar';
-    $srcAvatar .= $usuario->getAvatar();
-    $srcAvatar .= '.jpg';
+    $srcAvatar = $usuario->getAvatar();
 
     $htmlAvatar = <<<EOS
         <img class = "avatarPerfilUsuario" src = "$srcAvatar">

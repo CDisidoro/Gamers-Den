@@ -9,3 +9,7 @@ las noticias emulando a un portal y más funcionalidades que iremos definiendo a
 
   Principalmente en este trabajo profundizaremos en los conocimientos sobre PHP, CSS, MySQL y HTML5 principalmente. También nos vamos a valer de la herramienta XAMP para 
 la interconexión de nuestro trabajo así como el uso de la herramienta Github para tener un controlador de versiones accesible a todos los miembros del grupo.
+
+## Contenedor asignado
+
+Para el despliegue de este proyecto se nos ha asignado el [VPS 05](https://vm05.containers.fdi.ucm.es/)
