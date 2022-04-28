@@ -30,7 +30,7 @@ USE `gamers_den`;
 -- catalogador: catalogapass
 -- moderador: modpass
 -- usuario: userpass
--- art25: (PENDIENTE)
+-- art25: 12345
 
 INSERT INTO `usuarios` (`ID`, `Usuario`, `Password`, `Email`, `Rol`, `Avatar`, `Biografia`) VALUES
 (1, 'admin', '$2y$10$Tqw1LUHWQ7kCSaC/HbwW..8mc/lacMnohhtQPJFLI5UNSDnZVul96', 'admin@gamersden.com', '1', 2, 'Juego o saco el banhammer?'),
@@ -66,6 +66,13 @@ INSERT INTO `mensajes` (`ID`, `Remitente`, `Destinatario`, `Fecha`, `Contenido`,
 (4, 2, 1, '2022-03-27', 'anda! yo también, es una asignatura muy entretenida', 1),
 (5, 1, 2, '2022-03-27', 'y que lo digas pequeño usuario', 1);
 
+--
+-- Volcado de datos para la tabla `solicitudes`
+--
+
+INSERT INTO `solicitudes` (`Emisor`, `Receptor`) VALUES
+(1, 2),
+(3, 1);
 
 --
 -- Volcado de datos para la tabla `juegos`

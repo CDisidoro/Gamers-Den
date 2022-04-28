@@ -208,6 +208,14 @@ CREATE TABLE `carrito` (
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Estructura de tabla para la tabla `solicitudes`
+--
+CREATE TABLE `solicitudes`(
+  `Emisor` int(11) NOT NULL,
+  `Receptor` int(11) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
 -- Estructura de tabla para la tabla `categorias`
 --
 CREATE TABLE `categorias`(

@@ -2,15 +2,15 @@
     /**
      * Clase hija de Formulario encargada de gestionar el agregado de amigos
      */
-    class FormularioAmigos extends Formulario{
+    class FormularioAceptarSolicitud extends Formulario{
         private $nombreAmigo;
         /**
         *  El formulario recibe en el constructor el id del amigo que se quiere agregar.
-        *  Tiene como ID formAmigos y al terminar redirige al perfil
-        *  @param int $nombreAmigo ID del amigo que se desea agregar
+        *  Tiene como ID formEliminarNoticia y al terminar redirige a la seccion principal de noticias
+        *  @param int $nombreAmigo ID del amigo que se desea aceptar
         */
         public function __construct($nombreAmigo) {
-            parent::__construct('formAmigos', ['urlRedireccion' => 'perfil.php']);
+            parent::__construct('formAceptarAmigos', ['urlRedireccion' => 'perfil.php']);
             $this->nombreAmigo = $nombreAmigo;
         }
         
@@ -57,12 +57,12 @@
                 else if($user->alreadyFriends($user, $_SESSION['ID'])){ //Verificamos si ya somos amigos de ese usuario
                     $this->errores[] = "Ya eres amigo de ese usuario";
                 }
-                else if($user->alreadySolicitud($_SESSION['ID'], $user->getId())){ //Verificamos que no haya solicitudes pendientes
-                    $this->errores[] = "Ya hay una solicitud pendiente";
+                else if(!$user->alreadySolicitud($_SESSION['ID'], $user->getId())){ //Verificamos que haya solicitudes pendientes
+                    $this->errores[] = "No hay una solicitud pendiente";
                 }
-                else{ //Si todo sale bien agregamos el amigo nuevo
-                    $logedUser = Usuario::buscarUsuario($_SESSION['Usuario']);
-                    $logedUser->addSolicitud($user->getId());
+                else{ //Si todo sale bien agregamos el amigo nuevo y eliminamos la solicitud
+                    Usuario::addFriends($user, $_SESSION['ID']);
+                    $user->deleteSolicitud($_SESSION['ID'], $user->getId()); //cuando aceptas una solicitud se elimina tu solicitud y una posible solicitud en el otro sentido si la hubiera
                 }
             }
         }

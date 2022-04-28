@@ -18,28 +18,38 @@
     $extraUrlParams = $resultado['extraUrlParams'];
     $htmlFormBuscaMensajes = $resultadoBuscaMensajes->getHtmlFormulario();
 
-    $htmlUsuarios = '';
-    $htmlUsuarios .= '<section class = "mostrarNoticias container">';
+    $htmlAmigos = '';
+    $htmlAmigos .= '<div class="row">';
     foreach($usuarios as $usuario){
-        $htmlUsuarios .= '<article class="container">';
-        $htmlUsuarios .= '<div class = "noticia">';
-        $htmlUsuarios .= '<div class = "cajaTitulo">';
-        $htmlUsuarios .= '<a href ="noticias_concreta.php?id=';
-        $htmlUsuarios .= $usuario->getID();
-        $htmlUsuarios .= '">';
-        $htmlUsuarios .= '<img src = "';
-        $htmlUsuarios .= $usuario->getAvatar();
-        $htmlUsuarios .= '" class = "imagenNoticia">';                                 
-        $htmlUsuarios .= '</a>';
-        $htmlUsuarios .= '</div>';
-    }
-    $htmlUsuarios .= '</section>';
+        $formulario = new FormularioAmigos($usuario->getUsername());
+        $formHTML = $formulario->gestiona();
 
-    $tituloPagina = 'Noticias';
+        $srcAvatar = 'img/Avatar';
+        $srcAvatar .= $usuario->getAvatar();
+        $srcAvatar .= '.jpg';
+
+        $htmlAmigos .= '<div class = "amigolista col">';
+        $htmlAmigos .= '<a href="';
+        $htmlAmigos .= 'perfilExt.php?id=';
+        $htmlAmigos .= $usuario->getId();
+        $htmlAmigos .= '">';
+        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
+        $htmlAmigos .= $srcAvatar;
+        $htmlAmigos .= '">';
+        $htmlAmigos .= '</a>';
+        $htmlAmigos .= '<p class = "nombreamigo">';
+        $htmlAmigos .= $usuario->getUsername();
+        $htmlAmigos .= '</p>';
+        $htmlAmigos .= $formHTML;
+        $htmlAmigos .= '</div>';
+    }
+    $htmlAmigos .= '</div>';
+
+    $tituloPagina = 'Buscar amigos';
     $contenidoPrincipal=<<<EOF
         $cabecera
         $htmlFormBuscaMensajes
-        $htmlUsuarios
+        $htmlAmigos
     EOF;
 
     include 'includes/vistas/plantillas/plantilla.php';
