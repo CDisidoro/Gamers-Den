@@ -66,6 +66,13 @@ INSERT INTO `mensajes` (`ID`, `Remitente`, `Destinatario`, `Fecha`, `Contenido`,
 (4, 2, 1, '2022-03-27', 'anda! yo también, es una asignatura muy entretenida', 1),
 (5, 1, 2, '2022-03-27', 'y que lo digas pequeño usuario', 1);
 
+--
+-- Volcado de datos para la tabla `solicitudes`
+--
+
+INSERT INTO `solicitudes` (`Emisor`, `Receptor`) VALUES
+(1, 2),
+(3, 1);
 
 --
 -- Volcado de datos para la tabla `juegos`

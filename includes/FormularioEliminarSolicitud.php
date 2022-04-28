@@ -2,15 +2,16 @@
     /**
      * Clase hija de Formulario encargada de gestionar el agregado de amigos
      */
-    class FormularioAmigos extends Formulario{
+    class FormularioEliminarSolicitud extends Formulario{
         private $nombreAmigo;
         /**
-        *  El formulario recibe en el constructor el id del amigo que se quiere agregar.
-        *  Tiene como ID formAmigos y al terminar redirige al perfil
-        *  @param int $nombreAmigo ID del amigo que se desea agregar
+        *  El formulario recibe en el constructor el id del usuario al que le has enviado la solicitud que quieres eliminar.
+        *  @param int $idAmigo ID del receptor de la solicitud.
+        *  ¿Por qué hay FormularioEliminarSolicitud y FormularioEliminarSolicitudEntrante? Porque si es tu solicitud tienes que eliminarla
+        *  buscando tu ID en el emisor y si es entrante en el receptor.
         */
         public function __construct($nombreAmigo) {
-            parent::__construct('formAmigos', ['urlRedireccion' => 'perfil.php']);
+            parent::__construct('formEliminarSolicitud', ['urlRedireccion' => 'inbox.php']);
             $this->nombreAmigo = $nombreAmigo;
         }
         
@@ -32,7 +33,7 @@
             $htmlErroresGlobales
             <fieldset>
                 <input type="hidden" name="idNoticia" value="{$this->nombreAmigo}" />
-                <button type class="btn btn-link" = "submit"> <img class = "botonModificarNoticia" src = "img/addImage.png"> </button>                    
+                <button type = "submit" class="btn btn-danger" class = "botonPrueba"><img src="img/trash.svg"></button>                   
             </fieldset>       
             EOF;
             return $html;
@@ -52,17 +53,13 @@
                     $this->errores[] = "No se ha encontrado al usuario";
                 } 
                 else if($user->getId() == $_SESSION['ID']){ //Si intentamos agregarnos a nosotros mismos dara error
-                    $this->errores[] = "No te puedes agregar a ti mismo";
+                    $this->errores[] = "Error";
                 }
-                else if($user->alreadyFriends($user, $_SESSION['ID'])){ //Verificamos si ya somos amigos de ese usuario
-                    $this->errores[] = "Ya eres amigo de ese usuario";
+                else if(!$user->alreadySolicitud($_SESSION['ID'], $user->getId())){ //Verificamos que haya solicitudes pendientes
+                    $this->errores[] = "No hay una solicitud pendiente";
                 }
-                else if($user->alreadySolicitud($_SESSION['ID'], $user->getId())){ //Verificamos que no haya solicitudes pendientes
-                    $this->errores[] = "Ya hay una solicitud pendiente";
-                }
-                else{ //Si todo sale bien agregamos el amigo nuevo
-                    $logedUser = Usuario::buscarUsuario($_SESSION['Usuario']);
-                    $logedUser->addSolicitud($user->getId());
+                else{ //Si todo sale bien eliminamos la solicitud
+                    $user->deleteMySolicitud($_SESSION['ID'], $user->getId());
                 }
             }
         }

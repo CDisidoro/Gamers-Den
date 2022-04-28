@@ -1,5 +1,7 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-
+require('includes/FormularioAceptarSolicitud.php');
+require('includes/FormularioEliminarSolicitud.php');
+require('includes/FormularioEliminarSolicitudEntrante.php');
 /*
 *   Función que genera el html de la lista de deseos del usuario logeado.
 *   @param user usuario del que se quiere mostrar la lista.
@@ -41,7 +43,7 @@ function generaListaDeseosExt($usuario){
     $htmlDeseos = '<div class="row">';
     $deseos = $usuario->getWishList();
     if(sizeof($deseos) == 0){
-        $htmlDeseos = "<p> Este perfil aún no ha agregado a juegos :( </p>";
+        $htmlDeseos = "<p> Este perfil aún no ha agregado juegos :( </p>";
     }else{
         $index = 0;
         while($index < sizeof($deseos[0])){
@@ -154,6 +156,150 @@ function generaAvatar($usuario){
 }
 
 /*
+*   Función que genera el html de la lista de solicitudes recibidas
+*   @param Recibidas array con todas las solicitudes recibidas.
+*/
+function generaHtmlRecibidos($Recibidas){
+    if(sizeof($Recibidas) == 0){
+        $htmlAmigos = '<p> Aún no tienes solicitudes entrantes </p>';
+    }
+    else{
+        $htmlAmigos = '';
+        $htmlAmigos .= '<div class="row">';
+        foreach($Recibidas as $usuario){
+            $formulario = new FormularioAceptarSolicitud($usuario->getUsername());
+            $formHTML = $formulario->gestiona();
+
+            $formulario1 = new FormularioEliminarSolicitudEntrante($usuario->getUsername());
+            $formHTML1 = $formulario1->gestiona(); //no es igual eliminar mi solicitud que una solicitud que me hayan mandado
+
+            $srcAvatar = 'img/Avatar';
+            $srcAvatar .= $usuario->getAvatar();
+            $srcAvatar .= '.jpg';
+
+            $htmlAmigos .= '<div class = "amigolista col">';
+            $htmlAmigos .= '<a href="';
+            $htmlAmigos .= 'perfilExt.php?id=';
+            $htmlAmigos .= $usuario->getUsername();
+            $htmlAmigos .= '">';
+            $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
+            $htmlAmigos .= $srcAvatar;
+            $htmlAmigos .= '">';
+            $htmlAmigos .= '</a>';
+            $htmlAmigos .= '<p class = "nombreamigo">';
+            $htmlAmigos .= $usuario->getUsername();
+            $htmlAmigos .= '</p>';
+            $htmlAmigos .= '<div class = "flexrow">';
+            $htmlAmigos .= '<div>';
+            $htmlAmigos .= $formHTML;
+            $htmlAmigos .= '</div>';
+            $htmlAmigos .= '<div>';
+            $htmlAmigos .= $formHTML1;
+            $htmlAmigos .= '</div>';
+            $htmlAmigos .= '</div>';
+            $htmlAmigos .= '</div>';
+        }
+        $htmlAmigos .= '</div>';
+    }
+    
+    return $htmlAmigos;
+}
+
+/*
+*   Función que genera el html de la lista de solicitudes enviadas
+*   @param Enviados array con todas las solicitudes enviadas.
+*/
+function generaHtmlEnviados($Enviados){
+    if(sizeof($Enviados) == 0){
+        $htmlAmigos = '<p> Aún no has enviado ninguna solicitud </p>';
+    }
+    else{
+        $htmlAmigos = '';
+        $htmlAmigos .= '<div class="row">';
+        foreach($Enviados as $usuario){
+            $formulario = new FormularioEliminarSolicitud($usuario->getUsername());
+            $formHTML = $formulario->gestiona();
+
+            $srcAvatar = 'img/Avatar';
+            $srcAvatar .= $usuario->getAvatar();
+            $srcAvatar .= '.jpg';
+
+            $htmlAmigos .= '<div class = "amigolista col">';
+            $htmlAmigos .= '<a href="';
+            $htmlAmigos .= 'perfilExt.php?id=';
+            $htmlAmigos .= $usuario->getUsername();
+            $htmlAmigos .= '">';
+            $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
+            $htmlAmigos .= $srcAvatar;
+            $htmlAmigos .= '">';
+            $htmlAmigos .= '</a>';
+            $htmlAmigos .= '<p class = "nombreamigo">';
+            $htmlAmigos .= $usuario->getUsername();
+            $htmlAmigos .= '</p>';
+            $htmlAmigos .= $formHTML;
+            $htmlAmigos .= '</div>';
+        }
+        $htmlAmigos .= '</div>';
+    }
+    
+    return $htmlAmigos;
+}
+
+/*
+*   Función que genera el html del contenido principal de inbox
+*   @param bio biografía del usuario.
+*   @param id id del usuario.
+*   @param username nombre del usuario.
+*   @param htmlRecibidas lista de solicitudes recibidas del usuario.
+*   @param htmlAvatar avatar del usuario.
+*   @param htmlEnviadas lista de deseos solicitudes enviadas por el usuario.
+*/
+function generaContenidoPrincipalInbox($bio, $id, $username, $htmlRecibidas, $htmlAvatar, $htmlEnviadas){
+    $contenidoPrincipal=<<<EOS
+    <section class = "content">
+        <article class = "avatarydatos container">
+            <div class = "cajagrid row">
+                <div class = "cajagrid col-4">
+                    {$htmlAvatar}
+                </div>
+                <div class = "cajagrid col-8">
+                    <div class = "flexcolumn row">
+                        <div class = "cajaflex col">
+                            <p class = "nombreusuario">{$username}</p>
+                        </div>
+                        <div class = "cajaflex col">
+                            <p class = "descripcion">{$bio}</p>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class = "flexcolumn">
+                <div class = "cajaflex">
+                    <p class = "nId">Id#{$id}</p>
+                </div>
+            </div>
+        </article>
+        <article class = "listadeamigos container">
+            <h2 class="text-center">Solicitudes recibidas</h2>
+            <div class = "addAmigo">
+                <a href = "buscarAmigo.php" class = "inbox text-decoration-none" >Añadir amigos</a>
+            </div>
+            <div class = "flexrow">
+                $htmlRecibidas
+            </div>
+        </article>
+        <article class = "listadeseados container">
+            <h2 class="text-center">Solicitudes enviadas</h2>
+            <div class = "flexrow">
+                $htmlEnviadas
+            </div>
+        </article>
+    </section>
+    EOS;
+    return $contenidoPrincipal;
+}
+
+/*
 *   Función que genera el html de la página de perfil.
 *   @param bio biografía del usuario.
 *   @param id id del usuario.
@@ -186,7 +332,7 @@ function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar
                     <p class = "nId">Id#{$id}</p>
                 </div>
                 <div class = "cajaflex">
-                    <a href = "chat.php" class = "inbox text-decoration-none" >Inbox</a>
+                    <a href = "inbox.php" class = "inbox text-decoration-none" >Inbox</a>
                 </div>
                 <div class="cajaflex">
                     <a href = "cambiarBio.php" class = "inbox text-decoration-none" >Cambiar Biografia</a>

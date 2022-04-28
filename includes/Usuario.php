@@ -385,6 +385,119 @@
         }
 
         /**
+         * Carga la lista de solicitudes recibidas del usuario
+         * @return $result|false $result Lista de usuarios que han mandado solicitud; o false si ha ocurrido un error
+         */
+        public function getSolicitudesRecibidas(){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT Emisor FROM solicitudes WHERE Receptor = $this->id");
+            $rs = $conn->query($query);
+            $result = [];
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    $result[] = self::buscaPorId($fila['Emisor']);
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+        /**
+         * Carga la lista de solicitudes enviadas por el usuario
+         * @return $result|false $result Lista de usuarios a las que se le han mandado solicitud; o false si ha ocurrido un error
+         */
+        public function getSolicitudesEnviadas(){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT Receptor FROM solicitudes WHERE Emisor = $this->id");
+            $rs = $conn->query($query);
+            $result = [];
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    $result[] = self::buscaPorId($fila['Receptor']);
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
+        /**
+         * @return result Devuelve true si hay una solicitud entre ambos usuarios
+         */
+        public function alreadySolicitud($myID, $idAmigo){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM solicitudes WHERE Emisor = $myID AND Receptor = $idAmigo");
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {               
+                while($fila = $rs->fetch_assoc()) {
+                    if ($fila['Emisor'] == $myID && $fila['Receptor'] == $idAmigo) {
+                        $result = true;
+                    }
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
+        /**
+         * Envia una solicitud a cierto usuario
+         * @param idAmigo $usuario Usuario al que se quiere enviar una solicitud
+         * @return result|false true si todo ha ido bien, false en otro caso
+         */
+        public function addSolicitud($idAmigo){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("INSERT INTO solicitudes VALUES ('%s', '%s')"
+                , $conector->real_escape_string($this->id)
+                , $conector->real_escape_string($idAmigo)
+            );
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
+            }
+            return $resultado;
+        }
+
+        /**
+         * Elimina una solicitud a cierto usuario EN AMBOS SENTIDOS
+         * @param idEmisor $usuario Usuario que envia una solicitud
+         * @param idReceptor $usuario Usuario que recibe la solicitud
+         * @return result|false true si todo ha ido bien, false en otro caso
+         */
+        public function deleteSolicitud($idEmisor, $idReceptor){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("DELETE FROM solicitudes  WHERE (Emisor = $idEmisor AND Receptor = $idReceptor) OR (Emisor = $idReceptor AND Receptor = $idEmisor)");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
+            }
+            return $resultado;
+        }
+
+        /**
+         * Elimina una solicitud a cierto usuario EN SOLO UN SENTIDO
+         * @param idEmisor $usuario Usuario que envia una solicitud
+         * @param idReceptor $usuario Usuario que recibe la solicitud
+         * @return result|false true si todo ha ido bien, false en otro caso
+         */
+        public function deleteMySolicitud($idEmisor, $idReceptor){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("DELETE FROM solicitudes  WHERE (Emisor = $idEmisor AND Receptor = $idReceptor)");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                $resultado = true;
+            }
+            return $resultado;
+        }
+
+        /**
          * Obtiene todos los avatares vinculados a los amigos de un usuario
          * @param int $idAmigo ID del amigo que se esta buscando
          * @return array $result Array con los atributos del usuario (Su nombre, Avatar e ID)
