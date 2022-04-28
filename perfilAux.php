@@ -90,9 +90,9 @@ function generaAmigos($usuario){
         $htmlAmigos .= 'perfilExt.php?id=';
         $htmlAmigos .= $amigos[0][$index];
         $htmlAmigos .= '">';
-        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
+        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "img/Avatar';
         $htmlAmigos .= $srcAvatar;
-        $htmlAmigos .= '">';
+        $htmlAmigos .= '.jpg">';
         $htmlAmigos .= '</a>';
         $htmlAmigos .= '<p class = "nombreamigo">';
         $htmlAmigos .= $amigos[0][$index];
@@ -128,9 +128,9 @@ function generaAmigosExt($usuario){
         $htmlAmigos .= 'perfilExt.php?id=';
         $htmlAmigos .= $amigos[0][$index];
         $htmlAmigos .= '">';
-        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = " ';
+        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "img/Avatar';
         $htmlAmigos .= $srcAvatar;
-        $htmlAmigos .= ' ">';
+        $htmlAmigos .= '.jpg">';
         $htmlAmigos .= '</a>';
         $htmlAmigos .= '<p class = "nombreamigo">';
         $htmlAmigos .= $amigos[0][$index];
@@ -150,7 +150,7 @@ function generaAvatar($usuario){
     $srcAvatar = $usuario->getAvatar();
 
     $htmlAvatar = <<<EOS
-        <img class = "avatarPerfilUsuario" src = "$srcAvatar">
+        <img class = "avatarPerfilUsuario" src = "img/Avatar$srcAvatar.jpg">
     EOS;
     return $htmlAvatar;
 }
