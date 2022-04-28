@@ -54,7 +54,7 @@
                 else if($user->getId() == $_SESSION['ID']){ //Si intentamos agregarnos a nosotros mismos dará error
                     $this->errores[] = "Error";
                 }
-                else if(!$user->alreadySolicitud($_SESSION['ID'], $user->getId())){ //Verificamos que haya solicitudes pendientes
+                else if(!$user->alreadySolicitud($user->getId(), $_SESSION['ID'])){ //Verificamos que haya solicitudes pendientes
                     $this->errores[] = "No hay una solicitud pendiente";
                 }
                 else{ //Si todo sale bien eliminamos la solicitud

@@ -31,7 +31,7 @@
         $htmlAmigos .= '<div class = "amigolista col">';
         $htmlAmigos .= '<a href="';
         $htmlAmigos .= 'perfilExt.php?id=';
-        $htmlAmigos .= $usuario->getId();
+        $htmlAmigos .= $usuario->getUsername();
         $htmlAmigos .= '">';
         $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
         $htmlAmigos .= $srcAvatar;
