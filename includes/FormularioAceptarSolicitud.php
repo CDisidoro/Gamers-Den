@@ -57,12 +57,12 @@
                 else if($user->alreadyFriends($user, $_SESSION['ID'])){ //Verificamos si ya somos amigos de ese usuario
                     $this->errores[] = "Ya eres amigo de ese usuario";
                 }
-                else if(!$user->alreadySolicitud($_SESSION['ID'], $user->getId())){ //Verificamos que haya solicitudes pendientes
+                else if(!$user->alreadySolicitud($user->getId(), $_SESSION['ID'])){ //Verificamos que haya solicitudes pendientes
                     $this->errores[] = "No hay una solicitud pendiente";
                 }
                 else{ //Si todo sale bien agregamos el amigo nuevo y eliminamos la solicitud
                     Usuario::addFriends($user, $_SESSION['ID']);
-                    $user->deleteSolicitud($_SESSION['ID'], $user->getId()); //cuando aceptas una solicitud se elimina tu solicitud y una posible solicitud en el otro sentido si la hubiera
+                    $user->deleteSolicitud($user->getId(), $_SESSION['ID']); //cuando aceptas una solicitud se elimina tu solicitud y una posible solicitud en el otro sentido si la hubiera
                 }
             }
         }
