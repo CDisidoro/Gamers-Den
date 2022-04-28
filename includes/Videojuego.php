@@ -107,6 +107,7 @@
 				$fila = $result->fetch_assoc();
 				$categorias[] = Categoria::buscaPorId($fila['ID']);
 			}
+			$result->free();
 			return $categorias;
 		}
 
@@ -160,6 +161,7 @@
 					$ofertasArray[] = new Videojuego($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
 										$fila['Desarrollador'],$fila['Lanzamiento'],$fila['Precio'],$fila['Imagen']);		
 				}
+				$result->free();
 				return $ofertasArray;
 			}
 			else{
@@ -187,6 +189,7 @@
 				$rsArray[] = new Videojuego($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Desarrollador'],$fila['Lanzamiento'],$fila['Precio'],$fila['Imagen']);		
 			}
+			$result->free();
 			return $rsArray;
 		}
 
@@ -298,6 +301,7 @@
 				}
 				$buscaJuego = new Videojuego($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
 										$fila['Desarrollador'],$fila['Lanzamiento'],$fila['Precio'],$fila['Imagen']);
+				$result->free();
 				return $buscaJuego;
 			} else{
 				return false;
@@ -320,6 +324,7 @@
 				}
 				$buscaJuego = new Videojuego($fila['ID'],$fila['Nombre'],$fila['Descripcion'],
 										$fila['Desarrollador'],$fila['Lanzamiento'],$fila['Precio'],$fila['Imagen']);
+				$result->free();
 				return $buscaJuego;
 			} else{
 				return false;

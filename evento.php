@@ -41,8 +41,8 @@ switch($_SERVER['REQUEST_METHOD']) {
                 $start = filter_input(INPUT_GET, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
                 $end = filter_input(INPUT_GET, 'end', FILTER_SANITIZE_SPECIAL_CHARS);
                 if ($start) {
-                    $startDateTime = \DateTime::createFromFormat(DateTime::ISO8601, $start);
-                    $endDateTime = \DateTime::createFromFormat(DateTime::ISO8601, $end);
+                    $startDateTime = \DateTime::createFromFormat(\DateTime::ISO8601, $start);
+                    $endDateTime = \DateTime::createFromFormat(\DateTime::ISO8601, $end);
                     $result = Evento::buscaEntreFechas(1, $startDateTime, $endDateTime);
                 } else {
                     http_response_code(400);
@@ -59,7 +59,7 @@ switch($_SERVER['REQUEST_METHOD']) {
             header('Content-Length: ' . mb_strlen($json));
 
             echo $json;
-        }catch(Exception $e) {
+        }catch(\Exception $e) {
             http_response_code(500);
             echo 'Error en la aplicación';
             error_log($e);

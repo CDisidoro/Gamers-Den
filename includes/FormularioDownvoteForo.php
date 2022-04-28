@@ -10,10 +10,10 @@
         *   @param int $idForo ID del foro que se hacer un upvote
         *   @param int $idUsuario ID del usuario logeado para verificar la identidad
         */
-        public function __construct($idForo, $idUsuario) { 
+        public function __construct($idForo, $idUsuario, $redirection) { 
             $this->idForo = $idForo;
             $this->idUsuario = $idUsuario;
-            parent::__construct('formDownvoteForo', ['urlRedireccion' => 'foro_general.php']);
+            parent::__construct('formDownvoteForo', ['urlRedireccion' => $redirection]);
         }
         
         /**

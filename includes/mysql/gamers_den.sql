@@ -170,7 +170,7 @@ CREATE TABLE `usuarios` (
   `Password` varchar(255) NOT NULL COMMENT 'SHA',
   `Email` text NOT NULL,
   `Rol` text NOT NULL,
-  `Avatar` int(11) DEFAULT 1,
+  `Avatar` text DEFAULT 'img/Avatar1.jpg',
   `Biografia` longtext DEFAULT NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

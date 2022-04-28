@@ -79,7 +79,7 @@
 
         /**
          * Obtiene el avatar asociado al usuario
-         * @return int $avatar Numero de avatar del usuario
+         * @return string $avatar Ruta del avatar del usuario
          */
         public function getAvatar(){
             return $this->avatar;
@@ -546,7 +546,7 @@
         public function updateAvatar($idAvatar){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $userId = $this->getId();
-            $query = sprintf("UPDATE usuarios SET Avatar = $idAvatar WHERE usuarios.ID = $userId");
+            $query = sprintf("UPDATE usuarios SET Avatar = '$idAvatar' WHERE usuarios.ID = $userId");
             if (!$conector->query($query)){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }else{
@@ -658,6 +658,7 @@
             } else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
+            $rs->free();
             return $result;
         }
 
@@ -709,8 +710,10 @@
                 return true;
             }else{
                 if ($resultado->num_rows == 0){
+                    $resultado->free();
                     return false;
                 }else{
+                    $resultado->free();
                     return true;
                 }
             }

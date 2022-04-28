@@ -211,9 +211,11 @@
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT Usuario FROM forUpVotes WHERE Foro LIKE $this->id");
         $result = $conn->query($query);
-        if($result)
-            return $result->num_rows;
-        else
+        if($result){
+            $rows = $result->num_rows;
+            $result->free();
+            return $rows;
+        }else
             return 0;
     }
 
@@ -221,10 +223,17 @@
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT Usuario FROM forDownVotes WHERE Foro LIKE $this->id");
         $result = $conn->query($query);
-        if($result)
-            return $result->num_rows;
-        else
+        if($result){
+            $rows = $result->num_rows;
+            $result->free();
+            return $rows;
+        }else
             return 0;
+    }
+
+    public function getUltimoComentario(){
+        $com = Comentario::GetUltimoComentario($this->id, $this->fecha);
+        return $com;
     }
 }
 ?>

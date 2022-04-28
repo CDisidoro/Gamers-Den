@@ -22,10 +22,6 @@
     $htmlForos .= '<section class = "mostrarNoticias container">';
     foreach($foros as $foro){
         $idForo = $foro->getId();
-        $formUpvote = new FormularioUpvoteForo($idForo,$_SESSION['ID']);
-        $formHTMLUpVote = $formUpvote->gestiona();
-        $formDownvote = new FormularioDownvoteForo($idForo,$_SESSION['ID']);
-        $formHTMLDownVote = $formDownvote->gestiona();
         $contenido = $foro->getContenido();
         $autor = $foro->getAutor();
         $usuario = Usuario::buscaPorId($autor);
@@ -39,10 +35,8 @@
                     <p class = "contenidoForo">$contenido</p>
                 </a>
                 <p class = "autorForo">$nombreAutor</p>
-                <p class = "autorForo">$upvotes</p>
-                $formHTMLUpVote
-                <p class = "fechaForo">$downvotes</p>
-                $formHTMLDownVote
+                <p class = "autorForo">LIKES: $upvotes</p>
+                <p class = "fechaForo">DISLIKES: $downvotes</p>
                 <p class = "fechaForo">$fecha</p>
             </div>
         EOS;
