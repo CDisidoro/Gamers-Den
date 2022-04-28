@@ -30,7 +30,7 @@ USE `gamers_den`;
 -- catalogador: catalogapass
 -- moderador: modpass
 -- usuario: userpass
--- art25: (PENDIENTE)
+-- art25: 12345
 
 INSERT INTO `usuarios` (`ID`, `Usuario`, `Password`, `Email`, `Rol`, `Avatar`, `Biografia`) VALUES
 (1, 'admin', '$2y$10$Tqw1LUHWQ7kCSaC/HbwW..8mc/lacMnohhtQPJFLI5UNSDnZVul96', 'admin@gamersden.com', '1', 2, 'Juego o saco el banhammer?'),
