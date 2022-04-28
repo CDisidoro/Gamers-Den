@@ -1,32 +1,37 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
-	$tituloPagina = 'Nuestra tienda';
+	$tituloPagina = 'Foro';
 
 	function generaForos(){
 		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
 		$arrayForos = Foro::getForos();
+		$foros = '';
 		## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada
 		if($arrayForos != -1){
 			foreach ($arrayForos as $foro) {
 				$idForo = $foro->getId();
+				$formUpvote = new FormularioUpvoteForo($idForo,$_SESSION['ID']);
+				$formHTMLUpVote = $formUpvote->gestiona();
+				$formDownvote = new FormularioDownvoteForo($idForo,$_SESSION['ID']);
+				$formHTMLDownVote = $formDownvote->gestiona();
 				$contenido = $foro->getContenido();
 				$autor = $foro->getAutor();
+				$usuario = Usuario::buscaPorId($autor);
+				$nombreAutor = $usuario->getUsername();
 				$fecha = $foro->getFecha();
                 $upvotes = $foro->getUpvotes();
                 $downvotes = $foro->getDownvotes();
-				## URL del producto junto con el id
-				$id = 'Productos.php?id='.$producto->getID();
 				$foros.=<<<EOS
 					<div class = "tarjetaProducto">
-						<a href=$id rel="nofollow" target="_blank">
 						<a href = "foro_particular.php?id=$idForo">
 							<p class = "contenidoForo">$contenido</p>
 						</a>
-						<p class = "autorForo">$autor</p>
-                        <p class = "autorForo">$autor</p>
-                        <p class = "fechaForo">$fecha</p>
-                        <p class = "fechaForo">$fecha</p>
-						</a>
+						<p class = "autorForo">$nombreAutor</p>
+						<p class = "autorForo">$upvotes</p>
+						$formHTMLUpVote
+						<p class = "fechaForo">$downvotes</p>
+						$formHTMLDownVote
+						<p class = "fechaForo">$fecha</p>
 					</div>
 				EOS;
 			}
@@ -34,108 +39,45 @@
 		return $foros;
 	}
 
-	function generaTodosProductos(){
-		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
-		$arrayProductos = Producto::getAllProductos();
-
-		$productos = '';
-		## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada
-		if($arrayProductos != -1){
-			foreach ($arrayProductos as $producto) {
-				$idProducto = $producto->getID();
-				$nomProducto = $producto->getNombre();
-				$descProducto = $producto->getDescripcion();
-				$urlImagen = $producto->getImagen();
-				## URL del producto junto con el id
-				$id = 'Productos.php?id='.$producto->getID();
-				$productos.=<<<EOS
-					<div class = "tarjetaProducto">
-						<a href=$id rel="nofollow" target="_blank">
-						<a href = "tienda_particular.php?id=$idProducto">
-							<img src=$urlImagen class = "imagenTajetaProducto" />
-							<p class = "nombreProductoTarjeta">$nomProducto</p>
-						</a>
-						<p class = "descripcionProductoTarjeta">$descProducto</p>
-						</a>
-					</div>
-				EOS;
-			}
-		}	
-		return $productos;
-	}
-
-	function generaAgregarProducto(){
-		$addProducto = '';
+	function generaAgregarForos(){
+		$addForo = '';
 		if(isset($_SESSION['login'])){
-			$addProducto = <<<EOS
+			$addForo = <<<EOS
 				<div class = "cajaBotonProducto col">
-					<a href = "crearProducto.php"> Añadir Producto </a>
+					<a href = "crearForo.php"> Añadir Foro </a>
 				</div>
 			EOS;
 		}
-		return $addProducto;
+		return $addForo;
 	}
 
-	$productos = generaProductos();
-	$todosproductos = generaTodosProductos();
-	$addProducto = generaAgregarProducto();
-	if(isset($_SESSION['login'])){
-		$usuario = Usuario::buscaPorId($_SESSION['ID']);
-		$textCarrito = 'Mi Carrito ('.$usuario->longCarrito() .')';
-		$contenidoPrincipal=<<<EOS
-		<section class = "tiendaPrincipal container">
-			<div class = "container">
-				<div class = "cajaTituloTienda">
-					<h1 class = "tituloPagina text-center"> Todos los productos </h1>
-				</div>
-				<div class = "miCarrito">
-					<div class = "cajaBotonCarrito">
-						<a href = "carrito.php">$textCarrito</a>
-					</div>
-				</div>
-				<div class = "cuadrotodosProductos">
-					{$productos}
-				</div>
+	$foros = generaForos();
+	$addForo = generaAgregarForos();
+	$contenidoPrincipal=<<<EOS
+        <section class = "foroPrincipal container">
+            <div class = "container">
+                <div class = "cajaTituloForo">
+                    <h1 class = "tituloPagina text-center"> Todos los foros </h1>
+                </div>
 
-				<div class = "container">
+                <div class = "container">
 
-					<div class = "productosCuadro container">
-						<div class = "botonesProductos row">
-							<div class = "cajaBotonProducto col">
-								<a href = "tienda.php?caracteristica=Destacado"> Destacado </a>
-							</div>
+                    <div class = "productosCuadro container">
+                        <div class = "botonesProductos row">
+                            $addForo
+                            <div class = "cajaBusqueda col">
+                                <a href = "buscarForo.php" class="btn btn-link" > <img src = "img/search.svg" class = "imagenBusqueda"> </a>
+                            </div>
 
-							<div class = "cajaBotonProducto col">
-								<a href = "tienda.php?caracteristica=Nuevo"> Nuevo </a>
-							</div>
+                        </div>
 
-							<div class = "cajaBotonProducto col">
-								<a href = "tienda.php?caracteristica=Popular"> Popular </a>
-							</div>
+                    <div class = "cuadroProductos container">
+                        {$foros}                   
+                    </div>                            
+                </div>
 
-							$addProducto
-							
-							<div class = "cajaBusqueda col">
-								<a href = "buscarProducto.php" class="btn btn-link" > <img src = "img/search.svg" class = "imagenBusqueda"> </a>
-							</div>
-
-						</div>
-
-					<div class = "cuadroProductos container">
-						{$todosproductos}                     
-					</div>                            
-				</div>
-
-			</div>		
-		</section>
-		EOS;
-	}
-	else {
-        $contenidoPrincipal = <<<EOS
-            <section class = "content">
-                <p>No has iniciado sesión. Por favor, logueate para poder acceder a la tienda</p>
-            </section>
-        EOS;
-    }
+            </div>		
+        </section>
+    EOS;
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>

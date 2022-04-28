@@ -67,12 +67,14 @@
             $result = $conn->query($query);
             $returning = [];
             if($result) {
-                for ($i = 0; $i < $result->num_rows; $i++) {
+                $rows = $result->num_rows;
+                for ($i = 0; $i < $rows; $i++) {
                     $fila = $result->fetch_assoc();
                     $returning[] = new Foro($fila['ID'], $fila['Autor'], $fila['Fecha'],$fila['Contenido']);
                 }
                 $result->free();
-                $votedresult = orderbyVotes($returning);
+                if($returning != null)
+                    $votedresult = self::orderbyVotes($returning, $rows);
                 return $votedresult;
             } else{
                 return false;
@@ -188,13 +190,13 @@
         return $returning;
     }
 
-    public function orderbyVotes($returning){
+    public static function orderbyVotes($returning, $rows){
         //Usamos un bucle anidado
-        for ($i = 0; $i < $returning->num_rows - 1; $i++) {
-            for($j = $i+1; $j < $returning->num_rows; $j++){
+        for ($i = 0; $i < $rows - 1; $i++) {
+            for($j = $i+1; $j < $rows; $j++){
                 $ivotes = $returning[$i]->getUpvotes() - $returning[$i]->getDownvotes();
                 $jvotes = $returning[$j]->getUpvotes() - $returning[$j]->getDownvotes();
-                if($ivotes>$jvotes){
+                if($ivotes < $jvotes){
                     //Intercambiamos valores
                     $aux=$returning[$i];
                     $returning[$i]=$returning[$j];

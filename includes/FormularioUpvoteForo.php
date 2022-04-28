@@ -67,7 +67,7 @@
                 else{
                     if(!$usuario->masUpvote($idForo)){
                         if ($usuario->alreadyDownvoted($idForo))
-                            $usuario->eliminaDownvote($idForo)
+                            $usuario->eliminaDownvote($idForo);
                         $this->errores[] = 'Algo ha salido mal';
                     }
                 }

@@ -11,7 +11,7 @@
                 <a href = "chat.php"  class="link-dark text-decoration-none"> Chat</a>
             </div>
             <div class="col cajaforoNav botonNav">
-                <a href = "notfound.php" class="link-dark text-decoration-none"> Foro</a>
+                <a href = "foro_general.php" class="link-dark text-decoration-none"> Foro</a>
             </div>
             <div class="col cajanoticiasNav botonNav">
                 <a href = "noticias_principal.php?tag=1" class="link-dark text-decoration-none" > Noticias</a>

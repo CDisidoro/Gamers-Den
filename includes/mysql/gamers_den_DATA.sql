@@ -96,6 +96,16 @@ INSERT INTO `juegos` (`Nombre`, `Descripcion`, `Lanzamiento`, `Desarrollador`, `
 ;
 
 --
+-- Volcado de datos para la tabla `foro`
+--
+
+INSERT INTO `foro` (`ID`, `Autor`, `Contenido`, `Fecha`) VALUES
+(1, 1, 'EL PODER DE LA AMISTAD', '2022-04-27'),
+(2, 1, 'UBISOFT ME ROBA EL DINERO', '2022-04-27'),
+(3, 1, 'NO SE LE PAGA LO SUFICIENTE A LOS PROGRAMADORES DE VIDEOJUEGOS', '2022-04-27'),
+(4, 1, 'ELDEN RING ES MUY FACIL', '2022-04-27');
+
+--
 -- Dumping data for table `noticias`
 --
 

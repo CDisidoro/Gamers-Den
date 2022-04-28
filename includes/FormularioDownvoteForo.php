@@ -26,7 +26,7 @@
             *   Los campos que se crean son un input invisible con el id del amigo y un botón para enviar.
             */
             $usuario = Usuario::buscaPorId($this->idUsuario);
-            if($usuario->alreadyUpvoted($this->idForo)){
+            if($usuario->alreadyDownvoted($this->idForo)){
                 $html = <<<EOF
                     <input type="hidden" name="idForo" value="{$this->idForo}"  />
                     <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/DownVoteOn.jpg"> </button>
@@ -67,7 +67,7 @@
                 else{
                     if(!$usuario->masDownvote($idForo)){
                         if ($usuario->alreadyUpvoted($idForo))
-                            $usuario->eliminaUpvote($idForo)
+                            $usuario->eliminaUpvote($idForo);
                         $this->errores[] = 'Algo ha salido mal';
                     }
                 }

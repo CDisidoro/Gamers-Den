@@ -692,7 +692,7 @@
         public function eliminaUpvote($idForo){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $idUsuario = $this->id;
-            $query = sprintf("DELETE FROM forUpVotes WHERE Firi = $idForo AND Usuario = $idUsuario");
+            $query = sprintf("DELETE FROM forUpVotes WHERE Foro = $idForo AND Usuario = $idUsuario");
             if (!$conector->query($query)){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
                 return false;
@@ -749,7 +749,7 @@
         public function eliminaDownvote($idForo){
             $conector = Aplicacion::getInstance()->getConexionBd();
             $idUsuario = $this->id;
-            $query = sprintf("DELETE FROM forDownVotes WHERE Firi = $idForo AND Usuario = $idUsuario");
+            $query = sprintf("DELETE FROM forDownVotes WHERE Foro = $idForo AND Usuario = $idUsuario");
             if (!$conector->query($query)){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
                 return false;
