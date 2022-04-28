@@ -230,5 +230,10 @@
         }else
             return 0;
     }
+
+    public function getUltimoComentario(){
+        $com = Comentario::GetUltimoComentario($this->id, $this->fecha);
+        return $com;
+    }
 }
 ?>

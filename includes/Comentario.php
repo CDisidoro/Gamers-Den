@@ -203,5 +203,23 @@
         }else
             return 0;
     }
+
+    public static function GetUltimoComentario($foro, $date){
+        $latestCom = $date;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM comentarios WHERE Foro LIKE $foro");
+        $result = $conn->query($query);
+        if($result) {
+            for ($i = 1; $i < $result->num_rows; $i++) {
+                $fila = $result->fetch_assoc();
+                if($latestCom < $fila['Fecha'])
+                    $latestCom = $fila['Fecha'];
+            }
+            $result->free();
+            return $latestCom;
+        } else{
+            return NULL;
+        }
+    }
 }
 ?>
