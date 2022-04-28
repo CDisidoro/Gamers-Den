@@ -19,7 +19,9 @@ function generaListaDeseos($usuario){
             $srcImg = $deseos[2][$index];
             $htmlDeseos .= <<<EOS
                 <div class="amigoLista col">
-                    <img class="avatarPerfilUsuario" src="$srcImg"/>
+                    <a href="juego_particular.php?id=$idJuego">
+                        <img class="avatarPerfilUsuario" src="$srcImg"/>
+                    </a>
                     <p class="nombreamigo">$nombreJuego</p>
                     $formHTML
                 </div>
