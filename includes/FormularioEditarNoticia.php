@@ -59,19 +59,18 @@
                             {$erroresCampos['descripcion']}
                         </div>
                         <div>
-                        <label for="etiqueta" class="form-label">Cambia la etiqueta: </label>
-                            <select class="js-example-basic-single" name="etiqueta">
+                            <label for="etiqueta" class="form-label">Cambia la etiqueta: </label>
+                            <select class="js-example-basic-multiple" name="etiquetas[]" style="width: 75%" multiple="multiple" required>
                                 <option value="1">Nuevo</option>
                                 <option value="2">Destacado</option>
                                 <option value="3">Popular</option>
                                 <option value="4">Cartelera</option>
-                            </select>
+                            </select>  
                             <script>
-                                $(document).ready(function(e) {
-                                    $('.js-example-basic-multiple').select2();
-                                    $etiquetaNoticia = e.value;
-                                });
-                            </script>
+                                $(document).ready(function() {
+                                    $('.js-example-basic-multiple').select2({width: 'resolve'});
+                                });   
+                            </script>                       
                             {$erroresCampos['etiqueta']}
                         </div>
                         <div>
@@ -85,7 +84,7 @@
             return $html;
         }
 
-                /**
+        /**
          * Se encarga de subir una imagen a la BD y retornar la ruta donde ha sido subida.
          * Fuente: https://www.jose-aguilar.com/blog/upload-de-imagenes-con-php/
          * @return string|false Si ha subido correctamente la imagen retornara su ruta de subida o false si algo ha ido mal
@@ -160,8 +159,13 @@
             if (!$descripcion) {
                 $this->errores['descripcion'] = 'La descripcion no es valida';
             }
-            $etiqueta = filter_var($datos['etiqueta'] ?? null, FILTER_SANITIZE_NUMBER_INT);
-            if (!$etiqueta) {
+
+            $etiquetas = $datos['etiquetas'];
+            foreach($etiquetas as $etiqueta){
+                $etiqueta = filter_var($etiqueta ?? null, FILTER_SANITIZE_NUMBER_INT);
+            }      
+            
+            if (!$etiquetas) {
                 $this->errores['etiqueta'] = 'La etiqueta no es valida';
             }
             if(count($this->errores) === 0){
@@ -172,7 +176,7 @@
                 if(!$noticia){
                     $this->errores[] = 'Error buscando la noticia';
                 }else{
-                    if(!($noticia->editarNoticia($titulo,$imagen,$contenido,$descripcion,$etiqueta))){
+                    if(!($noticia->editarNoticia($titulo,$imagen,$contenido,$descripcion,$etiquetas))){
                         $this->errores[] = 'Ha ocurrido un error al editar la noticia';
                     }
                 } 

@@ -24,9 +24,11 @@
             $titulo = $datos['titulo'] ?? '';
             $contenido = $datos['contenido'] ?? '';
             $descripcion = $datos['descripcion'] ?? '';
+            $etiquetas = $datos['etiquetas'] ?? '';
+
             $idUsuario = $this->idUsuario;
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['titulo','imagen','contenido','descripcion'], $this->errores, 'span', array('class' => 'error'));
+            $erroresCampos = self::generaErroresCampos(['titulo','imagen','contenido','descripcion', 'etiquetas'], $this->errores, 'span', array('class' => 'error'));
             $html = <<<EOF
             $htmlErroresGlobales
             <fieldset class="container">
@@ -49,6 +51,21 @@
                     <label for="descripcion" class="form-label">Nueva descripcion: </label>
                     <input type="text" class="form-control" id="descripcion" name="descripcion" value="$descripcion" required>
                     {$erroresCampos['descripcion']}
+                </div>
+                <div>
+                    <label for="etiqueta" class="form-label">Selecciona etiquetas para la noticia: </label>
+                    <select class="js-example-basic-multiple" name="etiquetas[]" style="width: 75%" multiple="multiple" required>
+                        <option value="1">Nuevo</option>
+                        <option value="2">Destacado</option>
+                        <option value="3">Popular</option>
+                        <option value="4">Cartelera</option>
+                    </select>  
+                    <script>
+                        $(document).ready(function() {
+                            $('.js-example-basic-multiple').select2({width: 'resolve'});
+                        });   
+                    </script>                       
+                    {$erroresCampos['etiquetas']}
                 </div>
                 <div>
                     <input type="hidden" id="idUsuario" name="idUsuario" value="$idUsuario"/>
@@ -106,9 +123,16 @@
             if (!$descripcion) {
                 $this->errores['descripcion'] = 'La descripcion no es valida';
             }
+            $etiquetas = $datos['etiquetas'];
+            foreach($etiquetas as $etiqueta){
+                $etiqueta = filter_var($etiqueta ?? null, FILTER_SANITIZE_NUMBER_INT);
+            }               
+            if (!$etiquetas) {
+                $this->errores['etiqueta'] = 'La etiqueta no es valida';
+            }
             //Una vez validadas las entradas se inserta el producto
             if(count($this->errores) === 0){
-                $noticia = Noticia::subeNoticia($titulo,$contenido,$this->idUsuario,$imagen,$descripcion);
+                $noticia = Noticia::subeNoticia($titulo,$contenido,$this->idUsuario,$imagen,$descripcion, $etiquetas);
                 if(!$noticia){
                     $this->errores[] = 'Ha ocurrido un error';
                 }

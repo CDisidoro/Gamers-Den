@@ -134,11 +134,14 @@
          * Se encarga de publicar una noticia nueva en la pagina (PENDIENTE DE ARREGLAR)
          * @return bool Si se ha efectuado correctamente la query retornara true, o false en el caso opuesto
          */
-        public static function subeNoticia($titulo,$contenido,$autor,$urlImagen,$descripcion) {
-            $etiquetas = 1;
+        public static function subeNoticia($titulo,$contenido,$autor,$urlImagen,$descripcion, $etiquetas) {
+            $Etiquetas = '';
+            foreach($etiquetas as $etiqueta){
+                $Etiquetas .= $etiqueta;
+            }
             $conector = Aplicacion::getInstance()->getConexionBd();
             $query = "INSERT INTO noticias (Titulo, Imagen, Contenido, Descripcion, Etiquetas, Autor)
-                    VALUES ('$titulo', '$urlImagen', '$contenido', '$descripcion', '$etiquetas', '$autor')";
+                    VALUES ('$titulo', '$urlImagen', '$contenido', '$descripcion', '$Etiquetas', '$autor')";
             if ( ! $conector->query($query) ) {
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
                 return false;
@@ -152,9 +155,13 @@
          * @return bool True si se ha borrado la noticia; False si no se ha podido borrar
          */
         public function editarNoticia($titulo, $imagen, $contenido, $descripcion, $etiquetas){
+            $Etiquetas = '';
+            foreach($etiquetas as $etiqueta){
+                $Etiquetas .= $etiqueta;
+            }
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("UPDATE noticias 
-            SET Titulo = '$titulo', Contenido = '$contenido', Imagen = '$imagen', Descripcion = '$descripcion', Etiquetas = '$etiquetas'
+            SET Titulo = '$titulo', Contenido = '$contenido', Imagen = '$imagen', Descripcion = '$descripcion', Etiquetas = '$Etiquetas'
             WHERE id = %d", $this->getID());
             if ( ! $conn->query($query) ) {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -218,7 +225,8 @@
         public static function mostrarPorCar($categoria) {          
             $mysqli = Aplicacion::getInstance()->getConexionBd();
             $Categoria = $mysqli->real_escape_string($categoria); //filtro de seguridad
-            $query = sprintf("SELECT * FROM noticias WHERE Etiquetas = '$Categoria'");
+            
+            $query = sprintf("SELECT * FROM noticias WHERE Etiquetas LIKE '%%{$Categoria}%%'");
             $result = $mysqli->query($query);
             $returning = [];
             if($result) {
