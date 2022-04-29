@@ -29,9 +29,7 @@
                                     EOS;
                                     if(isset($_SESSION['login'])){
                                         $avatar = Usuario::buscaPorId($_SESSION['ID'])->getAvatar();
-                                        $img = 'img/Avatar';
-                                        $img .= $avatar;
-                                        $img .= '.jpg';
+                                        $img = $avatar;
 
                                         $saludo .= <<<EOS
                                         <img src="$img" class="img-fluid imagenprincipalCabecera">
