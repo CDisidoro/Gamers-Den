@@ -24,9 +24,7 @@
         $formulario = new FormularioAmigos($usuario->getUsername());
         $formHTML = $formulario->gestiona();
 
-        $srcAvatar = 'img/Avatar';
-        $srcAvatar .= $usuario->getAvatar();
-        $srcAvatar .= '.jpg';
+        $srcAvatar = $usuario->getAvatar();
 
         $htmlAmigos .= '<div class = "amigolista col">';
         $htmlAmigos .= '<a href="';

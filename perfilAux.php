@@ -90,9 +90,9 @@ function generaAmigos($usuario){
         $htmlAmigos .= 'perfilExt.php?id=';
         $htmlAmigos .= $amigos[0][$index];
         $htmlAmigos .= '">';
-        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "img/Avatar';
+        $htmlAmigos .= '<img class = "avatarPerfilUsuario" src = "';
         $htmlAmigos .= $srcAvatar;
-        $htmlAmigos .= '.jpg">';
+        $htmlAmigos .= '">';
         $htmlAmigos .= '</a>';
         $htmlAmigos .= '<p class = "nombreamigo">';
         $htmlAmigos .= $amigos[0][$index];
@@ -150,7 +150,7 @@ function generaAvatar($usuario){
     $srcAvatar = $usuario->getAvatar();
 
     $htmlAvatar = <<<EOS
-        <img class = "avatarPerfilUsuario" src = "img/Avatar$srcAvatar.jpg">
+        <img class = "avatarPerfilUsuario" src = "$srcAvatar">
     EOS;
     return $htmlAvatar;
 }
@@ -173,8 +173,7 @@ function generaHtmlRecibidos($Recibidas){
             $formulario1 = new FormularioEliminarSolicitudEntrante($usuario->getUsername());
             $formHTML1 = $formulario1->gestiona(); //no es igual eliminar mi solicitud que una solicitud que me hayan mandado
 
-            $srcAvatar = 'img/';
-            $srcAvatar .= $usuario->getAvatar();
+            $srcAvatar = $usuario->getAvatar();
 
             $htmlAmigos .= '<div class = "amigolista col">';
             $htmlAmigos .= '<a href="';
@@ -219,9 +218,7 @@ function generaHtmlEnviados($Enviados){
             $formulario = new FormularioEliminarSolicitud($usuario->getUsername());
             $formHTML = $formulario->gestiona();
 
-            $srcAvatar = 'img/Avatar';
-            $srcAvatar .= $usuario->getAvatar();
-            $srcAvatar .= '.jpg';
+            $srcAvatar = $usuario->getAvatar();
 
             $htmlAmigos .= '<div class = "amigolista col">';
             $htmlAmigos .= '<a href="';
