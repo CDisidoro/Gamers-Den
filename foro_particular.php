@@ -1,6 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
-    require('chatAux.php');
+    require('foroAux.php');
     $tituloPagina = "Foro";
 
     if(isset($_SESSION['login'])){
@@ -10,13 +10,13 @@
         //Se generan los mensajes entre los usuarios, se añade el 1 porque queremos que solo nos carguen los mensajes de amigos
         $comentarios = Comentario::getComentarios($foro->getId());
         //Se crea el formulario para poder enviar un mensaje al amigo
-        $formMandaCorreos = new FormularioMandaCorreos($usuario->getId(),$foro->getId());
+        $formMandaCorreos = new FormularioMandaCom($usuario->getId(),$foro->getId());
         $formulario = $formMandaMensajes->gestiona();
         
-        $htmlAvatar = generaAvatar($amigo);
-        $htmlChat = generaChat($usuario, $amigo, $mensajes);
+        $htmlForo = generaForo($foro);
+        $htmlCom = generaCom($usuario, $comentarios);
 
-        $contenidoPrincipal = generaHtmlParticular($htmlAvatar, $amigo->getUsername(), $htmlChat, $formulario);
+        $contenidoPrincipal = generaHtmlParticular($htmlForo, $htmlCom, $formulario);
     }else
         $contenidoPrincipal = generaHtmlnoConectado();
 

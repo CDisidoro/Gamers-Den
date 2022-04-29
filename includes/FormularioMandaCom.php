@@ -1,6 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 
-    class FormularioMandaCorreos extends Formulario{
+    class FormularioMandaCom extends Formulario{
         private $idUsuario;
         private $idForo
         /**
@@ -11,7 +11,7 @@
             $this->idUsuario = $idUsuario;
             $this->idForo = $idForo;
             $redireccion = 'foro_particular.php?id=' . $this->idForo;
-            parent::__construct('formMandaCorreos', ['urlRedireccion' => $redireccion]);
+            parent::__construct('formMandaCom', ['urlRedireccion' => $redireccion]);
         }
         
         /**
