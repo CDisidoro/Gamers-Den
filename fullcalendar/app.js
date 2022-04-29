@@ -1,26 +1,19 @@
 var myModal = new bootstrap.Modal(document.getElementById('myModal'));
 let formula = document.getElementById('formulario');
-document.addEventListener('DOMContentLoaded', function() {  
+document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    selectable: true,
-    headerToolBar:{
-        start: 'prev, next today',
+      initialView: 'dayGridMonth',
+      locale: 'es',
+      headerToolbar: {
+        left: 'prev,next today',
         center: 'title',
-        end: 'dayGridMonth, timeGridWeek, timeGridDay'
-    },
-    dateClick: function(info) {
-        
-       //alert('Date: ' + info.dateStr);
-       //document.getElementById('start').value = info.dateStr;
-       myModal.show();
-    },
-    events: 'evento.php'
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      dateClick: function(info) {
+        myModal.show();
+     },
+     events: 'evento.php'
     });
     calendar.render();
-
-    formula.addEventListener('btnAccion',function(e){
-        e.preventDefault();
-    });
 });
