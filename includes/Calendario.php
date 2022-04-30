@@ -1,8 +1,10 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
+require('includes/Aplicacion.php');
+use \DateTime;
 	/**
 	 * Clase basica para la gestion del Calendario
 	 */
-	class Calendario{
+	class Calendario implements \JsonSerializable{
 		//ATRIBUTOS DE CLASE
 		private $id;
 		private $evento;
@@ -25,6 +27,22 @@
 			$this->colorEvento = $colorEvento;
 			$this->fechaInicio = $fechaInicio;
 			$this->fechaFin = $fechaFin;
+		}
+
+		/**
+		 * Método utilizado por la función de PHP json_encode para serializar un objeto que no tiene atributos públicos.
+		 *
+		 * @return Devuelve un objeto con propiedades públicas y que represente el estado de este evento.
+		 */
+		public function jsonSerialize()
+		{
+			$o = new \stdClass();
+			$o->id = $this->id;
+			$o->evento = $this->evento;
+			$o->colorEvento = $this->colorEvento;
+			$o->start = $this->fechaInicio;
+			$o->end = $this->fechaFin;
+			return $o;
 		}
 
 		/**
@@ -75,8 +93,7 @@
 			if($result) {
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
-					$ofertasArray[] = new Calendario($fila['ID'],$fila['Evento'],$fila['colorEvento'],
-										$fila['fechaInicio'],$fila['fechaFin']);		
+					$ofertasArray[] = new Calendario($fila['ID'],$fila['Evento'],$fila['ColorEvento'], $fila['FechaInicio'],$fila['FechaFin']);		
 				}
 				return $ofertasArray;
 			}
@@ -93,7 +110,7 @@
          */
         public static function buscaEvento($id) {
             $mysqli = Aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM calendario WHERE ID = '$id'";
+            $query = "SELECT * FROM calendario WHERE ID = $id";
             $result = $mysqli->query($query);
             if($result) {
                 $fila = $result->fetch_assoc();

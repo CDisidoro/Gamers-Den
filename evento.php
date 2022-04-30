@@ -1,5 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-
+require('includes/Calendario.php');
+require('includes/config.php');
 // Procesamos la cabecera Content-Type
 $contentType= $_SERVER['CONTENT_TYPE'] ?? 'application/json';
 $contentType = strtolower(str_replace(' ', '', $contentType));
@@ -34,7 +35,8 @@ switch($_SERVER['REQUEST_METHOD']) {
             $idEvento = filter_input(INPUT_GET, 'idEvento', FILTER_VALIDATE_INT);
             if ($idEvento) {
                 $result = [];
-                $result[] = Calendario::buscaEvento((int)$idEvento);
+                $result[] = Calendario::buscaEvento($idEvento);
+                //$result[] = Calendario::buscarTodosEventos();
             } else {
                 // Comprobamos si es una lista de eventos entre dos fechas -> eventos.php?start=XXXXX&end=YYYYY
                 // https://fullcalendar.io/docs/events-json-feed
@@ -57,9 +59,9 @@ switch($_SERVER['REQUEST_METHOD']) {
             http_response_code(200); // 200 OK
             header('Content-Type: application/json; charset=utf-8');
             header('Content-Length: ' . mb_strlen($json));
-
+            
             echo $json;
-        }catch(\Exception $e) {
+        }catch(Exception $e) {
             http_response_code(500);
             echo 'Error en la aplicación';
             error_log($e);
