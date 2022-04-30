@@ -124,77 +124,6 @@
         return $contenidoPrincipal;
     }
     //FUNCIONES PARA CHAT PARTICULAR
-    /**
-         * Se encarga de obtener el avatar del usuario que se ha logeado
-         * @param Usuario $user Usuario que ha iniciado sesion
-         * @return string $htmlAvatar HTML relativo al avatar del usuario
-         */
-        function generaAvatarUsuario($user){
-            $srcAvatar = $user->getAvatar();
-    
-            $htmlAvatar = '';
-            $htmlAvatar .= '<img src = "';
-            $htmlAvatar .= $srcAvatar;
-            $htmlAvatar .= '">';
-            return $htmlAvatar;
-        }
-
-        /**
-         * Se encarga de obtener el avatar del amigo (Avatar en pequeño para cada mensaje enviado por el amigo)
-         * @param Usuario $amigo Amigo del que queremos obtener su avatar
-         * @return string $htmlAvatar HTML relativo al avatar del amigo
-         */
-        function generaAvatarVisitante($user){
-            $srcAvatar = $user->getAvatar();
-    
-            $htmlAvatar = '';
-            $htmlAvatar .= '<img class = "right" src = "';
-            $htmlAvatar .= $srcAvatar;
-            $htmlAvatar .= '">';
-            return $htmlAvatar;
-        }
-
-        /**
-         * Genera el historial de mensajes existente entre los dos usuarios
-         * @param Usuario $usuario Usuario que ha iniciado sesion
-         * @param Usuario $amigo Usuario del amigo con quien se esta hablando
-         * @return string $htmlMensaje Todo el historico de mensajes en HTML
-         */
-        function generaChat($usuario, $visitante, $mensajes){
-            $htmlMensaje = '';
-            $index = 0;
-            if($mensajes != null){
-                while($index < sizeof($mensajes[0])){
-                    if($mensajes[1][$index] == $usuario->getId()){
-                        $htmlMensaje .= '<div class="mensaje">';
-                        $htmlMensaje .= generaAvatarUsuario($usuario);
-                        $htmlMensaje .= '<p class = "usuarioMensajes">';
-                        $htmlMensaje .= $mensajes[0][$index];
-                        $htmlMensaje .= '</p>';
-                        $htmlMensaje .= '<span class="time-right">';
-                        $htmlMensaje .= $mensajes[2][$index];
-                        $htmlMensaje .= '</span>';
-                        $htmlMensaje .= '</div>';
-                    }
-                    else{
-                        $htmlMensaje .= '<div class="mensaje darker">';
-                        $htmlMensaje .= generaAvatarVisitante($visitante);
-                        $htmlMensaje .= '<p class = "visitanteMensajes">';
-                        $htmlMensaje .= $mensajes[0][$index];
-                        $htmlMensaje .= '</p>';
-                        $htmlMensaje .= '<span class="time-left">';
-                        $htmlMensaje .= $mensajes[2][$index];
-                        $htmlMensaje .= '</span>';
-                        $htmlMensaje .= '</div>';
-                    }
-                    $index++;
-                }  
-            }
-            else{
-                $htmlMensaje = "No hay ningún mensaje con dicho usuario";
-            }      
-            return $htmlMensaje;
-        }
         function generaHtmlParticular($htmlAvatar, $Username, $htmlChat, $formulario){
             $contenidoPrincipal=<<<EOF
                 <section class = "content">
@@ -206,17 +135,36 @@
                             <div class = "cajagrid">
                                 <div class = "flexcolumn">
                                     <div class = "cajaflex">
-                                        <p class = "nombreusuario">{$Username}</p>           
+                                        <p class = "nombreusuario">{$Username}</p>         
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </article>
                     <article class = "chat">
-                        {$htmlChat}
+                        <div id="cajaMensajes">
+                            {$htmlChat}
+                        </div>
                         $formulario                       
                     </article>
                 </section>
+                <script>
+                    $(document).ready(function(){
+                        //Actualizacion Periodica de mensajes
+                        //Fuente: https://es.stackoverflow.com/questions/55668/actualizar-div-autom%C3%A1ticamente
+                        //Obtenemos el ID del Amigo con quien estamos hablando
+                        //Fuente: https://stackoverflow.com/questions/439463/how-to-get-get-and-post-variables-with-jquery
+                        var idAmigo = window.location.href.match(/(?<=idAmigo=)(.*?)[^&]+/)[0];
+                        var currChat = $(location).attr('pathname');
+                        var refresh = setInterval(function(){
+                            if(currChat.search("chat_amigo.php") != -1){
+                                $("#cajaMensajes").load("cargaMensajes.php?idAmigo=" + idAmigo+"&type=1");
+                            }else if(currChat.search("chat_negocio.php") != -1){
+                                $("#cajaMensajes").load("cargaMensajes.php?idAmigo=" + idAmigo+"&type=2");
+                            }
+                        }, 1000);
+                    })
+                </script>
             EOF;
             return $contenidoPrincipal;
         }

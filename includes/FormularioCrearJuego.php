@@ -49,7 +49,7 @@
                 </div>
                 <div>
                     <label class="form-label" for="precio">Precio oficial del desarrollador: </label>
-                    <input class="form-control" id="precio" name="precio" type="text" value="$precio" required>
+                    <input class="form-control" id="precio" name="precio" type="number" min="0" value="$precio" required>
                     {$erroresCampos['precio']}
                 </div>
                 <div>

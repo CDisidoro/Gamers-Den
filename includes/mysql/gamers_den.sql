@@ -200,6 +200,22 @@ CREATE TABLE `forDownVotes` (
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Estructura de tabla para la tabla `lista_comercial`
+--
+CREATE TABLE `forUpVotesCom` (
+   `Usuario` INT NOT NULL ,
+   `Comentarios` INT NOT NULL 
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estructura de tabla para la tabla `lista_comercial`
+--
+CREATE TABLE `forDownVotesCom` (
+   `Usuario` INT NOT NULL ,
+   `Comentarios` INT NOT NULL 
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
 -- Estructura de tabla para la tabla `carrito`
 --
 CREATE TABLE `carrito` (
@@ -257,6 +273,20 @@ ALTER TABLE `forUpVotes`
 ALTER TABLE `forDownVotes`
   ADD KEY `FK_Usuario` (`Usuario`),
   ADD KEY `FK_Foro` (`Foro`);
+
+--
+-- Indices de la tabla `upVote`
+--
+ALTER TABLE `forUpVotesCom`
+  ADD KEY `FK_Usuario` (`Usuario`),
+  ADD KEY `FK_Comentarios` (`Comentarios`);
+
+--
+-- Indices de la tabla `upVote`
+--
+ALTER TABLE `forDownVotesCom`
+  ADD KEY `FK_Usuario` (`Usuario`),
+  ADD KEY `FK_Comentarios` (`Comentarios`);
 
 --
 -- Indices de la tabla `juegoCategoria`
@@ -369,6 +399,20 @@ ALTER TABLE `forUpVotes`
 ALTER TABLE `forDownVotes`
   ADD CONSTRAINT `forDownVotes_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `forDownVotes_ibfk_2` FOREIGN KEY (`Foro`) REFERENCES `foro` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `forUpVotes`
+--
+ALTER TABLE `forUpVotesCom`
+  ADD CONSTRAINT `forUpVotesCom_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `forUpVotesCom_ibfk_2` FOREIGN KEY (`Comentarios`) REFERENCES `comentarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `forDownVotes`
+--
+ALTER TABLE `forDownVotesCom`
+  ADD CONSTRAINT `forDownVotesCom_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `forDownVotesCom_ibfk_2` FOREIGN KEY (`Comentarios`) REFERENCES `comentarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `lista_amigos`

@@ -26,16 +26,16 @@
             *   Los campos que se crean son un input invisible con el id del amigo y un botón para enviar.
             */
             $usuario = Usuario::buscaPorId($this->idUsuario);
-            if($usuario->alreadyDownvoted($this->idComentario)){
+            if($usuario->alreadyDownvotedCom($this->idComentario)){
                 $html = <<<EOF
                     <input type="hidden" name="idComentario" value="{$this->idComentario}"  />
-                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/DownVoteOn.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/arrow-down-circle-fill.svg"> </button>
                 EOF;
             }
             else{
                 $html = <<<EOF
                     <input type="hidden" name="idComentario" value="{$this->idComentario}"  />
-                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/DownVoteOff.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/arrow-down-circle.svg"> </button>
                 EOF;
             }
             return $html;
@@ -52,7 +52,7 @@
                 $this->errores[] = 'No tengo claro que escoger.';
             }
             $comentario = Comentario::buscaComentarios($idComentario);
-            if(!$foro){
+            if(!$comentario){
                 $this->errores[] = 'Comentario no encontrado';
             }
             if(!$this->checkIdentity($_SESSION['ID'],$this->idUsuario)){

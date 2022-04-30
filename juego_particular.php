@@ -42,12 +42,23 @@
         $html = substr($html, 0, strlen($html)-2);
         return $html;
     }
+
+    function procesarDescripcion($desc){
+        $descripcion = '';
+        $parrafos = explode("\n", $desc);
+        foreach($parrafos as $parrafo){
+            $descripcion .= <<<EOS
+                <p class="fw-bold">$parrafo</p>
+            EOS;
+        }
+        return $descripcion;
+    }
     if(!$juego){
             $tituloPagina = "No encontrado";
             $contenidoPrincipal = "<p>Lo sentimos, el juego al que has intentado acceder no existe</p>";
     }else{
         $nombreJuego = $juego->getNombre();
-        $descJuego = $juego->getDescripcion();
+        $descJuego = procesarDescripcion($juego->getDescripcion());
         $lanzamiento = $juego->getLanzamiento();
         $desarrollador = $juego->getDesarrollador();
         $imagen = $juego->getUrlImagen();
@@ -70,7 +81,7 @@
                         <p class="descripcionProducto">Categorías: $categorias</p>
                     </div>
                     <div class ="cajaDescProductoConcreto">
-                        <p class="descripcionProducto">$descJuego</p>
+                        $descJuego
                         <p class="descripcionProducto">Precio: $precio €</p>
                     </div>
                 </div>

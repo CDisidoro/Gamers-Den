@@ -26,16 +26,16 @@
             *   Los campos que se crean son un input invisible con el id del amigo y un botón para enviar.
             */
             $usuario = Usuario::buscaPorId($this->idUsuario);
-            if($usuario->alreadyUpvoted($this->idComentario)){
+            if($usuario->alreadyUpvotedCom($this->idComentario)){
                 $html = <<<EOF
                     <input type="hidden" name="idComentario" value="{$this->idComentario}"  />
-                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/UpVoteOn.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/arrow-up-circle-fill.svg"> </button>
                 EOF;
             }
             else{
                 $html = <<<EOF
                     <input type="hidden" name="idComentario" value="{$this->idComentario}"  />
-                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/UpVoteOff.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/arrow-up-circle.svg"> </button>
                 EOF;
             }
             return $html;

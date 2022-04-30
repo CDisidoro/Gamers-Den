@@ -45,7 +45,7 @@ switch($_SERVER['REQUEST_METHOD']) {
                 if ($start) {
                     $startDateTime = \DateTime::createFromFormat(\DateTime::ISO8601, $start);
                     $endDateTime = \DateTime::createFromFormat(\DateTime::ISO8601, $end);
-                    $result = Evento::buscaEntreFechas(1, $startDateTime, $endDateTime);
+                    $result = Calendario::buscaEntreFechas(1, $startDateTime, $endDateTime);
                 } else {
                     http_response_code(400);
                     echo 'Parámetros start o end incorrectos';

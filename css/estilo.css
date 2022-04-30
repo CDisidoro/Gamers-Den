@@ -729,3 +729,29 @@ nav{
     background-color: #f1f1f1;
 }
 /* FIN ESTILOS CALENDARIO */
+
+/* INICIO ESTILOS FORO */
+.forosCuadro{
+    display: grid;
+    background-color: rgb(131, 119, 119);
+    height: fit-content; 
+}
+.botonUpvoteForo{
+    width: 120%;
+}
+.tarjetaForo{
+    background-color: #f1f1f1;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.tarjetaForoParticular{
+    background-color: #f1f1f1;
+    margin-top: 2%;
+}
+.votos{
+    margin-top: 3%;
+}
+.nVotos{
+    margin-top: 2%;
+}
+/* FIN ESTILOS FORO */

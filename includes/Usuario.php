@@ -874,6 +874,122 @@
             }
         }
 
+
+
+        /**
+         * Busca un comentario y usuario en la lista de upvote
+         * @param int $IdComentario ID del comentario que busca en el upvotecom
+         * @return bool Si se ha encontrado el producto en el carrito retorna true, sino retorna false
+         */
+        public function alreadyUpvotedCom($IdComentario){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT Comentarios FROM forUpVotesCom WHERE Usuario = $this->id");
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    if ($fila['Comentarios'] == $IdComentario) {
+                        $result = true;
+                    }
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
+        /**
+         * Agrega un voto a los upvotesCom del usuario
+         * @param int $IdComentario ID del comentario que suma al upvotecom
+         * @return bool Si se ha votado correctamente el foro retorna true, o sino retorna false
+         */
+        public function masUpvoteCom($IdComentario){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->id;
+            $query = sprintf("INSERT INTO forUpVotesCom(Usuario, Comentarios) VALUES ($idUsuario, $IdComentario)");
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /**
+         * Elimina un voto de la lista de forUpVotesCom del usuario que llama la funcion
+         * @param int $IdComentario ID del comentario que elimina del upvotecom
+         * @return bool Si se ha borrado exitosamente retorna true, sino retorna false
+         */
+        public function eliminaUpvoteCom($IdComentario){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->id;
+            $query = sprintf("DELETE FROM forUpVotesCom WHERE Comentarios = $IdComentario AND Usuario = $idUsuario");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /**
+         * Busca un foro y usuario en la lista de downvote
+         * @param int $IdComentario ID del comentario que busca en el downvoteCom
+         * @return bool Si se ha encontrado el producto en el carrito retorna true, sino retorna false
+         */
+        public function alreadyDownvotedCom($IdComentario){
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT Comentarios FROM forDownVotesCom WHERE Usuario = $this->id");
+            $rs = $conn->query($query);
+            $result = false;
+            if ($rs) {
+                while($fila = $rs->fetch_assoc()) {
+                    if ($fila['Comentarios'] == $IdComentario) {
+                        $result = true;
+                    }
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return $result;
+        }
+
+        /**
+         * Agrega un voto a los downvotesCom del usuario
+         * @param int $IdComentario ID del Comentario que se vota
+         * @return bool Si se ha votado correctamente el comentario retorna true, o sino retorna false
+         */
+        public function masDownvoteCom($IdComentario){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->id;
+            $query = sprintf("INSERT INTO forDownVotesCom(Usuario, Comentarios) VALUES ($idUsuario, $IdComentario)");
+            if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /**
+         * Elimina un voto de la lista de forDownVotes del usuario que llama la funcion
+         * @param int $IdComentario ID del comentario que se desea borrar
+         * @return bool Si se ha borrado exitosamente retorna true, sino retorna false
+         */
+        public function eliminaDownvoteCom($IdComentario){
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $idUsuario = $this->id;
+            $query = sprintf("DELETE FROM forDownVotesCom WHERE Comentarios = $IdComentario AND Usuario = $idUsuario");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
         public static function buscarUsuarioKeyWords($keyWords){            
             $mysqli = Aplicacion::getInstance()->getConexionBd();
 

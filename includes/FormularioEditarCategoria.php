@@ -64,9 +64,13 @@
             $idCat = $datos['id'];
             //Una vez validadas las entradas se inserta la categoria
             if(count($this->errores) === 0){
-                $categoria = Categoria::buscaPorId($idCat)->editarCategoria($nombre, $descripcion);
+                $categoria = Categoria::buscaPorId($idCat);
                 if(!$categoria){
-                    $this->errores[] = 'Ha ocurrido un error';
+                    $this->errores[] = 'Ha ocurrido un error buscando la categoria';
+                }else{
+                    if(!$categoria->editarCategoria($nombre, $descripcion)){
+                        $this->errores[] = 'Ha ocurrido un error actualizando la categoria';
+                    }
                 }
             }
         }
