@@ -2,7 +2,7 @@
 
     class FormularioMandaCom extends Formulario{
         private $idUsuario;
-        private $idForo
+        private $idForo;
         /**
          * Crea el formulario llamando al constructor de la clase padre, con identificador formChatParticular y redireccion al mismo chat una vez enviado el mensaje
          * @param int $idAmigo ID del amigo con quien se esta chateando

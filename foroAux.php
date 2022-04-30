@@ -89,7 +89,7 @@
                     $upvotes = $comentario->getUpvotes();
                     $downvotes = $comentario->getDownvotes();
 
-                    if($comentario->getAutor() == $_SESSION['ID'])
+                    if($comentario->getAutor() == $_SESSION['ID']){
                         $avatar = generaAvatarUsuario($autor);
                         
                         $htmlComentarios.=<<<EOF
@@ -112,6 +112,7 @@
                             </div>
                         EOF;
                     }
+
                     else{
                         $avatar = generaAvatarVisitante($autor);
 
