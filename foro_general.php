@@ -53,7 +53,7 @@
 													</a>
 												</div>
 												<div class="col">
-													<p class = "autorForo">Autor: $nombreAutor</p>
+													<p class = "autorForo">Autor: <a class="text-decoration-none" href="perfilExt.php?id=$nombreAutor"> $nombreAutor </a></p>
 													<p class = "fechaForo">FECHA DE INICIO: $fecha</p>
 													<p class = "fechaForo">ULTIMA PARTICIPACION: $ultimoCom</p>
 												</div>

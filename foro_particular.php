@@ -18,18 +18,39 @@
         $upvotes = $foro->getUpvotes();
         $downvotes = $foro->getDownvotes();
         $foros=<<<EOS
-            <div class = "tarjetaProducto">
-                <a href = "foro_particular.php?id=$idForo">
-                    <p class = "contenidoForo">$contenido</p>
-                </a>
-                <p class = "autorForo">Autor: $nombreAutor</p>
-                <p class = "autorForo">LIKES: $upvotes</p>
-                $formHTMLUpVote
-                <p class = "fechaForo">DISLIKES: $downvotes</p>
-                $formHTMLDownVote
-                <p class = "fechaForo">FECHA DE INICIO: $fecha</p>
+            <div class="tarjetaForoParticular">
+                <div class="mb-3">
+                    <div class="row g-0">
+                        <div class="col-4 votos">
+                            <div class="row">
+                                <div class="col-2">
+                                    $formHTMLUpVote
+                                    $formHTMLDownVote
+                                </div>
+                                <div class="col-1 nVotos">
+                                    <p class = "autorForo">$upvotes</p>
+                                    <p class = "fechaForo">$downvotes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h3>$contenido</h3>
+                                    </div>
+                                    <div class="col">
+                                        <p class = "autorForo">Autor: <a class="text-decoration-none" href="perfilExt.php?id=$nombreAutor"> $nombreAutor </a></p>
+                                        <p class = "fechaForo">FECHA DE INICIO: $fecha</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         EOS;
+        return $foros;
     }
 
     /**
@@ -55,23 +76,28 @@
                 $downvotes = $comentario->getDownvotes();
 
                 if($comentario->getAutor() == $_SESSION['ID']){
-                    $avatar = generaAvatarUsuario($autor);
+                    $avatar = generaAvatarVisitante($autor);
                     
                     $htmlComentarios.=<<<EOF
-                        <div class="mensaje">
-                            <div class='textoCom'>
-                                $avatar
+                        <div class="mensaje row">
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-2">
+                                        $formHTMLUpVote
+                                        $formHTMLDownVote
+                                    </div>
+                                    <div class="col-1">
+                                        <p class = "autorForo">$upvotes</p>
+                                        <p class = "fechaForo">$downvotes</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='textoCom col'>
                                 <p class = "usuarioMensajes"> $contenido </p>
                             </div>
-                            <div class='comExtra'>
-
-                                <p class = "autorForo">LIKES: $upvotes</p>
-                                    $formHTMLUpVote
-                                <p class = "fechaForo">DISLIKES: $downvotes</p>
-                                    $formHTMLDownVote
-
-                                <p class = "NombreUsuario"> $nombreAutor </p>
-
+                            <div class='comExtra col'>
+                                $avatar
+                                <p class = "NombreUsuario text-end"> $nombreAutor </p>
                                 <span class="time-right"> $fecha </span>
                             </div>
                         </div>
@@ -80,23 +106,28 @@
 
                 else{
                     $avatar = generaAvatarVisitante($autor);
-
+                    $nombreAutor = $autor->getUsername();
                     $htmlComentarios.=<<<EOF
-                        <div class="mensaje darker">
-                            <div class='textoCom'>
-                                $avatar
-                                <p class = "visitanteMensajes"> $contenido </p>
+                        <div class="mensaje darker row">
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-2">
+                                        $formHTMLUpVote
+                                        $formHTMLDownVote
+                                    </div>
+                                    <div class="col-1">
+                                        <p class = "autorForo">$upvotes</p>
+                                        <p class = "fechaForo">$downvotes</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class='comExtra'>
-
-                                <p class = "autorForo">LIKES: $upvotes</p>
-                                    $formHTMLUpVote
-                                <p class = "fechaForo">DISLIKES: $downvotes</p>
-                                    $formHTMLDownVote
-
-                                <p class = "NombreUsuario"> $autor </p>
-
-                                <span class="time-left"> $fecha </span>
+                            <div class='textoCom col'>
+                                <p class = "usuarioMensajes"> $contenido </p>
+                            </div>
+                            <div class='comExtra col'>
+                                $avatar
+                                <p class = "NombreUsuario text-end"><a class="text-decoration-none" href="perfilExt.php?id=$nombreAutor"> $nombreAutor </a></p>
+                                <span class="time-right"> $fecha </span>
                             </div>
                         </div>
                     EOF;

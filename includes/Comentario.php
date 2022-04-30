@@ -183,7 +183,7 @@
 
     public function getUpvotes(){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT Usuario FROM upVotes WHERE Foro LIKE $this->id");
+        $query = sprintf("SELECT Usuario FROM forUpVotesCom WHERE Comentarios LIKE $this->id");
         $result = $conn->query($query);
         if($result){
             $rows = $result->num_rows;
@@ -195,7 +195,7 @@
 
     public function getDownvotes(){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT Usuario FROM downVotes WHERE Foro LIKE $this->id");
+        $query = sprintf("SELECT Usuario FROM forDownVotesCom WHERE Comentarios LIKE $this->id");
         $result = $conn->query($query);
         if($result){
             $rows = $result->num_rows;
