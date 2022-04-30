@@ -29,13 +29,13 @@
             if($usuario->alreadyUpvoted($this->idForo)){
                 $html = <<<EOF
                     <input type="hidden" name="idForo" value="{$this->idForo}"  />
-                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/UpVoteOn.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/arrow-up-circle-fill.svg"> </button>
                 EOF;
             }
             else{
                 $html = <<<EOF
                     <input type="hidden" name="idForo" value="{$this->idForo}"  />
-                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/UpVoteOff.jpg"> </button>
+                    <button type = "submit" class = "btn btn-link" > <img class = "botonUpvoteForo" src = "img/arrow-up-circle.svg"> </button>
                 EOF;
             }
             return $html;

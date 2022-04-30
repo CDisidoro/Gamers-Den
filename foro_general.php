@@ -24,18 +24,44 @@
 					$upvotes = $foro->getUpvotes();
 					$downvotes = $foro->getDownvotes();
 					$ultimoCom = $foro->getUltimoComentario();
-					$foros.=<<<EOS
-						<div class = "tarjetaProducto">
-							<a href = "foro_particular.php?id=$idForo">
-								<p class = "contenidoForo">$contenido</p>
-							</a>
-							<p class = "autorForo">Autor: $nombreAutor</p>
-							<p class = "autorForo">LIKES: $upvotes</p>
-							$formHTMLUpVote
-							<p class = "fechaForo">DISLIKES: $downvotes</p>
-							$formHTMLDownVote
-							<p class = "fechaForo">FECHA DE INICIO: $fecha</p>
-							<p class = "fechaForo">ULTIMA PARTICIPACION: $ultimoCom</p>
+					/*$foros.=<<<EOS
+						<div class = "tarjetaProducto container">
+						</div>
+					EOS;*/
+					$foros .=<<<EOS
+						<div class="row tarjetaForo">
+							<div class="mb-3">
+								<div class="row g-0">
+									<div class="col-4 votos">
+										<div class="row">
+											<div class="col-2">
+												$formHTMLUpVote
+												$formHTMLDownVote
+											</div>
+											<div class="col-1 nVotos">
+												<p class = "autorForo">$upvotes</p>
+												<p class = "fechaForo">$downvotes</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-6">
+													<a href = "foro_particular.php?id=$idForo" class="text-decoration-none">
+														$contenido
+													</a>
+												</div>
+												<div class="col">
+													<p class = "autorForo">Autor: $nombreAutor</p>
+													<p class = "fechaForo">FECHA DE INICIO: $fecha</p>
+													<p class = "fechaForo">ULTIMA PARTICIPACION: $ultimoCom</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					EOS;
 				}
@@ -65,31 +91,28 @@
 					<div class = "cajaTituloForo">
 						<h1 class = "tituloPagina text-center"> Todos los foros </h1>
 					</div>
-
 					<div class = "container">
-
-						<div class = "productosCuadro container">
+						<div class = "forosCuadro container">
 							<div class = "botonesProductos row">
 								$addForo
 								<div class = "cajaBusqueda col">
 									<a href = "buscarForo.php" class="btn btn-link" > <img src = "img/search.svg" class = "imagenBusqueda"> </a>
 								</div>
-
 							</div>
-
-						<div class = "cuadroProductos container">
-							{$foros}                   
-						</div>                            
+						<div class = "container">
+							<div class="col">
+								{$foros}
+							</div>
+						</div>
 					</div>
-
-				</div>		
+				</div>
 			</section>
 		EOS;
 	}
 	else {
         $contenidoPrincipal = <<<EOS
             <section class = "content">
-                <p>No has iniciado sesión. Por favor, logueate para poder acceder a la tienda</p>
+                <p>No has iniciado sesión. Por favor, logueate para poder acceder al foro</p>
             </section>
         EOS;
     }
