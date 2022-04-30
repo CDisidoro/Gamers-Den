@@ -23,21 +23,6 @@
             return $htmlAvatar;
         }
 
-        /**
-         * Se encarga de obtener el avatar de los demas
-         * @param Usuario $user USuario del que queremos obtener su avatar
-         * @return string $htmlAvatar HTML relativo al avatar del amigo
-         */
-        function generaAvatarVisitante($user){
-            $srcAvatar = $user->getAvatar();
-    
-            $htmlAvatar = '';
-            $htmlAvatar .= '<img class = "right" src = "';
-            $htmlAvatar .= $srcAvatar;
-            $htmlAvatar .= '">';
-            return $htmlAvatar;
-        }
-
         function generaHtmlParticular($htmlForo, $htmlCom, $formulario){
             $contenidoPrincipal=<<<EOF
                 <section class = "content">
@@ -49,10 +34,24 @@
                         </div>
                     </article>
                     <article class = "chat">
-                        {$htmlCom}
+                        <div id="cajaComentarios">
+                            {$htmlCom}
+                        </div>
                         $formulario                       
                     </article>
                 </section>
+                <script>
+                    $(document).ready(function(){
+                        //Actualizacion Periodica de comentarios
+                        //Fuente: https://es.stackoverflow.com/questions/55668/actualizar-div-autom%C3%A1ticamente
+                        //Obtenemos el ID del Foro
+                        //Fuente: https://stackoverflow.com/questions/439463/how-to-get-get-and-post-variables-with-jquery
+                        var id = window.location.href.match(/(?<=id=)(.*?)[^&]+/)[0];
+                        var refresh = setInterval(function(){
+                            $("#cajaComentarios").load("cargaComentarios.php?id=" + id);
+                        }, 1000);
+                    })
+                </script>
             EOF;
             return $contenidoPrincipal;
         }

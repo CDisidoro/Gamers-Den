@@ -52,108 +52,15 @@
         EOS;
         return $foros;
     }
-
-    /**
-     * Genera el historial de comentarios de un foro
-     * @param Usuario $usuario Usuario que ha iniciado sesion
-     * @return string $htmlMensaje Todo el historico de mensajes en HTML
-     */
-    function generaCom($usuario, $comentarios, $idForo){
-        $htmlComentarios = '';
-        if($comentarios != null){
-            $redireccion = 'foro_particular.php?id=' . $idForo;
-            foreach ($comentarios as $comentario){
-                $formUpvote = new FormularioUpvoteCom($comentario->getId(),$_SESSION['ID'], $redireccion);
-                $formHTMLUpVote = $formUpvote->gestiona();
-                $formDownvote = new FormularioDownvoteCom($comentario->getId(),$_SESSION['ID'], $redireccion);
-                $formHTMLDownVote = $formDownvote->gestiona();
-
-                $contenido = $comentario->getContenido();
-                $fecha = $comentario->getFecha();
-                $autor = Usuario::buscaPorId($comentario->getAutor());
-                $nombreAutor = $autor->getUsername();
-                $upvotes = $comentario->getUpvotes();
-                $downvotes = $comentario->getDownvotes();
-
-                if($comentario->getAutor() == $_SESSION['ID']){
-                    $avatar = generaAvatarVisitante($autor);
-                    
-                    $htmlComentarios.=<<<EOF
-                        <div class="mensaje row">
-                            <div class="col-4">
-                                <div class="row">
-                                    <div class="col-2">
-                                        $formHTMLUpVote
-                                        $formHTMLDownVote
-                                    </div>
-                                    <div class="col-1">
-                                        <p class = "autorForo">$upvotes</p>
-                                        <p class = "fechaForo">$downvotes</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='textoCom col'>
-                                <p class = "usuarioMensajes"> $contenido </p>
-                            </div>
-                            <div class='comExtra col'>
-                                $avatar
-                                <p class = "NombreUsuario text-end"> $nombreAutor </p>
-                                <span class="time-right"> $fecha </span>
-                            </div>
-                        </div>
-                    EOF;
-                }
-
-                else{
-                    $avatar = generaAvatarVisitante($autor);
-                    $nombreAutor = $autor->getUsername();
-                    $htmlComentarios.=<<<EOF
-                        <div class="mensaje darker row">
-                            <div class="col-4">
-                                <div class="row">
-                                    <div class="col-2">
-                                        $formHTMLUpVote
-                                        $formHTMLDownVote
-                                    </div>
-                                    <div class="col-1">
-                                        <p class = "autorForo">$upvotes</p>
-                                        <p class = "fechaForo">$downvotes</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='textoCom col'>
-                                <p class = "usuarioMensajes"> $contenido </p>
-                            </div>
-                            <div class='comExtra col'>
-                                $avatar
-                                <p class = "NombreUsuario text-end"><a class="text-decoration-none" href="perfilExt.php?id=$nombreAutor"> $nombreAutor </a></p>
-                                <span class="time-right"> $fecha </span>
-                            </div>
-                        </div>
-                    EOF;
-                }
-            }  
-        }
-        else{
-            $htmlComentarios = "No hay ningún comentario en este foro";
-        }      
-        return $htmlComentarios;
-    }
-
     if(isset($_SESSION['login'])){
         $id = $_SESSION['ID'];
         $usuario = Usuario::buscaPorId($id);
         $foro = Foro::buscaForo($_GET['id']);
-        //Se generan los mensajes entre los usuarios, se añade el 1 porque queremos que solo nos carguen los mensajes de amigos
-        $comentarios = Comentario::getComentarios($foro->getId());
         //Se crea el formulario para poder enviar un mensaje al amigo
         $formMandaCorreos = new FormularioMandaCom($usuario->getId(),$foro->getId());
         $formulario = $formMandaCorreos->gestiona();
-        
         $htmlForo = generaForo($foro);
-        $htmlCom = generaCom($usuario, $comentarios, $foro->getId());
-
-        $contenidoPrincipal = generaHtmlParticular($htmlForo, $htmlCom, $formulario);
+        $contenidoPrincipal = generaHtmlParticular($htmlForo, "Cargando comentarios...", $formulario);
     }else
         $contenidoPrincipal = generaHtmlnoConectado();
 
