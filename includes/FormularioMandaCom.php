@@ -22,7 +22,7 @@
         protected function generaCamposFormulario(&$datos){
             // Se reutiliza el Usuario de usuario introducido previamente o se deja en blanco
             $mensaje = $datos['Mensaje'] ?? '';
-            $IDUsuario = $datos['IDUsuario'] ?? $this->idAmigo;
+            $IDUsuario = $datos['IDUsuario'] ?? $this->idUsuario;
             $IDForo = $datos['IDForo'] ?? $this->idForo;
             // Se generan los mensajes de error si existen.
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -65,7 +65,7 @@
                 $this->errores[] = "No se ha escogido correctamente el foro";
             if (count($this->errores) === 0) {
                 // Pedimos un mensaje más alla de la página actual para saber si hay más páginas
-                if(!(Comentario::subirComentario($foro, $mensaje, $user))){
+                if(!(Comentario::subirComentario($foro->getId(), $mensaje, $user->getId()))){
                     $this->errores[] = "No ha sido posible enviar el mensaje";
                 }
             }

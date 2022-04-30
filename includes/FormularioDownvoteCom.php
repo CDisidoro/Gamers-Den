@@ -52,7 +52,7 @@
                 $this->errores[] = 'No tengo claro que escoger.';
             }
             $comentario = Comentario::buscaComentarios($idComentario);
-            if(!$foro){
+            if(!$comentario){
                 $this->errores[] = 'Comentario no encontrado';
             }
             if(!$this->checkIdentity($_SESSION['ID'],$this->idUsuario)){
