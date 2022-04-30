@@ -29,7 +29,7 @@
             $htmlErroresGlobales
             <fieldset>
                 <div>
-                    <input id="mensaje" type="text" class="form-control" name="Mensaje" value="$mensaje" required/>
+                    <textarea id="mensaje" type="text" class="form-control" name="Mensaje" rows="1" required/>$mensaje</textarea>
                     {$erroresCampos['Mensaje']}
                     <input type="hidden" value="$IDUsuario" id="IDUsuario" name="IDUsuario">
                     {$erroresCampos['IDUsuario']}

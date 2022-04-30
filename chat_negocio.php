@@ -10,16 +10,13 @@
         //Buscamos los Usuarios relativos al usuario logeado y al amigo
         $usuario = Usuario::buscarUsuario($username);
         $vendedor = $usuario->buscaPorId($_GET['idVendedor']);
-        //Se generan los mensajes entre los usuarios, se añade el 1 porque queremos que solo nos carguen los mensajes de amigos
-        $mensajes = Mensaje::getMessages($vendedor->getId(),$usuario->getId(), 2);
         //Se crea el formulario para poder enviar un mensaje al amigo
         $formMandaMensajes = new FormularioMandaMensajesVendedor($vendedor->getId());
         $formulario = $formMandaMensajes->gestiona();
         
         $htmlAvatar = generaAvatar($vendedor);
-        $htmlChat = generaChat($usuario, $vendedor, $mensajes);
 
-        $contenidoPrincipal = generaHtmlParticular($htmlAvatar, $vendedor->getUsername(), $htmlChat, $formulario);
+        $contenidoPrincipal = generaHtmlParticular($htmlAvatar, $vendedor->getUsername(), "Cargando mensajes...", $formulario);
     }else
         $contenidoPrincipal = generaHtmlnoConectado();
 
