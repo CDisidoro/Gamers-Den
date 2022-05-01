@@ -24,7 +24,7 @@
 				$botones .= <<<EOS
 				<div class="col-1 botonesNoticiaConcreta">
 					<div class="botonIndividualNoticia">
-						<a href="editarCom.php?id=$idCom" class="btn btn-link"><img class="botonModificarNoticia" src="img/pencil.svg"/></a>
+						<a href="editarComentario.php?id=$idCom" class="btn btn-link"><img class="botonModificarNoticia" src="img/pencil.svg"/></a>
 					</div>
 					<div class="botonIndividualNoticia">
 						$htmlDelForo
