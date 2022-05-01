@@ -1,19 +1,17 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
     /**
-     * Clase hija de Formulario encargada del borrado de foros de la aplicacion
+     * Clase hija de Formulario encargada de editar Foros en la pagina web
      */
-    class FormularioEliminarForo extends Formulario{
-        private $idForo;
+    class FormularioEditarForo extends Formulario{
         private $idAutor;
+        private $idForo;
         /**
-         * Constructor del formulario, con id formDelForo y redireccion a la pagina de foros
-         * @param int $idForo ID del foro a eliminar
-         * @param int $idAutor ID del autor del foro
+         * Constructor del formulario, con id formEditaForo y redireccion a la pagina de foros
          */
-        public function __construct($idForo, $idAutor){
+        public function __construct($idUsuario, $idForo){
+            $this->idAutor = $idUsuario;
             $this->idForo = $idForo;
-            $this->idAutor = $idAutor;
-            parent::__construct('formDelForo',['urlRedireccion' => 'foro_general.php']);
+            parent::__construct('fomrEditaForo', ['urlRedireccion' => 'foro_particular.php?id='.$idForo]);
         }
 
         /**
@@ -22,16 +20,22 @@
          * @return string $html Retorna el contenido HTML del formulario
          */
         protected function generaCamposFormulario(&$datos){
+            $foro = Foro::buscaForo($this->idForo);
+            $contenido = $datos['contenido'] ?? $foro->getContenido();
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['idForo'], $this->errores, 'span', array('class' => 'error'));
-            /*
-            *   Los campos que se crean son un input invisible con el id del foro y un botón para enviar.
-            */
+            $erroresCampos = self::generaErroresCampos(['contenido'], $this->errores, 'span', array('class' => 'error'));
             $html = <<<EOF
-                $htmlErroresGlobales
-                <input type="hidden" name="idForo" value="{$this->idForo}"  />
-                {$erroresCampos['idForo']}
-                <button type = "submit" onclick="return confirm('Estás seguro que deseas eliminar el foro?');" class = "btn btn-link" > <img class = "botonModificarNoticia" src = "img/trash.svg"> </button>
+            $htmlErroresGlobales
+            <fieldset class="container">
+                <div>
+                    <label class="form-label" for="articulo">TEMA DEL FORO: </label>
+                    <input class="form-control" id="contenido" name="contenido" type="text" value="$contenido" required>
+                    {$erroresCampos['contenido']}
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success" name="enviar"> Enviar </button>
+                </div>
+            </fieldset>
             EOF;
             return $html;
         }
@@ -42,21 +46,18 @@
          */
         protected function procesaFormulario(&$datos) {
             $this->errores = [];
-            $idForo = filter_var($datos['idForo'] ?? null, FILTER_SANITIZE_NUMBER_INT);
-            if (!$idForo) {
-                $this->errores[] = 'No tengo claro que foro eliminar.';
+            $foro = Foro::buscaForo($this->idForo);
+            $contenido = filter_var($datos['contenido'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $usuario = Usuario::buscaPorId($this->idAutor);
+            if (!$contenido) {
+                $this->errores['contenido'] = 'El tema no es válido.';
             }
             if(!( $this->checkIdentity($this->idAutor,$_SESSION['ID']) || $this->checkRole($_SESSION['ID'], 1) || $this->checkRole($_SESSION['ID'], 4) ) ){
                 $this->errores[] = 'No se ha podido verificar la identidad del usuario';
             }
-            $foro = Foro::buscaForo($idForo);
-            if(!$foro){
-                $this->errores[] = 'Foro no encontrado';
-            }
-            //Una vez validado todo se procede a eliminar el foro
             if(count($this->errores) === 0){
-                if(!($foro->borrarForo())){
-                    $this->errores[] = 'Ha ocurrido un error';
+                if(!($foro->editarForo($contenido))){
+                    $this->errores[] = "No ha sido posible editar la tematica";
                 }
             }
         }
