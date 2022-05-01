@@ -1,6 +1,6 @@
 var myModal = new bootstrap.Modal(document.getElementById('myModal'));
 let formula = document.getElementById('formulario');
-
+/*
 $('btnRegistrar').click(function() {
   var nuevoEvento = {
     title:$('title').val(),
@@ -11,7 +11,7 @@ $('btnRegistrar').click(function() {
   calendar.addEvent(nuevoEvento);
   myModal.show('toggle');
 });
-
+*/
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {

@@ -138,7 +138,7 @@ use \DateTime;
 			}
         }
 
-		/** NO ACABADO HAY QUE CAMBIAR LAS CONSULTAS
+		/** 
      	* Busca los eventos de un usuario con id $userId en el rango de fechas $start y $end (si se proporciona).
      	*
 		* @param int $userId Id del usuario para el que se buscarán los eventos.
