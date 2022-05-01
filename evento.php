@@ -1,5 +1,4 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-require('includes/Calendario.php');
 require('includes/config.php');
 // Procesamos la cabecera Content-Type
 $contentType= $_SERVER['CONTENT_TYPE'] ?? 'application/json';
@@ -61,7 +60,7 @@ switch($_SERVER['REQUEST_METHOD']) {
             header('Content-Length: ' . mb_strlen($json));
             
             echo $json;
-        }catch(Exception $e) {
+        }catch(\Exception $e) {
             http_response_code(500);
             echo 'Error en la aplicación';
             error_log($e);
