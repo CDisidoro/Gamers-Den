@@ -69,7 +69,7 @@
 	else{
 		$contenidoPrincipal=<<<EOS
 			<div>
-				<p> Ha ocurrido un error al cargar la información debido a que no ha iniciado sesión </p>
+				<p> Tienes que iniciar sesión para acceder a esta parte de la página! </p>
 			</div>
 		EOS;
 	}
