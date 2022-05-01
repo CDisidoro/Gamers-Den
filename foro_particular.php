@@ -3,6 +3,27 @@
     require('foroAux.php');
     $tituloPagina = "Foro";
 
+    function generaBotones($idForo, $autor){
+        $botones = '';
+        if(isset($_SESSION['login'])){
+            if($_SESSION['rol'] == 1 || $_SESSION['rol'] == 4 || $_SESSION['ID'] == $autor){
+                $formDelForo = new FormularioEliminarForo($idForo,$autor);
+                $htmlDelForo = $formDelForo->gestiona();
+                $botones .= <<<EOS
+                <div class="col botonesNoticiaConcreta">
+                    <div class="botonIndividualNoticia">
+                        <a href="editarForo.php?id={$_GET['id']}" class="btn btn-link"><img class="botonModificarNoticia" src="img/pencil.svg"/></a>
+                    </div>
+                    <div class="botonIndividualNoticia">
+                        $htmlDelForo
+                    </div>
+                </div>
+                EOS;
+            }
+        }
+        return $botones;
+    }
+
     function generaForo($foro){
         $idForo = $foro->getId();
         $redireccion = 'foro_particular.php?id=' . $idForo;
@@ -17,6 +38,7 @@
         $fecha = $foro->getFecha();
         $upvotes = $foro->getUpvotes();
         $downvotes = $foro->getDownvotes();
+        $botones = generaBotones($idForo, $foro->getAutor());
         $foros=<<<EOS
             <div class="tarjetaForoParticular">
                 <div class="mb-3">
@@ -43,6 +65,7 @@
                                         <p class = "autorForo">Autor: <a class="text-decoration-none" href="perfilExt.php?id=$nombreAutor"> $nombreAutor </a></p>
                                         <p class = "fechaForo">FECHA DE INICIO: $fecha</p>
                                     </div>
+                                    $botones
                                 </div>
                             </div>
                         </div>

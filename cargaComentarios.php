@@ -106,6 +106,8 @@
     
     $foroID = $_GET['id'];
     $foro = Foro::buscaForo($foroID);
-    $comentarios = Comentario::getComentarios($foro->getId());
-    echo generaCom($comentarios, $foro->getId());
+    if($foro != false){
+        $comentarios = Comentario::getComentarios($foro->getId());
+        echo generaCom($comentarios, $foro->getId());
+    }
 ?>
