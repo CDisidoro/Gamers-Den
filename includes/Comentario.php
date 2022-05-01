@@ -1,6 +1,6 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 /**
- * Clase base para la gestion de mensajes
+ * Clase base para la gestion de comentarios
  */
     class Comentario{
         //ATRIBUTOS DE CLASE
@@ -12,36 +12,36 @@
         //GETTERS
 
         /**
-         * Obtiene el ID unico del mensaje
-         * @return int El identificador del mensaje
+         * Obtiene el ID unico del comentario
+         * @return int El identificador del comentario
          */
         public function getId(){
             return $this->id;
         }
         /**
-         * Obtiene el ID del remitente del mensaje
-         * @return int El ID del usuario que ha mandado el mensaje
+         * Obtiene el ID del autor del comentario
+         * @return int El ID del usuario que ha hecho el comentario
          */
         public function getAutor(){
             return $this->autor;
         }
         /**
-         * Obtiene el ID del remitente del mensaje
-         * @return int El ID del usuario que ha mandado el mensaje
+         * Obtiene el ID del foro asociado al comentario
+         * @return int El ID del foro donde esta el comentario
          */
         public function getForo(){
             return $this->foro;
         }
         /**
-         * Obtiene la fecha en que se envió el mensaje
-         * @return date La fecha en la que el mensaje fue enviado
+         * Obtiene la fecha en que se envió el comentario
+         * @return date La fecha en la que el comentario fue enviado
          */
         public function getFecha(){
             return $this->fecha;
         }
         /**
-         * Obtiene el contenido del mensaje
-         * @return string El texto que contiene el mensaje
+         * Obtiene el contenido del comentario
+         * @return string El texto que contiene el comentario
          */
         public function getContenido(){
             return $this->contenido;
@@ -50,11 +50,11 @@
         //FUNCIONES IMPORTANTES
 
         /**
-         * Funcion constructor de mensajes
-         * @param int $id Identificador del mensaje (Por defecto a null, pues la BD se encarga de asignarle un ID)
-         * @param int $autor ID del usuario que envia el mensaje
-         * @param int $fecha Fecha en la que el mensaje fue enviado
-         * @param string $contenido Contenido del mensaje que se va a enviar
+         * Funcion constructor de comentarios
+         * @param int $id Identificador del comentario (Por defecto a null, pues la BD se encarga de asignarle un ID)
+         * @param int $autor ID del usuario que envia el comentario
+         * @param int $fecha Fecha en la que el comentario fue enviado
+         * @param string $contenido Contenido del comentario que se va a enviar
          */
         private function __construct($id = null,$autor, $foro, $fecha, $contenido){
             $this->id = $id;
@@ -65,10 +65,9 @@
         }
 
         /**
-         * Obtiene todos los foros disponibles en la tienda
-         * @param int $idAmigo ID del usuario que recibe el mensaje
-         * @param int $remitente ID del usuario que envia el mensaje
-         * @return array Array bidimensional con el contenido, remitente y fecha del mensaje
+         * Obtiene todos los comentarios disponibles
+         * @param int $foro ID del foro que tiene el comentario
+         * @return array Array de comentarios de ese foro
          */
         public static function getComentarios($foro){
             $conn = Aplicacion::getInstance()->getConexionBd();
@@ -90,11 +89,10 @@
         }
 
         /**
-     * Se encarga de publicar una noticia nueva en la pagina (PENDIENTE DE ARREGLAR)
+     * Se encarga de publicar un comentario nuevo en la pagina
      * @return bool Si se ha efectuado correctamente la query retornara true, o false en el caso opuesto
      */
     public static function subirComentario($foro, $contenido, $autor) {
-        $etiquetas = 1;
         $conector = Aplicacion::getInstance()->getConexionBd();
         $query = "INSERT INTO comentarios (Foro, Contenido, Autor)
                 VALUES ('$foro', '$contenido', '$autor')";
@@ -106,9 +104,9 @@
     }
 
     /**
-     * Se encarga de editar un Foro en funcion a su ID asignado
-     * @param int $contenido del foro que se va a editar
-     * @return bool True si se ha editado el foro; False si no se ha podido editar
+     * Se encarga de editar un comentario en funcion a su ID asignado
+     * @param int $contenido del comentario que se va a editar
+     * @return bool True si se ha editado el comentario; False si no se ha podido editar
      */
     public function editarComentario($contenido){
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -121,8 +119,8 @@
     }
 
     /**
-     * Elimina foro que haya llamado a este metodo y su imagen asociada
-     * @return bool Si ha podido borrar el foro del sistema retorna True, sino retorna false
+     * Elimina el comentario que haya llamado a este metodo
+     * @return bool Si ha podido borrar el comentario del sistema retorna True, sino retorna false
      */
     public function borrarComentario() {
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -133,19 +131,13 @@
             error_log("Error BD ({$conn->errno}): {$conn->error}");
             return false;
         }
-        //Borrado de la imagen asociada
-        /*
-        if(!unlink($this->imagen)){
-            error_log("Error eliminando la imagen de la noticia");
-            return false;
-        }*/
         return true;
     }
     
     /**
-     * Se encarga de buscar una noticia en funcion de su ID
-     * @param int $id ID de la noticia a buscar
-     * @return Noticia|false $buscaNoticia Noticia encontrada en la BD; false si no se ha encontrado la noticia
+     * Se encarga de buscar un comentario en funcion de su ID
+     * @param int $id ID del comentario a buscar
+     * @return Comentario|false Comentario encontrado en la BD; false si no se ha encontrado el comentario
      */
     public static function buscaComentarios($id) {
         $mysqli = Aplicacion::getInstance()->getConexionBd();
@@ -163,6 +155,7 @@
             return false;
         }
     }
+
 
     public static function orderbyVotes($returning, $rows){
         //Usamos un bucle anidado
