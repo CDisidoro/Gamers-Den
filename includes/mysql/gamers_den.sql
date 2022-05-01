@@ -129,16 +129,16 @@ CREATE TABLE `noticias` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `calendario`
+-- Estructura de tabla para la tabla `Eventos`
 --
 
-CREATE TABLE `calendario` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Evento` text NOT NULL,
-  `ColorEvento` text(7) DEFAULT NULL,
-  `FechaInicio` date NOT NULL,
-  `FechaFin` date NOT NULL,
-  PRIMARY KEY(`ID`)
+CREATE TABLE IF NOT EXISTS `Eventos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+	`userid` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `startDate` datetime NOT NULL,
+  `endDate` datetime NOT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

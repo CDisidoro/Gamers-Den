@@ -4,13 +4,14 @@ use \DateTime;
 	/**
 	 * Clase basica para la gestion del Calendario
 	 */
-	class Calendario implements \JsonSerializable{
+	class Evento implements \JsonSerializable{
 		//ATRIBUTOS DE CLASE
 		private $id;
-		private $evento;
-		private $colorEvento;
-		private $fechaInicio;
-		private $fechaFin;
+		private $userid;
+		private $title;
+		private $startDate;
+		private $endDate;
+		const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
 
 		//CONSTRUCTOR Y GETTERS
 		/**
@@ -21,12 +22,12 @@ use \DateTime;
 		 * @param date $ fecha de inicio del evento
          * @param date $ fecha de fin del evento
 		 */
-		function __construct($id, $evento, $colorEvento, $fechaInicio, $fechaFin) {
+		function __construct($id, $userid, $title, $startDate, $endDate) {
 			$this->id = $id;
-			$this->evento = $evento;
-			$this->colorEvento = $colorEvento;
-			$this->fechaInicio = $fechaInicio;
-			$this->fechaFin = $fechaFin;
+			$this->userid = $userid;
+			$this->title = $title;
+			$this->startDate = $startDate;
+			$this->endDate = $endDate;
 		}
 
 		/**
@@ -38,10 +39,10 @@ use \DateTime;
 		{
 			$o = new \stdClass();
 			$o->id = $this->id;
-			$o->evento = $this->evento;
-			$o->colorEvento = $this->colorEvento;
-			$o->start = $this->fechaInicio;
-			$o->end = $this->fechaFin;
+			$o->userid = $this->userid;
+			$o->title = $this->title;
+			$o->startDate = $this->startDate;
+			$o->endDate = $this->endDate;
 			return $o;
 		}
 
@@ -57,16 +58,16 @@ use \DateTime;
 		 * Obtiene el nombre del evento
 		 * @return string $nombre del evento
 		 */
-		public function getEvento() {
-			return $this->evento;
+		public function getuserId() {
+			return $this->userid;
 		}
 
 		/**
 		 * Obtiene el color del evento
 		 * @return string $color del evento
 		 */
-		public function getColorEvento() {
-			return $this->colorEvento;
+		public function gettitle() {
+			return $this->title;
 		}
 		
 		/**
@@ -74,7 +75,7 @@ use \DateTime;
 		 * @return date $fecha de inicio del evento
 		 */
 		public function getFechaInicio() {
-			return $this->fechaInicio;
+			return $this->startDate;
 		}
 		
 		/**
@@ -82,18 +83,18 @@ use \DateTime;
 		 * @return date $fecha de fin del evento
 		 */
 		public function getFechaFin() {
-			return $this->fechaFin;
+			return $this->endDate;
 		}
 
         public static function buscarTodosEventos(){
             $conector = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM calendario");
+			$query = sprintf("SELECT * FROM Eventos");
 			$result = $conector->query($query);
 			$ofertasArray = null;
 			if($result) {
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
-					$ofertasArray[] = new Calendario($fila['ID'],$fila['Evento'],$fila['ColorEvento'], $fila['FechaInicio'],$fila['FechaFin']);		
+					$ofertasArray[] = new Evento($fila['id'],$fila['userid'],$fila['title'], $fila['startDate'],$fila['endDate']);		
 				}
 				return $ofertasArray;
 			}
@@ -110,14 +111,14 @@ use \DateTime;
          */
         public static function buscaEvento($id) {
             $mysqli = Aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM calendario WHERE ID = $id";
+            $query = "SELECT * FROM Eventos WHERE id = $id";
             $result = $mysqli->query($query);
             if($result) {
                 $fila = $result->fetch_assoc();
 				if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
 					return false;
 				}
-                $buscaEvento = new Calendario($fila['ID'], $fila['Evento'], $fila['ColorEvento'], $fila['FechaInicio'], $fila['FechaFin']);
+                $buscaEvento = new Evento($fila['id'],$fila['userid'],$fila['title'], $fila['startDate'],$fila['endDate']);
                 $result->free();
                 return $buscaEvento;
             } else{
@@ -125,9 +126,9 @@ use \DateTime;
             }
         }
 
-		public function addEvento($evento, $colorEvento, $fechaInicio, $fechaFin){
+		public function addEvento($id, $userid,$title, $startDate,$endDate){
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query=sprintf("INSERT INTO calendario(evento, colorEvento, fechaInicio, fechaFin) VALUES ('$evento', '$colorEvento', '$fechaInicio', '$fechaFin')");
+            $query=sprintf("INSERT INTO Eventos(id, userid, title, startDate, endDate) VALUES ('$id', '$userid', '$title', '$startDate', '$endDate')");
 			
             if (!$conector->query($query)){
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
@@ -165,10 +166,8 @@ use \DateTime;
 				}
 			}
 			
-			$app = App::getSingleton();
-			$conn = $app->conexionBd();
-			
-			$query = sprintf("SELECT E.id, E.title, E.userId, E.startDate AS start, E.endDate AS end  FROM Eventos E WHERE E.userId=%d AND E.startDate >= '%s'", $userId, $startDate);
+			$conn = Aplicacion::getInstance()->getConexionBd();		
+			$query = sprintf("SELECT E.id, E.userid, E.title, E.startDate, E.endDate FROM Eventos E WHERE E.startDate >= '%s'", $startDate);
 			if ($endDate) {
 				$query = sprintf($query . " AND E.startDate <= '%s'", $endDate);
 			}
@@ -178,8 +177,7 @@ use \DateTime;
 			$rs = $conn->query($query);
 			if ($rs) {
 				while($fila = $rs->fetch_assoc()) {
-					$e = new Evento();
-					$e->asignaDesdeDiccionario($fila);
+					$e = new Evento($fila['id'],$fila['userid'],$fila['title'], $fila['startDate'],$fila['endDate']);	
 					$result[] = $e;
 				}
 				$rs->free();

@@ -164,6 +164,14 @@ INSERT INTO `juegoCategoria` (`juego`, `categoria`) VALUES
 (3, 4),
 (4, 7);
 
+
+--
+-- Volcado de datos para la tabla `juegoCategoria`
+--
+INSERT INTO `eventos`(`id`, `userid`, `title`, `startDate`, `endDate`) VALUES 
+('1','1','Evento 1','2022-04-27 00:00:00','2022-04-28 00:00:00'),
+('2','1','Evento 2','2022-05-27 15:00:00','2022-05-27 16:00:00');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

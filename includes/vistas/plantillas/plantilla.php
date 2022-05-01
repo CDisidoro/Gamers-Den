@@ -38,7 +38,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal Event</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo evento</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="formulario">
@@ -54,8 +54,8 @@
                     <label for="start" class="form-label">Fecha Inicio</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="start">
-                    <label for="start" class="form-label">Fecha Final</label>
+                    <input type="date" class="form-control" id="end">
+                    <label for="end" class="form-label">Fecha Final</label>
                 </div>
 
                 <div class="form-floating mb-3">
@@ -65,10 +65,8 @@
                 
             </div>
             <div class="modal-footer">
-            
-                <button type="button" class="btn btn-secondary" >Cancelar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar</button>
-                <button type="submit" class="btn btn-primary" id ="btnAccion">Registrar</button>
+                <button type="submit" class="btn btn-success" id ="btnRegistrar">Registrar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>               
             </div>
             </div>
         </div>

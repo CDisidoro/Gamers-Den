@@ -1,5 +1,5 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-require('includes/Calendario.php');
+require('includes/Evento.php');
 require('includes/config.php');
 // Procesamos la cabecera Content-Type
 $contentType= $_SERVER['CONTENT_TYPE'] ?? 'application/json';
@@ -35,8 +35,8 @@ switch($_SERVER['REQUEST_METHOD']) {
             $idEvento = filter_input(INPUT_GET, 'idEvento', FILTER_VALIDATE_INT);
             if ($idEvento) {
                 $result = [];
-                $result[] = Calendario::buscaEvento($idEvento);
-                //$result[] = Calendario::buscarTodosEventos();
+                $result[] = Evento::buscaEvento($idEvento);
+                //$result[] = Evento::buscarTodosEventos();
             } else {
                 // Comprobamos si es una lista de eventos entre dos fechas -> eventos.php?start=XXXXX&end=YYYYY
                 // https://fullcalendar.io/docs/events-json-feed
@@ -45,7 +45,7 @@ switch($_SERVER['REQUEST_METHOD']) {
                 if ($start) {
                     $startDateTime = \DateTime::createFromFormat(\DateTime::ISO8601, $start);
                     $endDateTime = \DateTime::createFromFormat(\DateTime::ISO8601, $end);
-                    $result = Calendario::buscaEntreFechas(1, $startDateTime, $endDateTime);
+                    $result = Evento::buscaEntreFechas(1, $startDateTime, $endDateTime);
                 } else {
                     http_response_code(400);
                     echo 'Parámetros start o end incorrectos';
