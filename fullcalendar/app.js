@@ -1,17 +1,28 @@
 var myModal = new bootstrap.Modal(document.getElementById('myModal'));
 let formula = document.getElementById('formulario');
-/*
-$('btnRegistrar').click(function() {
+
+$('#btnRegistrar').click(function() {
   var nuevoEvento = {
     title:$('title').val(),
-    start:$('start').val(),
-    end:$('end').val()
+    start:$('start').val().format("Y-MM-DD HH:mm:ss"),
+    end:$('end').val().format("Y-MM-DD HH:mm:ss"),
+    color:$('color').val()
   };
-
-  calendar.addEvent(nuevoEvento);
+  
+  $.ajax({
+    url: "evento.php",
+    type: "POST",
+    contentType: 'application/json; charset=utf-8',
+    dataType: "json",
+    data: JSON.stringify(nuevoEvento),
+    success: function() {
+      calendar.refetchEvents();
+      alert('Evento añadido');
+    }
+  });
   myModal.show('toggle');
 });
-*/
+
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -22,7 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
+
+      selectable: true,
+
       dateClick: function(info) {
+        $('#start').val(info.dateStr);
         myModal.show();
       },
       events: 'evento.php'
