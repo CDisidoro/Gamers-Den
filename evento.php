@@ -90,6 +90,17 @@ switch($_SERVER['REQUEST_METHOD']) {
         echo $json;   
 
     break;
+
+    case 'DELETE':
+        // 1. Comprobamos si es una consulta de un evento concreto -> eventos.php?idEvento=XXXXX
+        $idEvento = filter_input(INPUT_GET, 'idEvento', FILTER_VALIDATE_INT);
+        // 2. Borramos el evento
+        Evento::borrarPorId($idEvento);
+
+        http_response_code(204); // 204 No content (como resultado)
+        header('Content-Type: application/json; charset=utf-8');
+        header('Content-Length: 0');
+    break;
     
     default:
         http_response_code(400);

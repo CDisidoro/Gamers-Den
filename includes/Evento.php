@@ -174,6 +174,29 @@ use \DateTime;
 			}
         }
 
+		 /**
+     * Borra un evento id $idEvento.
+     *
+     * @param int $idEvento Id del evento a borrar.
+     *
+     */
+    public static function borrarPorId(int $idEvento) {
+        if (!$idEvento) {
+            throw new \BadMethodCallException('$idEvento no puede ser nulo.');
+        }
+        $conector = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf('DELETE FROM Eventos WHERE id=%d', $idEvento);
+        $result = $conn->query($query);
+        if ($result && $conn->affected_rows == 1) {
+            $result = true;
+        } else {
+            if ($conn->affected_rows == 0) {
+                throw new EventoNoEncontradoException("No se ha encontrado el evento: ".$idEvento); 
+            }
+        }
+        return $result;
+    }
+
 		/**
          * Se encarga de buscar un evento en funcion de su ID
          * @param int $id ID del evento a buscar
