@@ -317,6 +317,47 @@
 		}
 
 		/**
+		 * borra todos los productos del carrito del user ID
+		 * * @param int $userId ID del usuario
+		 * @return array|-1 Si ha encontrado productos en el carrioto dara un array con todos esos productos, o -1 si no hay productos
+		 */
+		public static function deleteCarrito($userId) {
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT producto FROM carrito WHERE usuario = '$userId'");
+			$result = $conector->query($query);
+			$ofertasArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$producto = self::buscaProducto($fila['producto']);
+					if($producto->getEstado() == 'venta') {
+						$ofertasArray[] = $producto;
+						$notNull++;
+					}
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ofertasArray;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
+
+		/**
+		 * vuelve a poner el producto a la venta, esto ocurrira en caso de que se cancele la comrpa
+		 *  @param int $articuloID ID del articulo que se confirma
+		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
+		 */
+		public function venderProducto($articuloID) {
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("UPDATE tienda SET Estado = 'venta' WHERE tienda.ID = $articuloID");
+            if (!$conector->query($query))
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            else
+                return true;
+		}
+		/**
 		 * Cambia el estado de un producto a procesado y llama a MasCompra
 		 *  @param int $userId ID del usuario que compra el aticulo
 		 *  @param int $articuloID ID del articulo que se compra
