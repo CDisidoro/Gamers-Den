@@ -11,6 +11,7 @@
 		private $vendedor;
 		private $precio;
 		private $caracteristica;
+		private $estado;
 		
 		//CONSTRUCTOR Y GETTERS
 
@@ -24,7 +25,7 @@
 		 * @param int $precio Precio del producto
 		 * @param string $caracteristica Caracteristica especial que tiene la publicacion
 		 */
-		function __construct($id, $articulo, $descripcion, $fecha, $vendedor, $precio, $caracteristica) {
+		function __construct($id, $articulo, $descripcion, $fecha, $vendedor, $precio, $caracteristica, $estado) {
 			$this->id = $id;
 			$this->articulo = $articulo;
 			$this->descripcion = $descripcion;
@@ -32,6 +33,7 @@
 			$this->precio = $precio;
 			$this->vendedor = $vendedor;
 			$this->caracteristica = $caracteristica;
+			$this->estado = $estado;
 		}
 
 		/**
@@ -88,6 +90,14 @@
 		 */
 		public function getCaracteristica() {
 			return $this->caracteristica;
+		}
+
+		/**
+		 * Obtiene el estado del producto
+		 * @return string $estado estado del producto
+		 */
+		public function getEstado() {
+			return $this->estado;
 		}
 
 		/**
@@ -189,7 +199,7 @@
 					return false;
 				}
 				$buscaProducto = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-										$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+										$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
 				$result->free();
 				return $buscaProducto;
 			} else{
@@ -217,7 +227,7 @@
 						return false;
 					}
 					$buscaProducto[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
 				}
 				$result->free();
 				return $buscaProducto;
@@ -233,7 +243,7 @@
 		 */
 		public static function mostrarPorCar($caracteristica) {
 			$conector = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM tienda WHERE Caracteristica = '$caracteristica'");
+			$query = sprintf("SELECT * FROM tienda WHERE Caracteristica = '$caracteristica' AND Estado = 'venta'");
 			$result = $conector->query($query);
 			$ofertasArray = null;
 			$notNull = 0;
@@ -241,7 +251,7 @@
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
 						$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
 						$notNull++;
 				}
 				$result->free();
@@ -259,7 +269,7 @@
 		 */
 		public static function getAllProductos(){
 			$conector = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM tienda");
+			$query = sprintf("SELECT * FROM tienda WHERE Estado = 'venta'");
 			$result = $conector->query($query);
 			$ofertasArray = null;
 			$notNull = 0;
@@ -267,18 +277,22 @@
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
 					$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica']);
+						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
 					$notNull++;		
 				}
 				$result->free();
 				if($notNull == 0)
 					return -1;
 				return $ofertasArray;
-			}else{
+			}else
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
-			}
 		}
-		
+
+		/**
+		 * Obtiene una lista de todos los productos en el el carrito de userID
+		 * * @param int $userId ID del usuario
+		 * @return array|-1 Si ha encontrado productos en el carrioto dara un array con todos esos productos, o -1 si no hay productos
+		 */
 		public static function getCarrito($userId) {
 			$conector = Aplicacion::getInstance()->getConexionBd();
 			$query = sprintf("SELECT producto FROM carrito WHERE usuario = '$userId'");
@@ -289,16 +303,77 @@
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
 					$producto = self::buscaProducto($fila['producto']);
+					if($producto->getEstado() == 'venta') {
 						$ofertasArray[] = $producto;
 						$notNull++;
+					}
 				}
 				$result->free();
 				if($notNull == 0)
 					return -1;
 				return $ofertasArray;
-			}else{
+			}else
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
-			}
+		}
+
+		/**
+		 * Cambia el estado de un producto a procesado y llama a MasCompra
+		 *  @param int $userId ID del usuario que compra el aticulo
+		 *  @param int $articuloID ID del articulo que se compra
+		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
+		 */
+		public function comprarProducto($userID, $articuloID) {
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("UPDATE tienda SET Estado = 'procesando' WHERE tienda.ID = $articuloID");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+				Producto::MasCompra($userID, $articuloID);
+                return true;
+            }
+		}
+		/**
+		 * cambia el estado del producto que ha sido confirmado por el vendedor de que su comrpa es correcta
+		 *  @param int $articuloID ID del articulo que se confirma
+		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
+		 */
+		public function confirmarProducto($articuloID) {
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("UPDATE tienda SET Estado = 'confirmado' WHERE tienda.ID = $articuloID");
+            if (!$conector->query($query))
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            else
+                return true;
+		}
+
+		/**
+		 * inserta un articulo en compras cuando alguien compra un producto
+		 *  @param int $userId ID del usuario que compra el aticulo
+		 *  @param int $articuloID ID del articulo que se compra
+		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
+		 */
+		public static function MasCompra($userID, $articuloID) {
+            $conector = Aplicacion::getInstance()->getConexionBd();
+			$query = "INSERT INTO compras (usuario, producto)
+					VALUES ('$userID', '$articuloID')";
+			if (!$conector->query($query) ){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+				return false;
+			}else
+                return true;
+		}
+		/**
+		 * Elimina un articulo en compras cuando el vendedor  o comprador cancela la compra
+		 *  @param int $articuloID ID del articulo que se compra
+		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
+		 */
+		public static function cancelarComprar($articuloID) {
+			$conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("DELETE FROM compras WHERE compras.producto = $articuloID");
+            if (!$conector->query($query))
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            else
+                return true;
 		}
 	}
 ?>
