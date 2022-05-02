@@ -13,11 +13,12 @@ use \DateTime;
 		private $endDate;
 		private $color;
 		const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
-
+		const TITLE_MAX_SIZE = 255;
+		
 		/**
 		 * @param array[string] Nombre de las propiedades de la clase.
 		 */
-		const PROPERTIES = ['id', 'userId', 'title', 'startDate', 'endDate', 'color'];
+		const PROPERTIES = ['id', 'userid', 'title', 'startDate', 'endDate', 'backgroundColor'];
 
 		//CONSTRUCTOR Y GETTERS
 		/**
@@ -28,13 +29,25 @@ use \DateTime;
 		 * @param date $ fecha de inicio del evento
          * @param date $ fecha de fin del evento
 		 */
-		function __construct($id, $userid, $title, $startDate, $endDate, $color) {
-			$this->id = $id;
-			$this->userid = $userid;
-			$this->title = $title;
-			$this->startDate = $startDate;
-			$this->endDate = $endDate;
-			$this->color = $color;
+		function __construct() {
+		}
+
+		 /**
+		 * Crear un evento asociado a un usuario $userId, un título $title y una fecha y hora de comienzo y fin.
+		 *
+		 * @param int $userId Id del propietario del evento.
+		 * @param string $title Título del evento.
+		 * @param DateTime $start Fecha y horas de comienzo.
+		 * @param DateTime $end Fecha y horas de fin.
+		 */
+		public static function creaDetallado($id, $userid, $title, \DateTime $startDate, \DateTime $endDate, $color)
+		{
+			$e = new Evento();
+			$e->setUserId($userid);
+			$e->setTitle($title);
+			$e->setStart($startDate);
+			$e->setEnd($endDate);
+			$e->setColor($color);
 		}
 
 		/**
@@ -48,10 +61,57 @@ use \DateTime;
 			$o->id = $this->id;
 			$o->userid = $this->userid;
 			$o->title = $this->title;
-			$o->start = $this->startDate;
-			$o->end = $this->endDate;
-			$o->color = $this->color;
+			$o->start = $this->startDate->format(self::MYSQL_DATE_TIME_FORMAT);
+			$o->end = $this->endDate->format(self::MYSQL_DATE_TIME_FORMAT);
+			$o->backgroundColor = $this->color;
 			return $o;
+		}
+
+
+		public function setUserId(int $userId)
+		{
+			if (is_null($userId)) {
+				throw new \BadMethodCallException('$userId no puede ser una cadena vacía o nulo');
+			}
+			$this->userid = $userId;
+		}
+
+		public function setTitle(string $title)
+    	{
+			if (is_null($title)) {
+				throw new \BadMethodCallException('$title no puede ser una cadena vacía o nulo');
+			}
+
+			if (mb_strlen($title) > self::TITLE_MAX_SIZE) {
+				throw new \BadMethodCallException('$title debe tener como longitud máxima: '.self::TITLE_MAX_SIZE);
+			}
+			$this->title = $title;
+    	}
+
+		public function setStart(\DateTime $start)
+		{      
+			if (empty($start)) {
+				throw new \BadMethodCallException('$start debe ser un timestamp valido no nulo');
+			}
+			if (! is_null($this->endDate) ) {
+				self::compruebaConsistenciaFechas($start, $this->endDate);
+			}
+			$this->startDate = $start;
+		}
+
+		public function setEnd(\DateTime $end)
+		{      
+			if (empty($end)) {
+				throw new \BadMethodCallException('$end debe ser un timestamp valido no nulo');
+			}
+
+			self::compruebaConsistenciaFechas($this->startDate, $end);
+			$this->endDate = $end;
+		}
+
+		public function setColor($color)
+		{      
+			$this->color = $color;
 		}
 
 		/**
@@ -94,26 +154,6 @@ use \DateTime;
 			return $this->endDate;
 		}
 
-		public function setUserId(int $userId)
-		{
-			if (is_null($userId)) {
-				throw new \BadMethodCallException('$userId no puede ser una cadena vacía o nulo');
-			}
-			$this->userId = $userId;
-		}
-	
-		public function setTitle(string $title)
-		{
-			if (is_null($title)) {
-				throw new \BadMethodCallException('$title no puede ser una cadena vacía o nulo');
-			}
-	
-			if (mb_strlen($title) > self::TITLE_MAX_SIZE) {
-				throw new \BadMethodCallException('$title debe tener como longitud máxima: '.self::TITLE_MAX_SIZE);
-			}
-			$this->title = $title;
-		}
-
         public static function buscarTodosEventos(){
             $conector = Aplicacion::getInstance()->getConexionBd();
 			$query = sprintf("SELECT * FROM Eventos");
@@ -122,7 +162,9 @@ use \DateTime;
 			if($result) {
 				for ($i = 0; $i < $result->num_rows; $i++) {
 					$fila = $result->fetch_assoc();
-					$ofertasArray[] = new Evento($fila['id'],$fila['userid'],$fila['title'], $fila['startDate'],$fila['endDate'], $fila['backgroundColor']);		
+					$aux = new Evento();
+					$aux->asignaDesdeDiccionario($fila);
+					$ofertasArray[] = $aux;	
 				}
 				return $ofertasArray;
 			}
@@ -146,7 +188,9 @@ use \DateTime;
 				if(is_null($fila)){ //Comprueba si hay un resultado. Si no lo hay devuelve false
 					return false;
 				}
-                $buscaEvento = new Evento($fila['id'],$fila['userid'],$fila['title'], $fila['startDate'],$fila['endDate'], $fila['backgroundColor']);
+                $buscaEvento = new Evento();
+				$buscaEvento->asignaDesdeDiccionario($fila);
+
                 $result->free();
                 return $buscaEvento;
             } else{
@@ -205,7 +249,8 @@ use \DateTime;
 			$rs = $conn->query($query);
 			if ($rs) {
 				while($fila = $rs->fetch_assoc()) {
-					$e = new Evento($fila['id'],$fila['userid'],$fila['title'], $fila['startDate'],$fila['endDate'], $fila['backgroundColor']);	
+					$e = new Evento();
+					$e->asignaDesdeDiccionario($fila);
 					$result[] = $e;
 				}
 				$rs->free();
@@ -244,7 +289,7 @@ use \DateTime;
 		public static function creaDesdeDicionario(array $diccionario)
 		{
 			$e = new Evento();
-			$e->asignaDesdeDiccionario($diccionario, ['userId', 'title', 'start', 'end', 'color']);
+			$e->asignaDesdeDiccionario($diccionario, ['userid', 'title', 'startDate', 'endDate']);
 			return $e;
 		}
 
@@ -273,8 +318,8 @@ use \DateTime;
 				}
 			}
 
-			if (array_key_exists('userId', $diccionario)) {
-				$userId = $diccionario['userId'];
+			if (array_key_exists('userid', $diccionario)) {
+				$userId = $diccionario['userid'];
 				if (empty($userId)) {
 					throw new \BadMethodCallException('$diccionario[\'userId\'] no puede ser una cadena vacía o nulo');
 				} else if (!is_int($userId) && ! ctype_digit($userId)) {
@@ -295,8 +340,8 @@ use \DateTime;
 			}
 
 			
-			if (array_key_exists('start', $diccionario)) {
-				$start = $diccionario['start'];
+			if (array_key_exists('startDate', $diccionario)) {
+				$start = $diccionario['startDate'];
 				if (empty($start)) {
 					throw new \BadMethodCallException('$diccionario[\'start\'] no puede ser una cadena vacía o nulo');
 				} else {
@@ -307,10 +352,9 @@ use \DateTime;
 					$this->startDate = $startDate;
 				}
 			}
-
-			
-			if (array_key_exists('end', $diccionario)) {
-				$end = $diccionario['end'] ?? null;
+	
+			if (array_key_exists('endDate', $diccionario)) {
+				$end = $diccionario['endDate'] ?? null;
 				if (empty($end)) {
 					throw new \BadMethodCallException('$diccionario[\'end\'] no puede ser una cadena vacía o nulo');
 				} else {
@@ -321,12 +365,38 @@ use \DateTime;
 					$this->endDate = $endDate;
 				}
 			}
+
+			if (array_key_exists('backgroundColor', $diccionario)) {
+				$color = $diccionario['backgroundColor'] ?? null;
+				if (empty($color)) {
+					throw new \BadMethodCallException('$diccionario[\'color\'] no puede ser una cadena vacía o nulo');
+				}
+				$this->color = $color;
+			}
 			
 			self::compruebaConsistenciaFechas($this->startDate, $this->endDate);
 			
 			return $this;
 		}
 
+		public static function guardaPrueba(Evento $evento){
+			$conn = Aplicacion::getInstance()->getConexionBd();	
+			
+				$query = sprintf("INSERT INTO Eventos (userId, title, startDate, endDate, backgroundColor) VALUES (%d, '%s', '%s', '%s', '%s')"
+					, $evento->userid
+					, $conn->real_escape_string($evento->title)
+					, $evento->startDate->format(self::MYSQL_DATE_TIME_FORMAT)
+					, $evento->endDate->format(self::MYSQL_DATE_TIME_FORMAT)
+					, $evento->color
+				);
+
+				$result = $conn->query($query);
+				if ($result) {
+					$evento->id = $conn->insert_id;
+					$result = $evento;
+				} 
+				return  $result;
+		}
 		/**
 		 * Guarda o actualiza un evento $evento en la BD.
 		 *
@@ -338,15 +408,14 @@ use \DateTime;
 				throw new \BadMethodCallException('$evento no puede ser nulo.');
 			}
 			$result = false;
-			$app = App::getSingleton();
-			$conn = $app->conexionBd();
+			$conn = Aplicacion::getInstance()->getConexionBd();	
 			if (!$evento->id) {
 				$query = sprintf("INSERT INTO Eventos (userId, title, startDate, endDate, backgroundColor) VALUES (%d, '%s', '%s', '%s', '%s')"
-					, $evento->userId
-						, $conn->real_escape_string($evento->title)
-							, $evento->start->format(self::MYSQL_DATE_TIME_FORMAT)
-								, $evento->end->format(self::MYSQL_DATE_TIME_FORMAT)
-									, $evento->color
+					, $evento->userid
+					, $conn->real_escape_string($evento->title)
+					, $evento->startDate->format(self::MYSQL_DATE_TIME_FORMAT)
+					, $evento->endDate->format(self::MYSQL_DATE_TIME_FORMAT)
+					, $evento->color
 				);
 
 				$result = $conn->query($query);
@@ -357,13 +426,13 @@ use \DateTime;
 					throw new DataAccessException("No se ha podido guardar el evento");
 				}
 			} else {
-				$query = sprintf("UPDATE Eventos E SET userId=%d, title='%s', startDate='%s', endDate='%s', backgroundColor = '%s' WHERE E.id = %d"
-					, $evento->userId
-						, $conn->real_escape_string($evento->title)
-							, $evento->start->format(self::MYSQL_DATE_TIME_FORMAT)
-								, $evento->end->format(self::MYSQL_DATE_TIME_FORMAT)
-									, $evento->id
-										, $evento->color
+				$query = sprintf("UPDATE Eventos E SET userid=%d, title='%s', startDate='%s', endDate='%s', backgroundColor = '%s' WHERE E.id = %d"
+					, $evento->userid
+					, $conn->real_escape_string($evento->title)
+					, $evento->startDate->format(self::MYSQL_DATE_TIME_FORMAT)
+					, $evento->endDate->format(self::MYSQL_DATE_TIME_FORMAT)
+					, $evento->color
+					, $evento->id
 				);      
 				$result = $conn->query($query);
 				if ($result) {

@@ -30,7 +30,6 @@ $result = null;
 switch($_SERVER['REQUEST_METHOD']) {
     // Consulta de datos
     case 'GET':
-        try {
             // Comprobamos si es una consulta de un evento concreto -> eventos.php?idEvento=XXXXX
             $idEvento = filter_input(INPUT_GET, 'idEvento', FILTER_VALIDATE_INT);
             if ($idEvento) {
@@ -61,12 +60,6 @@ switch($_SERVER['REQUEST_METHOD']) {
             header('Content-Length: ' . mb_strlen($json));
             
             echo $json;
-        }catch(\Exception $e) {
-            http_response_code(500);
-            echo 'Error en la aplicación';
-            error_log($e);
-            die();
-        }
 
     break;
 
@@ -81,12 +74,12 @@ switch($_SERVER['REQUEST_METHOD']) {
         
         // 3. Reprocesamos el cuerpo de la petición como un array PHP
         $dictionary = json_decode($entityBody, true);
-        $dictionary['userId'] = 1;// HACK: normalmente debería de ser App::getSingleton()->idUsuario();
+        $dictionary['userid'] = $_SESSION['ID'];// HACK: normalmente debería de ser App::getSingleton()->idUsuario();
         $e = Evento::creaDesdeDicionario($dictionary);
         
         // 4. Guardamos el evento en BD
-        $result = Evento::guardaOActualiza($e);
-        
+        //$result = Evento::guardaOActualiza($e);
+        $result = Evento::guardaPrueba($e);
         // 5. Generamos un objecto como salida.
         $json = json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
 

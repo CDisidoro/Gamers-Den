@@ -3,10 +3,10 @@ let formula = document.getElementById('formulario');
 
 $('#btnRegistrar').click(function() {
   var nuevoEvento = {
-    title:$('title').val(),
-    start:$('start').val().format("Y-MM-DD HH:mm:ss"),
-    end:$('end').val().format("Y-MM-DD HH:mm:ss"),
-    color:$('color').val()
+    title:$('#title').val(),
+    startDate:$('#start').val().format("Y-MM-DD HH:mm:ss"),
+    endDate:$('#end').val().format("Y-MM-DD HH:mm:ss"),
+    backgroundColor:$('#color').val()
   };
   
   $.ajax({
@@ -19,8 +19,7 @@ $('#btnRegistrar').click(function() {
       calendar.refetchEvents();
       alert('Evento añadido');
     }
-  });
-  myModal.show('toggle');
+  })
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
 
       selectable: true,
-
+      
       dateClick: function(info) {
         $('#start').val(info.dateStr);
         myModal.show();
