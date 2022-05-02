@@ -156,6 +156,7 @@ CREATE TABLE `tienda` (
   `Descripcion` longtext NOT NULL,
   `Fecha` date NOT NULL DEFAULT current_timestamp,
   `Caracteristica` text NOT NULL DEFAULT 'Nuevo',
+  `Estado` text NOT NULL DEFAULT 'venta',
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -220,6 +221,14 @@ CREATE TABLE `forDownVotesCom` (
 -- Estructura de tabla para la tabla `carrito`
 --
 CREATE TABLE `carrito` (
+    `usuario` INT NOT NULL ,
+    `producto` INT NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estructura de tabla para la tabla `compras`
+--
+CREATE TABLE `compras` (
     `usuario` INT NOT NULL ,
     `producto` INT NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
@@ -351,6 +360,13 @@ ALTER TABLE `tienda`
   ADD KEY `FK_Articulo` (`Articulo`) USING BTREE;
 
 --
+-- Indices de la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD KEY `FK_Usuario` (`usuario`),
+  ADD KEY `FK_Producto` (`producto`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -380,6 +396,13 @@ ALTER TABLE `juegoCategoria`
 ALTER TABLE `carrito`
   ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`producto`) REFERENCES `tienda` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`producto`) REFERENCES `tienda` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `foro`
