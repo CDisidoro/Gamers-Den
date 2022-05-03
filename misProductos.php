@@ -14,6 +14,9 @@
 				$nomProducto = $producto->getNombre();
 				$descProducto = $producto->getDescripcion();
 				$urlImagen = $producto->getImagen();
+				$formCancelar = new FormularioCancelarCompra($idProducto);
+				$formHTML = $formCancelar->gestiona();
+
 				## URL del producto junto con el id
 				$id = 'Productos.php?id='.$producto->getID();
 				$productos.=<<<EOS
@@ -23,7 +26,8 @@
 							<img src=$urlImagen class = "imagenTajetaProducto" />
 							<p class = "nombreProductoTarjeta">$nomProducto</p>
 						</a>
-						<p class = "descripcionProductoTarjeta">$descProducto</p>
+							<p class = "descripcionProductoTarjeta">$descProducto</p>
+							{$formHTML}
 						</a>
 					</div>
 				EOS;

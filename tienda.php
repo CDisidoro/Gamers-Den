@@ -53,7 +53,7 @@
 							<img src=$urlImagen class = "imagenTajetaProducto" />
 							<p class = "nombreProductoTarjeta">$nomProducto</p>
 						</a>
-						<p class = "descripcionProductoTarjeta">$descProducto</p>
+							<p class = "descripcionProductoTarjeta">$descProducto</p>
 						</a>
 					</div>
 				EOS;
