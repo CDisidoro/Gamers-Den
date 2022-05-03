@@ -45,10 +45,10 @@
             }
 
             if(count($this->errores) === 0){
-                if(!$producto->cancelarComprar($idUsuario))
+                if(!$producto->cancelarComprar())
                     $this->errores[] = 'Algo ha salido mal';
                 else{
-                    if(!$producto->venderProducto($idUsuario))
+                    if(!$producto->venderProducto())
                         $this->errores[] = 'Algo ha salido mal';
                 }
             }

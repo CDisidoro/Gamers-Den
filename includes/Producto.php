@@ -355,9 +355,9 @@
 		 *  @param int $articuloID ID del articulo que se confirma
 		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
 		 */
-		public function venderProducto($articuloID) {
+		public function venderProducto() {
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("UPDATE tienda SET Estado = 'venta' WHERE tienda.ID = $articuloID");
+            $query = sprintf("UPDATE tienda SET Estado = 'venta' WHERE tienda.ID = $this->id");
             if (!$conector->query($query))
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             else
@@ -414,9 +414,9 @@
 		 *  @param int $articuloID ID del articulo que se compra
 		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
 		 */
-		public static function cancelarComprar($articuloID) {
+		public function cancelarComprar() {
 			$conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM compras WHERE compras.producto = $articuloID");
+            $query = sprintf("DELETE FROM compras WHERE producto = $this->id");
             if (!$conector->query($query))
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             else

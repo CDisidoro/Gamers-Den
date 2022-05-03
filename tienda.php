@@ -86,20 +86,17 @@
 				<div class = "cajaTituloTienda">
 					<h1 class = "tituloPagina text-center"> Todos los productos </h1>
 				</div>
-				<div class = "miCarrito">
-					<div class = "cajaBotonCarrito">
+				<div class = "miCarrito row">
+					<div class = "cajaBotonCarrito col">
 						<a href = "carrito.php">$textCarrito</a>
 					</div>
-				</div>
-				<div class = "misProductos">
-					<div class = "cajaBotonMisProductos">
+					<div class = "cajaBotonCarrito col">
 						<a href = "misProductos.php">Mis Productos</a>
 					</div>
 				</div>
 				<div class = "cuadrotodosProductos">
 					{$productos}
 				</div>
-
 				<div class = "container">
 
 					<div class = "productosCuadro container">
