@@ -1,10 +1,10 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
-	$tituloPagina = 'Nuestra tienda';
+	$tituloPagina = 'Mis Productos';
 
-	function generaProductos(){
+	function generaProductosVenta(){
 		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
-		$arrayProductos = Producto::mostrarPorCar($_GET['caracteristica']);
+		$arrayProductos = Producto::getVenta($_SESSION['ID']);
 
 		$productos = '';
 		## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada
@@ -32,9 +32,9 @@
 		return $productos;
 	}
 
-	function generaTodosProductos(){
+	function generaProductosComprados(){
 		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
-		$arrayProductos = Producto::getAllProductos();
+		$arrayProductos = Producto::getCompra($_SESSION['ID']);
 
 		$productos = '';
 		## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada
@@ -62,71 +62,27 @@
 		return $productos;
 	}
 
-	function generaAgregarProducto(){
-		$addProducto = '';
-		if(isset($_SESSION['login'])){
-			$addProducto = <<<EOS
-				<div class = "cajaBotonProducto col">
-					<a href = "crearProducto.php"> Añadir Producto </a>
-				</div>
-			EOS;
-		}
-		return $addProducto;
-	}
-
-	$productos = generaProductos();
-	$todosproductos = generaTodosProductos();
-	$addProducto = generaAgregarProducto();
+	$productosVenta = generaProductosVenta();
+	$productosCompra = generaProductosComprados();
 	if(isset($_SESSION['login'])){
 		$usuario = Usuario::buscaPorId($_SESSION['ID']);
-		$textCarrito = 'Mi Carrito ('.$usuario->longCarrito() .')';
 		$contenidoPrincipal=<<<EOS
-		<section class = "tiendaPrincipal container">
+		<section class = "tiendaPrincipal">
 			<div class = "container">
 				<div class = "cajaTituloTienda">
-					<h1 class = "tituloPagina text-center"> Todos los productos </h1>
+					<h1 class = "tituloPagina"> MIS PRODUCTOS </h1>
 				</div>
-				<div class = "miCarrito">
-					<div class = "cajaBotonCarrito">
-						<a href = "carrito.php">$textCarrito</a>
-					</div>
+				<div class = "contenedorTienda">
+					<h2 class = "tituloPagina"> MIS PRODUCTOS EN VENTA </h2>
+					<div class = "cuadroProductos">
+						{$productosVenta}                     
+					</div>                
 				</div>
-				<div class = "misProductos">
-					<div class = "cajaBotonMisProductos">
-						<a href = "misProductos.php">Mis Productos</a>
-					</div>
-				</div>
-				<div class = "cuadrotodosProductos">
-					{$productos}
-				</div>
-
-				<div class = "container">
-
-					<div class = "productosCuadro container">
-						<div class = "botonesProductos row">
-							<div class = "cajaBotonProducto col">
-								<a href = "tienda.php?caracteristica=Destacado"> Destacado </a>
-							</div>
-
-							<div class = "cajaBotonProducto col">
-								<a href = "tienda.php?caracteristica=Nuevo"> Nuevo </a>
-							</div>
-
-							<div class = "cajaBotonProducto col">
-								<a href = "tienda.php?caracteristica=Popular"> Popular </a>
-							</div>
-
-							$addProducto
-							
-							<div class = "cajaBusqueda col">
-								<a href = "buscarProducto.php" class="btn btn-link" > <img src = "img/search.svg" class = "imagenBusqueda"> </a>
-							</div>
-
-						</div>
-
-					<div class = "cuadroProductos container">
-						{$todosproductos}                     
-					</div>                            
+				<div class = "contenedorTienda">
+					<h2 class = "tituloPagina"> MIS PRODUCTOS COMPRADOS </h2>
+					<div class = "cuadroProductos">
+						{$productosCompra}                     
+					</div>                
 				</div>
 
 			</div>		
@@ -134,11 +90,11 @@
 		EOS;
 	}
 	else {
-        $contenidoPrincipal = <<<EOS
-            <section class = "content">
-                <p>No has iniciado sesión. Por favor, logueate para poder acceder a la tienda</p>
-            </section>
-        EOS;
-    }
+		$contenidoPrincipal = <<<EOS
+			<section class = "content">
+				<p>No has iniciado sesión. Por favor, logueate para poder acceder a la tienda</p>
+			</section>
+		EOS;
+	}
 	include 'includes/vistas/plantillas/plantilla.php';
 ?>
