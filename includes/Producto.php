@@ -429,7 +429,7 @@
 		 */
 		public static function getVenta($userID){
 			$conector = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM tienda WHERE Vendedor = $userID AND Estado = 'venta'");
+			$query = sprintf("SELECT * FROM tienda WHERE Vendedor = $userID AND Estado = 'procesando'");
 			$result = $conector->query($query);
 			$ofertasArray = null;
 			$notNull = 0;
