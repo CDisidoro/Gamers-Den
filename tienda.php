@@ -93,7 +93,7 @@
 				</div>
 				<div class = "misProductos">
 					<div class = "cajaBotonMisProductos">
-						<a href = "misProductos.php">Mis Productos</a>
+						<a href = "misProductos.php"> Mis Productos </a>
 					</div>
 				</div>
 				<div class = "cuadrotodosProductos">

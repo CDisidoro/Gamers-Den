@@ -474,5 +474,26 @@
 			}else
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 		}
+
+		public static function getConfirmados($userID){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM tienda WHERE Vendedor = $userID AND Estado = 'procesando'");
+			$result = $conector->query($query);
+			$ventaArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$ventaArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+					$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
+					$notNull++;
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ventaArray;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
 	}
 ?>

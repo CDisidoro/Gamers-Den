@@ -1,16 +1,16 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
     /**
-     * Clase hija de Formulario encargada de cancelar la compra
+     * Clase hija de Formulario encargada de confirmar la compra
      */
-    class FormularioCancelarCompra extends Formulario{
+    class FormularioConfirmarCompra extends Formulario{
         private $idProducto;
         /**
         *   
-        *   @param int $idProducto ID del producto que queremos cancelar la compra
+        *   @param int $idProducto ID del producto que queremos confirmar la compra
         */
         public function __construct($idProducto) { 
             $this->idProducto = $idProducto;
-            parent::__construct('formCancelarCompra', ['urlRedireccion' => 'misProductos.php']);
+            parent::__construct('formConfirmarCompra', ['urlRedireccion' => 'misProductos.php']);
         }
         
         /**
@@ -24,20 +24,20 @@
             */
             $html = <<<EOF
                 <input type="hidden" name="idProducto" value="{$this->idProducto}"  />
-                <button type="submit" class="btn btn-success" name="enviar"> Cancelar Compra </button>
+                <button type="submit" class="btn btn-success" name="enviar"> Confirmar Compra </button>
             EOF;
             return $html;
         }
 
         /**
-         * Se encarga de procesar en formulario una vez se pulsa en el boton de Cancelar Compra
+         * Se encarga de procesar en formulario una vez se pulsa en el boton de Confirmar Compra
          * @param array &$datos Datos que han sido enviados en el formulario
          */
         protected function procesaFormulario(&$datos) {
             $this->errores = [];
             $idProducto = filter_var($datos['idProducto'] ?? null, FILTER_SANITIZE_NUMBER_INT);
             if (!$idProducto) {
-                $this->errores[] = 'No tengo claro que producto tengo que confirmar';
+                $this->errores[] = 'No tengo claro que producto tengo que cancelar';
             }
             $producto = Producto::buscaProducto($idProducto);
             if(!$producto){
@@ -45,14 +45,19 @@
             }
 
             if(count($this->errores) === 0){
-                if(!$producto->cancelarComprar($idProducto))
+                if(!$producto->confirmarProducto($idProducto))
                     $this->errores[] = 'Algo ha salido mal';
-                else{
-                    if(!$producto->venderProducto($idProducto))
-                        $this->errores[] = 'Algo ha salido mal';
-                }
             }
         }
         
+        /**
+         * Valida si la identidad del usuario logeado coincide con la que se nos pasa al formulario
+         * @param int $id  ID de la sesion
+         * @param int $idUsuario ID del usuario que ha iniciado sesion
+         * @return bool Si la identidad coincide retorna true, sino retorna false
+         */
+        protected function checkIdentity($id, $idUsuario){
+            return $id == $idUsuario;
+        }
     }
 ?>

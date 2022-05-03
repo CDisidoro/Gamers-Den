@@ -14,8 +14,6 @@
 				$nomProducto = $producto->getNombre();
 				$descProducto = $producto->getDescripcion();
 				$urlImagen = $producto->getImagen();
-				$formCancelar = new FormularioCancelarCompra($idProducto);
-				$formHTML = $formCancelar->gestiona();
 
 				## URL del producto junto con el id
 				$id = 'Productos.php?id='.$producto->getID();
@@ -27,7 +25,6 @@
 							<p class = "nombreProductoTarjeta">$nomProducto</p>
 						</a>
 							<p class = "descripcionProductoTarjeta">$descProducto</p>
-							{$formHTML}
 						</a>
 					</div>
 				EOS;
@@ -48,6 +45,8 @@
 				$nomProducto = $producto->getNombre();
 				$descProducto = $producto->getDescripcion();
 				$urlImagen = $producto->getImagen();
+				$formCancelar = new FormularioCancelarCompra($idProducto);
+				$formHTML = $formCancelar->gestiona();
 				## URL del producto junto con el id
 				$id = 'Productos.php?id='.$producto->getID();
 				$productos.=<<<EOS
@@ -59,6 +58,7 @@
 						</a>
 						<p class = "descripcionProductoTarjeta">$descProducto</p>
 						</a>
+						{$formHTML}
 					</div>
 				EOS;
 			}
@@ -66,9 +66,46 @@
 		return $productos;
 	}
 
-	$productosVenta = generaProductosVenta();
-	$productosCompra = generaProductosComprados();
+	function generaProductosPorConfirmar(){
+		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
+		$arrayProductos = Producto::getConfirmados($_SESSION['ID']);
+
+		$productos = '';
+		## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada
+		if($arrayProductos != -1){
+			foreach ($arrayProductos as $producto) {
+				$idProducto = $producto->getID();
+				$nomProducto = $producto->getNombre();
+				$descProducto = $producto->getDescripcion();
+				$urlImagen = $producto->getImagen();
+				$formCancelar = new FormularioCancelarCompra($idProducto);
+				$formHTMLCancelar = $formCancelar->gestiona();
+				$formConfirmar = new FormularioConfirmarCompra($idProducto);
+				$formHTMLConfirmar = $formConfirmar->gestiona();
+				## URL del producto junto con el id
+				$id = 'Productos.php?id='.$producto->getID();
+				$productos.=<<<EOS
+					<div class = "tarjetaProducto">
+						<a href=$id rel="nofollow" target="_blank">
+						<a href = "tienda_particular.php?id=$idProducto">
+							<img src=$urlImagen class = "imagenTajetaProducto" />
+							<p class = "nombreProductoTarjeta">$nomProducto</p>
+						</a>
+						<p class = "descripcionProductoTarjeta">$descProducto</p>
+						</a>
+						{$formHTMLCancelar}
+						{$formHTMLConfirmar}
+					</div>
+				EOS;
+			}
+		}	
+		return $productos;
+	}
+
 	if(isset($_SESSION['login'])){
+		$productosVenta = generaProductosVenta();
+		$productosCompra = generaProductosComprados();
+		$productosPorConfirmar = generaProductosPorConfirmar();
 		$usuario = Usuario::buscaPorId($_SESSION['ID']);
 		$contenidoPrincipal=<<<EOS
 		<section class = "tiendaPrincipal">
@@ -86,6 +123,12 @@
 					<h2 class = "tituloPagina"> MIS PRODUCTOS COMPRADOS </h2>
 					<div class = "cuadroProductos">
 						{$productosCompra}                     
+					</div>                
+				</div>
+				<div class = "contenedorTienda">
+					<h2 class = "tituloPagina"> MIS PRODUCTOS POR CONFIRMAR </h2>
+					<div class = "cuadroProductos">
+						{$productosPorConfirmar}                     
 					</div>                
 				</div>
 
