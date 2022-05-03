@@ -18,13 +18,18 @@ $('#btnRegistrar').click(function() {
     success: function() {
       calendar.refetchEvents();
       alert('Evento añadido');
+    },
+
+    error: function() {
+      alert('Exception:');
     }
   })
 });
+/*
 $('btnEliminar').click(function(info) {
   
   
-});
+});*/
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -42,14 +47,14 @@ document.addEventListener('DOMContentLoaded', function() {
       dateClick: function(info) {
         $('#start').val(info.dateStr);
         //En el caso de que se seleccione para insertar un nuevo evento, no mostrar el boton de eliminar
-        document.getElementById('btnEliminar').classList.add('d-none');
+        //document.getElementById('#btnEliminar').classList.add('d-none');
         myModal.show();
       },
-      eventClick: function(info) {
+      /*eventClick: function(info) {
         document.getElementById('btnEliminar').classList.remove('d-none');
         document.getElementById('btnRegistrar').textContent = 'Modificar';
         myModal.show();
-      },
+      },*/
       events: 'evento.php'
     });
     calendar.render();

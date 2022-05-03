@@ -59,10 +59,9 @@
                     </div>
                     
                 </div>
-                <div class="modal-footer">    
-                    <button type="button" class="btn btn-info" data-bs-dismiss="modal" >Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="btnEliminar" >Eliminar</button>  
-                    <button type="submit" class="btn btn-success" id ="btnRegistrar">Registrar</button>        
+                <div class="modal-footer">     
+                    <button type="submit" class="btn btn-success" id ="btnRegistrar">Registrar</button>    
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>    
                 </div>
             </div>
             </div>
