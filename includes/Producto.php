@@ -316,32 +316,38 @@
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 		}
 
+		public static function ComprarCarrito($userId) {
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT producto FROM carrito WHERE usuario = '$userId'");
+			$result = $conector->query($query);
+
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$producto = self::buscaProducto($fila['producto']);
+					if($producto)
+						$producto->comprarProducto($userId, $producto->getID());
+				}
+				$result->free();
+				if(!Producto::deleteCarrito($userId))
+					return false;
+				return true;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
 		/**
 		 * borra todos los productos del carrito del user ID
 		 * * @param int $userId ID del usuario
 		 * @return array|-1 Si ha encontrado productos en el carrioto dara un array con todos esos productos, o -1 si no hay productos
 		 */
 		public static function deleteCarrito($userId) {
-			$conector = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT producto FROM carrito WHERE usuario = '$userId'");
-			$result = $conector->query($query);
-			$ofertasArray = null;
-			$notNull = 0;
-			if($result) {
-				for ($i = 0; $i < $result->num_rows; $i++) {
-					$fila = $result->fetch_assoc();
-					$producto = self::buscaProducto($fila['producto']);
-					if($producto->getEstado() == 'venta') {
-						$ofertasArray[] = $producto;
-						$notNull++;
-					}
-				}
-				$result->free();
-				if($notNull == 0)
-					return -1;
-				return $ofertasArray;
-			}else
-				error_log("Error BD ({$conector->errno}): {$conector->error}");
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("DELETE FROM carrito WHERE usuario = $userId");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                return true;
+            }
 		}
 
 		/**

@@ -38,6 +38,8 @@
 			$precio = $producto->getPrecio();
 			$caracteristicas = $producto->getCaracteristica(); ## Las características supongo que es para los tags y filtros
 			$urlImagen = $producto->getImagen();
+			$usuario = Usuario::buscaPorId($_SESSION['ID']);
+			$textCarrito = 'Mi Carrito ('.$usuario->longCarrito() .')';
 			###
 			$nombreVendedor = Usuario::buscaPorId($vendedor);
 			$botones = generaBotones($vendedor);
@@ -46,6 +48,9 @@
 					{$botones}
 					<div class = "tituloProductoConcreto">
 						<p> {$nombre} </p>
+						<div class = "cajaBotonCarrito">
+							<a href = "carrito.php">$textCarrito</a>
+						</div>
 					</div>
 
 					<div class = "fotoyDescripcionProductoConcreto">

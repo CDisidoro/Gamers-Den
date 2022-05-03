@@ -34,6 +34,8 @@
 
 	$productos = generaProductos();
 	if(isset($_SESSION['login'])){
+		$formCompra = new FormularioComprarCarrito($_SESSION['ID']);
+		$formHTML = $formCompra->gestiona();
 		$usuario = Usuario::buscaPorId($_SESSION['ID']);
 		$precioTotal = $usuario->precioCarrito();
 		$contenidoPrincipal=<<<EOS
@@ -46,7 +48,8 @@
 					<div class = "cuadroProductos">
 						{$productos}                     
 					</div>
-					<h1 class = "PrecioCarrito text-center">PRECIO TOTAL: $precioTotal €</h1>                      
+					<h1 class = "PrecioCarrito text-center">PRECIO TOTAL: $precioTotal €</h1>
+					{$formHTML}                      
 				</div>
 
 			</div>		
