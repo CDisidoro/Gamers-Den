@@ -30,6 +30,7 @@ $result = null;
 switch($_SERVER['REQUEST_METHOD']) {
     // Consulta de datos
     case 'GET':
+        if(isset($_SESSION['login'])){
             // Comprobamos si es una consulta de un evento concreto -> eventos.php?idEvento=XXXXX
             $idEvento = filter_input(INPUT_GET, 'idEvento', FILTER_VALIDATE_INT);
             if ($idEvento) {
@@ -60,7 +61,7 @@ switch($_SERVER['REQUEST_METHOD']) {
             header('Content-Length: ' . mb_strlen($json));
             
             echo $json;
-
+        }
     break;
 
     case 'POST':
