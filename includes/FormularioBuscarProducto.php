@@ -53,7 +53,7 @@
             $result = new ResultadoGestionFormulario(true);
             if (count($this->errores) === 0) {
                 $resultado = [];
-                $resultado['juegos'] = Producto::buscaPorNombre($nombreJuego);
+                $resultado['juegos'] = Producto::buscarProductoKeyWords($nombreJuego);
                 $resultado['extraUrlParams'] = ['tipoFormulario'=>'formSearchProductos', 'nombreJuego' => $nombreJuego];
                 $result->setResultado($resultado);
                 if (!$resultado['juegos']) {

@@ -207,6 +207,44 @@
 			}
 		}
 
+        /**
+         * Busca productos por un conjunto de palabras clave
+         * @param string $keyWords Palabras clave con las que se va a buscar el producto
+         * @return array $returning Array con los productos que coinciden con las palabras clave deseadas. Retornara vacio si no encuentra productos relacionados
+         */
+        public static function buscarProductoKeyWords($keyWords){            
+            $mysqli = Aplicacion::getInstance()->getConexionBd();
+
+            $palabras = $mysqli->real_escape_string($keyWords); //filtro de seguridad
+            $palabras = explode(" ", $keyWords); //separamos cada una de las keywords a buscar
+            $returning = [];
+            foreach($palabras as $palabra){
+                $query = sprintf("SELECT tienda.ID, tienda.Articulo, tienda.Vendedor, juegos.Nombre, tienda.Precio,
+				tienda.Descripcion, tienda.Fecha, tienda.Caracteristica, tienda.Estado
+				FROM tienda INNER JOIN juegos ON tienda.Articulo=juegos.ID
+				WHERE juegos.Nombre LIKE '%%{$palabra}%%'");
+                $result = $mysqli->query($query);
+                if($result){
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        $fila = $result->fetch_assoc();
+                        $esta = false;
+                        foreach($returning as $producto){
+                            if($producto->getID() == $fila['ID']){
+                                $esta = true;
+                            }
+                        }
+                        if(!$esta){
+                            $returning[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+							$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
+                        }
+                    }
+                    $result->free();
+                }
+            }
+            return $returning;
+        }
+
+
 		/**
 		 * Busca productos en la tienda en base a su Nombre
 		 * @param string $nombre Nombre del producto que se desea buscar
@@ -215,7 +253,7 @@
 		public static function buscaPorNombre($nombre) {
 			$mysqli = Aplicacion::getInstance()->getConexionBd();
 			$query = "SELECT tienda.ID, tienda.Articulo, tienda.Vendedor, juegos.Nombre, tienda.Precio,
-			tienda.Descripcion, tienda.Fecha, tienda.Caracteristica
+			tienda.Descripcion, tienda.Fecha, tienda.Caracteristica, tienda.Estado
 			FROM tienda INNER JOIN juegos ON tienda.Articulo=juegos.ID
 			WHERE juegos.Nombre = '$nombre'";
 			$result = $mysqli->query($query);
