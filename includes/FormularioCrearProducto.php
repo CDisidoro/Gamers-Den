@@ -4,12 +4,14 @@
      */
     class FormularioCrearProducto extends Formulario{
         private $idUsuario;
+        private $idJuego;
         /**
         * Constructor del formulario, con id formCrearProducto y Redireccion a la tienda
         * @param int $idUsuario ID del usuario que vende el producto nuevo
         */
-        public function __construct($idUsuario) {
-            $this->idUsuario = $idUsuario; 
+        public function __construct($idUsuario, $idJuego) {
+            $this->idUsuario = $idUsuario;
+            $this->idJuego = $idJuego;
             parent::__construct('formCrearProducto', ['urlRedireccion' => 'tienda.php?caracteristica=Destacado']);
         }
 
@@ -25,7 +27,7 @@
             $descripcion = $datos['descripcion'] ?? '';
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
             $erroresCampos = self::generaErroresCampos(['articulo','precio','idUsuario','descripcion'], $this->errores, 'span', array('class' => 'error'));
-            $listaJuegos = $this->generarSelector();
+            $listaJuegos = $this->generarSelector($this->idJuego);
             $html = <<<EOF
             $htmlErroresGlobales
             <fieldset class="container">
@@ -57,13 +59,17 @@
             return $html;
         }
 
-        function generarSelector(){
+        function generarSelector($idJuego){
             $listaJuegos = Videojuego::cargarVideojuegos();
             $selector = '<select name="articulo" id="articulo" class="form-control">';
             foreach($listaJuegos as $juego){
                 $id = $juego->getID();
                 $nombre = $juego->getNombre();
-                $selector .= '<option value='.$id.'>'.$nombre.'</option>';
+                if(!is_null($idJuego) && $idJuego == $id){
+                    $selector .= '<option value='.$id.' selected>'.$nombre.'</option>';
+                }else{
+                    $selector .= '<option value='.$id.'>'.$nombre.'</option>';
+                }
             }
             $selector .= '</select>';
             return $selector;

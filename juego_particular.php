@@ -27,6 +27,7 @@
             $boton = <<<EOS
                 <div class="cajaBotonNegociacion container">
                     $formBoton
+                    <a class="text-decoration-none btn btn-info" href="crearProducto.php?id={$_GET['id']}">Vender una copia</a>
                 </div>
             EOS;
         }

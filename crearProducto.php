@@ -1,7 +1,11 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
     require ('includes/config.php');
 	$tituloPagina = 'Crear Producto';
-	$formulario = new FormularioCrearProducto($_SESSION['ID']);
+	if(isset($_GET['id'])){
+		$formulario = new FormularioCrearProducto($_SESSION['ID'], $_GET['id']);
+	}else{
+		$formulario = new FormularioCrearProducto($_SESSION['ID'], null);
+	}
 	$formHTML = $formulario->gestiona();
 
 	$contenidoPrincipal = <<<EOS
