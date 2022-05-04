@@ -401,24 +401,15 @@ use \DateTime;
 			return $this;
 		}
 
-		public static function guardaPrueba(Evento $evento){
-			$conn = Aplicacion::getInstance()->getConexionBd();	
-			
-				$query = sprintf("INSERT INTO Eventos (userId, title, startDate, endDate, backgroundColor) VALUES (%d, '%s', '%s', '%s', '%s')"
-					, $evento->userid
-					, $conn->real_escape_string($evento->title)
-					, $evento->startDate->format(self::MYSQL_DATE_TIME_FORMAT)
-					, $evento->endDate->format(self::MYSQL_DATE_TIME_FORMAT)
-					, $evento->color
-				);
-
-				$result = $conn->query($query);
-				if ($result) {
-					$evento->id = $conn->insert_id;
-					$result = $evento;
-				} 
-				return  $result;
-		}
+		public function actualizaDesdeDiccionario(array $diccionario, array $propiedadesAIgnorar = []) {
+			$propiedadesAIgnorar[] = 'id';
+			foreach($propiedadesAIgnorar as $prop) {
+				if( isset($diccionario[$prop]) ) {
+					unset($diccionario[$prop]);
+				}
+			}
+			return $this->asignaDesdeDiccionario($diccionario);
+    	}
 		/**
 		 * Guarda o actualiza un evento $evento en la BD.
 		 *
