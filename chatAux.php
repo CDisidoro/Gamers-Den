@@ -152,15 +152,16 @@
                     $(document).ready(function(){
                         //Actualizacion Periodica de mensajes
                         //Fuente: https://es.stackoverflow.com/questions/55668/actualizar-div-autom%C3%A1ticamente
-                        //Obtenemos el ID del Amigo con quien estamos hablando
-                        //Fuente: https://stackoverflow.com/questions/439463/how-to-get-get-and-post-variables-with-jquery
-                        var idAmigo = window.location.href.match(/(?<=idAmigo=)(.*?)[^&]+/)[0];
                         var currChat = $(location).attr('pathname');
                         var refresh = setInterval(function(){
                             if(currChat.search("chat_amigo.php") != -1){
+                                //Obtenemos el ID del Amigo con quien estamos hablando
+                                //Fuente: https://stackoverflow.com/questions/439463/how-to-get-get-and-post-variables-with-jquery
+                                var idAmigo = window.location.href.match(/(?<=idAmigo=)(.*?)[^&]+/)[0];
                                 $("#cajaMensajes").load("cargaMensajes.php?idAmigo=" + idAmigo+"&type=1");
                             }else if(currChat.search("chat_negocio.php") != -1){
-                                $("#cajaMensajes").load("cargaMensajes.php?idAmigo=" + idAmigo+"&type=2");
+                                var idVendedor = window.location.href.match(/(?<=idVendedor=)(.*?)[^&]+/)[0];
+                                $("#cajaMensajes").load("cargaMensajes.php?idVendedor=" + idVendedor+"&type=2");
                             }
                         }, 1000);
                     })

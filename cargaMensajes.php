@@ -1,7 +1,12 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 	require('includes/config.php');
     $userID = $_SESSION['ID'];
-    $friendID = $_GET["idAmigo"]; //Por convenio se le llama idAmigo aun si se trata de un chat comercial
+    $friendID = null;
+    if(isset($_GET["idAmigo"])){
+        $friendID = $_GET["idAmigo"];
+    }else if(isset($_GET["idVendedor"])){
+        $friendID = $_GET["idVendedor"];
+    }
     $user = Usuario::buscaPorId($userID);
     $friend = Usuario::buscaPorId($friendID);
     $type = $_GET['type']; //Tipo de chat (1 = Amigos ; 2 = Comercial)

@@ -425,7 +425,6 @@
 		}
 		/**
 		 * Elimina un articulo en compras cuando el vendedor  o comprador cancela la compra
-		 *  @param int $articuloID ID del articulo que se compra
 		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
 		 */
 		public function cancelarComprar() {
@@ -440,6 +439,7 @@
 
 		/**
 		 * Obtiene una lista de todos los productos que estas vendiendo
+		 * @param int $userID ID del usuario
 		 * @return array|-1 Si ha encontrado productos en la tienda dara un array con todos los productos, o -1 si no hay productos
 		 */
 		public static function getVendiendo($userID){
@@ -464,6 +464,7 @@
 		}
 		/**
 		 * Obtiene una lista de todos los productos que has vendido
+		 * @param int $userID ID del usuario
 		 * @return array|-1 Si ha encontrado productos en la tienda dara un array con todos los productos, o -1 si no hay productos
 		 */
 		public static function getVenta($userID){
@@ -489,6 +490,7 @@
 
 		/**
 		 * Obtiene una lista de todos los productos que has comprado
+		 * @param int $userID ID del usuario
 		 * @return array|-1 Si ha encontrado productos dara un array con todos los productos, o -1 si no hay productos
 		 */
 		public static function getCompra($userID){
@@ -514,6 +516,11 @@
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 		}
 
+		/**
+		 * Obtiene la lista de productos con compra confirmada del vendedor
+		 * @param int $userID ID del usuario
+		 * @return array Array con los productos de compra confirmada
+		 */
 		public static function getConfirmados($userID){
 			$conector = Aplicacion::getInstance()->getConexionBd();
 			$query = sprintf("SELECT * FROM tienda WHERE Vendedor = $userID AND Estado = 'procesando'");
@@ -535,6 +542,13 @@
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 		}
 
+		/**
+		 * Obtiene todos los productos del usuario que han sido enviados
+		 * 
+		 * @param int $userID ID del usuario
+		 * 
+		 * @return array Array con los productos ya enviados
+		 */
 		public static function getEnviados($userID){
 			$conector = Aplicacion::getInstance()->getConexionBd();
 			$query = sprintf("SELECT * FROM compras WHERE usuario = $userID");
@@ -560,6 +574,7 @@
 		
 		/**
 		 * Obtiene una lista de todos los productos cuya comrpa ya se haya finalizado
+		 * @param int $userID ID del usuario
 		 * @return array|-1 Si ha encontrado productos dara un array con todos los productos, o -1 si no hay productos
 		 */
 		public static function getComprado($userID){
