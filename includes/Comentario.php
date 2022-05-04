@@ -163,7 +163,7 @@
             for($j = $i+1; $j < $rows; $j++){
                 $ivotes = $returning[$i]->getUpvotes() - $returning[$i]->getDownvotes();
                 $jvotes = $returning[$j]->getUpvotes() - $returning[$j]->getDownvotes();
-                if($ivotes>$jvotes){
+                if($ivotes<$jvotes){
                     //Intercambiamos valores
                     $aux=$returning[$i];
                     $returning[$i]=$returning[$j];
