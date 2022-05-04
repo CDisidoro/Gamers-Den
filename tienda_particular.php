@@ -25,6 +25,44 @@
 		if(!$producto){
 			$tituloPagina = "No encontrado";
 			$contenidoPrincipal = "<p>Lo sentimos, el artículo al que ha intentado acceder no existe</p>";
+		}else if($producto->getVendedor() == $_SESSION['ID']){
+			$tituloPagina = $producto->getNombre();
+			$descripcion = $producto->getDescripcion();
+			$nombre = $producto->getNombre();
+			$fecha = $producto->getFecha();
+			$vendedor = $producto->getVendedor(); ## Esto es para establecer el chat
+			$precio = $producto->getPrecio();
+			$caracteristicas = $producto->getCaracteristica(); ## Las características supongo que es para los tags y filtros
+			$urlImagen = $producto->getImagen();
+			$usuario = Usuario::buscaPorId($_SESSION['ID']);
+			$textCarrito = 'Mi Carrito ('.$usuario->longCarrito() .')';
+			###
+			$nombreVendedor = Usuario::buscaPorId($vendedor);
+			$botones = generaBotones($vendedor);
+			$contenidoPrincipal=<<<EOS
+				<section class = "tiendaParticular container">
+					{$botones}
+					<div class = "tituloProductoConcreto">
+						<p> {$nombre} </p>
+						<div class = "cajaBotonCarrito">
+							<a href = "carrito.php">$textCarrito</a>
+						</div>
+					</div>
+
+					<div class = "fotoyDescripcionProductoConcreto">
+						<div class = "cajaImagenNoticiaConcreta">
+							<img class = "imagenNoticia"  src = " {$urlImagen} ">
+						</div>
+
+						<div class = "container">
+							<p class = "descripcionProducto" > Descripción del producto: {$descripcion} </p>
+							<p class = "descripcionProducto" >Precio:  {$precio} €</p>
+							<p class = "descripcionProducto" > Vendido por: {$nombreVendedor->getUsername()} </p>
+							<p class = "descripcionProducto" >Fecha de publicación: {$fecha} </p>
+						</div>
+					</div>
+				</section>
+			EOS;
 		}else if($producto->getEstado() == 'venta'){
 			$tituloPagina = $producto->getNombre();
 			$formCarrito = new FormularioManejaCarrito($_GET['id'],$_SESSION['ID']);
