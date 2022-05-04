@@ -327,10 +327,9 @@
 					$producto = self::buscaProducto($fila['producto']);
 					if($producto)
 						$producto->comprarProducto($userId, $producto->getID());
+						$producto->deleteCarrito($producto->getID());
 				}
 				$result->free();
-				if(!Producto::deleteCarrito($userId))
-					return false;
 				return true;
 			}else
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
@@ -340,9 +339,9 @@
 		 * * @param int $userId ID del usuario
 		 * @return array|-1 Si ha encontrado productos en el carrioto dara un array con todos esos productos, o -1 si no hay productos
 		 */
-		public static function deleteCarrito($userId) {
+		public static function deleteCarrito($productoId) {
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM carrito WHERE usuario = $userId");
+            $query = sprintf("DELETE FROM carrito WHERE producto = $productoId");
             if (!$conector->query($query)){
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             }else{
