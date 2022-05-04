@@ -316,32 +316,38 @@
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 		}
 
+		public static function ComprarCarrito($userId) {
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT producto FROM carrito WHERE usuario = '$userId'");
+			$result = $conector->query($query);
+
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$producto = self::buscaProducto($fila['producto']);
+					if($producto)
+						$producto->comprarProducto($userId, $producto->getID());
+				}
+				$result->free();
+				if(!Producto::deleteCarrito($userId))
+					return false;
+				return true;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
 		/**
 		 * borra todos los productos del carrito del user ID
 		 * * @param int $userId ID del usuario
 		 * @return array|-1 Si ha encontrado productos en el carrioto dara un array con todos esos productos, o -1 si no hay productos
 		 */
 		public static function deleteCarrito($userId) {
-			$conector = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT producto FROM carrito WHERE usuario = '$userId'");
-			$result = $conector->query($query);
-			$ofertasArray = null;
-			$notNull = 0;
-			if($result) {
-				for ($i = 0; $i < $result->num_rows; $i++) {
-					$fila = $result->fetch_assoc();
-					$producto = self::buscaProducto($fila['producto']);
-					if($producto->getEstado() == 'venta') {
-						$ofertasArray[] = $producto;
-						$notNull++;
-					}
-				}
-				$result->free();
-				if($notNull == 0)
-					return -1;
-				return $ofertasArray;
-			}else
-				error_log("Error BD ({$conector->errno}): {$conector->error}");
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("DELETE FROM carrito WHERE usuario = $userId");
+            if (!$conector->query($query)){
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+            }else{
+                return true;
+            }
 		}
 
 		/**
@@ -349,9 +355,9 @@
 		 *  @param int $articuloID ID del articulo que se confirma
 		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
 		 */
-		public function venderProducto($articuloID) {
+		public function venderProducto() {
             $conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("UPDATE tienda SET Estado = 'venta' WHERE tienda.ID = $articuloID");
+            $query = sprintf("UPDATE tienda SET Estado = 'venta' WHERE tienda.ID = $this->id");
             if (!$conector->query($query))
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             else
@@ -408,13 +414,86 @@
 		 *  @param int $articuloID ID del articulo que se compra
 		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
 		 */
-		public static function cancelarComprar($articuloID) {
+		public function cancelarComprar() {
 			$conector = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM compras WHERE compras.producto = $articuloID");
+            $query = sprintf("DELETE FROM compras WHERE producto = $this->id");
             if (!$conector->query($query))
                 error_log("Error BD ({$conector->errno}): {$conector->error}");
             else
                 return true;
+		}
+
+		/**
+		 * Obtiene una lista de todos los productos que estas vendiendo
+		 * @return array|-1 Si ha encontrado productos en la tienda dara un array con todos los productos, o -1 si no hay productos
+		 */
+		public static function getVenta($userID){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM tienda WHERE Vendedor = $userID AND Estado = 'procesando'");
+			$result = $conector->query($query);
+			$ofertasArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
+					$notNull++;		
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ofertasArray;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
+
+		/**
+		 * Obtiene una lista de todos los productos que has comprado
+		 * @return array|-1 Si ha encontrado productos dara un array con todos los productos, o -1 si no hay productos
+		 */
+		public static function getCompra($userID){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM compras WHERE usuario = $userID");
+			$result = $conector->query($query);
+			$ventaArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$producto =  Producto::buscaProducto($fila['producto']);
+					if($producto->getEstado() == 'procesando'){
+						$ventaArray[] = $producto;
+						$notNull++;
+					}	
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ventaArray;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
+
+		public static function getConfirmados($userID){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM tienda WHERE Vendedor = $userID AND Estado = 'procesando'");
+			$result = $conector->query($query);
+			$ventaArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$ventaArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+					$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
+					$notNull++;
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ventaArray;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
 		}
 	}
 ?>
