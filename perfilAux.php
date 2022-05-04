@@ -1,7 +1,4 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-require('includes/FormularioAceptarSolicitud.php');
-require('includes/FormularioEliminarSolicitud.php');
-require('includes/FormularioEliminarSolicitudEntrante.php');
 /*
 *   Función que genera el html de la lista de deseos del usuario logeado.
 *   @param user usuario del que se quiere mostrar la lista.

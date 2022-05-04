@@ -1,5 +1,4 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-require('includes/Aplicacion.php');
 use \DateTime;
 	/**
 	 * Clase basica para la gestion del Calendario
@@ -191,7 +190,7 @@ use \DateTime;
             $result = true;
         } else {
             if ($conn->affected_rows == 0) {
-                throw new EventoNoEncontradoException("No se ha encontrado el evento: ".$idEvento); 
+                throw new \Exception("No se ha encontrado el evento: ".$idEvento); 
             }
         }
         return $result;
@@ -446,7 +445,7 @@ use \DateTime;
 					$evento->id = $conn->insert_id;
 					$result = $evento;
 				} else {
-					throw new DataAccessException("No se ha podido guardar el evento");
+					throw new \Exception("No se ha podido guardar el evento");
 				}
 			} else {
 				$query = sprintf("UPDATE Eventos E SET userid=%d, title='%s', startDate='%s', endDate='%s', backgroundColor = '%s' WHERE E.id = %d"
@@ -461,7 +460,7 @@ use \DateTime;
 				if ($result) {
 					$result = $evento;
 				} else {
-					throw new DataAccessException("Se han actualizado más de 1 fila cuando sólo se esperaba 1 actualización: ".$conn->affected_rows);
+					throw new \Exception("Se han actualizado más de 1 fila cuando sólo se esperaba 1 actualización: ".$conn->affected_rows);
 				}
 			}
 

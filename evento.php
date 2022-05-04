@@ -1,5 +1,4 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
-require('includes/Evento.php');
 require('includes/config.php');
 // Procesamos la cabecera Content-Type
 $contentType= $_SERVER['CONTENT_TYPE'] ?? 'application/json';
@@ -71,7 +70,7 @@ switch($_SERVER['REQUEST_METHOD']) {
             // 2. Verificamos que nos envían un objeto
             $dictionary = json_decode($entityBody);
             if (!is_object($dictionary)) {
-                throw new ParametroNoValidoException('El cuerpo de la petición no es valido');
+                throw new \Exception('El cuerpo de la petición no es valido');
             }
 
             // 3. Reprocesamos el cuerpo de la petición como un array PHP
@@ -90,8 +89,8 @@ switch($_SERVER['REQUEST_METHOD']) {
 
             echo $json; 
         }
-        catch(Exception $e){
-            alert($e);
+        catch(\Exception $e){
+            echo $e;
         }
           
     break;
