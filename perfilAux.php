@@ -36,6 +36,76 @@ function generaListaDeseos($usuario){
 }
 
 /*
+*   Función que genera el html de la lista de productos en venta del usuario logeado.
+*   @param user usuario del que se quiere mostrar la lista.
+*/
+function generaProductosVenta($usuario){
+    ## Cogemos todos los productos que vende el usuario (básicamente videojuegos) en un array
+    $arrayProductos = Producto::getVendiendo($_SESSION['ID']);
+
+    $productos = '';
+    ## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada
+    if($arrayProductos != -1){
+        foreach ($arrayProductos as $producto) {
+            $idProducto = $producto->getID();
+            $nomProducto = $producto->getNombre();
+            $descProducto = $producto->getDescripcion();
+            $urlImagen = $producto->getImagen();
+
+            ## URL del producto junto con el id
+            $id = 'Productos.php?id='.$producto->getID();
+            $productos.=<<<EOS
+                <div class = "tarjetaProducto">
+                    <a href=$id rel="nofollow" target="_blank">
+                    <a href = "tienda_particular.php?id=$idProducto">
+                        <img src=$urlImagen class = "imagenTajetaProducto" />
+                        <p class = "nombreProductoTarjeta">$nomProducto</p>
+                    </a>
+                        <p class = "descripcionProductoTarjeta">$descProducto</p>
+                    </a>
+                </div>
+            EOS;
+        }
+    }	
+    return $productos;
+}
+
+/*
+*   Función que genera el html de la lista de productos que hayas finalizado su compra del usuario logeado.
+*   @param user usuario del que se quiere mostrar la lista.
+*/
+function generaProductosCompras($usuario){
+    ## Cogemos todos los productos que vende el usuario (básicamente videojuegos) en un array
+    $arrayProductos = Producto::getComprado($_SESSION['ID']);
+
+    $productos = '';
+    ## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada
+    if($arrayProductos != -1){
+        foreach ($arrayProductos as $producto) {
+            $idProducto = $producto->getID();
+            $nomProducto = $producto->getNombre();
+            $descProducto = $producto->getDescripcion();
+            $urlImagen = $producto->getImagen();
+
+            ## URL del producto junto con el id
+            $id = 'Productos.php?id='.$producto->getID();
+            $productos.=<<<EOS
+                <div class = "tarjetaProducto">
+                    <a href=$id rel="nofollow" target="_blank">
+                    <a href = "tienda_particular.php?id=$idProducto">
+                        <img src=$urlImagen class = "imagenTajetaProducto" />
+                        <p class = "nombreProductoTarjeta">$nomProducto</p>
+                    </a>
+                        <p class = "descripcionProductoTarjeta">$descProducto</p>
+                    </a>
+                </div>
+            EOS;
+        }
+    }	
+    return $productos;
+}
+
+/*
 *   Función que genera el html de la lista de deseos del usuario del perfil.
 *   @param user usuario del que se quiere mostrar la lista.
 */
@@ -304,7 +374,7 @@ function generaContenidoPrincipalInbox($bio, $id, $username, $htmlRecibidas, $ht
 *   @param htmlAvatar avatar del usuario.
 *   @param htmlDeseos lista de deseos del usuario.
 */
-function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar, $htmlDeseos){
+function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar, $htmlDeseos, $htmlVentas, $htmlCompras){
     $contenidoPrincipal=<<<EOS
     <section class = "content">
         <article class = "avatarydatos container">
@@ -350,6 +420,18 @@ function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar
                 $htmlDeseos
             </div>
         </article>
+        <article class = "listadeseados container">
+            <h2 class="text-center">Productos a la venta</h2>
+            <div class = "flexrow">
+                $htmlVentas
+            </div>
+        </article>
+        <article class = "listadeseados container">
+            <h2 class="text-center">Todas sus compras finalizadas</h2>
+            <div class = "flexrow">
+                $htmlCompras
+            </div>
+        </article>
     </section>
     EOS;
     return $contenidoPrincipal;
@@ -376,7 +458,7 @@ function generaHTMLnoConectado(){
 *   @param htmlAvatar avatar del usuario.
 *   @param htmlDeseos lista de deseos del usuario.
 */
-function generaContenidoPrincipalExt($bio, $id, $username, $htmlAmigos, $htmlAvatar, $htmlDeseos){
+function generaContenidoPrincipalExt($bio, $id, $username, $htmlAmigos, $htmlAvatar, $htmlDeseos, $htmlVentas, $htmlCompras){
     $contenidoPrincipal=<<<EOS
     <section class = "content">
         <article class = "avatarydatos container">
@@ -411,6 +493,18 @@ function generaContenidoPrincipalExt($bio, $id, $username, $htmlAmigos, $htmlAva
             <h2 class="text-center">Lista de deseos</h2>
             <div class = "flexrow">
                 $htmlDeseos
+            </div>
+        </article>
+        <article class = "listadeseados container">
+            <h2 class="text-center">Productos a la venta</h2>
+            <div class = "flexrow">
+                $htmlVentas
+            </div>
+        </article>
+        <article class = "listadeseados container">
+            <h2 class="text-center">Todas sus compras finalizadas</h2>
+            <div class = "flexrow">
+                $htmlCompras
             </div>
         </article>
     </section>

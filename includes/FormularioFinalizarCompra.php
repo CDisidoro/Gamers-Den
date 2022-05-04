@@ -1,16 +1,16 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
     /**
-     * Clase hija de Formulario encargada de confirmar la compra
+     * Clase hija de Formulario encargada de finalizar la compra una vez el usuario recibe el producto
      */
-    class FormularioConfirmarCompra extends Formulario{
+    class FormularioFinalizarCompra extends Formulario{
         private $idProducto;
         /**
         *   
-        *   @param int $idProducto ID del producto que queremos confirmar la compra
+        *   @param int $idProducto ID del producto que queremos finalizar la compra
         */
         public function __construct($idProducto) { 
             $this->idProducto = $idProducto;
-            parent::__construct('formConfirmarCompra', ['urlRedireccion' => 'misProductos.php']);
+            parent::__construct('formFinalizarCompra', ['urlRedireccion' => 'misProductos.php']);
         }
         
         /**
@@ -24,20 +24,20 @@
             */
             $html = <<<EOF
                 <input type="hidden" name="idProducto" value="{$this->idProducto}"  />
-                <button type="submit" class="btn btn-success" name="enviar"> Confirmar Compra </button>
+                <button type="submit" class="btn btn-success" name="enviar"> Finalizar Compra </button>
             EOF;
             return $html;
         }
 
         /**
-         * Se encarga de procesar en formulario una vez se pulsa en el boton de Confirmar Compra
+         * Se encarga de procesar en formulario una vez se pulsa en el boton de Finalizar Compra
          * @param array &$datos Datos que han sido enviados en el formulario
          */
         protected function procesaFormulario(&$datos) {
             $this->errores = [];
             $idProducto = filter_var($datos['idProducto'] ?? null, FILTER_SANITIZE_NUMBER_INT);
             if (!$idProducto) {
-                $this->errores[] = 'No tengo claro que producto tengo que cancelar';
+                $this->errores[] = 'No tengo claro que producto tengo que finalizar';
             }
             $producto = Producto::buscaProducto($idProducto);
             if(!$producto){
@@ -45,7 +45,7 @@
             }
 
             if(count($this->errores) === 0){
-                if(!$producto->confirmarProducto($idProducto))
+                if(!$producto->finalizarProducto($idProducto))
                     $this->errores[] = 'Algo ha salido mal';
             }
         }

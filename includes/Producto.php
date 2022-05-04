@@ -379,6 +379,21 @@
                 return true;
             }
 		}
+
+		/**
+		 * Cambia el estado de un producto a finalizado
+		 *  @param int $articuloID ID del articulo que se finaliza su compra
+		 * @return bool Verdadero si se ha conseguido updatear, false si ha ocurrido un error
+		 */
+		public function finalizarProducto($articuloID) {
+            $conector = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("UPDATE tienda SET Estado = 'finalizado' WHERE tienda.ID = $articuloID");
+            if (!$conector->query($query))
+                error_log("Error BD ({$conector->errno}): {$conector->error}");
+    		else
+                return true;
+		}
+
 		/**
 		 * cambia el estado del producto que ha sido confirmado por el vendedor de que su comrpa es correcta
 		 *  @param int $articuloID ID del articulo que se confirma
@@ -423,8 +438,33 @@
                 return true;
 		}
 
+
 		/**
 		 * Obtiene una lista de todos los productos que estas vendiendo
+		 * @return array|-1 Si ha encontrado productos en la tienda dara un array con todos los productos, o -1 si no hay productos
+		 */
+		public static function getVendiendo($userID){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM tienda WHERE Vendedor = $userID AND Estado = 'venta'");
+			$result = $conector->query($query);
+			$ofertasArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
+						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
+					$notNull++;		
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ofertasArray;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
+		/**
+		 * Obtiene una lista de todos los productos que has vendido
 		 * @return array|-1 Si ha encontrado productos en la tienda dara un array con todos los productos, o -1 si no hay productos
 		 */
 		public static function getVenta($userID){
@@ -487,6 +527,56 @@
 					$ventaArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
 					$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
 					$notNull++;
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ventaArray;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
+
+		public static function getEnviados($userID){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM compras WHERE usuario = $userID");
+			$result = $conector->query($query);
+			$ventaArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$producto =  Producto::buscaProducto($fila['producto']);
+					if($producto->getEstado() == 'confirmado'){
+						$ventaArray[] = $producto;
+						$notNull++;
+					}	
+				}
+				$result->free();
+				if($notNull == 0)
+					return -1;
+				return $ventaArray;
+			}else
+				error_log("Error BD ({$conector->errno}): {$conector->error}");
+		}
+		
+		/**
+		 * Obtiene una lista de todos los productos cuya comrpa ya se haya finalizado
+		 * @return array|-1 Si ha encontrado productos dara un array con todos los productos, o -1 si no hay productos
+		 */
+		public static function getComprado($userID){
+			$conector = Aplicacion::getInstance()->getConexionBd();
+			$query = sprintf("SELECT * FROM compras WHERE usuario = $userID");
+			$result = $conector->query($query);
+			$ventaArray = null;
+			$notNull = 0;
+			if($result) {
+				for ($i = 0; $i < $result->num_rows; $i++) {
+					$fila = $result->fetch_assoc();
+					$producto =  Producto::buscaProducto($fila['producto']);
+					if($producto->getEstado() == 'finalizado'){
+						$ventaArray[] = $producto;
+						$notNull++;
+					}	
 				}
 				$result->free();
 				if($notNull == 0)

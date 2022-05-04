@@ -12,7 +12,9 @@
         $htmlAvatar = generaAvatar($usuario);
         $htmlAmigos = generaAmigos($usuario);
         $htmlDeseos = generaListaDeseos($usuario);
-        $contenidoPrincipal = generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar, $htmlDeseos);
+        $htmlVentas = generaProductosVenta($usuario);
+        $htmlCompras = generaProductosCompras($usuario);
+        $contenidoPrincipal = generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar, $htmlDeseos, $htmlVentas, $htmlCompras);
     }
     else{
         $contenidoPrincipal = generaHTMLnoConectado();
