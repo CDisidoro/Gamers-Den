@@ -11,6 +11,7 @@ use \DateTime;
 		private $startDate;
 		private $endDate;
 		private $color;
+		//const FORMAT_INPUT_DATETIME_LOCAL = 'Y-m-d\TH:i'
 		const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
 		const TITLE_MAX_SIZE = 255;
 		

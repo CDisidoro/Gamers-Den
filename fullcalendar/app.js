@@ -20,7 +20,6 @@ $('#btnRegistrar').click(function() {
     data: JSON.stringify(nuevoEvento),
     success: function() {
       calendar.refetchEvents();
-      alert('Evento añadido');
     },
 
     error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -48,7 +47,6 @@ $('#btnEditar').click(function(info) {
     data: JSON.stringify(nuevoEvento),
     success: function() {
       calendar.refetchEvents();
-      alert('Evento editado');
     },
 
     error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -71,7 +69,15 @@ $('#btnEliminar').click(function(info) {
       success: function() {
         //location.reload(); //hace que se recargue la página, no sé si estará del todo bien
         calendar.refetchEvents();
-        alert('Evento eliminado');
+        $(document).ready(function() {
+          Swal.fire({
+              title: "Aviso!",
+              text: "Evento borrado correctamente!!",
+              icon: 'success',
+              timer: 2000,
+              button: "Ok",
+          });
+       });
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         alert("Status: " + textStatus);
@@ -133,7 +139,15 @@ document.addEventListener('DOMContentLoaded', function() {
           data: JSON.stringify(e),
           success: function() {
             calendar.refetchEvents();
-            alert('Evento actualizado');
+            $(document).ready(function() {
+              Swal.fire({
+                  title: "Aviso!",
+                  text: "Evento actualizado correctamente!!",
+                  icon: 'success',
+                  timer: 2000,
+                  button: "Ok",
+              });
+           });
           },
           error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert("Status: " + textStatus);
