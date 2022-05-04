@@ -180,11 +180,11 @@ use \DateTime;
      * @param int $idEvento Id del evento a borrar.
      *
      */
-    public static function borrarPorId(int $idEvento) {
+    public static function borrarPorId($idEvento) {
         if (!$idEvento) {
             throw new \BadMethodCallException('$idEvento no puede ser nulo.');
         }
-        $conector = Aplicacion::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf('DELETE FROM Eventos WHERE id=%d', $idEvento);
         $result = $conn->query($query);
         if ($result && $conn->affected_rows == 1) {
