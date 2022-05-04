@@ -100,8 +100,9 @@
                     
                 </div>
                 <div class="modal-footer">     
-                    <button type="submit" class="btn btn-success" id ="btnEditar">Editar</button>    
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>    
+                    <button type="submit" class="btn btn-success" id ="btnEditar">Editar</button>   
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id ="btnEliminar" >Eliminar evento</button> 
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancelar</button>    
                 </div>
             </div>
             </div>

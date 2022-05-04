@@ -34,7 +34,7 @@ $('#btnEditar').click(function(info) {
   var nuevoEvento = {
     "title" : $('#titleE').val(),
     "startDate" : $('#startE').val() + " 00:00:00",
-    "endDate" : $('#endE').val() + " 00:00:00",
+    "endDate" : $('#endE').val() + " 23:59:59", //el evento dura todo el día 
     "backgroundColor" : $('#colorE').val(),
     "id" : $('#id').val()
   };
@@ -55,6 +55,29 @@ $('#btnEditar').click(function(info) {
       alert("Error: " + errorThrown);
     }
   });
+  
+});
+
+$('#btnEliminar').click(function(info) {
+  if (confirm("¿Seguro que desea eliminar el evento? Esta acción no se puede deshacer")) {
+    var id = $('#id').val();
+
+    $.ajax({
+      url: "evento.php?idEvento=" + id,
+      contentType: 'application/json; charset=utf-8',
+      dataType: "json",
+      type: "DELETE",
+      success: function() {
+        location.reload(); //hace que se recargue la página, no sé si estará del todo bien
+        //calendar.refetchEvents();
+        alert('Evento eliminado');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Status: " + textStatus);
+        alert("Error: " + errorThrown);
+      }
+    })
+  }
   
 });
 
