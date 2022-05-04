@@ -7,7 +7,7 @@ function generaListaDeseos($usuario){
     $htmlDeseos = '<div class="row">';
     $deseos = $usuario->getWishList();
     if(sizeof($deseos) == 0){
-        $htmlDeseos = "<p>Tu lista de deseos está vacía! Empieza a buscar juegos en la pestaña de Juegos!</p>";
+        $htmlDeseos .= "<p>Tu lista de deseos está vacía! Empieza a buscar juegos en la pestaña de Juegos!</p>";
     }else{
         $index = 0;
         while($index < sizeof($deseos[0])){
@@ -110,7 +110,7 @@ function generaListaDeseosExt($usuario){
     $htmlDeseos = '<div class="row">';
     $deseos = $usuario->getWishList();
     if(sizeof($deseos) == 0){
-        $htmlDeseos = "<p> Este perfil aún no ha agregado juegos :( </p>";
+        $htmlDeseos .= "<p> Este perfil aún no ha agregado juegos :( </p>";
     }else{
         $index = 0;
         while($index < sizeof($deseos[0])){
@@ -402,6 +402,12 @@ function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar
                 </div>
             </div>
         </article>
+        <article class = "listadeseados container">
+            <h2 class="text-center">Lista de deseos</h2>
+            <div class = "flexrow">
+                $htmlDeseos
+            </div>
+        </article>
         <article class = "listadeamigos container">
             <h2 class="text-center">Lista de amigos</h2>
             <div class = "addAmigo">
@@ -409,12 +415,6 @@ function generaContenidoPrincipal($bio, $id, $username, $htmlAmigos, $htmlAvatar
             </div>
             <div class = "flexrow">
                 $htmlAmigos
-            </div>
-        </article>
-        <article class = "listadeseados container">
-            <h2 class="text-center">Lista de deseos</h2>
-            <div class = "flexrow">
-                $htmlDeseos
             </div>
         </article>
         <article class = "listadeseados container">
@@ -480,16 +480,16 @@ function generaContenidoPrincipalExt($bio, $id, $username, $htmlAmigos, $htmlAva
                 </div>
             </div>
         </article>
-        <article class = "listadeamigos container">
-            <h2 class="text-center">Lista de amigos</h2>
-            <div class = "flexrow">
-                $htmlAmigos
-            </div>
-        </article>
         <article class = "listadeseados container">
             <h2 class="text-center">Lista de deseos</h2>
             <div class = "flexrow">
                 $htmlDeseos
+            </div>
+        </article>
+        <article class = "listadeamigos container">
+            <h2 class="text-center">Lista de amigos</h2>
+            <div class = "flexrow">
+                $htmlAmigos
             </div>
         </article>
         <article class = "listadeseados container">
