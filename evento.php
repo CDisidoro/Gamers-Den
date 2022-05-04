@@ -74,7 +74,7 @@ switch($_SERVER['REQUEST_METHOD']) {
         
         // 3. Reprocesamos el cuerpo de la petición como un array PHP
         $dictionary = json_decode($entityBody, true);
-        $dictionary['userid'] = $_SESSION['ID'];// HACK: normalmente debería de ser App::getSingleton()->idUsuario();
+        $dictionary['userid'] = 1;// HACK: normalmente debería de ser App::getSingleton()->idUsuario();
         $e = Evento::creaDesdeDicionario($dictionary);
         
         // 4. Guardamos el evento en BD
