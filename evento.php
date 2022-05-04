@@ -63,6 +63,34 @@ switch($_SERVER['REQUEST_METHOD']) {
         }
     break;
 
+    case 'PUT':
+        // 1. Comprobamos si es una consulta de un evento concreto -> eventos.php?idEvento=XXXXX
+        $idEvento = filter_input(INPUT_GET, 'idEvento', FILTER_VALIDATE_INT);
+        // 2. Leemos el contenido que nos envían
+        $entityBody = file_get_contents('php://input');
+        // 3. Verificamos que nos envían un objeto
+        $dictionary = json_decode($entityBody);
+        if (!is_object($dictionary)) {
+            throw new ParametroNoValidoException('El cuerpo de la petición no es valido');
+        }    
+
+        // 4. Reprocesamos el cuerpo de la petición como un array PHP
+        $dictionary = json_decode($entityBody, true);
+        $dictionary['userid'] = $_SESSION['ID'];
+        $e = Evento::buscaEvento($idEvento);
+        $e->actualizaDesdeDiccionario($dictionary, ['id', 'userid']);
+        $result = Evento::guardaOActualiza($e);
+        
+        // 5. Generamos un objecto como salida.
+        $json = json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+        
+        http_response_code(200); // 200 OK
+        header('Content-Type: application/json; charset=utf-8');
+        header('Content-Length: ' . mb_strlen($json));
+
+        echo $json;   
+        break;
+
     case 'POST':
         try{
             // 1. Leemos el contenido que nos envían
@@ -75,7 +103,7 @@ switch($_SERVER['REQUEST_METHOD']) {
 
             // 3. Reprocesamos el cuerpo de la petición como un array PHP
             $dictionary = json_decode($entityBody, true);
-            $dictionary['userid'] = 1;// HACK: normalmente debería de ser App::getSingleton()->idUsuario();
+            $dictionary['userid'] = $_SESSION['ID'];// HACK: normalmente debería de ser App::getSingleton()->idUsuario();
             $e = Evento::creaDesdeDicionario($dictionary);
 
             // 4. Guardamos el evento en BD

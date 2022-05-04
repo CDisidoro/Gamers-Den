@@ -39,7 +39,7 @@
                 </div>
                 <form id="formulario">
                 <div class="modal-body">
-
+                    <input type="hidden" class="form-control" id="userid" value = <?php $_SESSION['ID']?>>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="title">
                         <label for="title" class="form-label">Evento</label>
@@ -78,7 +78,7 @@
                 </div>
                 <form id="formulario">
                 <div class="modal-body">
-                    <input type="hidden" class="form-control" id="id">
+                    <input type="hidden" id="id">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="titleE">
                         <label for="title" class="form-label">Evento</label>

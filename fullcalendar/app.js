@@ -1,14 +1,15 @@
 var myModal = new bootstrap.Modal(document.getElementById('myModal'));
 var myModalEvento = new bootstrap.Modal(document.getElementById('myModalEvento'));
-
+var calendar = null;
 //let formula = document.getElementById('formulario');
 //.format("Y-MM-DD HH:mm:ss")
 $('#btnRegistrar').click(function() {
   var nuevoEvento = {
     "title" : $('#title').val(),
     "startDate" : $('#start').val() + " 00:00:00",
-    "endDate" : $('#end').val() + " 00:00:00",
-    "backgroundColor" : $('#color').val()
+    "endDate" : $('#end').val() + " 23:59:59",
+    "backgroundColor" : $('#color').val(),
+    "userid" : $('#userid').val()
   };
 
   $.ajax({
@@ -68,8 +69,8 @@ $('#btnEliminar').click(function(info) {
       dataType: "json",
       type: "DELETE",
       success: function() {
-        location.reload(); //hace que se recargue la página, no sé si estará del todo bien
-        //calendar.refetchEvents();
+        //location.reload(); //hace que se recargue la página, no sé si estará del todo bien
+        calendar.refetchEvents();
         alert('Evento eliminado');
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -83,7 +84,7 @@ $('#btnEliminar').click(function(info) {
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       locale: 'es',
       headerToolbar: {
@@ -93,9 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
       },
 
       selectable: true,
+      editable: true,
       
       dateClick: function(info) {
-        //$('#start').val(info.dateStr);
+        $('#start').val(info.dateStr);
         //En el caso de que se seleccione para insertar un nuevo evento, no mostrar el boton de eliminar
         //document.getElementById('#btnEliminar').classList.add('d-none');
         myModal.show();
@@ -110,7 +112,34 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#endE').val(moment(event.end).format("YYYY-MM-DD"));
         $('#colorE').val(event.backgroundColor);
         $('#id').val(event.id);
+        $('#useridE').val(event.userid);
         myModalEvento.show();   
+      },
+      eventDrop: function(info) {
+        var event = info.event;
+          var e = {
+            "id": event.id,
+            "startDate": moment(event.start).format("YYYY-MM-DD HH:mm:ss"),
+            "endDate": moment(event.end).format("YYYY-MM-DD HH:mm:ss"),
+            "title": event.title,
+            "userid" : event.userid
+          };
+
+        $.ajax({
+          url: "evento.php?idEvento=" + event.id,
+          contentType: 'application/json; charset=utf-8',
+          dataType: "json",
+          type: "PUT",
+          data: JSON.stringify(e),
+          success: function() {
+            calendar.refetchEvents();
+            alert('Evento actualizado');
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Status: " + textStatus);
+            alert("Error: " + errorThrown);
+          }
+        });
       },
       events: 'evento.php'
     });
