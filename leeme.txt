@@ -5,3 +5,5 @@ Funciones implementadas:
  - Noticias
  - Tienda
  - Juegos
+ - Foro
+ - Calendario
