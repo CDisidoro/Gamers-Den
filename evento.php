@@ -1,5 +1,7 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 require('includes/config.php');
+
+const FORMAT_INPUT_DATETIME_LOCAL = 'Y-m-d\TH:i';
 // Procesamos la cabecera Content-Type
 $contentType= $_SERVER['CONTENT_TYPE'] ?? 'application/json';
 $contentType = strtolower(str_replace(' ', '', $contentType));

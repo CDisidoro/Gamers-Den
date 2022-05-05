@@ -49,11 +49,11 @@
                                     </div>
         
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" id="start">
+                                        <input id="start" class="form-control datetimepicker-input" type="datetime-local" />
                                         <label for="start" class="form-label">Fecha Inicio</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" id="end">
+                                        <input class="form-control datetimepicker-input" type="datetime-local" id="end">
                                         <label for="end" class="form-label">Fecha Final</label>
                                     </div>
         
@@ -87,16 +87,17 @@
                     <input type="hidden" id="id">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="titleE">
-                        <label for="title" class="form-label">Evento</label>
+                        <label for="titleE" class="form-label">Evento</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control datetimepicker-input" id="startE">
-                        <label for="start" class="form-label">Fecha Inicio</label>
+                        <input id="startE" class="form-control datetimepicker-input" type="datetime-local" />
+                        <label for="startE" class="form-label">Fecha Inicio</label>
                     </div>
+
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" id="endE">
-                        <label for="end" class="form-label">Fecha Final</label>
+                        <input class="form-control datetimepicker-input" type="datetime-local" id="endE">
+                        <label for="endE" class="form-label">Fecha Final</label>
                     </div>
 
                     <div class="form-floating mb-3">

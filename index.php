@@ -107,7 +107,7 @@ use function es\fdi\ucm\aw\gamersDen\generaProductos as GamersDenGeneraProductos
 			<section class = "content">
 				<article class="container">
 					<h1 class="text-center">Página principal</h1>
-					<p class="text-center"> Te damos la bienvenida a Gamers Den, tu página social y tienda de juegos de segunda mano favorita! </p>
+					<p class="text-center"> Te damos la bienvenida a Gamers Den, ¡tu página social y tienda de juegos de segunda mano favorita! </p>
 				</article>
 				<article class="container">
 					<h2 class="text-center">Noticia Destacada</h2>

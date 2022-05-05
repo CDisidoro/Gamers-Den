@@ -6,8 +6,8 @@ var calendar = null;
 $('#btnRegistrar').click(function() {
   var nuevoEvento = {
     "title" : $('#title').val(),
-    "startDate" : $('#start').val() + " 00:00:00",
-    "endDate" : $('#end').val() + " 23:59:59",
+    "startDate" : moment($('#start').val()).format("Y-MM-DD HH:mm") + ":00",
+    "endDate" : moment($('#end').val()).format("Y-MM-DD HH:mm") + ":00",
     "backgroundColor" : $('#color').val(),
     "userid" : $('#userid').val()
   };
@@ -23,8 +23,7 @@ $('#btnRegistrar').click(function() {
     },
 
     error: function(XMLHttpRequest, textStatus, errorThrown) {
-      alert("Status: " + textStatus);
-      alert("Error: " + errorThrown);
+      alert("Algo ha salido mal. Por favor revisa que las fechas sean correctas (start < end)");
     }
   });
   
@@ -33,8 +32,8 @@ $('#btnRegistrar').click(function() {
 $('#btnEditar').click(function(info) {
   var nuevoEvento = {
     "title" : $('#titleE').val(),
-    "startDate" : $('#startE').val() + " 00:00:00",
-    "endDate" : $('#endE').val() + " 23:59:59", //el evento dura todo el día 
+    "startDate" : moment($('#startE').val()).format("Y-MM-DD HH:mm") + ":00",
+    "endDate" : moment($('#endE').val()).format("Y-MM-DD HH:mm")+ ":00", 
     "backgroundColor" : $('#colorE').val(),
     "id" : $('#id').val()
   };
@@ -50,8 +49,7 @@ $('#btnEditar').click(function(info) {
     },
 
     error: function(XMLHttpRequest, textStatus, errorThrown) {
-      alert("Status: " + textStatus);
-      alert("Error: " + errorThrown);
+      alert("Algo ha salido mal. Por favor revisa que las fechas sean correctas (start < end)");
     }
   });
   
@@ -67,12 +65,11 @@ $('#btnEliminar').click(function(info) {
       dataType: "json",
       type: "DELETE",
       success: function() {
-        //location.reload(); //hace que se recargue la página, no sé si estará del todo bien
         calendar.refetchEvents();
         $(document).ready(function() {
           Swal.fire({
-              title: "Aviso!",
-              text: "Evento borrado correctamente!!",
+              title: "¡Aviso!",
+              text: "¡Evento borrado correctamente!",
               icon: 'success',
               timer: 2000,
               button: "Ok",
@@ -103,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
       editable: true,
       
       dateClick: function(info) {
-        $('#start').val(info.dateStr);
+        $('#start').val(moment(info.dateStr).format("Y-MM-DDTHH:mm"));
         //En el caso de que se seleccione para insertar un nuevo evento, no mostrar el boton de eliminar
         //document.getElementById('#btnEliminar').classList.add('d-none');
         myModal.show();
@@ -113,20 +110,59 @@ document.addEventListener('DOMContentLoaded', function() {
         //document.getElementById('btnEliminar').classList.remove('d-none');
         //document.getElementById('btnRegistrar').textContent = 'Modificar';
         var event = info.event;
-        $('#startE').val(moment(event.start).format("YYYY-MM-DD"));
+        $('#startE').val(moment(event.start).format("Y-MM-DDTHH:mm"));
         $('#titleE').val(event.title);
-        $('#endE').val(moment(event.end).format("YYYY-MM-DD"));
+        $('#endE').val(moment(event.end).format("Y-MM-DDTHH:mm"));
         $('#colorE').val(event.backgroundColor);
         $('#id').val(event.id);
         $('#useridE').val(event.userid);
         myModalEvento.show();   
       },
+
+      editable: true,
+        // Ejecutado al cambiar la duración del evento arrastrando
+        eventResize: function(info) {
+          var event = info.event;
+          var e = {
+            "id": event.id,
+            "startDate": moment(event.start).format("Y-MM-DD HH:mm")+ ":00",
+            "endDate": moment(event.end).format("Y-MM-DD HH:mm")+ ":00",
+            "title": event.title,
+            "userid" : event.userid
+          };
+          
+          $.ajax({
+            url: "evento.php",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            data: JSON.stringify(e),
+            success: function() {
+              calendar.refetchEvents();
+              $(document).ready(function() {
+                Swal.fire({
+                    title: "¡Aviso!",
+                    text: "¡Evento actualizado correctamente!",
+                    icon: 'success',
+                    timer: 2000,
+                    button: "Ok",
+                });
+             });
+            },
+        
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              alert("Status: " + textStatus);
+              alert("Error: " + errorThrown);
+            }
+          });
+        },       
+
       eventDrop: function(info) {
         var event = info.event;
           var e = {
             "id": event.id,
-            "startDate": moment(event.start).format("YYYY-MM-DD HH:mm:ss"),
-            "endDate": moment(event.end).format("YYYY-MM-DD HH:mm:ss"),
+            "startDate": moment(event.start).format("Y-MM-DD HH:mm")+ ":00",
+            "endDate": moment(event.end).format("Y-MM-DD HH:mm")+ ":00",
             "title": event.title,
             "userid" : event.userid
           };
@@ -141,8 +177,8 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.refetchEvents();
             $(document).ready(function() {
               Swal.fire({
-                  title: "Aviso!",
-                  text: "Evento actualizado correctamente!!",
+                  title: "¡Aviso!",
+                  text: "¡Evento actualizado correctamente!",
                   icon: 'success',
                   timer: 2000,
                   button: "Ok",

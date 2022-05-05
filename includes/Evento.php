@@ -262,7 +262,7 @@ use \DateTime;
 			}
 			
 			$conn = Aplicacion::getInstance()->getConexionBd();		
-			$query = sprintf("SELECT E.id, E.userid, E.title, E.startDate, E.endDate, E.backgroundColor FROM Eventos E WHERE E.startDate >= '%s'", $startDate);
+			$query = sprintf("SELECT E.id, E.userid, E.title, E.startDate, E.endDate, E.backgroundColor FROM Eventos E WHERE E.startDate >= '%s' AND E.userid = $userId", $startDate);
 			if ($endDate) {
 				$query = sprintf($query . " AND E.startDate <= '%s'", $endDate);
 			}
@@ -383,7 +383,7 @@ use \DateTime;
 				} else {
 					$endDate = \DateTime::createFromFormat(self::MYSQL_DATE_TIME_FORMAT, $end);
 					if (!$endDate) {
-						throw new \BadMethodCallException('$diccionario[\'end\'] no sigue el formato válido: '.self::MYSQL_DATE_TIME_FORMAT);
+						throw new \BadMethodCallException('$diccionario[\'end\'] no sigue el formato válido: ' .self::MYSQL_DATE_TIME_FORMAT);
 					}
 					$this->endDate = $endDate;
 				}
