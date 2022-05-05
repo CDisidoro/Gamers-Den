@@ -4,7 +4,7 @@
 
 	function generaProductosVenta(){
 		## Cogemos todos nuestros productos (básicamente videojuegos) en un array
-		$arrayProductos = Producto::getVenta($_SESSION['ID']);
+		$arrayProductos = Producto::getVendiendo($_SESSION['ID']);
 
 		$productos = '';
 		## Cargamos todos los videojuegos disponibles con su nombre e imagen asociada

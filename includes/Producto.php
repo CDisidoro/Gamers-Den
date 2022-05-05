@@ -500,31 +500,6 @@
 			}else
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 		}
-		/**
-		 * Obtiene una lista de todos los productos que has vendido
-		 * @param int $userID ID del usuario
-		 * @return array|-1 Si ha encontrado productos en la tienda dara un array con todos los productos, o -1 si no hay productos
-		 */
-		public static function getVenta($userID){
-			$conector = Aplicacion::getInstance()->getConexionBd();
-			$query = sprintf("SELECT * FROM tienda WHERE Vendedor = $userID AND Estado = 'procesando'");
-			$result = $conector->query($query);
-			$ofertasArray = null;
-			$notNull = 0;
-			if($result) {
-				for ($i = 0; $i < $result->num_rows; $i++) {
-					$fila = $result->fetch_assoc();
-					$ofertasArray[] = new Producto($fila['ID'],$fila['Articulo'],$fila['Descripcion'],
-						$fila['Fecha'],$fila['Vendedor'],$fila['Precio'], $fila['Caracteristica'], $fila['Estado']);
-					$notNull++;		
-				}
-				$result->free();
-				if($notNull == 0)
-					return -1;
-				return $ofertasArray;
-			}else
-				error_log("Error BD ({$conector->errno}): {$conector->error}");
-		}
 
 		/**
 		 * Obtiene una lista de todos los productos que has comprado
@@ -553,11 +528,9 @@
 			}else
 				error_log("Error BD ({$conector->errno}): {$conector->error}");
 		}
-
 		/**
-		 * Obtiene la lista de productos con compra confirmada del vendedor
-		 * @param int $userID ID del usuario
-		 * @return array Array con los productos de compra confirmada
+		 * Obtiene una lista de todos los productos que se han sido comprados y que van a confirmar
+		 * @return array|-1 Si ha encontrado productos dara un array con todos los productos, o -1 si no hay productos
 		 */
 		public static function getConfirmados($userID){
 			$conector = Aplicacion::getInstance()->getConexionBd();
