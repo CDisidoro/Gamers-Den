@@ -294,7 +294,7 @@ use \DateTime;
 				throw new \BadMethodCallException('$end no puede ser nula');
 			}
 
-			if ($start >= $end) {
+			if ($start > $end) {
 				throw new \BadMethodCallException('La fecha de comienzo $start no puede ser posterior a la de fin $end.');
 			}
 		}
