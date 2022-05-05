@@ -30,43 +30,49 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nuevo evento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <?php
+            if(isset($_SESSION['login'])){
+                echo <<<EOS
+                <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Nuevo evento</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form id="formulario">
+                                <div class="modal-body">
+                                    <input type="hidden" class="form-control" id="userid" value = {$_SESSION['ID']}>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="title">
+                                        <label for="title" class="form-label">Evento</label>
+                                    </div>
+        
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="start">
+                                        <label for="start" class="form-label">Fecha Inicio</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="end">
+                                        <label for="end" class="form-label">Fecha Final</label>
+                                    </div>
+        
+                                    <div class="form-floating mb-3">
+                                        <input type="color" class="form-control" id="color">
+                                        <label for="color" class="form-label">Color</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">     
+                                    <button type="submit" class="btn btn-success" id ="btnRegistrar">Registrar</button>    
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <form id="formulario">
-                <div class="modal-body">
-                    <input type="hidden" class="form-control" id="userid" value = <?php $_SESSION['ID']?>>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="title">
-                        <label for="title" class="form-label">Evento</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control" id="start">
-                        <label for="start" class="form-label">Fecha Inicio</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control" id="end">
-                        <label for="end" class="form-label">Fecha Final</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="color" class="form-control" id="color">
-                        <label for="color" class="form-label">Color</label>
-                    </div>
-                    
-                </div>
-                <div class="modal-footer">     
-                    <button type="submit" class="btn btn-success" id ="btnRegistrar">Registrar</button>    
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>    
-                </div>
-            </div>
-            </div>
-        </div>
+                EOS;
+            }
+        ?>
 
         <!-- Modal de evento-->
         <div class="modal fade" id="myModalEvento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
