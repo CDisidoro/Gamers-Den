@@ -74,7 +74,7 @@ switch($_SERVER['REQUEST_METHOD']) {
         $dictionary = json_decode($entityBody);
         if (!is_object($dictionary)) {
             throw new ParametroNoValidoException('El cuerpo de la petición no es valido');
-        }    
+        }  
 
         // 4. Reprocesamos el cuerpo de la petición como un array PHP
         $dictionary = json_decode($entityBody, true);

@@ -169,8 +169,8 @@ INSERT INTO `juegoCategoria` (`juego`, `categoria`) VALUES
 -- Volcado de datos para la tabla `juegoCategoria`
 --
 INSERT INTO `Eventos`(`id`, `userid`, `title`, `startDate`, `endDate`, `backgroundColor`) VALUES 
-('1','1','Evento 1','2022-04-27 00:00','2022-04-28 00:00', '#be27b2'),
-('2','1','Evento 2','2022-05-27 15:00','2022-05-29 16:00', '#be27b2');
+('1','1','Evento Público','2022-04-27 00:00','2022-04-28 00:00', '#be27b2', 'true'),
+('2','1','Evento Privado','2022-05-27 15:00','2022-05-29 16:00', '#be27b2', 'false');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

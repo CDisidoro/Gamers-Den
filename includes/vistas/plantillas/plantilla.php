@@ -31,6 +31,15 @@
 
         <!-- Modal -->
         <?php
+            $htmlPublic = "";
+            if($_SESSION['rol'] == 1){
+                $htmlPublic = <<<EOS
+                    <div class="form-floating mb-3">
+                        ¿Evento público?
+                        <input type="checkbox" id = "isPublic" checked = "true">                           
+                    </div>
+                EOS;
+            } 
             if(isset($_SESSION['login'])){
                 echo <<<EOS
                 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,8 +55,8 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="title">
                                         <label for="title" class="form-label">Evento</label>
-                                    </div>
-        
+                                    </div>                   
+                                    
                                     <div class="form-floating mb-3">
                                         <input id="start" class="form-control datetimepicker-input" type="datetime-local" />
                                         <label for="start" class="form-label">Fecha Inicio</label>
@@ -60,7 +69,10 @@
                                     <div class="form-floating mb-3">
                                         <input type="color" class="form-control" id="color">
                                         <label for="color" class="form-label">Color</label>
-                                    </div>
+                                    </div>   
+                                    
+                                    $htmlPublic
+
                                 </div>
                                 <div class="modal-footer">     
                                     <button type="submit" class="btn btn-success" id ="btnRegistrar">Registrar</button>    
@@ -73,7 +85,6 @@
                 EOS;
             }
         ?>
-
         <!-- Modal de evento-->
         <div class="modal fade" id="myModalEvento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -85,6 +96,7 @@
                 <form id="formulario">
                 <div class="modal-body">
                     <input type="hidden" id="id">
+                    <input type="hidden" id="useridE" value = <?php $_SESSION['ID']?>>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="titleE">
                         <label for="titleE" class="form-label">Evento</label>
@@ -106,7 +118,7 @@
                     </div>
                     
                 </div>
-                <div class="modal-footer">     
+                <div class="modal-footer">    
                     <button type="submit" class="btn btn-success" id ="btnEditar">Editar</button>   
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id ="btnEliminar" >Eliminar evento</button> 
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancelar</button>    

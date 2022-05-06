@@ -11,14 +11,15 @@ use \DateTime;
 		private $startDate;
 		private $endDate;
 		private $color;
-		//const FORMAT_INPUT_DATETIME_LOCAL = 'Y-m-d\TH:i'
+		private $isPublic;
+
 		const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
 		const TITLE_MAX_SIZE = 255;
 		
 		/**
 		 * @param array[string] Nombre de las propiedades de la clase.
 		 */
-		const PROPERTIES = ['id', 'userid', 'title', 'startDate', 'endDate', 'backgroundColor'];
+		const PROPERTIES = ['id', 'userid', 'title', 'startDate', 'endDate', 'backgroundColor', 'isPublic'];
 
 		//CONSTRUCTOR Y GETTERS
 		/**
@@ -37,10 +38,10 @@ use \DateTime;
 		 *
 		 * @param int $userId Id del propietario del evento.
 		 * @param string $title Título del evento.
-		 * @param DateTime $start Fecha y horas de comienzo.
-		 * @param DateTime $end Fecha y horas de fin.
+		 * @param DateTime $start Fecha y hora de comienzo.
+		 * @param DateTime $end Fecha y hora de fin.
 		 */
-		public static function creaDetallado($id, $userid, $title, \DateTime $startDate, \DateTime $endDate, $color)
+		public static function creaDetallado($id, $userid, $title, \DateTime $startDate, \DateTime $endDate, $color, $isPublic)
 		{
 			$e = new Evento();
 			$e->setUserId($userid);
@@ -48,6 +49,7 @@ use \DateTime;
 			$e->setStart($startDate);
 			$e->setEnd($endDate);
 			$e->setColor($color);
+			$e->setPublic($isPublic);
 		}
 
 		/**
@@ -64,9 +66,17 @@ use \DateTime;
 			$o->start = $this->startDate->format(self::MYSQL_DATE_TIME_FORMAT);
 			$o->end = $this->endDate->format(self::MYSQL_DATE_TIME_FORMAT);
 			$o->backgroundColor = $this->color;
+			$o->isPublic = $this->isPublic;
 			return $o;
 		}
 
+		public function setPublic(int $isPublic)
+		{
+			if (is_null($isPublic)) {
+				throw new \BadMethodCallException('$isPublic no puede ser una cadena vacía o nulo');
+			}
+			$this->isPublic = $isPublic;
+		}
 
 		public function setUserId(int $userId)
 		{
@@ -120,6 +130,10 @@ use \DateTime;
 		 */
 		public function getID() {
 			return $this->id;
+		}
+
+		public function getPublic() {
+			return $this->isPublic;
 		}
 		
 		/**
@@ -221,18 +235,6 @@ use \DateTime;
             }
         }
 
-		public function addEvento($id, $userid,$title, $startDate,$endDate, $color){
-            $conector = Aplicacion::getInstance()->getConexionBd();
-            $query=sprintf("INSERT INTO Eventos(id, userid, title, startDate, endDate, backgroundColor) VALUES ('$id', '$userid', '$title', '$startDate', '$endDate', '$color')");
-			
-            if (!$conector->query($query)){
-				error_log("Error BD ({$conector->errno}): {$conector->error}");
-				return false;
-			}else{
-				return true;
-			}
-        }
-
 		/** 
      	* Busca los eventos de un usuario con id $userId en el rango de fechas $start y $end (si se proporciona).
      	*
@@ -262,7 +264,7 @@ use \DateTime;
 			}
 			
 			$conn = Aplicacion::getInstance()->getConexionBd();		
-			$query = sprintf("SELECT E.id, E.userid, E.title, E.startDate, E.endDate, E.backgroundColor FROM Eventos E WHERE E.startDate >= '%s' AND E.userid = $userId", $startDate);
+			$query = sprintf("SELECT E.id, E.userid, E.title, E.startDate, E.endDate, E.backgroundColor, E.isPublic FROM Eventos E WHERE E.startDate >= '%s' AND (E.userid = $userId) OR (E.isPublic = '1')", $startDate);
 			if ($endDate) {
 				$query = sprintf($query . " AND E.startDate <= '%s'", $endDate);
 			}
@@ -397,6 +399,15 @@ use \DateTime;
 				$this->color = $color;
 			}
 			
+			if (array_key_exists('isPublic', $diccionario)) {
+				$public = $diccionario['isPublic'];
+				if (is_null($public)) {
+					throw new \BadMethodCallException('$diccionario[\'title\'] no puede ser una cadena vacía o nulo');
+				} else {
+					$this->setPublic($public);
+				}
+			}
+
 			self::compruebaConsistenciaFechas($this->startDate, $this->endDate);
 			
 			return $this;
@@ -424,12 +435,13 @@ use \DateTime;
 			$result = false;
 			$conn = Aplicacion::getInstance()->getConexionBd();	
 			if (!$evento->id) {
-				$query = sprintf("INSERT INTO Eventos (userId, title, startDate, endDate, backgroundColor) VALUES (%d, '%s', '%s', '%s', '%s')"
+				$query = sprintf("INSERT INTO Eventos (userId, title, startDate, endDate, backgroundColor, isPublic) VALUES (%d, '%s', '%s', '%s', '%s', '%s')"
 					, $evento->userid
 					, $conn->real_escape_string($evento->title)
 					, $evento->startDate->format(self::MYSQL_DATE_TIME_FORMAT)
 					, $evento->endDate->format(self::MYSQL_DATE_TIME_FORMAT)
 					, $evento->color
+					, $evento->isPublic
 				);
 
 				$result = $conn->query($query);
