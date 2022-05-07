@@ -3,12 +3,17 @@ var myModalEvento = new bootstrap.Modal(document.getElementById('myModalEvento')
 var calendar = null;
 //let formula = document.getElementById('formulario');
 //.format("Y-MM-DD HH:mm:ss")
+var isPublic = 1;
+function leerCheckbox(checkbox){
+  if(checkbox.checked){
+    isPublic = 1;
+  }
+  else{
+    isPublic = 0;
+  }
+}
 
 $('#btnRegistrar').click(function() {
-  var isPublic;
-  if($('#isPublic').val()) isPublic = 1;
-  else isPublic = 0;
-
   var nuevoEvento = {
     "title" : $('#title').val(),
     "startDate" : moment($('#start').val()).format("Y-MM-DD HH:mm") + ":00",

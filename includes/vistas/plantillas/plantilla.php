@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" integrity="sha256-XCdgoNaBjzkUaEJiauEq+85q/xi/2D4NcB3ZHwAapoM=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js" integrity="sha256-GcByKJnun2NoPMzoBsuCb4O2MKiqJZLlHTw3PJeqSkI=" crossorigin="anonymous"></script>
-        <!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/moment@2.29.3/min/moment-with-locales.min.js" integrity="sha256-7WG1TljuR3d5m5qKqT0tc4dNDR/aaZtjc2Tv1C/c5/8=" crossorigin="anonymous"></script>
  
         <!-- Bootstrap -->
@@ -32,12 +31,12 @@
         <!-- Modal -->
         <?php
             $htmlPublic = "";
-            if($_SESSION['rol'] == 1){
+            if(isset($_SESSION['login']) && $_SESSION['rol'] == 1){
                 $htmlPublic = <<<EOS
                     <div class="form-floating mb-3">
                         ¿Evento público?
-                        <input type="checkbox" id = "isPublic" checked = "true">                           
-                    </div>
+                        <input type="checkbox" id = "isPublic" checked = "true" onclick = "leerCheckbox(this)">                     
+                    </div>                                   
                 EOS;
             } 
             if(isset($_SESSION['login'])){
