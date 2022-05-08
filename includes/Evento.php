@@ -1,7 +1,7 @@
 <?php namespace es\fdi\ucm\aw\gamersDen;
 use \DateTime;
 	/**
-	 * Clase basica para la gestion del Calendario
+	 * Clase basica para la gestion de eventos
 	 */
 	class Evento implements \JsonSerializable{
 		//ATRIBUTOS DE CLASE
@@ -13,8 +13,8 @@ use \DateTime;
 		private $color;
 		private $isPublic;
 
-		const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
-		const TITLE_MAX_SIZE = 255;
+		const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s'; //formato de fechas de la BD
+		const TITLE_MAX_SIZE = 255; //tamaño máximo para el título del evento
 		
 		/**
 		 * @param array[string] Nombre de las propiedades de la clase.
@@ -40,6 +40,8 @@ use \DateTime;
 		 * @param string $title Título del evento.
 		 * @param DateTime $start Fecha y hora de comienzo.
 		 * @param DateTime $end Fecha y hora de fin.
+		 * @param int $color color del evento.
+		 * @param bool $isPublic indica si el evento es público.
 		 */
 		public static function creaDetallado($id, $userid, $title, \DateTime $startDate, \DateTime $endDate, $color, $isPublic)
 		{
@@ -70,6 +72,10 @@ use \DateTime;
 			return $o;
 		}
 
+		/**
+		 * setter de isPublic
+		 */
+
 		public function setPublic(int $isPublic)
 		{
 			if (is_null($isPublic)) {
@@ -78,6 +84,9 @@ use \DateTime;
 			$this->isPublic = $isPublic;
 		}
 
+		/**
+		 * setter de userId
+		 */
 		public function setUserId(int $userId)
 		{
 			if (is_null($userId)) {
@@ -86,6 +95,9 @@ use \DateTime;
 			$this->userid = $userId;
 		}
 
+		/**
+		 * setter de title
+		 */
 		public function setTitle(string $title)
     	{
 			if (is_null($title)) {
@@ -98,6 +110,9 @@ use \DateTime;
 			$this->title = $title;
     	}
 
+		/**
+		 * setter de fecha de comienzo
+		 */
 		public function setStart(\DateTime $start)
 		{      
 			if (empty($start)) {
@@ -109,6 +124,9 @@ use \DateTime;
 			$this->startDate = $start;
 		}
 
+		/**
+		 * setter de fecha de fin
+		 */
 		public function setEnd(\DateTime $end)
 		{      
 			if (empty($end)) {
@@ -119,6 +137,9 @@ use \DateTime;
 			$this->endDate = $end;
 		}
 
+		/**
+		 * setter del color
+		 */
 		public function setColor($color)
 		{      
 			$this->color = $color;
@@ -132,6 +153,9 @@ use \DateTime;
 			return $this->id;
 		}
 
+		/**
+		 * getter de isPublic
+		 */
 		public function getPublic() {
 			return $this->isPublic;
 		}
@@ -168,6 +192,9 @@ use \DateTime;
 			return $this->endDate;
 		}
 
+		/**
+		 * Obtiene todos los eventos de la BD
+		 */
         public static function buscarTodosEventos(){
             $conector = Aplicacion::getInstance()->getConexionBd();
 			$query = sprintf("SELECT * FROM Eventos");
@@ -318,6 +345,10 @@ use \DateTime;
 			return $e;
 		}
 
+
+		/**
+		 * Función que cambia los atributos de un evento en función de los que haya en el diccionario que recibe
+		 */
 		protected function asignaDesdeDiccionario(array $diccionario, array $propiedadesRequeridas = [])
 		{
 			foreach($diccionario as $key => $val) {
@@ -412,7 +443,10 @@ use \DateTime;
 			
 			return $this;
 		}
-
+		
+		/**
+		 * Función que cambia los atributos de un evento en función de los que haya en el diccionario que recibe
+		 */
 		public function actualizaDesdeDiccionario(array $diccionario, array $propiedadesAIgnorar = []) {
 			$propiedadesAIgnorar[] = 'id';
 			foreach($propiedadesAIgnorar as $prop) {

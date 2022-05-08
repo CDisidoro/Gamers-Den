@@ -1,8 +1,7 @@
 var myModal = new bootstrap.Modal(document.getElementById('myModal'));
 var myModalEvento = new bootstrap.Modal(document.getElementById('myModalEvento'));
 var calendar = null;
-//let formula = document.getElementById('formulario');
-//.format("Y-MM-DD HH:mm:ss")
+
 var isPublic = 1;
 function leerCheckbox(checkbox){
   if(checkbox.checked){
@@ -132,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
       dateClick: function(info) {
         $('#start').val(moment(info.dateStr).format("Y-MM-DDTHH:mm"));
         //En el caso de que se seleccione para insertar un nuevo evento, no mostrar el boton de eliminar
-        //document.getElementById('#btnEliminar').classList.add('d-none');
         myModal.show();
       },
 
