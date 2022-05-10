@@ -517,12 +517,58 @@ article{
 
 /* ESTILOS FOOTER  */
 
-footer {
-	clear: both;
-	padding: 20px;
-	background-color: #303030;
-	color: white;
-	text-align: center;
+.footer{
+    background-color: #33383b;
+}
+.footer .grupo1{
+    width: 100%;
+    margin: auto;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap:50px;
+    padding: 25px 0px;
+}
+.footer .grupo1 .box figure{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer .grupo1 .box figure img{
+    width: 150px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid gray; 
+}
+
+.footer .grupo1 .box h2{
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+.footer .grupo1 .box p{
+    color: #efefef;
+    margin-bottom: 10px;
+}
+.footer .grupo1 .red-social a{
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    margin-right: 10px;
+    background-color: #0d2033;
+    text-align: center;
+    text-decoration: none;
+    align-items: center;
+}
+.footer .grupo1 .red-social a:hover{
+    color: rgb(255, 0, 174);
+}
+.footer .grupo2{
+    background-color: #2c3032;
+    padding: 10px 10px;
+    text-align: center;
+    color: #fff;
 }
 
 /* FIN ESTILOS FOOTER  */
