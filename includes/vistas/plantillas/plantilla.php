@@ -81,50 +81,50 @@
                         </div>
                     </div>
                 </div>
+                <!-- Modal de evento-->
+                <div class="modal fade" id="myModalEvento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Editar evento</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="formulario">
+                        <div class="modal-body">
+                            <input type="hidden" id="id">
+                            <input type="hidden" id="useridE" value = {$_SESSION['ID']}>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="titleE">
+                                <label for="titleE" class="form-label">Evento</label>
+                            </div>
+        
+                            <div class="form-floating mb-3">
+                                <input id="startE" class="form-control datetimepicker-input" type="datetime-local" />
+                                <label for="startE" class="form-label">Fecha Inicio</label>
+                            </div>
+        
+                            <div class="form-floating mb-3">
+                                <input class="form-control datetimepicker-input" type="datetime-local" id="endE">
+                                <label for="endE" class="form-label">Fecha Final</label>
+                            </div>
+        
+                            <div class="form-floating mb-3">
+                                <input type="color" class="form-control" id="colorE">
+                                <label for="color" class="form-label">Color</label>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">    
+                            <button type="submit" class="btn btn-success" id ="btnEditar">Editar</button>   
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id ="btnEliminar" >Eliminar evento</button> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancelar</button>    
+                        </div>
+                    </div>
+                    </div>
+                </div>
                 EOS;
             }
         ?>
-        <!-- Modal de evento-->
-        <div class="modal fade" id="myModalEvento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar evento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="formulario">
-                <div class="modal-body">
-                    <input type="hidden" id="id">
-                    <input type="hidden" id="useridE" value = <?php $_SESSION['ID']?>>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="titleE">
-                        <label for="titleE" class="form-label">Evento</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input id="startE" class="form-control datetimepicker-input" type="datetime-local" />
-                        <label for="startE" class="form-label">Fecha Inicio</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input class="form-control datetimepicker-input" type="datetime-local" id="endE">
-                        <label for="endE" class="form-label">Fecha Final</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="color" class="form-control" id="colorE">
-                        <label for="color" class="form-label">Color</label>
-                    </div>
-                    
-                </div>
-                <div class="modal-footer">    
-                    <button type="submit" class="btn btn-success" id ="btnEditar">Editar</button>   
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id ="btnEliminar" >Eliminar evento</button> 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancelar</button>    
-                </div>
-            </div>
-            </div>
-        </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src='fullcalendar/app.js'></script>

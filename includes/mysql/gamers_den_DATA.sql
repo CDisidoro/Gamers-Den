@@ -166,9 +166,9 @@ INSERT INTO `juegoCategoria` (`juego`, `categoria`) VALUES
 
 
 --
--- Volcado de datos para la tabla `juegoCategoria`
+-- Volcado de datos para la tabla `eventos`
 --
-INSERT INTO `Eventos`(`id`, `userid`, `title`, `startDate`, `endDate`, `backgroundColor`) VALUES 
+INSERT INTO `Eventos`(`id`, `userid`, `title`, `startDate`, `endDate`, `backgroundColor`, `isPublic`) VALUES 
 ('1','1','Evento Público','2022-04-27 00:00','2022-04-28 00:00', '#be27b2', 'true'),
 ('2','1','Evento Privado','2022-05-27 15:00','2022-05-29 16:00', '#be27b2', 'false');
 

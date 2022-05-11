@@ -21,14 +21,14 @@
             <div class="box">
                 <h2>SIGUENOS</h2>
                 <div class="red-social">
-					<a href="https://www.instagram.com/gamersden.aw/" class="fa fa-instagram"></a>
-					<a href="https://twitter.com/GamersDen19" class="fa fa-twitter"></a>
-					<a href="https://www.youtube.com/channel/UCL9hwt_if0zy-9BSh-jGTng" class="fa fa-youtube"></a>
+					<a href="https://www.instagram.com/gamersden.aw/" class="fa fa-instagram" target="_blank"></a>
+					<a href="https://twitter.com/GamersDen19" class="fa fa-twitter" target="_blank"></a>
+					<a href="https://www.youtube.com/channel/UCL9hwt_if0zy-9BSh-jGTng" class="fa fa-youtube" target="_blank"></a>
                 </div>
             </div>
         </div>
         <div class="grupo2">
-			<p> © 2021 <b>Gamser Den</b> - Todos los derechos reservados</p>
+			<p> © 2022 <b>Gamers Den</b> - Todos los derechos reservados</p>
         </div>
     </footer>
 </html>
